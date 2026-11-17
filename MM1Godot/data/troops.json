@@ -1,0 +1,1626 @@
+[
+  null,
+  {
+    "pages": [
+      {
+        "list": [
+          {
+            "parameters": [
+
+            ],
+            "indent": 0,
+            "code": 0
+          }
+        ],
+        "condition": {
+          "actor_id": 1,
+          "turn_a": 0,
+          "turn_valid": false,
+          "enemy_hp": 50,
+          "switch_valid": false,
+          "switch_id": 1,
+          "enemy_index": 0,
+          "actor_valid": false,
+          "actor_hp": 50,
+          "turn_b": 0,
+          "enemy_valid": false
+        },
+        "span": 0
+      }
+    ],
+    "name": "幽灵*2",
+    "id": 1,
+    "members": [
+      {
+        "hidden": false,
+        "y": 184,
+        "enemy_id": 1,
+        "x": 56,
+        "immortal": false
+      },
+      {
+        "hidden": false,
+        "y": 184,
+        "enemy_id": 1,
+        "x": 152,
+        "immortal": false
+      }
+    ]
+  },
+  {
+    "pages": [
+      {
+        "list": [
+          {
+            "parameters": [
+
+            ],
+            "indent": 0,
+            "code": 0
+          }
+        ],
+        "condition": {
+          "actor_id": 1,
+          "turn_a": 0,
+          "turn_valid": false,
+          "enemy_hp": 50,
+          "switch_valid": false,
+          "switch_id": 1,
+          "enemy_index": 0,
+          "actor_valid": false,
+          "actor_hp": 50,
+          "turn_b": 0,
+          "enemy_valid": false
+        },
+        "span": 0
+      }
+    ],
+    "name": "幽灵*4",
+    "id": 2,
+    "members": [
+      {
+        "hidden": false,
+        "y": 152,
+        "enemy_id": 1,
+        "x": 48,
+        "immortal": false
+      },
+      {
+        "hidden": false,
+        "y": 152,
+        "enemy_id": 1,
+        "x": 160,
+        "immortal": false
+      },
+      {
+        "hidden": false,
+        "y": 288,
+        "enemy_id": 1,
+        "x": 48,
+        "immortal": false
+      },
+      {
+        "hidden": false,
+        "y": 288,
+        "enemy_id": 1,
+        "x": 168,
+        "immortal": false
+      }
+    ]
+  },
+  {
+    "pages": [
+      {
+        "list": [
+          {
+            "parameters": [
+
+            ],
+            "indent": 0,
+            "code": 0
+          }
+        ],
+        "condition": {
+          "actor_id": 1,
+          "turn_a": 0,
+          "turn_valid": false,
+          "enemy_hp": 50,
+          "switch_valid": false,
+          "switch_id": 1,
+          "enemy_index": 0,
+          "actor_valid": false,
+          "actor_hp": 50,
+          "turn_b": 0,
+          "enemy_valid": false
+        },
+        "span": 0
+      }
+    ],
+    "name": "蜥蜴*2",
+    "id": 3,
+    "members": [
+      {
+        "hidden": false,
+        "y": 304,
+        "enemy_id": 2,
+        "x": 266,
+        "immortal": false
+      },
+      {
+        "hidden": false,
+        "y": 304,
+        "enemy_id": 2,
+        "x": 374,
+        "immortal": false
+      }
+    ]
+  },
+  {
+    "pages": [
+      {
+        "list": [
+          {
+            "parameters": [
+
+            ],
+            "indent": 0,
+            "code": 0
+          }
+        ],
+        "condition": {
+          "actor_id": 1,
+          "turn_a": 0,
+          "turn_valid": false,
+          "enemy_hp": 50,
+          "switch_valid": false,
+          "switch_id": 1,
+          "enemy_index": 0,
+          "actor_valid": false,
+          "actor_hp": 50,
+          "turn_b": 0,
+          "enemy_valid": false
+        },
+        "span": 0
+      }
+    ],
+    "name": "蜥蜴*3",
+    "id": 4,
+    "members": [
+      {
+        "hidden": false,
+        "y": 304,
+        "enemy_id": 2,
+        "x": 212,
+        "immortal": false
+      },
+      {
+        "hidden": false,
+        "y": 304,
+        "enemy_id": 2,
+        "x": 320,
+        "immortal": false
+      },
+      {
+        "hidden": false,
+        "y": 304,
+        "enemy_id": 2,
+        "x": 428,
+        "immortal": false
+      }
+    ]
+  },
+  {
+    "pages": [
+      {
+        "list": [
+          {
+            "parameters": [
+
+            ],
+            "indent": 0,
+            "code": 0
+          }
+        ],
+        "condition": {
+          "actor_id": 1,
+          "turn_a": 0,
+          "turn_valid": false,
+          "enemy_hp": 50,
+          "switch_valid": false,
+          "switch_id": 1,
+          "enemy_index": 0,
+          "actor_valid": false,
+          "actor_hp": 50,
+          "turn_b": 0,
+          "enemy_valid": false
+        },
+        "span": 0
+      }
+    ],
+    "name": "鱼人*2",
+    "id": 5,
+    "members": [
+      {
+        "hidden": false,
+        "y": 304,
+        "enemy_id": 3,
+        "x": 261,
+        "immortal": false
+      },
+      {
+        "hidden": false,
+        "y": 304,
+        "enemy_id": 3,
+        "x": 379,
+        "immortal": false
+      }
+    ]
+  },
+  {
+    "pages": [
+      {
+        "list": [
+          {
+            "parameters": [
+
+            ],
+            "indent": 0,
+            "code": 0
+          }
+        ],
+        "condition": {
+          "actor_id": 1,
+          "turn_a": 0,
+          "turn_valid": false,
+          "enemy_hp": 50,
+          "switch_valid": false,
+          "switch_id": 1,
+          "enemy_index": 0,
+          "actor_valid": false,
+          "actor_hp": 50,
+          "turn_b": 0,
+          "enemy_valid": false
+        },
+        "span": 0
+      }
+    ],
+    "name": "鱼人*3",
+    "id": 6,
+    "members": [
+      {
+        "hidden": false,
+        "y": 304,
+        "enemy_id": 3,
+        "x": 202,
+        "immortal": false
+      },
+      {
+        "hidden": false,
+        "y": 304,
+        "enemy_id": 3,
+        "x": 320,
+        "immortal": false
+      },
+      {
+        "hidden": false,
+        "y": 304,
+        "enemy_id": 3,
+        "x": 438,
+        "immortal": false
+      }
+    ]
+  },
+  {
+    "pages": [
+      {
+        "list": [
+          {
+            "parameters": [
+
+            ],
+            "indent": 0,
+            "code": 0
+          }
+        ],
+        "condition": {
+          "actor_id": 1,
+          "turn_a": 0,
+          "turn_valid": false,
+          "enemy_hp": 50,
+          "switch_valid": false,
+          "switch_id": 1,
+          "enemy_index": 0,
+          "actor_valid": false,
+          "actor_hp": 50,
+          "turn_b": 0,
+          "enemy_valid": false
+        },
+        "span": 0
+      }
+    ],
+    "name": "火狼*2",
+    "id": 7,
+    "members": [
+      {
+        "hidden": false,
+        "y": 304,
+        "enemy_id": 4,
+        "x": 268,
+        "immortal": false
+      },
+      {
+        "hidden": false,
+        "y": 304,
+        "enemy_id": 4,
+        "x": 372,
+        "immortal": false
+      }
+    ]
+  },
+  {
+    "pages": [
+      {
+        "list": [
+          {
+            "parameters": [
+
+            ],
+            "indent": 0,
+            "code": 0
+          }
+        ],
+        "condition": {
+          "actor_id": 1,
+          "turn_a": 0,
+          "turn_valid": false,
+          "enemy_hp": 50,
+          "switch_valid": false,
+          "switch_id": 1,
+          "enemy_index": 0,
+          "actor_valid": false,
+          "actor_hp": 50,
+          "turn_b": 0,
+          "enemy_valid": false
+        },
+        "span": 0
+      }
+    ],
+    "name": "火狼*3",
+    "id": 8,
+    "members": [
+      {
+        "hidden": false,
+        "y": 304,
+        "enemy_id": 4,
+        "x": 216,
+        "immortal": false
+      },
+      {
+        "hidden": false,
+        "y": 304,
+        "enemy_id": 4,
+        "x": 320,
+        "immortal": false
+      },
+      {
+        "hidden": false,
+        "y": 304,
+        "enemy_id": 4,
+        "x": 424,
+        "immortal": false
+      }
+    ]
+  },
+  {
+    "pages": [
+      {
+        "list": [
+          {
+            "parameters": [
+
+            ],
+            "indent": 0,
+            "code": 0
+          }
+        ],
+        "condition": {
+          "actor_id": 1,
+          "turn_a": 0,
+          "turn_valid": false,
+          "enemy_hp": 50,
+          "switch_valid": false,
+          "switch_id": 1,
+          "enemy_index": 0,
+          "actor_valid": false,
+          "actor_hp": 50,
+          "turn_b": 0,
+          "enemy_valid": false
+        },
+        "span": 0
+      }
+    ],
+    "name": "克波鲁特*2",
+    "id": 9,
+    "members": [
+      {
+        "hidden": false,
+        "y": 304,
+        "enemy_id": 5,
+        "x": 267,
+        "immortal": false
+      },
+      {
+        "hidden": false,
+        "y": 304,
+        "enemy_id": 5,
+        "x": 373,
+        "immortal": false
+      }
+    ]
+  },
+  {
+    "pages": [
+      {
+        "list": [
+          {
+            "parameters": [
+
+            ],
+            "indent": 0,
+            "code": 0
+          }
+        ],
+        "condition": {
+          "actor_id": 1,
+          "turn_a": 0,
+          "turn_valid": false,
+          "enemy_hp": 50,
+          "switch_valid": false,
+          "switch_id": 1,
+          "enemy_index": 0,
+          "actor_valid": false,
+          "actor_hp": 50,
+          "turn_b": 0,
+          "enemy_valid": false
+        },
+        "span": 0
+      }
+    ],
+    "name": "克波鲁特*3",
+    "id": 10,
+    "members": [
+      {
+        "hidden": false,
+        "y": 304,
+        "enemy_id": 5,
+        "x": 214,
+        "immortal": false
+      },
+      {
+        "hidden": false,
+        "y": 304,
+        "enemy_id": 5,
+        "x": 320,
+        "immortal": false
+      },
+      {
+        "hidden": false,
+        "y": 304,
+        "enemy_id": 5,
+        "x": 426,
+        "immortal": false
+      }
+    ]
+  },
+  {
+    "pages": [
+      {
+        "list": [
+          {
+            "parameters": [
+
+            ],
+            "indent": 0,
+            "code": 0
+          }
+        ],
+        "condition": {
+          "actor_id": 1,
+          "turn_a": 0,
+          "turn_valid": false,
+          "enemy_hp": 50,
+          "switch_valid": false,
+          "switch_id": 1,
+          "enemy_index": 0,
+          "actor_valid": false,
+          "actor_hp": 50,
+          "turn_b": 0,
+          "enemy_valid": false
+        },
+        "span": 0
+      }
+    ],
+    "name": "火鸡*2",
+    "id": 11,
+    "members": [
+      {
+        "hidden": false,
+        "y": 304,
+        "enemy_id": 6,
+        "x": 270,
+        "immortal": false
+      },
+      {
+        "hidden": false,
+        "y": 304,
+        "enemy_id": 6,
+        "x": 370,
+        "immortal": false
+      }
+    ]
+  },
+  {
+    "pages": [
+      {
+        "list": [
+          {
+            "parameters": [
+
+            ],
+            "indent": 0,
+            "code": 0
+          }
+        ],
+        "condition": {
+          "actor_id": 1,
+          "turn_a": 0,
+          "turn_valid": false,
+          "enemy_hp": 50,
+          "switch_valid": false,
+          "switch_id": 1,
+          "enemy_index": 0,
+          "actor_valid": false,
+          "actor_hp": 50,
+          "turn_b": 0,
+          "enemy_valid": false
+        },
+        "span": 0
+      }
+    ],
+    "name": "火鸡*3",
+    "id": 12,
+    "members": [
+      {
+        "hidden": false,
+        "y": 304,
+        "enemy_id": 6,
+        "x": 220,
+        "immortal": false
+      },
+      {
+        "hidden": false,
+        "y": 304,
+        "enemy_id": 6,
+        "x": 320,
+        "immortal": false
+      },
+      {
+        "hidden": false,
+        "y": 304,
+        "enemy_id": 6,
+        "x": 420,
+        "immortal": false
+      }
+    ]
+  },
+  {
+    "pages": [
+      {
+        "list": [
+          {
+            "parameters": [
+
+            ],
+            "indent": 0,
+            "code": 0
+          }
+        ],
+        "condition": {
+          "actor_id": 1,
+          "turn_a": 0,
+          "turn_valid": false,
+          "enemy_hp": 50,
+          "switch_valid": false,
+          "switch_id": 1,
+          "enemy_index": 0,
+          "actor_valid": false,
+          "actor_hp": 50,
+          "turn_b": 0,
+          "enemy_valid": false
+        },
+        "span": 0
+      }
+    ],
+    "name": "小恶魔*2",
+    "id": 13,
+    "members": [
+      {
+        "hidden": false,
+        "y": 304,
+        "enemy_id": 7,
+        "x": 271,
+        "immortal": false
+      },
+      {
+        "hidden": false,
+        "y": 304,
+        "enemy_id": 7,
+        "x": 369,
+        "immortal": false
+      }
+    ]
+  },
+  {
+    "pages": [
+      {
+        "list": [
+          {
+            "parameters": [
+
+            ],
+            "indent": 0,
+            "code": 0
+          }
+        ],
+        "condition": {
+          "actor_id": 1,
+          "turn_a": 0,
+          "turn_valid": false,
+          "enemy_hp": 50,
+          "switch_valid": false,
+          "switch_id": 1,
+          "enemy_index": 0,
+          "actor_valid": false,
+          "actor_hp": 50,
+          "turn_b": 0,
+          "enemy_valid": false
+        },
+        "span": 0
+      }
+    ],
+    "name": "小恶魔*3",
+    "id": 14,
+    "members": [
+      {
+        "hidden": false,
+        "y": 304,
+        "enemy_id": 7,
+        "x": 222,
+        "immortal": false
+      },
+      {
+        "hidden": false,
+        "y": 304,
+        "enemy_id": 7,
+        "x": 320,
+        "immortal": false
+      },
+      {
+        "hidden": false,
+        "y": 304,
+        "enemy_id": 7,
+        "x": 418,
+        "immortal": false
+      }
+    ]
+  },
+  {
+    "pages": [
+      {
+        "list": [
+          {
+            "parameters": [
+
+            ],
+            "indent": 0,
+            "code": 0
+          }
+        ],
+        "condition": {
+          "actor_id": 1,
+          "turn_a": 0,
+          "turn_valid": false,
+          "enemy_hp": 50,
+          "switch_valid": false,
+          "switch_id": 1,
+          "enemy_index": 0,
+          "actor_valid": false,
+          "actor_hp": 50,
+          "turn_b": 0,
+          "enemy_valid": false
+        },
+        "span": 0
+      }
+    ],
+    "name": "天使*2",
+    "id": 15,
+    "members": [
+      {
+        "hidden": false,
+        "y": 304,
+        "enemy_id": 8,
+        "x": 267,
+        "immortal": false
+      },
+      {
+        "hidden": false,
+        "y": 304,
+        "enemy_id": 8,
+        "x": 373,
+        "immortal": false
+      }
+    ]
+  },
+  {
+    "pages": [
+      {
+        "list": [
+          {
+            "parameters": [
+
+            ],
+            "indent": 0,
+            "code": 0
+          }
+        ],
+        "condition": {
+          "actor_id": 1,
+          "turn_a": 0,
+          "turn_valid": false,
+          "enemy_hp": 50,
+          "switch_valid": false,
+          "switch_id": 1,
+          "enemy_index": 0,
+          "actor_valid": false,
+          "actor_hp": 50,
+          "turn_b": 0,
+          "enemy_valid": false
+        },
+        "span": 0
+      }
+    ],
+    "name": "天使*3",
+    "id": 16,
+    "members": [
+      {
+        "hidden": false,
+        "y": 304,
+        "enemy_id": 8,
+        "x": 214,
+        "immortal": false
+      },
+      {
+        "hidden": false,
+        "y": 304,
+        "enemy_id": 8,
+        "x": 320,
+        "immortal": false
+      },
+      {
+        "hidden": false,
+        "y": 304,
+        "enemy_id": 8,
+        "x": 426,
+        "immortal": false
+      }
+    ]
+  },
+  {
+    "pages": [
+      {
+        "list": [
+          {
+            "parameters": [
+
+            ],
+            "indent": 0,
+            "code": 0
+          }
+        ],
+        "condition": {
+          "actor_id": 1,
+          "turn_a": 0,
+          "turn_valid": false,
+          "enemy_hp": 50,
+          "switch_valid": false,
+          "switch_id": 1,
+          "enemy_index": 0,
+          "actor_valid": false,
+          "actor_hp": 50,
+          "turn_b": 0,
+          "enemy_valid": false
+        },
+        "span": 0
+      }
+    ],
+    "name": "丧尸*2",
+    "id": 17,
+    "members": [
+      {
+        "hidden": false,
+        "y": 304,
+        "enemy_id": 9,
+        "x": 252,
+        "immortal": false
+      },
+      {
+        "hidden": false,
+        "y": 304,
+        "enemy_id": 9,
+        "x": 388,
+        "immortal": false
+      }
+    ]
+  },
+  {
+    "pages": [
+      {
+        "list": [
+          {
+            "parameters": [
+
+            ],
+            "indent": 0,
+            "code": 0
+          }
+        ],
+        "condition": {
+          "actor_id": 1,
+          "turn_a": 0,
+          "turn_valid": false,
+          "enemy_hp": 50,
+          "switch_valid": false,
+          "switch_id": 1,
+          "enemy_index": 0,
+          "actor_valid": false,
+          "actor_hp": 50,
+          "turn_b": 0,
+          "enemy_valid": false
+        },
+        "span": 0
+      }
+    ],
+    "name": "丧尸*3",
+    "id": 18,
+    "members": [
+      {
+        "hidden": false,
+        "y": 304,
+        "enemy_id": 9,
+        "x": 184,
+        "immortal": false
+      },
+      {
+        "hidden": false,
+        "y": 304,
+        "enemy_id": 9,
+        "x": 320,
+        "immortal": false
+      },
+      {
+        "hidden": false,
+        "y": 304,
+        "enemy_id": 9,
+        "x": 456,
+        "immortal": false
+      }
+    ]
+  },
+  {
+    "pages": [
+      {
+        "list": [
+          {
+            "parameters": [
+
+            ],
+            "indent": 0,
+            "code": 0
+          }
+        ],
+        "condition": {
+          "actor_id": 1,
+          "turn_a": 0,
+          "turn_valid": false,
+          "enemy_hp": 50,
+          "switch_valid": false,
+          "switch_id": 1,
+          "enemy_index": 0,
+          "actor_valid": false,
+          "actor_hp": 50,
+          "turn_b": 0,
+          "enemy_valid": false
+        },
+        "span": 0
+      }
+    ],
+    "name": "拉米亚*2",
+    "id": 19,
+    "members": [
+      {
+        "hidden": false,
+        "y": 304,
+        "enemy_id": 10,
+        "x": 249,
+        "immortal": false
+      },
+      {
+        "hidden": false,
+        "y": 304,
+        "enemy_id": 10,
+        "x": 391,
+        "immortal": false
+      }
+    ]
+  },
+  {
+    "pages": [
+      {
+        "list": [
+          {
+            "parameters": [
+
+            ],
+            "indent": 0,
+            "code": 0
+          }
+        ],
+        "condition": {
+          "actor_id": 1,
+          "turn_a": 0,
+          "turn_valid": false,
+          "enemy_hp": 50,
+          "switch_valid": false,
+          "switch_id": 1,
+          "enemy_index": 0,
+          "actor_valid": false,
+          "actor_hp": 50,
+          "turn_b": 0,
+          "enemy_valid": false
+        },
+        "span": 0
+      }
+    ],
+    "name": "拉米亚*3",
+    "id": 20,
+    "members": [
+      {
+        "hidden": false,
+        "y": 304,
+        "enemy_id": 10,
+        "x": 178,
+        "immortal": false
+      },
+      {
+        "hidden": false,
+        "y": 304,
+        "enemy_id": 10,
+        "x": 320,
+        "immortal": false
+      },
+      {
+        "hidden": false,
+        "y": 304,
+        "enemy_id": 10,
+        "x": 462,
+        "immortal": false
+      }
+    ]
+  },
+  {
+    "pages": [
+      {
+        "list": [
+          {
+            "parameters": [
+
+            ],
+            "indent": 0,
+            "code": 0
+          }
+        ],
+        "condition": {
+          "actor_id": 1,
+          "turn_a": 0,
+          "turn_valid": false,
+          "enemy_hp": 50,
+          "switch_valid": false,
+          "switch_id": 1,
+          "enemy_index": 0,
+          "actor_valid": false,
+          "actor_hp": 50,
+          "turn_b": 0,
+          "enemy_valid": false
+        },
+        "span": 0
+      }
+    ],
+    "name": "蜥蜴人*2",
+    "id": 21,
+    "members": [
+      {
+        "hidden": false,
+        "y": 304,
+        "enemy_id": 11,
+        "x": 242,
+        "immortal": false
+      },
+      {
+        "hidden": false,
+        "y": 304,
+        "enemy_id": 11,
+        "x": 398,
+        "immortal": false
+      }
+    ]
+  },
+  {
+    "pages": [
+      {
+        "list": [
+          {
+            "parameters": [
+
+            ],
+            "indent": 0,
+            "code": 0
+          }
+        ],
+        "condition": {
+          "actor_id": 1,
+          "turn_a": 0,
+          "turn_valid": false,
+          "enemy_hp": 50,
+          "switch_valid": false,
+          "switch_id": 1,
+          "enemy_index": 0,
+          "actor_valid": false,
+          "actor_hp": 50,
+          "turn_b": 0,
+          "enemy_valid": false
+        },
+        "span": 0
+      }
+    ],
+    "name": "蜥蜴人*3",
+    "id": 22,
+    "members": [
+      {
+        "hidden": false,
+        "y": 304,
+        "enemy_id": 11,
+        "x": 164,
+        "immortal": false
+      },
+      {
+        "hidden": false,
+        "y": 304,
+        "enemy_id": 11,
+        "x": 320,
+        "immortal": false
+      },
+      {
+        "hidden": false,
+        "y": 304,
+        "enemy_id": 11,
+        "x": 476,
+        "immortal": false
+      }
+    ]
+  },
+  {
+    "pages": [
+      {
+        "list": [
+          {
+            "parameters": [
+
+            ],
+            "indent": 0,
+            "code": 0
+          }
+        ],
+        "condition": {
+          "actor_id": 1,
+          "turn_a": 0,
+          "turn_valid": false,
+          "enemy_hp": 50,
+          "switch_valid": false,
+          "switch_id": 1,
+          "enemy_index": 0,
+          "actor_valid": false,
+          "actor_hp": 50,
+          "turn_b": 0,
+          "enemy_valid": false
+        },
+        "span": 0
+      }
+    ],
+    "name": "地狱犬*2",
+    "id": 23,
+    "members": [
+      {
+        "hidden": false,
+        "y": 304,
+        "enemy_id": 12,
+        "x": 248,
+        "immortal": false
+      },
+      {
+        "hidden": false,
+        "y": 304,
+        "enemy_id": 12,
+        "x": 392,
+        "immortal": false
+      }
+    ]
+  },
+  {
+    "pages": [
+      {
+        "list": [
+          {
+            "parameters": [
+
+            ],
+            "indent": 0,
+            "code": 0
+          }
+        ],
+        "condition": {
+          "actor_id": 1,
+          "turn_a": 0,
+          "turn_valid": false,
+          "enemy_hp": 50,
+          "switch_valid": false,
+          "switch_id": 1,
+          "enemy_index": 0,
+          "actor_valid": false,
+          "actor_hp": 50,
+          "turn_b": 0,
+          "enemy_valid": false
+        },
+        "span": 0
+      }
+    ],
+    "name": "地狱犬*3",
+    "id": 24,
+    "members": [
+      {
+        "hidden": false,
+        "y": 304,
+        "enemy_id": 12,
+        "x": 176,
+        "immortal": false
+      },
+      {
+        "hidden": false,
+        "y": 304,
+        "enemy_id": 12,
+        "x": 320,
+        "immortal": false
+      },
+      {
+        "hidden": false,
+        "y": 304,
+        "enemy_id": 12,
+        "x": 464,
+        "immortal": false
+      }
+    ]
+  },
+  {
+    "pages": [
+      {
+        "list": [
+          {
+            "parameters": [
+
+            ],
+            "indent": 0,
+            "code": 0
+          }
+        ],
+        "condition": {
+          "actor_id": 1,
+          "turn_a": 0,
+          "turn_valid": false,
+          "enemy_hp": 50,
+          "switch_valid": false,
+          "switch_id": 1,
+          "enemy_index": 0,
+          "actor_valid": false,
+          "actor_hp": 50,
+          "turn_b": 0,
+          "enemy_valid": false
+        },
+        "span": 0
+      }
+    ],
+    "name": "矮人鬼*2",
+    "id": 25,
+    "members": [
+      {
+        "hidden": false,
+        "y": 304,
+        "enemy_id": 13,
+        "x": 246,
+        "immortal": false
+      },
+      {
+        "hidden": false,
+        "y": 304,
+        "enemy_id": 13,
+        "x": 394,
+        "immortal": false
+      }
+    ]
+  },
+  {
+    "pages": [
+      {
+        "list": [
+          {
+            "parameters": [
+
+            ],
+            "indent": 0,
+            "code": 0
+          }
+        ],
+        "condition": {
+          "actor_id": 1,
+          "turn_a": 0,
+          "turn_valid": false,
+          "enemy_hp": 50,
+          "switch_valid": false,
+          "switch_id": 1,
+          "enemy_index": 0,
+          "actor_valid": false,
+          "actor_hp": 50,
+          "turn_b": 0,
+          "enemy_valid": false
+        },
+        "span": 0
+      }
+    ],
+    "name": "矮人鬼*3",
+    "id": 26,
+    "members": [
+      {
+        "hidden": false,
+        "y": 304,
+        "enemy_id": 13,
+        "x": 172,
+        "immortal": false
+      },
+      {
+        "hidden": false,
+        "y": 304,
+        "enemy_id": 13,
+        "x": 320,
+        "immortal": false
+      },
+      {
+        "hidden": false,
+        "y": 304,
+        "enemy_id": 13,
+        "x": 468,
+        "immortal": false
+      }
+    ]
+  },
+  {
+    "pages": [
+      {
+        "list": [
+          {
+            "parameters": [
+
+            ],
+            "indent": 0,
+            "code": 0
+          }
+        ],
+        "condition": {
+          "actor_id": 1,
+          "turn_a": 0,
+          "turn_valid": false,
+          "enemy_hp": 50,
+          "switch_valid": false,
+          "switch_id": 1,
+          "enemy_index": 0,
+          "actor_valid": false,
+          "actor_hp": 50,
+          "turn_b": 0,
+          "enemy_valid": false
+        },
+        "span": 0
+      }
+    ],
+    "name": "哈比*2",
+    "id": 27,
+    "members": [
+      {
+        "hidden": false,
+        "y": 304,
+        "enemy_id": 14,
+        "x": 250,
+        "immortal": false
+      },
+      {
+        "hidden": false,
+        "y": 304,
+        "enemy_id": 14,
+        "x": 390,
+        "immortal": false
+      }
+    ]
+  },
+  {
+    "pages": [
+      {
+        "list": [
+          {
+            "parameters": [
+
+            ],
+            "indent": 0,
+            "code": 0
+          }
+        ],
+        "condition": {
+          "actor_id": 1,
+          "turn_a": 0,
+          "turn_valid": false,
+          "enemy_hp": 50,
+          "switch_valid": false,
+          "switch_id": 1,
+          "enemy_index": 0,
+          "actor_valid": false,
+          "actor_hp": 50,
+          "turn_b": 0,
+          "enemy_valid": false
+        },
+        "span": 0
+      }
+    ],
+    "name": "哈比*3",
+    "id": 28,
+    "members": [
+      {
+        "hidden": false,
+        "y": 304,
+        "enemy_id": 14,
+        "x": 180,
+        "immortal": false
+      },
+      {
+        "hidden": false,
+        "y": 304,
+        "enemy_id": 14,
+        "x": 320,
+        "immortal": false
+      },
+      {
+        "hidden": false,
+        "y": 304,
+        "enemy_id": 14,
+        "x": 460,
+        "immortal": false
+      }
+    ]
+  },
+  {
+    "pages": [
+      {
+        "list": [
+          {
+            "parameters": [
+
+            ],
+            "indent": 0,
+            "code": 0
+          }
+        ],
+        "condition": {
+          "actor_id": 1,
+          "turn_a": 0,
+          "turn_valid": false,
+          "enemy_hp": 50,
+          "switch_valid": false,
+          "switch_id": 1,
+          "enemy_index": 0,
+          "actor_valid": false,
+          "actor_hp": 50,
+          "turn_b": 0,
+          "enemy_valid": false
+        },
+        "span": 0
+      }
+    ],
+    "name": "石像鬼*2",
+    "id": 29,
+    "members": [
+      {
+        "hidden": false,
+        "y": 304,
+        "enemy_id": 15,
+        "x": 243,
+        "immortal": false
+      },
+      {
+        "hidden": false,
+        "y": 304,
+        "enemy_id": 15,
+        "x": 397,
+        "immortal": false
+      }
+    ]
+  },
+  {
+    "pages": [
+      {
+        "list": [
+          {
+            "parameters": [
+
+            ],
+            "indent": 0,
+            "code": 0
+          }
+        ],
+        "condition": {
+          "actor_id": 1,
+          "turn_a": 0,
+          "turn_valid": false,
+          "enemy_hp": 50,
+          "switch_valid": false,
+          "switch_id": 1,
+          "enemy_index": 0,
+          "actor_valid": false,
+          "actor_hp": 50,
+          "turn_b": 0,
+          "enemy_valid": false
+        },
+        "span": 0
+      }
+    ],
+    "name": "石像鬼*3",
+    "id": 30,
+    "members": [
+      {
+        "hidden": false,
+        "y": 304,
+        "enemy_id": 15,
+        "x": 166,
+        "immortal": false
+      },
+      {
+        "hidden": false,
+        "y": 304,
+        "enemy_id": 15,
+        "x": 320,
+        "immortal": false
+      },
+      {
+        "hidden": false,
+        "y": 304,
+        "enemy_id": 15,
+        "x": 474,
+        "immortal": false
+      }
+    ]
+  },
+  {
+    "pages": [
+      {
+        "list": [
+          {
+            "parameters": [
+
+            ],
+            "indent": 0,
+            "code": 0
+          }
+        ],
+        "condition": {
+          "actor_id": 1,
+          "turn_a": 0,
+          "turn_valid": false,
+          "enemy_hp": 50,
+          "switch_valid": false,
+          "switch_id": 1,
+          "enemy_index": 0,
+          "actor_valid": false,
+          "actor_hp": 50,
+          "turn_b": 0,
+          "enemy_valid": false
+        },
+        "span": 0
+      }
+    ],
+    "name": "大天使*2",
+    "id": 31,
+    "members": [
+      {
+        "hidden": false,
+        "y": 304,
+        "enemy_id": 16,
+        "x": 251,
+        "immortal": false
+      },
+      {
+        "hidden": false,
+        "y": 304,
+        "enemy_id": 16,
+        "x": 389,
+        "immortal": false
+      }
+    ]
+  },
+  {
+    "pages": [
+      {
+        "list": [
+          {
+            "parameters": [
+
+            ],
+            "indent": 0,
+            "code": 0
+          }
+        ],
+        "condition": {
+          "actor_id": 1,
+          "turn_a": 0,
+          "turn_valid": false,
+          "enemy_hp": 50,
+          "switch_valid": false,
+          "switch_id": 1,
+          "enemy_index": 0,
+          "actor_valid": false,
+          "actor_hp": 50,
+          "turn_b": 0,
+          "enemy_valid": false
+        },
+        "span": 0
+      }
+    ],
+    "name": "大天使*3",
+    "id": 32,
+    "members": [
+      {
+        "hidden": false,
+        "y": 304,
+        "enemy_id": 16,
+        "x": 182,
+        "immortal": false
+      },
+      {
+        "hidden": false,
+        "y": 304,
+        "enemy_id": 16,
+        "x": 320,
+        "immortal": false
+      },
+      {
+        "hidden": false,
+        "y": 304,
+        "enemy_id": 16,
+        "x": 458,
+        "immortal": false
+      }
+    ]
+  }
+]

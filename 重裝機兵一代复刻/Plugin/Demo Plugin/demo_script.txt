@@ -1,0 +1,6 @@
+class DemoPlugin < Plugin
+  def main()
+
+  end
+end
+DemoPlugin.new("akb48fan", "DemoPlugin2", "ruby")

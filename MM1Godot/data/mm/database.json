@@ -1,0 +1,10739 @@
+{
+  "tanks": [
+    null,
+    {
+      "id": 1,
+      "name": "轻型坦克",
+      "character_name": "Tank_1",
+      "character_hue": 0,
+      "battler_name": "Tank1.png",
+      "rent": false,
+      "main_cannon_id": 1,
+      "sub_cannon_id": 1,
+      "se_id": 1,
+      "engine_id": 13,
+      "c_unit_id": 1,
+      "underpan_id": 1
+    },
+    {
+      "id": 2,
+      "name": "吉普车",
+      "character_name": "Tank_2",
+      "character_hue": 0,
+      "battler_name": "Tank2.png",
+      "rent": false,
+      "main_cannon_id": 1,
+      "sub_cannon_id": 1,
+      "se_id": 1,
+      "engine_id": 13,
+      "c_unit_id": 1,
+      "underpan_id": 2
+    },
+    {
+      "id": 3,
+      "name": "救护车",
+      "character_name": "Tank_3",
+      "character_hue": 0,
+      "battler_name": "Tank3.png",
+      "rent": false,
+      "main_cannon_id": 1,
+      "sub_cannon_id": 1,
+      "se_id": 1,
+      "engine_id": 13,
+      "c_unit_id": 1,
+      "underpan_id": 3
+    },
+    {
+      "id": 4,
+      "name": "装甲车",
+      "character_name": "Tank_4",
+      "character_hue": 0,
+      "battler_name": "Tank4.png",
+      "rent": false,
+      "main_cannon_id": 1,
+      "sub_cannon_id": 1,
+      "se_id": 1,
+      "engine_id": 13,
+      "c_unit_id": 1,
+      "underpan_id": 4
+    },
+    {
+      "id": 5,
+      "name": "野战坦克",
+      "character_name": "Tank_5",
+      "character_hue": 0,
+      "battler_name": "Tank5.png",
+      "rent": false,
+      "main_cannon_id": 1,
+      "sub_cannon_id": 1,
+      "se_id": 1,
+      "engine_id": 13,
+      "c_unit_id": 1,
+      "underpan_id": 5
+    },
+    {
+      "id": 6,
+      "name": "中型坦克",
+      "character_name": "Tank_6",
+      "character_hue": 0,
+      "battler_name": "Tank6.png",
+      "rent": false,
+      "main_cannon_id": 1,
+      "sub_cannon_id": 1,
+      "se_id": 1,
+      "engine_id": 13,
+      "c_unit_id": 1,
+      "underpan_id": 6
+    },
+    {
+      "id": 7,
+      "name": "红狼战车",
+      "character_name": "Tank_7",
+      "character_hue": 0,
+      "battler_name": "Tank7.png",
+      "rent": false,
+      "main_cannon_id": 1,
+      "sub_cannon_id": 1,
+      "se_id": 1,
+      "engine_id": 13,
+      "c_unit_id": 1,
+      "underpan_id": 7
+    },
+    {
+      "id": 8,
+      "name": "重型坦克",
+      "character_name": "Tank_8",
+      "character_hue": 0,
+      "battler_name": "Tank8.png",
+      "rent": false,
+      "main_cannon_id": 1,
+      "sub_cannon_id": 1,
+      "se_id": 1,
+      "engine_id": 13,
+      "c_unit_id": 1,
+      "underpan_id": 8
+    }
+  ],
+  "main_cannons": [
+    null,
+    {
+      "id": 1,
+      "name": "45炮",
+      "animation1_id": 0,
+      "animation2_id": 0,
+      "animation3_id": 0,
+      "quantity": 32,
+      "atk": 80,
+      "pdef": 48,
+      "weight": 1.2,
+      "repair_price": [
+        20,
+        45
+      ],
+      "price": 440
+    },
+    {
+      "id": 2,
+      "name": "55炮",
+      "animation1_id": 0,
+      "animation2_id": 0,
+      "animation3_id": 0,
+      "quantity": 32,
+      "atk": 120,
+      "pdef": 48,
+      "weight": 1.6,
+      "repair_price": [
+        30,
+        55
+      ],
+      "price": 540
+    },
+    {
+      "id": 3,
+      "name": "75炮",
+      "animation1_id": 0,
+      "animation2_id": 0,
+      "animation3_id": 0,
+      "quantity": 32,
+      "atk": 160,
+      "pdef": 48,
+      "weight": 1.8,
+      "repair_price": [
+        50,
+        80
+      ],
+      "price": 940
+    },
+    {
+      "id": 4,
+      "name": "80高炮",
+      "animation1_id": 0,
+      "animation2_id": 0,
+      "animation3_id": 0,
+      "quantity": 62,
+      "atk": 200,
+      "pdef": 60,
+      "weight": 4.0,
+      "repair_price": [
+        60,
+        95
+      ],
+      "price": 1780
+    },
+    {
+      "id": 5,
+      "name": "95炮",
+      "animation1_id": 0,
+      "animation2_id": 0,
+      "animation3_id": 0,
+      "quantity": 32,
+      "atk": 230,
+      "pdef": 48,
+      "weight": 2.2,
+      "repair_price": [
+        85,
+        125
+      ],
+      "price": 2600
+    },
+    {
+      "id": 6,
+      "name": "105加农炮",
+      "animation1_id": 0,
+      "animation2_id": 0,
+      "animation3_id": 0,
+      "quantity": 32,
+      "atk": 300,
+      "pdef": 50,
+      "weight": 2.5,
+      "repair_price": [
+        100,
+        140
+      ],
+      "price": 3200
+    },
+    {
+      "id": 7,
+      "name": "115T型炮",
+      "animation1_id": 0,
+      "animation2_id": 0,
+      "animation3_id": 0,
+      "quantity": 48,
+      "atk": 350,
+      "pdef": 58,
+      "weight": 2.8,
+      "repair_price": [
+        150,
+        200
+      ],
+      "price": 4000
+    },
+    {
+      "id": 8,
+      "name": "125加农炮",
+      "animation1_id": 0,
+      "animation2_id": 0,
+      "animation3_id": 0,
+      "quantity": 32,
+      "atk": 400,
+      "pdef": 50,
+      "weight": 2.6,
+      "repair_price": [
+        170,
+        220
+      ],
+      "price": 5500
+    },
+    {
+      "id": 9,
+      "name": "125T型炮",
+      "animation1_id": 0,
+      "animation2_id": 0,
+      "animation3_id": 0,
+      "quantity": 48,
+      "atk": 420,
+      "pdef": 58,
+      "weight": 3.2,
+      "repair_price": [
+        245,
+        300
+      ],
+      "price": 6000
+    },
+    {
+      "id": 10,
+      "name": "135加农炮",
+      "animation1_id": 0,
+      "animation2_id": 0,
+      "animation3_id": 0,
+      "quantity": 32,
+      "atk": 470,
+      "pdef": 50,
+      "weight": 2.7,
+      "repair_price": [
+        280,
+        340
+      ],
+      "price": 8000
+    },
+    {
+      "id": 11,
+      "name": "140高炮",
+      "animation1_id": 0,
+      "animation2_id": 0,
+      "animation3_id": 0,
+      "quantity": 62,
+      "atk": 520,
+      "pdef": 60,
+      "weight": 4.8,
+      "repair_price": [
+        350,
+        380
+      ],
+      "price": 9900
+    },
+    {
+      "id": 12,
+      "name": "155加农炮",
+      "animation1_id": 0,
+      "animation2_id": 0,
+      "animation3_id": 0,
+      "quantity": 32,
+      "atk": 540,
+      "pdef": 50,
+      "weight": 2.8,
+      "repair_price": [
+        400,
+        430
+      ],
+      "price": 10600
+    },
+    {
+      "id": 13,
+      "name": "160滑膛炮",
+      "animation1_id": 0,
+      "animation2_id": 0,
+      "animation3_id": 0,
+      "quantity": 62,
+      "atk": 570,
+      "pdef": 65,
+      "weight": 5.6,
+      "repair_price": [
+        460,
+        500
+      ],
+      "price": 16000
+    },
+    {
+      "id": 14,
+      "name": "165T型炮",
+      "animation1_id": 0,
+      "animation2_id": 0,
+      "animation3_id": 0,
+      "quantity": 48,
+      "atk": 620,
+      "pdef": 58,
+      "weight": 3.6,
+      "repair_price": [
+        500,
+        540
+      ],
+      "price": 18000
+    },
+    {
+      "id": 15,
+      "name": "165钢炮",
+      "animation1_id": 0,
+      "animation2_id": 0,
+      "animation3_id": 0,
+      "quantity": 16,
+      "atk": 670,
+      "pdef": 50,
+      "weight": 1.0,
+      "repair_price": [
+        540,
+        580
+      ],
+      "price": 0
+    },
+    {
+      "id": 16,
+      "name": "175加农炮",
+      "animation1_id": 0,
+      "animation2_id": 0,
+      "animation3_id": 0,
+      "quantity": 32,
+      "atk": 700,
+      "pdef": 50,
+      "weight": 2.9,
+      "repair_price": [
+        600,
+        650
+      ],
+      "price": 25000
+    },
+    {
+      "id": 17,
+      "name": "180高炮",
+      "animation1_id": 0,
+      "animation2_id": 0,
+      "animation3_id": 0,
+      "quantity": 62,
+      "atk": 710,
+      "pdef": 60,
+      "weight": 10.0,
+      "repair_price": [
+        650,
+        700
+      ],
+      "price": 35000
+    },
+    {
+      "id": 18,
+      "name": "195加农炮",
+      "animation1_id": 0,
+      "animation2_id": 0,
+      "animation3_id": 0,
+      "quantity": 32,
+      "atk": 720,
+      "pdef": 50,
+      "weight": 3.0,
+      "repair_price": [
+        710,
+        740
+      ],
+      "price": 28000
+    },
+    {
+      "id": 19,
+      "name": "205加农炮",
+      "animation1_id": 0,
+      "animation2_id": 0,
+      "animation3_id": 0,
+      "quantity": 32,
+      "atk": 780,
+      "pdef": 50,
+      "weight": 3.1,
+      "repair_price": [
+        750,
+        800
+      ],
+      "price": 56200
+    },
+    {
+      "id": 20,
+      "name": "220炮",
+      "animation1_id": 0,
+      "animation2_id": 0,
+      "animation3_id": 0,
+      "quantity": 32,
+      "atk": 800,
+      "pdef": 86,
+      "weight": 10.0,
+      "repair_price": [
+        1000,
+        1500
+      ],
+      "price": 0
+    }
+  ],
+  "sub_cannons": [
+    null,
+    {
+      "id": 1,
+      "name": "07机关炮",
+      "animation1_id": 0,
+      "animation2_id": 0,
+      "animation3_id": 0,
+      "quantity": 0,
+      "atk": 40,
+      "pdef": 28,
+      "weight": 0.8,
+      "repair_price": [
+        20,
+        45
+      ],
+      "price": 200,
+      "range_type": 0,
+      "equip_position": [
+        false,
+        true
+      ]
+    },
+    {
+      "id": 2,
+      "name": "09机关炮",
+      "animation1_id": 0,
+      "animation2_id": 0,
+      "animation3_id": 0,
+      "quantity": 0,
+      "atk": 60,
+      "pdef": 28,
+      "weight": 0.9,
+      "repair_price": [
+        40,
+        60
+      ],
+      "price": 380,
+      "range_type": 0,
+      "equip_position": [
+        false,
+        true
+      ]
+    },
+    {
+      "id": 3,
+      "name": "格林炮",
+      "animation1_id": 0,
+      "animation2_id": 0,
+      "animation3_id": 0,
+      "quantity": 0,
+      "atk": 75,
+      "pdef": 30,
+      "weight": 1.2,
+      "repair_price": [
+        70,
+        100
+      ],
+      "price": 550,
+      "range_type": 0,
+      "equip_position": [
+        false,
+        true
+      ]
+    },
+    {
+      "id": 4,
+      "name": "09火炮",
+      "animation1_id": 0,
+      "animation2_id": 0,
+      "animation3_id": 0,
+      "quantity": 0,
+      "atk": 80,
+      "pdef": 32,
+      "weight": 1.4,
+      "repair_price": [
+        120,
+        150
+      ],
+      "price": 1075,
+      "range_type": 0,
+      "equip_position": [
+        false,
+        true
+      ]
+    },
+    {
+      "id": 5,
+      "name": "11机关炮",
+      "animation1_id": 0,
+      "animation2_id": 0,
+      "animation3_id": 0,
+      "quantity": 0,
+      "atk": 100,
+      "pdef": 28,
+      "weight": 1.0,
+      "repair_price": [
+        140,
+        160
+      ],
+      "price": 1210,
+      "range_type": 0,
+      "equip_position": [
+        false,
+        true
+      ]
+    },
+    {
+      "id": 6,
+      "name": "11火炮",
+      "animation1_id": 0,
+      "animation2_id": 0,
+      "animation3_id": 0,
+      "quantity": 0,
+      "atk": 130,
+      "pdef": 32,
+      "weight": 1.8,
+      "repair_price": [
+        190,
+        220
+      ],
+      "price": 1800,
+      "range_type": 0,
+      "equip_position": [
+        false,
+        true
+      ]
+    },
+    {
+      "id": 7,
+      "name": "15机关炮",
+      "animation1_id": 0,
+      "animation2_id": 0,
+      "animation3_id": 0,
+      "quantity": 0,
+      "atk": 160,
+      "pdef": 28,
+      "weight": 1.1,
+      "repair_price": [
+        240,
+        280
+      ],
+      "price": 2000,
+      "range_type": 0,
+      "equip_position": [
+        false,
+        true
+      ]
+    },
+    {
+      "id": 8,
+      "name": "激光",
+      "animation1_id": 0,
+      "animation2_id": 0,
+      "animation3_id": 0,
+      "quantity": 0,
+      "atk": 200,
+      "pdef": 40,
+      "weight": 2.0,
+      "repair_price": [
+        300,
+        340
+      ],
+      "price": 2480,
+      "range_type": 0,
+      "equip_position": [
+        false,
+        true
+      ]
+    },
+    {
+      "id": 9,
+      "name": "雷神",
+      "animation1_id": 0,
+      "animation2_id": 0,
+      "animation3_id": 0,
+      "quantity": 0,
+      "atk": 210,
+      "pdef": 45,
+      "weight": 2.0,
+      "repair_price": [
+        240,
+        280
+      ],
+      "price": 3800,
+      "range_type": 0,
+      "equip_position": [
+        false,
+        true
+      ]
+    },
+    {
+      "id": 10,
+      "name": "18机关炮",
+      "animation1_id": 0,
+      "animation2_id": 0,
+      "animation3_id": 0,
+      "quantity": 0,
+      "atk": 240,
+      "pdef": 28,
+      "weight": 1.2,
+      "repair_price": [
+        280,
+        320
+      ],
+      "price": 4600,
+      "range_type": 0,
+      "equip_position": [
+        false,
+        true
+      ]
+    },
+    {
+      "id": 11,
+      "name": "闪电",
+      "animation1_id": 0,
+      "animation2_id": 0,
+      "animation3_id": 0,
+      "quantity": 0,
+      "atk": 245,
+      "pdef": 40,
+      "weight": 2.5,
+      "repair_price": [
+        310,
+        350
+      ],
+      "price": 6000,
+      "range_type": 0,
+      "equip_position": [
+        false,
+        true
+      ]
+    },
+    {
+      "id": 12,
+      "name": "20火炮",
+      "animation1_id": 0,
+      "animation2_id": 0,
+      "animation3_id": 0,
+      "quantity": 0,
+      "atk": 280,
+      "pdef": 32,
+      "weight": 2.2,
+      "repair_price": [
+        330,
+        400
+      ],
+      "price": 7300,
+      "range_type": 0,
+      "equip_position": [
+        false,
+        true
+      ]
+    },
+    {
+      "id": 13,
+      "name": "25机关炮",
+      "animation1_id": 0,
+      "animation2_id": 0,
+      "animation3_id": 0,
+      "quantity": 0,
+      "atk": 350,
+      "pdef": 28,
+      "weight": 1.3,
+      "repair_price": [
+        375,
+        430
+      ],
+      "price": 9900,
+      "range_type": 0,
+      "equip_position": [
+        false,
+        true
+      ]
+    },
+    {
+      "id": 14,
+      "name": "波坦",
+      "animation1_id": 0,
+      "animation2_id": 0,
+      "animation3_id": 0,
+      "quantity": 0,
+      "atk": 350,
+      "pdef": 95,
+      "weight": 0.1,
+      "repair_price": [
+        450,
+        500
+      ],
+      "price": 32000,
+      "range_type": 0,
+      "equip_position": [
+        false,
+        true
+      ]
+    },
+    {
+      "id": 15,
+      "name": "火龙",
+      "animation1_id": 0,
+      "animation2_id": 0,
+      "animation3_id": 0,
+      "quantity": 0,
+      "atk": 355,
+      "pdef": 45,
+      "weight": 3.5,
+      "repair_price": [
+        375,
+        430
+      ],
+      "price": 15500,
+      "range_type": 0,
+      "equip_position": [
+        false,
+        true
+      ]
+    },
+    {
+      "id": 16,
+      "name": "风暴",
+      "animation1_id": 0,
+      "animation2_id": 0,
+      "animation3_id": 0,
+      "quantity": 0,
+      "atk": 400,
+      "pdef": 45,
+      "weight": 3.0,
+      "repair_price": [
+        500,
+        600
+      ],
+      "price": 25000,
+      "range_type": 0,
+      "equip_position": [
+        false,
+        true
+      ]
+    }
+  ],
+  "ses": [
+    null,
+    {
+      "id": 1,
+      "name": "ATM导弹",
+      "animation1_id": 0,
+      "animation2_id": 0,
+      "animation3_id": 0,
+      "quantity": 8,
+      "atk": 320,
+      "pdef": 25,
+      "weight": 2.0,
+      "repair_price": [
+        40,
+        70
+      ],
+      "price": 800,
+      "range_type": 0,
+      "equip_position": [
+        true,
+        true,
+        true
+      ]
+    },
+    {
+      "id": 2,
+      "name": "喷火",
+      "animation1_id": 0,
+      "animation2_id": 0,
+      "animation3_id": 0,
+      "quantity": 8,
+      "atk": 250,
+      "pdef": 20,
+      "weight": 2.4,
+      "repair_price": [
+        50,
+        80
+      ],
+      "price": 1000,
+      "range_type": 0,
+      "equip_position": [
+        false,
+        false,
+        true
+      ]
+    },
+    {
+      "id": 3,
+      "name": "弹炮",
+      "animation1_id": 0,
+      "animation2_id": 0,
+      "animation3_id": 0,
+      "quantity": 4,
+      "atk": 440,
+      "pdef": 28,
+      "weight": 1.8,
+      "repair_price": [
+        75,
+        100
+      ],
+      "price": 1500,
+      "range_type": 0,
+      "equip_position": [
+        false,
+        false,
+        true
+      ]
+    },
+    {
+      "id": 4,
+      "name": "LI旋炮",
+      "animation1_id": 0,
+      "animation2_id": 0,
+      "animation3_id": 0,
+      "quantity": 2,
+      "atk": 380,
+      "pdef": 100,
+      "weight": 4.0,
+      "repair_price": [
+        110,
+        130
+      ],
+      "price": 1800,
+      "range_type": 0,
+      "equip_position": [
+        false,
+        false,
+        true
+      ]
+    },
+    {
+      "id": 5,
+      "name": "电光",
+      "animation1_id": 0,
+      "animation2_id": 0,
+      "animation3_id": 0,
+      "quantity": 4,
+      "atk": 410,
+      "pdef": 140,
+      "weight": 3.6,
+      "repair_price": [
+        140,
+        185
+      ],
+      "price": 2300,
+      "range_type": 0,
+      "equip_position": [
+        false,
+        false,
+        true
+      ]
+    },
+    {
+      "id": 6,
+      "name": "汽弹",
+      "animation1_id": 0,
+      "animation2_id": 0,
+      "animation3_id": 0,
+      "quantity": 16,
+      "atk": 340,
+      "pdef": 200,
+      "weight": 5.2,
+      "repair_price": [
+        215,
+        255
+      ],
+      "price": 2600,
+      "range_type": 0,
+      "equip_position": [
+        false,
+        false,
+        true
+      ]
+    },
+    {
+      "id": 7,
+      "name": "拉卡",
+      "animation1_id": 0,
+      "animation2_id": 0,
+      "animation3_id": 0,
+      "quantity": 8,
+      "atk": 540,
+      "pdef": 180,
+      "weight": 4.4,
+      "repair_price": [
+        240,
+        280
+      ],
+      "price": 3100,
+      "range_type": 0,
+      "equip_position": [
+        false,
+        false,
+        true
+      ]
+    },
+    {
+      "id": 8,
+      "name": "福特",
+      "animation1_id": 0,
+      "animation2_id": 0,
+      "animation3_id": 0,
+      "quantity": 4,
+      "atk": 620,
+      "pdef": 350,
+      "weight": 6.0,
+      "repair_price": [
+        300,
+        340
+      ],
+      "price": 3800,
+      "range_type": 0,
+      "equip_position": [
+        false,
+        false,
+        true
+      ]
+    },
+    {
+      "id": 9,
+      "name": "火狼",
+      "animation1_id": 0,
+      "animation2_id": 0,
+      "animation3_id": 0,
+      "quantity": 16,
+      "atk": 420,
+      "pdef": 280,
+      "weight": 7.0,
+      "repair_price": [
+        370,
+        400
+      ],
+      "price": 5000,
+      "range_type": 0,
+      "equip_position": [
+        false,
+        false,
+        true
+      ]
+    },
+    {
+      "id": 10,
+      "name": "台风",
+      "animation1_id": 0,
+      "animation2_id": 0,
+      "animation3_id": 0,
+      "quantity": 4,
+      "atk": 420,
+      "pdef": 400,
+      "weight": 11.0,
+      "repair_price": [
+        600,
+        675
+      ],
+      "price": 17500,
+      "range_type": 0,
+      "equip_position": [
+        false,
+        true,
+        true
+      ]
+    },
+    {
+      "id": 11,
+      "name": "巨炮",
+      "animation1_id": 0,
+      "animation2_id": 0,
+      "animation3_id": 0,
+      "quantity": 4,
+      "atk": 710,
+      "pdef": 360,
+      "weight": 2.4,
+      "repair_price": [
+        480,
+        550
+      ],
+      "price": 7000,
+      "range_type": 0,
+      "equip_position": [
+        false,
+        false,
+        true
+      ]
+    },
+    {
+      "id": 12,
+      "name": "雷电",
+      "animation1_id": 0,
+      "animation2_id": 0,
+      "animation3_id": 0,
+      "quantity": 16,
+      "atk": 650,
+      "pdef": 410,
+      "weight": 5.6,
+      "repair_price": [
+        600,
+        670
+      ],
+      "price": 15500,
+      "range_type": 0,
+      "equip_position": [
+        false,
+        false,
+        true
+      ]
+    },
+    {
+      "id": 13,
+      "name": "火神",
+      "animation1_id": 0,
+      "animation2_id": 0,
+      "animation3_id": 0,
+      "quantity": 8,
+      "atk": 540,
+      "pdef": 420,
+      "weight": 9.0,
+      "repair_price": [
+        520,
+        570
+      ],
+      "price": 6750,
+      "range_type": 0,
+      "equip_position": [
+        false,
+        false,
+        true
+      ]
+    },
+    {
+      "id": 14,
+      "name": "截击",
+      "animation1_id": 0,
+      "animation2_id": 0,
+      "animation3_id": 0,
+      "quantity": 8,
+      "atk": 720,
+      "pdef": 500,
+      "weight": 8.4,
+      "repair_price": [
+        650,
+        725
+      ],
+      "price": 16700,
+      "range_type": 0,
+      "equip_position": [
+        false,
+        false,
+        true
+      ]
+    },
+    {
+      "id": 15,
+      "name": "气旋",
+      "animation1_id": 0,
+      "animation2_id": 0,
+      "animation3_id": 0,
+      "quantity": 4,
+      "atk": 680,
+      "pdef": 480,
+      "weight": 12.0,
+      "repair_price": [
+        530,
+        585
+      ],
+      "price": 8500,
+      "range_type": 0,
+      "equip_position": [
+        false,
+        true,
+        true
+      ]
+    },
+    {
+      "id": 16,
+      "name": "托卢",
+      "animation1_id": 0,
+      "animation2_id": 0,
+      "animation3_id": 0,
+      "quantity": 16,
+      "atk": 760,
+      "pdef": 600,
+      "weight": 11.0,
+      "repair_price": [
+        1000,
+        1400
+      ],
+      "price": 35000,
+      "range_type": 0,
+      "equip_position": [
+        false,
+        true,
+        true
+      ]
+    }
+  ],
+  "engines": [
+    null,
+    {
+      "id": 1,
+      "name": "MOT1",
+      "price": 200,
+      "repair_price": [
+        40,
+        80
+      ],
+      "weight": 0.1,
+      "load": 8.0,
+      "pdef": 24
+    },
+    {
+      "id": 2,
+      "name": "MOT2",
+      "price": 340,
+      "repair_price": [
+        70,
+        100
+      ],
+      "weight": 0.2,
+      "load": 9.0,
+      "pdef": 24
+    },
+    {
+      "id": 3,
+      "name": "MOT2",
+      "price": 520,
+      "repair_price": [
+        90,
+        120
+      ],
+      "weight": 0.3,
+      "load": 10.0,
+      "pdef": 24
+    },
+    {
+      "id": 4,
+      "name": "SOL0",
+      "price": 720,
+      "repair_price": [
+        150,
+        180
+      ],
+      "weight": 0.2,
+      "load": 12.0,
+      "pdef": 30
+    },
+    {
+      "id": 5,
+      "name": "SOL1",
+      "price": 1210,
+      "repair_price": [
+        200,
+        220
+      ],
+      "weight": 0.3,
+      "load": 15.0,
+      "pdef": 30
+    },
+    {
+      "id": 6,
+      "name": "SOL2",
+      "price": 1750,
+      "repair_price": [
+        250,
+        300
+      ],
+      "weight": 0.4,
+      "load": 18.0,
+      "pdef": 30
+    },
+    {
+      "id": 7,
+      "name": "BUL",
+      "price": 2480,
+      "repair_price": [
+        320,
+        380
+      ],
+      "weight": 0.3,
+      "load": 20.0,
+      "pdef": 40
+    },
+    {
+      "id": 8,
+      "name": "BUL1",
+      "price": 3150,
+      "repair_price": [
+        450,
+        490
+      ],
+      "weight": 0.4,
+      "load": 23.0,
+      "pdef": 40
+    },
+    {
+      "id": 9,
+      "name": "BUL11",
+      "price": 3800,
+      "repair_price": [
+        520,
+        600
+      ],
+      "weight": 0.5,
+      "load": 26.0,
+      "pdef": 40
+    },
+    {
+      "id": 10,
+      "name": "HUN0",
+      "price": 4750,
+      "repair_price": [
+        560,
+        650
+      ],
+      "weight": 0.4,
+      "load": 27.0,
+      "pdef": 58
+    },
+    {
+      "id": 11,
+      "name": "HUN1",
+      "price": 6300,
+      "repair_price": [
+        620,
+        700
+      ],
+      "weight": 0.5,
+      "load": 29.0,
+      "pdef": 58
+    },
+    {
+      "id": 12,
+      "name": "HUN2",
+      "price": 8210,
+      "repair_price": [
+        735,
+        815
+      ],
+      "weight": 0.6,
+      "load": 31.0,
+      "pdef": 58
+    },
+    {
+      "id": 13,
+      "name": "V24",
+      "price": 12800,
+      "repair_price": [
+        840,
+        865
+      ],
+      "weight": 0.5,
+      "load": 32.0,
+      "pdef": 83
+    },
+    {
+      "id": 14,
+      "name": "V32",
+      "price": 17900,
+      "repair_price": [
+        850,
+        880
+      ],
+      "weight": 0.6,
+      "load": 35.0,
+      "pdef": 83
+    },
+    {
+      "id": 15,
+      "name": "V48",
+      "price": 22000,
+      "repair_price": [
+        870,
+        900
+      ],
+      "weight": 0.7,
+      "load": 38.0,
+      "pdef": 83
+    },
+    {
+      "id": 16,
+      "name": "SIL0",
+      "price": 28000,
+      "repair_price": [
+        930,
+        960
+      ],
+      "weight": 0.6,
+      "load": 40.0,
+      "pdef": 90
+    },
+    {
+      "id": 17,
+      "name": "SIL1",
+      "price": 32500,
+      "repair_price": [
+        950,
+        990
+      ],
+      "weight": 0.7,
+      "load": 42.0,
+      "pdef": 90
+    },
+    {
+      "id": 18,
+      "name": "SIL2",
+      "price": 37500,
+      "repair_price": [
+        1000,
+        1300
+      ],
+      "weight": 0.8,
+      "load": 44.0,
+      "pdef": 90
+    },
+    {
+      "id": 19,
+      "name": "OHC",
+      "price": 39800,
+      "repair_price": [
+        1250,
+        1600
+      ],
+      "weight": 0.7,
+      "load": 45.0,
+      "pdef": 100
+    },
+    {
+      "id": 20,
+      "name": "涡轮",
+      "price": 56200,
+      "repair_price": [
+        1400,
+        1800
+      ],
+      "weight": 0.8,
+      "load": 48.0,
+      "pdef": 100
+    },
+    {
+      "id": 21,
+      "name": "喷气",
+      "price": 64000,
+      "repair_price": [
+        1600,
+        2000
+      ],
+      "weight": 0.9,
+      "load": 51.0,
+      "pdef": 100
+    },
+    {
+      "id": 22,
+      "name": "V48",
+      "price": 84100,
+      "repair_price": [
+        2100,
+        2350
+      ],
+      "weight": 0.8,
+      "load": 52.0,
+      "pdef": 115
+    },
+    {
+      "id": 23,
+      "name": "V66",
+      "price": 108000,
+      "repair_price": [
+        1600,
+        2000
+      ],
+      "weight": 0.9,
+      "load": 55.0,
+      "pdef": 115
+    },
+    {
+      "id": 24,
+      "name": "V100",
+      "price": 132000,
+      "repair_price": [
+        1600,
+        2000
+      ],
+      "weight": 1.0,
+      "load": 58.0,
+      "pdef": 115
+    }
+  ],
+  "c_units": [
+    null,
+    {
+      "id": 1,
+      "name": "HAL900",
+      "price": 800,
+      "repair_price": [
+        200,
+        300
+      ],
+      "weight": 0.8,
+      "pdef": 30
+    },
+    {
+      "id": 2,
+      "name": "尼克",
+      "price": 2000,
+      "repair_price": [
+        340,
+        400
+      ],
+      "weight": 0.2,
+      "pdef": 40
+    },
+    {
+      "id": 3,
+      "name": "艾米",
+      "price": 4000,
+      "repair_price": [
+        450,
+        525
+      ],
+      "weight": 3.0,
+      "pdef": 100
+    },
+    {
+      "id": 4,
+      "name": "SOLOMON2",
+      "price": 10000,
+      "repair_price": [
+        950,
+        1000
+      ],
+      "weight": 2.0,
+      "pdef": 190
+    }
+  ],
+  "underpans": [
+    null,
+    {
+      "id": 1,
+      "name": "WEN",
+      "hole": [
+        true,
+        false,
+        false
+      ],
+      "weight": 4.0,
+      "special_cannonball": {
+      },
+      "special_cannonball_capacity": 16,
+      "status_guard": {
+      },
+      "price": 200,
+      "repair_price": [
+        200,
+        250
+      ],
+      "pdef": 60
+    },
+    {
+      "id": 2,
+      "name": "HOR",
+      "hole": [
+        false,
+        true,
+        false
+      ],
+      "weight": 3.5,
+      "special_cannonball": {
+      },
+      "special_cannonball_capacity": 16,
+      "status_guard": {
+      },
+      "price": 200,
+      "repair_price": [
+        300,
+        320
+      ],
+      "pdef": 50
+    },
+    {
+      "id": 3,
+      "name": "CAR",
+      "hole": [
+        false,
+        false,
+        false
+      ],
+      "weight": 3.0,
+      "special_cannonball": {
+      },
+      "special_cannonball_capacity": 16,
+      "status_guard": {
+      },
+      "price": 200,
+      "repair_price": [
+        310,
+        350
+      ],
+      "pdef": 35
+    },
+    {
+      "id": 4,
+      "name": "TAN",
+      "hole": [
+        true,
+        true,
+        false
+      ],
+      "weight": 7.5,
+      "special_cannonball": {
+      },
+      "special_cannonball_capacity": 24,
+      "status_guard": {
+      },
+      "price": 200,
+      "repair_price": [
+        330,
+        380
+      ],
+      "pdef": 90
+    },
+    {
+      "id": 5,
+      "name": "BAO",
+      "hole": [
+        true,
+        true,
+        true
+      ],
+      "weight": 15.5,
+      "special_cannonball": {
+      },
+      "special_cannonball_capacity": 32,
+      "status_guard": {
+      },
+      "price": 200,
+      "repair_price": [
+        350,
+        400
+      ],
+      "pdef": 100
+    },
+    {
+      "id": 6,
+      "name": "HU",
+      "hole": [
+        true,
+        true,
+        true
+      ],
+      "weight": 10.5,
+      "special_cannonball": {
+      },
+      "special_cannonball_capacity": 40,
+      "status_guard": {
+      },
+      "price": 200,
+      "repair_price": [
+        380,
+        430
+      ],
+      "pdef": 120
+    },
+    {
+      "id": 7,
+      "name": "RLA",
+      "hole": [
+        true,
+        true,
+        true
+      ],
+      "weight": 13.0,
+      "special_cannonball": {
+      },
+      "special_cannonball_capacity": 72,
+      "status_guard": {
+      },
+      "price": 200,
+      "repair_price": [
+        700,
+        800
+      ],
+      "pdef": 200
+    },
+    {
+      "id": 8,
+      "name": "KHU",
+      "hole": [
+        true,
+        true,
+        true
+      ],
+      "weight": 16.0,
+      "special_cannonball": {
+      },
+      "special_cannonball_capacity": 32,
+      "status_guard": {
+      },
+      "price": 200,
+      "repair_price": [
+        530,
+        600
+      ],
+      "pdef": 100
+    }
+  ],
+  "special_cannonballs": [
+    null,
+    {
+      "id": 1,
+      "name": "铁弹",
+      "price": 10,
+      "atk": -1,
+      "state_id": 10
+    },
+    {
+      "id": 2,
+      "name": "榴弹",
+      "price": 30,
+      "atk": -1,
+      "state_id": 10
+    },
+    {
+      "id": 3,
+      "name": "焰幕弹",
+      "price": 50,
+      "atk": -1,
+      "state_id": 10
+    },
+    {
+      "id": 4,
+      "name": "催眠弹",
+      "price": 50,
+      "atk": -1,
+      "state_id": 10
+    },
+    {
+      "id": 5,
+      "name": "毒气弹",
+      "price": 20,
+      "atk": -1,
+      "state_id": 10
+    },
+    {
+      "id": 6,
+      "name": "汽油弹",
+      "price": 35,
+      "atk": 0,
+      "state_id": 10
+    },
+    {
+      "id": 7,
+      "name": "散弹",
+      "price": 30,
+      "atk": 0,
+      "state_id": 10
+    },
+    {
+      "id": 8,
+      "name": "炸弹",
+      "price": 200,
+      "atk": 0,
+      "state_id": 10
+    },
+    {
+      "id": 9,
+      "name": "钢弹",
+      "price": 50,
+      "atk": 0,
+      "state_id": 10
+    },
+    {
+      "id": 10,
+      "name": "流弹",
+      "price": 10,
+      "atk": 0,
+      "state_id": 10
+    },
+    {
+      "id": 11,
+      "name": "臭弹",
+      "price": 5,
+      "atk": -1,
+      "state_id": 10
+    }
+  ],
+  "actor_weapons": [
+    null,
+    {
+      "animation1_id": 0,
+      "name": "弹弓",
+      "price": 30,
+      "element_set": [
+
+      ],
+      "atk": 5,
+      "animation2_id": 0,
+      "id": 1,
+      "animation3_id": 0,
+      "can_equip_actors": [
+        1,
+        2,
+        3
+      ],
+      "range_type": 0
+    },
+    {
+      "animation1_id": 0,
+      "name": "弩",
+      "price": 80,
+      "element_set": [
+
+      ],
+      "atk": 12,
+      "animation2_id": 0,
+      "id": 2,
+      "animation3_id": 0,
+      "can_equip_actors": [
+        1,
+        2,
+        3
+      ],
+      "range_type": 0
+    },
+    {
+      "animation1_id": 0,
+      "name": "短枪",
+      "price": 180,
+      "element_set": [
+
+      ],
+      "atk": 22,
+      "animation2_id": 0,
+      "id": 3,
+      "animation3_id": 0,
+      "can_equip_actors": [
+        1,
+        2,
+        3
+      ],
+      "range_type": 0
+    },
+    {
+      "animation1_id": 0,
+      "name": "战斧",
+      "price": 240,
+      "element_set": [
+
+      ],
+      "atk": 26,
+      "animation2_id": 0,
+      "id": 4,
+      "animation3_id": 0,
+      "can_equip_actors": [
+        1,
+        3
+      ],
+      "range_type": 0
+    },
+    {
+      "animation1_id": 0,
+      "name": "火枪",
+      "price": 295,
+      "element_set": [
+
+      ],
+      "atk": 35,
+      "animation2_id": 0,
+      "id": 5,
+      "animation3_id": 0,
+      "can_equip_actors": [
+        1,
+        2,
+        3
+      ],
+      "range_type": 0
+    },
+    {
+      "animation1_id": 0,
+      "name": "回旋镖",
+      "price": 320,
+      "element_set": [
+
+      ],
+      "atk": 40,
+      "animation2_id": 0,
+      "id": 6,
+      "animation3_id": 0,
+      "can_equip_actors": [
+        2
+      ],
+      "range_type": 0
+    },
+    {
+      "animation1_id": 0,
+      "name": "钢刀",
+      "price": 480,
+      "element_set": [
+
+      ],
+      "atk": 45,
+      "animation2_id": 0,
+      "id": 7,
+      "animation3_id": 0,
+      "can_equip_actors": [
+        1,
+        3
+      ],
+      "range_type": 0
+    },
+    {
+      "animation1_id": 0,
+      "name": "长枪",
+      "price": 720,
+      "element_set": [
+
+      ],
+      "atk": 48,
+      "animation2_id": 0,
+      "id": 8,
+      "animation3_id": 0,
+      "can_equip_actors": [
+        1,
+        2,
+        3
+      ],
+      "range_type": 1
+    },
+    {
+      "animation1_id": 0,
+      "name": "机枪",
+      "price": 860,
+      "element_set": [
+
+      ],
+      "atk": 58,
+      "animation2_id": 0,
+      "id": 9,
+      "animation3_id": 0,
+      "can_equip_actors": [
+        3
+      ],
+      "range_type": 0
+    },
+    {
+      "animation1_id": 0,
+      "name": "火焰枪",
+      "price": 1000,
+      "element_set": [
+
+      ],
+      "atk": 70,
+      "animation2_id": 0,
+      "id": 10,
+      "animation3_id": 0,
+      "can_equip_actors": [
+        1,
+        2,
+        3
+      ],
+      "range_type": 0
+    },
+    {
+      "animation1_id": 0,
+      "name": "来福枪",
+      "price": 1200,
+      "element_set": [
+
+      ],
+      "atk": 86,
+      "animation2_id": 0,
+      "id": 11,
+      "animation3_id": 0,
+      "can_equip_actors": [
+        1,
+        2,
+        3
+      ],
+      "range_type": 0
+    },
+    {
+      "animation1_id": 0,
+      "name": "排炮",
+      "price": 1410,
+      "element_set": [
+
+      ],
+      "atk": 78,
+      "animation2_id": 0,
+      "id": 12,
+      "animation3_id": 0,
+      "can_equip_actors": [
+        1,
+        2,
+        3
+      ],
+      "range_type": 1
+    },
+    {
+      "animation1_id": 0,
+      "name": "军刀",
+      "price": 1500,
+      "element_set": [
+
+      ],
+      "atk": 95,
+      "animation2_id": 0,
+      "id": 13,
+      "animation3_id": 0,
+      "can_equip_actors": [
+        1,
+        3
+      ],
+      "range_type": 0
+    },
+    {
+      "animation1_id": 0,
+      "name": "声纳枪",
+      "price": 2200,
+      "element_set": [
+
+      ],
+      "atk": 110,
+      "animation2_id": 0,
+      "id": 14,
+      "animation3_id": 0,
+      "can_equip_actors": [
+        1,
+        2,
+        3
+      ],
+      "range_type": 0
+    },
+    {
+      "animation1_id": 0,
+      "name": "火焰炮",
+      "price": 2400,
+      "element_set": [
+
+      ],
+      "atk": 115,
+      "animation2_id": 0,
+      "id": 15,
+      "animation3_id": 0,
+      "can_equip_actors": [
+        1,
+        2,
+        3
+      ],
+      "range_type": 1
+    },
+    {
+      "animation1_id": 0,
+      "name": "中子炮",
+      "price": 2980,
+      "element_set": [
+
+      ],
+      "atk": 135,
+      "animation2_id": 0,
+      "id": 16,
+      "animation3_id": 0,
+      "can_equip_actors": [
+        1,
+        3
+      ],
+      "range_type": 0
+    },
+    {
+      "animation1_id": 0,
+      "name": "飞龙火",
+      "price": 3200,
+      "element_set": [
+
+      ],
+      "atk": 120,
+      "animation2_id": 0,
+      "id": 17,
+      "animation3_id": 0,
+      "can_equip_actors": [
+        3
+      ],
+      "range_type": 1
+    },
+    {
+      "animation1_id": 0,
+      "name": "弹筒",
+      "price": 3800,
+      "element_set": [
+
+      ],
+      "atk": 160,
+      "animation2_id": 0,
+      "id": 18,
+      "animation3_id": 0,
+      "can_equip_actors": [
+        1,
+        2,
+        3
+      ],
+      "range_type": 0
+    },
+    {
+      "animation1_id": 0,
+      "name": "音波枪",
+      "price": 4600,
+      "element_set": [
+
+      ],
+      "atk": 190,
+      "animation2_id": 0,
+      "id": 19,
+      "animation3_id": 0,
+      "can_equip_actors": [
+        1,
+        2,
+        3
+      ],
+      "range_type": 1
+    },
+    {
+      "animation1_id": 0,
+      "name": "宝刀",
+      "price": 5000,
+      "element_set": [
+
+      ],
+      "atk": 205,
+      "animation2_id": 0,
+      "id": 20,
+      "animation3_id": 0,
+      "can_equip_actors": [
+        1,
+        2,
+        3
+      ],
+      "range_type": 0
+    },
+    {
+      "animation1_id": 0,
+      "name": "火箭炮",
+      "price": 5500,
+      "element_set": [
+
+      ],
+      "atk": 220,
+      "animation2_id": 0,
+      "id": 21,
+      "animation3_id": 0,
+      "can_equip_actors": [
+        1,
+        3
+      ],
+      "range_type": 0
+    },
+    {
+      "animation1_id": 0,
+      "name": "穿甲炮",
+      "price": 7000,
+      "element_set": [
+
+      ],
+      "atk": 250,
+      "animation2_id": 0,
+      "id": 22,
+      "animation3_id": 0,
+      "can_equip_actors": [
+        1,
+        3
+      ],
+      "range_type": 0
+    },
+    {
+      "animation1_id": 0,
+      "name": "迫击炮",
+      "price": 7300,
+      "element_set": [
+
+      ],
+      "atk": 210,
+      "animation2_id": 0,
+      "id": 23,
+      "animation3_id": 0,
+      "can_equip_actors": [
+        3
+      ],
+      "range_type": 2
+    },
+    {
+      "animation1_id": 0,
+      "name": "首",
+      "price": 16000,
+      "element_set": [
+
+      ],
+      "atk": 210,
+      "animation2_id": 0,
+      "id": 24,
+      "animation3_id": 0,
+      "can_equip_actors": [
+        1,
+        3
+      ],
+      "range_type": 0
+    }
+  ],
+  "actor_armors": [
+    null,
+    {
+      "eva": 0,
+      "name": "草帽",
+      "price": 5,
+      "pdef": 1,
+      "guard_state_set": [
+
+      ],
+      "kind": 0,
+      "guard_element_set": [
+
+      ],
+      "id": 1,
+      "can_equip_actors": [
+        1,
+        2,
+        3
+      ]
+    },
+    {
+      "eva": 0,
+      "name": "皮帽",
+      "price": 10,
+      "pdef": 2,
+      "guard_state_set": [
+
+      ],
+      "kind": 0,
+      "guard_element_set": [
+
+      ],
+      "id": 2,
+      "can_equip_actors": [
+        1,
+        2,
+        3
+      ]
+    },
+    {
+      "eva": 0,
+      "name": "布帽",
+      "price": 60,
+      "pdef": 7,
+      "guard_state_set": [
+
+      ],
+      "kind": 0,
+      "guard_element_set": [
+
+      ],
+      "id": 3,
+      "can_equip_actors": [
+        1,
+        2,
+        3
+      ]
+    },
+    {
+      "eva": 0,
+      "name": "铁盔",
+      "price": 200,
+      "pdef": 15,
+      "guard_state_set": [
+
+      ],
+      "kind": 0,
+      "guard_element_set": [
+
+      ],
+      "id": 4,
+      "can_equip_actors": [
+        1,
+        2,
+        3
+      ]
+    },
+    {
+      "eva": 0,
+      "name": "钢盔",
+      "price": 400,
+      "pdef": 22,
+      "guard_state_set": [
+
+      ],
+      "kind": 0,
+      "guard_element_set": [
+
+      ],
+      "id": 5,
+      "can_equip_actors": [
+        1,
+        2,
+        3
+      ]
+    },
+    {
+      "eva": 0,
+      "name": "银盔",
+      "price": 860,
+      "pdef": 36,
+      "guard_state_set": [
+
+      ],
+      "kind": 0,
+      "guard_element_set": [
+
+      ],
+      "id": 6,
+      "can_equip_actors": [
+        1,
+        2,
+        3
+      ]
+    },
+    {
+      "eva": 0,
+      "name": "金冠",
+      "price": 1100,
+      "pdef": 45,
+      "guard_state_set": [
+
+      ],
+      "kind": 0,
+      "guard_element_set": [
+
+      ],
+      "id": 7,
+      "can_equip_actors": [
+        1,
+        2,
+        3
+      ]
+    },
+    {
+      "eva": 0,
+      "name": "头巾",
+      "price": 705,
+      "pdef": 40,
+      "guard_state_set": [
+
+      ],
+      "kind": 0,
+      "guard_element_set": [
+
+      ],
+      "id": 8,
+      "can_equip_actors": [
+        1,
+        2,
+        3
+      ]
+    },
+    {
+      "eva": 0,
+      "name": "布衣",
+      "price": 40,
+      "pdef": 6,
+      "guard_state_set": [
+
+      ],
+      "kind": 1,
+      "guard_element_set": [
+
+      ],
+      "id": 9,
+      "can_equip_actors": [
+        1,
+        2,
+        3
+      ]
+    },
+    {
+      "eva": 0,
+      "name": "皮衣",
+      "price": 110,
+      "pdef": 12,
+      "guard_state_set": [
+
+      ],
+      "kind": 1,
+      "guard_element_set": [
+
+      ],
+      "id": 10,
+      "can_equip_actors": [
+        1,
+        2,
+        3
+      ]
+    },
+    {
+      "eva": 0,
+      "name": "披风",
+      "price": 340,
+      "pdef": 28,
+      "guard_state_set": [
+
+      ],
+      "kind": 1,
+      "guard_element_set": [
+
+      ],
+      "id": 11,
+      "can_equip_actors": [
+        1,
+        2,
+        3
+      ]
+    },
+    {
+      "eva": 0,
+      "name": "铁衣",
+      "price": 650,
+      "pdef": 40,
+      "guard_state_set": [
+
+      ],
+      "kind": 1,
+      "guard_element_set": [
+
+      ],
+      "id": 12,
+      "can_equip_actors": [
+        1,
+        2,
+        3
+      ]
+    },
+    {
+      "eva": 0,
+      "name": "铜衣",
+      "price": 1210,
+      "pdef": 65,
+      "guard_state_set": [
+
+      ],
+      "kind": 1,
+      "guard_element_set": [
+
+      ],
+      "id": 13,
+      "can_equip_actors": [
+        1,
+        2,
+        3
+      ]
+    },
+    {
+      "eva": 0,
+      "name": "钢衣",
+      "price": 1700,
+      "pdef": 75,
+      "guard_state_set": [
+
+      ],
+      "kind": 1,
+      "guard_element_set": [
+
+      ],
+      "id": 14,
+      "can_equip_actors": [
+        1,
+        2,
+        3
+      ]
+    },
+    {
+      "eva": 0,
+      "name": "银衣",
+      "price": 2480,
+      "pdef": 99,
+      "guard_state_set": [
+
+      ],
+      "kind": 1,
+      "guard_element_set": [
+
+      ],
+      "id": 15,
+      "can_equip_actors": [
+        3
+      ]
+    },
+    {
+      "eva": 0,
+      "name": "金衣",
+      "price": 7870,
+      "pdef": 110,
+      "guard_state_set": [
+
+      ],
+      "kind": 1,
+      "guard_element_set": [
+
+      ],
+      "id": 16,
+      "can_equip_actors": [
+        1,
+        2,
+        3
+      ]
+    },
+    {
+      "eva": 0,
+      "name": "布手套",
+      "price": 10,
+      "pdef": 2,
+      "guard_state_set": [
+
+      ],
+      "kind": 2,
+      "guard_element_set": [
+
+      ],
+      "id": 17,
+      "can_equip_actors": [
+        1,
+        2,
+        3
+      ]
+    },
+    {
+      "eva": 0,
+      "name": "皮手套",
+      "price": 50,
+      "pdef": 6,
+      "guard_state_set": [
+
+      ],
+      "kind": 2,
+      "guard_element_set": [
+
+      ],
+      "id": 18,
+      "can_equip_actors": [
+        1,
+        2,
+        3
+      ]
+    },
+    {
+      "eva": 0,
+      "name": "铁爪",
+      "price": 180,
+      "pdef": 11,
+      "guard_state_set": [
+
+      ],
+      "kind": 2,
+      "guard_element_set": [
+
+      ],
+      "id": 19,
+      "can_equip_actors": [
+        2
+      ]
+    },
+    {
+      "eva": 0,
+      "name": "铜爪",
+      "price": 600,
+      "pdef": 26,
+      "guard_state_set": [
+
+      ],
+      "kind": 2,
+      "guard_element_set": [
+
+      ],
+      "id": 20,
+      "can_equip_actors": [
+        1,
+        2,
+        3
+      ]
+    },
+    {
+      "eva": 0,
+      "name": "钢爪",
+      "price": 740,
+      "pdef": 28,
+      "guard_state_set": [
+
+      ],
+      "kind": 2,
+      "guard_element_set": [
+
+      ],
+      "id": 21,
+      "can_equip_actors": [
+        1,
+        2,
+        3
+      ]
+    },
+    {
+      "eva": 0,
+      "name": "金爪",
+      "price": 1000,
+      "pdef": 35,
+      "guard_state_set": [
+
+      ],
+      "kind": 2,
+      "guard_element_set": [
+
+      ],
+      "id": 22,
+      "can_equip_actors": [
+        1,
+        2,
+        3
+      ]
+    },
+    {
+      "eva": 0,
+      "name": "草鞋",
+      "price": 15,
+      "pdef": 3,
+      "guard_state_set": [
+
+      ],
+      "kind": 3,
+      "guard_element_set": [
+
+      ],
+      "id": 23,
+      "can_equip_actors": [
+        1,
+        2,
+        3
+      ]
+    },
+    {
+      "eva": 0,
+      "name": "布鞋",
+      "price": 80,
+      "pdef": 8,
+      "guard_state_set": [
+
+      ],
+      "kind": 3,
+      "guard_element_set": [
+
+      ],
+      "id": 24,
+      "can_equip_actors": [
+        1,
+        2,
+        3
+      ]
+    },
+    {
+      "eva": 0,
+      "name": "皮鞋",
+      "price": 260,
+      "pdef": 16,
+      "guard_state_set": [
+
+      ],
+      "kind": 3,
+      "guard_element_set": [
+
+      ],
+      "id": 25,
+      "can_equip_actors": [
+        1,
+        2,
+        3
+      ]
+    },
+    {
+      "eva": 0,
+      "name": "皮靴",
+      "price": 400,
+      "pdef": 20,
+      "guard_state_set": [
+
+      ],
+      "kind": 3,
+      "guard_element_set": [
+
+      ],
+      "id": 26,
+      "can_equip_actors": [
+        1,
+        2,
+        3
+      ]
+    },
+    {
+      "eva": 0,
+      "name": "铁靴",
+      "price": 1400,
+      "pdef": 32,
+      "guard_state_set": [
+
+      ],
+      "kind": 3,
+      "guard_element_set": [
+
+      ],
+      "id": 27,
+      "can_equip_actors": [
+        1,
+        2,
+        3
+      ]
+    },
+    {
+      "eva": 0,
+      "name": "钢靴",
+      "price": 1500,
+      "pdef": 40,
+      "guard_state_set": [
+
+      ],
+      "kind": 3,
+      "guard_element_set": [
+
+      ],
+      "id": 28,
+      "can_equip_actors": [
+        1,
+        2,
+        3
+      ]
+    },
+    {
+      "eva": 0,
+      "name": "金靴",
+      "price": 0,
+      "pdef": 0,
+      "guard_state_set": [
+
+      ],
+      "kind": 4,
+      "guard_element_set": [
+
+      ],
+      "id": 29,
+      "can_equip_actors": [
+        1,
+        2,
+        3
+      ]
+    },
+    {
+      "eva": 0,
+      "name": "背心",
+      "price": 160,
+      "pdef": 30,
+      "guard_state_set": [
+
+      ],
+      "kind": 4,
+      "guard_element_set": [
+
+      ],
+      "id": 30,
+      "can_equip_actors": [
+        1,
+        2,
+        3
+      ]
+    },
+    {
+      "eva": 0,
+      "name": "皮甲",
+      "price": 320,
+      "pdef": 60,
+      "guard_state_set": [
+
+      ],
+      "kind": 4,
+      "guard_element_set": [
+
+      ],
+      "id": 31,
+      "can_equip_actors": [
+        1,
+        2,
+        3
+      ]
+    },
+    {
+      "eva": 0,
+      "name": "金甲",
+      "price": 550,
+      "pdef": 80,
+      "guard_state_set": [
+
+      ],
+      "kind": 4,
+      "guard_element_set": [
+
+      ],
+      "id": 32,
+      "can_equip_actors": [
+        1,
+        2,
+        3
+      ]
+    },
+    {
+      "eva": 0,
+      "name": "钢甲",
+      "price": 495,
+      "pdef": 140,
+      "guard_state_set": [
+
+      ],
+      "kind": 4,
+      "guard_element_set": [
+
+      ],
+      "id": 33,
+      "can_equip_actors": [
+        1,
+        2,
+        3
+      ]
+    },
+    {
+      "eva": 0,
+      "name": "铁甲",
+      "price": 1240,
+      "pdef": 100,
+      "guard_state_set": [
+
+      ],
+      "kind": 4,
+      "guard_element_set": [
+
+      ],
+      "id": 34,
+      "can_equip_actors": [
+        1,
+        2,
+        3
+      ]
+    }
+  ],
+  "actor_items": [
+    null,
+    {
+      "consumable": true,
+      "animation1_id": 0,
+      "name": "参丸",
+      "minus_state_set": [
+
+      ],
+      "common_event_id": 0,
+      "price": 10,
+      "occasion": 0,
+      "plus_state_set": [
+
+      ],
+      "scope": 4,
+      "element_set": [
+
+      ],
+      "animation2_id": 0,
+      "id": 1,
+      "menu_message": [
+        "%s 喝了 参丸，%s的HP回复了 %s！",
+        "uun"
+      ],
+      "battle_message": [
+        "%s 喝了 参丸，|%s的HP回复了 %s！",
+        "uun"
+      ],
+      "type": 0,
+      "animation3_id": 0,
+      "hp_effect": 100,
+      "atk_effect": 0,
+      "eva_effect": 0
+    },
+    {
+      "consumable": true,
+      "animation1_id": 0,
+      "name": "党参",
+      "minus_state_set": [
+
+      ],
+      "common_event_id": 0,
+      "price": 20,
+      "occasion": 0,
+      "plus_state_set": [
+
+      ],
+      "scope": 4,
+      "element_set": [
+
+      ],
+      "animation2_id": 0,
+      "id": 2,
+      "menu_message": [
+        "%s 喝了 党参，%s的HP回复了 %s！",
+        "uun"
+      ],
+      "battle_message": [
+        "%s 喝了 党参，|%s的HP回复了 %s！",
+        "uun"
+      ],
+      "type": 0,
+      "animation3_id": 0,
+      "hp_effect": 300,
+      "atk_effect": 0,
+      "eva_effect": 0
+    },
+    {
+      "consumable": true,
+      "animation1_id": 0,
+      "name": "人参",
+      "minus_state_set": [
+
+      ],
+      "common_event_id": 0,
+      "price": 50,
+      "occasion": 0,
+      "plus_state_set": [
+
+      ],
+      "scope": 4,
+      "element_set": [
+
+      ],
+      "animation2_id": 0,
+      "id": 3,
+      "menu_message": [
+        "%s 喝了 人参，%s的HP回复了 %s！",
+        "uun"
+      ],
+      "battle_message": [
+        "%s 喝了 人参，|%s的HP回复了 %s！",
+        "uun"
+      ],
+      "type": 0,
+      "animation3_id": 0,
+      "hp_effect": 1000,
+      "atk_effect": 0,
+      "eva_effect": 0
+    },
+    {
+      "consumable": true,
+      "animation1_id": 0,
+      "name": "灵丹",
+      "minus_state_set": [
+
+      ],
+      "common_event_id": 0,
+      "price": 100,
+      "occasion": 0,
+      "plus_state_set": [
+
+      ],
+      "scope": 4,
+      "element_set": [
+
+      ],
+      "animation2_id": 0,
+      "id": 4,
+      "menu_message": [
+        "%s 喝了 灵丹，%s的HP回复了 %s！",
+        "uun"
+      ],
+      "battle_message": [
+        "%s 喝了 灵丹，|%s的HP回复了 %s！",
+        "uun"
+      ],
+      "type": 0,
+      "animation3_id": 0,
+      "hp_effect": 4000,
+      "atk_effect": 0,
+      "eva_effect": 0
+    },
+    {
+      "consumable": true,
+      "animation1_id": 0,
+      "name": "解药",
+      "minus_state_set": [
+
+      ],
+      "common_event_id": 0,
+      "price": 20,
+      "occasion": 0,
+      "plus_state_set": [
+
+      ],
+      "scope": 4,
+      "element_set": [
+
+      ],
+      "animation2_id": 0,
+      "id": 5,
+      "menu_message": [
+        "%s 使用了 解药，身上的酸被中和了！",
+        "u"
+      ],
+      "battle_message": [
+        "%s 使用了 解药！|酸 被中和了！",
+        "u"
+      ],
+      "type": 0,
+      "animation3_id": 0,
+      "hp_effect": 0,
+      "atk_effect": 0,
+      "eva_effect": 0
+    },
+    {
+      "consumable": true,
+      "animation1_id": 0,
+      "name": "灭火器",
+      "minus_state_set": [
+
+      ],
+      "common_event_id": 0,
+      "price": 20,
+      "occasion": 0,
+      "plus_state_set": [
+
+      ],
+      "scope": 8,
+      "element_set": [
+
+      ],
+      "animation2_id": 0,
+      "id": 6,
+      "menu_message": [
+        "",
+        ""
+      ],
+      "battle_message": [
+        "%s 使用了 灭火器！|%s周围的 火焰消失了！",
+        "uu"
+      ],
+      "type": 0,
+      "animation3_id": 0,
+      "hp_effect": 0,
+      "atk_effect": 0,
+      "eva_effect": 0
+    },
+    {
+      "consumable": false,
+      "animation1_id": 0,
+      "name": "消火栓",
+      "minus_state_set": [
+
+      ],
+      "common_event_id": 0,
+      "price": 150,
+      "occasion": 2,
+      "plus_state_set": [
+
+      ],
+      "scope": 8,
+      "element_set": [
+
+      ],
+      "animation2_id": 0,
+      "id": 7,
+      "menu_message": [
+        "%s 使用了 消火栓！",
+        "u"
+      ],
+      "battle_message": [
+        "%s 使用了 消火栓！|%s周围的 火焰消失了！",
+        "uu"
+      ],
+      "type": 0,
+      "animation3_id": 0,
+      "hp_effect": 0,
+      "atk_effect": 0,
+      "eva_effect": 0
+    },
+    {
+      "consumable": true,
+      "animation1_id": 2,
+      "name": "醉药",
+      "minus_state_set": [
+
+      ],
+      "common_event_id": 0,
+      "price": 30,
+      "occasion": 2,
+      "plus_state_set": [
+
+      ],
+      "scope": 4,
+      "element_set": [
+
+      ],
+      "animation2_id": 0,
+      "id": 8,
+      "menu_message": [
+        "%s 使用了 醉药，从麻痹状态中回复了！",
+        "u"
+      ],
+      "battle_message": [
+        "",
+        "u"
+      ],
+      "type": 0,
+      "animation3_id": 0,
+      "hp_effect": 0,
+      "atk_effect": 0,
+      "eva_effect": 0
+    },
+    {
+      "consumable": false,
+      "animation1_id": 0,
+      "name": "喷雾剂",
+      "minus_state_set": [
+
+      ],
+      "common_event_id": 0,
+      "price": 1000,
+      "occasion": 0,
+      "plus_state_set": [
+
+      ],
+      "scope": 4,
+      "element_set": [
+
+      ],
+      "animation2_id": 0,
+      "id": 9,
+      "menu_message": [
+        "%s 使用了 喷雾剂，身上的酸被中和了！",
+        "u"
+      ],
+      "battle_message": [
+        "%s 使用了 喷雾剂！|酸 被中和了！",
+        "u"
+      ],
+      "type": 0,
+      "animation3_id": 0,
+      "hp_effect": 0,
+      "atk_effect": 0,
+      "eva_effect": 0
+    },
+    {
+      "consumable": true,
+      "animation1_id": 0,
+      "name": "兴奋剂",
+      "minus_state_set": [
+
+      ],
+      "common_event_id": 0,
+      "price": 300,
+      "occasion": 2,
+      "plus_state_set": [
+
+      ],
+      "scope": 4,
+      "element_set": [
+
+      ],
+      "animation2_id": 0,
+      "id": 10,
+      "menu_message": [
+        "",
+        ""
+      ],
+      "battle_message": [
+        "%s 喝了 兴奋剂！|%s的威力增加了！",
+        "uu"
+      ],
+      "type": 0,
+      "animation3_id": 0,
+      "hp_effect": 0,
+      "atk_effect": 0,
+      "eva_effect": 0
+    },
+    {
+      "consumable": true,
+      "animation1_id": 0,
+      "name": "烟雾",
+      "minus_state_set": [
+
+      ],
+      "common_event_id": 0,
+      "price": 50,
+      "occasion": 1,
+      "plus_state_set": [
+
+      ],
+      "scope": 8,
+      "element_set": [
+
+      ],
+      "animation2_id": 0,
+      "id": 11,
+      "menu_message": [
+        "",
+        ""
+      ],
+      "battle_message": [
+        "%s 使用了 烟雾！|%s化妆术！",
+        "uu"
+      ],
+      "type": 0,
+      "animation3_id": 0,
+      "hp_effect": 0,
+      "atk_effect": 0,
+      "eva_effect": 0
+    },
+    {
+      "consumable": true,
+      "animation1_id": 0,
+      "name": "花扳",
+      "minus_state_set": [
+
+      ],
+      "common_event_id": 0,
+      "price": 80,
+      "occasion": 2,
+      "plus_state_set": [
+
+      ],
+      "scope": 8,
+      "element_set": [
+
+      ],
+      "animation2_id": 0,
+      "id": 12,
+      "menu_message": [
+        "%s 使用了 花扳，当当当，损坏的地方修好了！",
+        "u"
+      ],
+      "battle_message": [
+        "",
+        "u"
+      ],
+      "type": 0,
+      "animation3_id": 0,
+      "hp_effect": 0,
+      "atk_effect": 0,
+      "eva_effect": 0
+    },
+    {
+      "consumable": false,
+      "animation1_id": 0,
+      "name": "修理箱",
+      "minus_state_set": [
+
+      ],
+      "common_event_id": 0,
+      "price": 2000,
+      "occasion": 2,
+      "plus_state_set": [
+
+      ],
+      "scope": 8,
+      "element_set": [
+
+      ],
+      "animation2_id": 0,
+      "id": 13,
+      "menu_message": [
+        "%s 使用了 修理箱，当当当，损坏的地方修好了！",
+        "u"
+      ],
+      "battle_message": [
+        "",
+        "u"
+      ],
+      "type": 0,
+      "animation3_id": 0,
+      "hp_effect": 0,
+      "atk_effect": 0,
+      "eva_effect": 0
+    },
+    {
+      "consumable": false,
+      "animation1_id": 0,
+      "name": "探雷器",
+      "minus_state_set": [
+
+      ],
+      "common_event_id": 0,
+      "price": 150,
+      "occasion": 2,
+      "plus_state_set": [
+
+      ],
+      "scope": 8,
+      "element_set": [
+
+      ],
+      "animation2_id": 0,
+      "id": 14,
+      "menu_message": [
+        "%s 使用了 探雷器！",
+        "u"
+      ],
+      "battle_message": [
+        "",
+        "u"
+      ],
+      "type": 0,
+      "animation3_id": 0,
+      "hp_effect": 0,
+      "atk_effect": 0,
+      "eva_effect": 0
+    },
+    {
+      "consumable": false,
+      "animation1_id": 0,
+      "name": "探测仪",
+      "minus_state_set": [
+
+      ],
+      "common_event_id": 0,
+      "price": 450,
+      "occasion": 2,
+      "plus_state_set": [
+
+      ],
+      "scope": 8,
+      "element_set": [
+
+      ],
+      "animation2_id": 0,
+      "id": 15,
+      "menu_message": [
+        "%s 使用了 探测仪！",
+        "u"
+      ],
+      "battle_message": [
+        "",
+        "u"
+      ],
+      "type": 0,
+      "animation3_id": 0,
+      "hp_effect": 0,
+      "atk_effect": 0,
+      "eva_effect": 0
+    },
+    {
+      "consumable": true,
+      "animation1_id": 0,
+      "name": "手雷",
+      "minus_state_set": [
+
+      ],
+      "common_event_id": 0,
+      "price": 5,
+      "occasion": 1,
+      "plus_state_set": [
+
+      ],
+      "scope": 1,
+      "element_set": [
+
+      ],
+      "animation2_id": 0,
+      "id": 16,
+      "menu_message": [
+        "",
+        ""
+      ],
+      "battle_message": [
+        "%s 扔了 手雷！|%s 损伤了 %s！",
+        "utn"
+      ],
+      "type": 0,
+      "animation3_id": 0,
+      "hp_effect": 0,
+      "atk_effect": 0,
+      "eva_effect": 0
+    },
+    {
+      "consumable": true,
+      "animation1_id": 0,
+      "name": "导弹",
+      "minus_state_set": [
+
+      ],
+      "common_event_id": 0,
+      "price": 20,
+      "occasion": 1,
+      "plus_state_set": [
+
+      ],
+      "scope": 1,
+      "element_set": [
+
+      ],
+      "animation2_id": 0,
+      "id": 17,
+      "menu_message": [
+        "",
+        ""
+      ],
+      "battle_message": [
+        "%s 扔了 导弹！|%s 损伤了 %s！",
+        "utn"
+      ],
+      "type": 0,
+      "animation3_id": 0,
+      "hp_effect": 0,
+      "atk_effect": 0,
+      "eva_effect": 0
+    },
+    {
+      "consumable": true,
+      "animation1_id": 0,
+      "name": "榴弹",
+      "minus_state_set": [
+
+      ],
+      "common_event_id": 0,
+      "price": 20,
+      "occasion": 1,
+      "plus_state_set": [
+
+      ],
+      "scope": 2,
+      "element_set": [
+
+      ],
+      "animation2_id": 0,
+      "id": 18,
+      "menu_message": [
+        "",
+        ""
+      ],
+      "battle_message": [
+        "%s 扔了 榴弹！|%s 损伤了 %s！",
+        "utn"
+      ],
+      "type": 0,
+      "animation3_id": 0,
+      "hp_effect": 0,
+      "atk_effect": 0,
+      "eva_effect": 0
+    },
+    {
+      "consumable": true,
+      "animation1_id": 0,
+      "name": "穿甲弹",
+      "minus_state_set": [
+
+      ],
+      "common_event_id": 0,
+      "price": 30,
+      "occasion": 1,
+      "plus_state_set": [
+
+      ],
+      "scope": 2,
+      "element_set": [
+
+      ],
+      "animation2_id": 0,
+      "id": 19,
+      "menu_message": [
+        "",
+        ""
+      ],
+      "battle_message": [
+        "%s 扔了 穿甲弹！|%s 损伤了 %s！",
+        "utn"
+      ],
+      "type": 0,
+      "animation3_id": 0,
+      "hp_effect": 0,
+      "atk_effect": 0,
+      "eva_effect": 0
+    },
+    {
+      "consumable": true,
+      "animation1_id": 0,
+      "name": "石子",
+      "minus_state_set": [
+
+      ],
+      "common_event_id": 0,
+      "price": 0,
+      "occasion": 1,
+      "plus_state_set": [
+
+      ],
+      "scope": 1,
+      "element_set": [
+
+      ],
+      "animation2_id": 0,
+      "id": 20,
+      "menu_message": [
+        "",
+        ""
+      ],
+      "battle_message": [
+        "扔了 石子！|%s 损伤了 %s！",
+        "tn"
+      ],
+      "type": 0,
+      "animation3_id": 0,
+      "hp_effect": 0,
+      "atk_effect": 0,
+      "eva_effect": 0
+    },
+    {
+      "consumable": true,
+      "animation1_id": 0,
+      "name": "钱包",
+      "minus_state_set": [
+
+      ],
+      "common_event_id": 0,
+      "price": 0,
+      "occasion": 0,
+      "plus_state_set": [
+
+      ],
+      "scope": 1,
+      "element_set": [
+
+      ],
+      "animation2_id": 0,
+      "id": 21,
+      "menu_message": [
+        "%s 把钱塞进了钱包里，钱包仍然那么瘪。",
+        "u",
+        "%s 把钱塞进钱包里，钱包装不下了。",
+        "u"
+      ],
+      "battle_message": [
+        "%s 使用了 钱包！|%s 损伤了 %s！",
+        "utn"
+      ],
+      "type": 0,
+      "animation3_id": 0,
+      "hp_effect": 0,
+      "atk_effect": 0,
+      "eva_effect": 0
+    },
+    {
+      "consumable": false,
+      "animation1_id": 0,
+      "name": "药液",
+      "minus_state_set": [
+
+      ],
+      "common_event_id": 0,
+      "price": 75,
+      "occasion": 0,
+      "plus_state_set": [
+
+      ],
+      "scope": 1,
+      "element_set": [
+
+      ],
+      "animation2_id": 0,
+      "id": 22,
+      "menu_message": [
+        "",
+        ""
+      ],
+      "battle_message": [
+        "%s 使用了 药液！|%s 损伤了 %s！",
+        "utn"
+      ],
+      "type": 0,
+      "animation3_id": 0,
+      "hp_effect": 0,
+      "atk_effect": 0,
+      "eva_effect": 0
+    },
+    {
+      "consumable": true,
+      "animation1_id": 0,
+      "name": "火瓶",
+      "minus_state_set": [
+
+      ],
+      "common_event_id": 0,
+      "price": 10,
+      "occasion": 0,
+      "plus_state_set": [
+
+      ],
+      "scope": 1,
+      "element_set": [
+
+      ],
+      "animation2_id": 0,
+      "id": 23,
+      "menu_message": [
+        "",
+        ""
+      ],
+      "battle_message": [
+        "%s 使用了 火瓶！|%s 损伤了 %s！",
+        "utn"
+      ],
+      "type": 0,
+      "animation3_id": 0,
+      "hp_effect": 0,
+      "atk_effect": 0,
+      "eva_effect": 0
+    },
+    {
+      "consumable": true,
+      "animation1_id": 0,
+      "name": "酸瓶",
+      "minus_state_set": [
+
+      ],
+      "common_event_id": 0,
+      "price": 60,
+      "occasion": 0,
+      "plus_state_set": [
+
+      ],
+      "scope": 1,
+      "element_set": [
+
+      ],
+      "animation2_id": 0,
+      "id": 24,
+      "menu_message": [
+        "",
+        ""
+      ],
+      "battle_message": [
+        "%s 使用了 酸瓶！|%s 损伤了 %s！",
+        "utn"
+      ],
+      "type": 0,
+      "animation3_id": 0,
+      "hp_effect": 0,
+      "atk_effect": 0,
+      "eva_effect": 0
+    },
+    {
+      "consumable": false,
+      "animation1_id": 0,
+      "name": "口罩",
+      "minus_state_set": [
+
+      ],
+      "common_event_id": 0,
+      "price": 110,
+      "occasion": 2,
+      "plus_state_set": [
+
+      ],
+      "scope": 4,
+      "element_set": [
+
+      ],
+      "animation2_id": 0,
+      "id": 25,
+      "menu_message": [
+        "",
+        ""
+      ],
+      "battle_message": [
+        "%s 使用了 口罩！",
+        "u"
+      ],
+      "type": 0,
+      "animation3_id": 0,
+      "hp_effect": 0,
+      "atk_effect": 0,
+      "eva_effect": 0
+    },
+    {
+      "consumable": false,
+      "animation1_id": 0,
+      "name": "游戏机",
+      "minus_state_set": [
+
+      ],
+      "common_event_id": 0,
+      "price": 49800,
+      "occasion": 2,
+      "plus_state_set": [
+
+      ],
+      "scope": 4,
+      "element_set": [
+
+      ],
+      "animation2_id": 0,
+      "id": 26,
+      "menu_message": [
+        "%s 使用了 游戏机！",
+        "u"
+      ],
+      "battle_message": [
+        "",
+        ""
+      ],
+      "type": 0,
+      "animation3_id": 0,
+      "hp_effect": 0,
+      "atk_effect": 0,
+      "eva_effect": 0
+    },
+    {
+      "consumable": false,
+      "animation1_id": 0,
+      "name": "军号",
+      "minus_state_set": [
+
+      ],
+      "common_event_id": 0,
+      "price": 0,
+      "occasion": 1,
+      "plus_state_set": [
+
+      ],
+      "scope": 5,
+      "element_set": [
+
+      ],
+      "animation2_id": 0,
+      "id": 27,
+      "menu_message": [
+        "%s 用军号 占卜！",
+        "u"
+      ],
+      "battle_message": [
+        "%s 使用了 军号！|士气提高了！",
+        "u"
+      ],
+      "type": 0,
+      "animation3_id": 0,
+      "hp_effect": 0,
+      "atk_effect": 0,
+      "eva_effect": 0
+    },
+    {
+      "consumable": false,
+      "animation1_id": 0,
+      "name": "铜棒",
+      "minus_state_set": [
+
+      ],
+      "common_event_id": 0,
+      "price": 250,
+      "occasion": 3,
+      "plus_state_set": [
+
+      ],
+      "scope": 8,
+      "element_set": [
+
+      ],
+      "animation2_id": 0,
+      "id": 28,
+      "menu_message": [
+        "",
+        "u"
+      ],
+      "battle_message": [
+        "",
+        ""
+      ],
+      "type": 0,
+      "animation3_id": 0,
+      "hp_effect": 0,
+      "atk_effect": 0,
+      "eva_effect": 0
+    },
+    {
+      "consumable": false,
+      "animation1_id": 0,
+      "name": "银棒",
+      "minus_state_set": [
+
+      ],
+      "common_event_id": 0,
+      "price": 500,
+      "occasion": 3,
+      "plus_state_set": [
+
+      ],
+      "scope": 8,
+      "element_set": [
+
+      ],
+      "animation2_id": 0,
+      "id": 29,
+      "menu_message": [
+        "",
+        "u"
+      ],
+      "battle_message": [
+        "",
+        ""
+      ],
+      "type": 0,
+      "animation3_id": 0,
+      "hp_effect": 0,
+      "atk_effect": 0,
+      "eva_effect": 0
+    },
+    {
+      "consumable": false,
+      "animation1_id": 0,
+      "name": "金棒",
+      "minus_state_set": [
+
+      ],
+      "common_event_id": 0,
+      "price": 1000,
+      "occasion": 3,
+      "plus_state_set": [
+
+      ],
+      "scope": 8,
+      "element_set": [
+
+      ],
+      "animation2_id": 0,
+      "id": 30,
+      "menu_message": [
+        "",
+        "u"
+      ],
+      "battle_message": [
+        "",
+        ""
+      ],
+      "type": 0,
+      "animation3_id": 0,
+      "hp_effect": 0,
+      "atk_effect": 0,
+      "eva_effect": 0
+    },
+    {
+      "consumable": false,
+      "animation1_id": 0,
+      "name": "象牙",
+      "minus_state_set": [
+
+      ],
+      "common_event_id": 0,
+      "price": 1150,
+      "occasion": 3,
+      "plus_state_set": [
+
+      ],
+      "scope": 8,
+      "element_set": [
+
+      ],
+      "animation2_id": 0,
+      "id": 31,
+      "menu_message": [
+        "%s 敲着 象牙！激烈的战斗场面展现在眼前！。",
+        "u"
+      ],
+      "battle_message": [
+        "",
+        ""
+      ],
+      "type": 0,
+      "animation3_id": 0,
+      "hp_effect": 0,
+      "atk_effect": 0,
+      "eva_effect": 0
+    },
+    {
+      "consumable": false,
+      "animation1_id": 0,
+      "name": "面具",
+      "minus_state_set": [
+
+      ],
+      "common_event_id": 0,
+      "price": 20,
+      "occasion": 1,
+      "plus_state_set": [
+
+      ],
+      "scope": 8,
+      "element_set": [
+
+      ],
+      "animation2_id": 0,
+      "id": 32,
+      "menu_message": [
+        "",
+        "u"
+      ],
+      "battle_message": [
+        "",
+        ""
+      ],
+      "type": 0,
+      "animation3_id": 0,
+      "hp_effect": 0,
+      "atk_effect": 0,
+      "eva_effect": 0
+    },
+    {
+      "consumable": false,
+      "animation1_id": 0,
+      "name": "毛巾",
+      "minus_state_set": [
+
+      ],
+      "common_event_id": 0,
+      "price": 0,
+      "occasion": 1,
+      "plus_state_set": [
+
+      ],
+      "scope": 8,
+      "element_set": [
+
+      ],
+      "animation2_id": 0,
+      "id": 33,
+      "menu_message": [
+        "%s 用 毛巾 擦汗 散发出气味",
+        "u"
+      ],
+      "battle_message": [
+        "%s 用毛巾 捂住了嘴和鼻子！",
+        "u"
+      ],
+      "type": 0,
+      "animation3_id": 0,
+      "hp_effect": 0,
+      "atk_effect": 0,
+      "eva_effect": 0
+    },
+    {
+      "consumable": false,
+      "animation1_id": 0,
+      "name": "女内衣",
+      "minus_state_set": [
+
+      ],
+      "common_event_id": 0,
+      "price": 0,
+      "occasion": 2,
+      "plus_state_set": [
+
+      ],
+      "scope": 8,
+      "element_set": [
+
+      ],
+      "animation2_id": 0,
+      "id": 34,
+      "menu_message": [
+        "%s 用女内衣捂住鼻子和嘴，姐姐有什么味儿。",
+        "u"
+      ],
+      "battle_message": [
+        "",
+        ""
+      ],
+      "type": 0,
+      "animation3_id": 0,
+      "hp_effect": 0,
+      "atk_effect": 0,
+      "eva_effect": 0
+    },
+    {
+      "consumable": false,
+      "animation1_id": 0,
+      "name": "男内衣",
+      "minus_state_set": [
+
+      ],
+      "common_event_id": 0,
+      "price": 0,
+      "occasion": 2,
+      "plus_state_set": [
+
+      ],
+      "scope": 8,
+      "element_set": [
+
+      ],
+      "animation2_id": 0,
+      "id": 35,
+      "menu_message": [
+        "%s 用男内衣捂住鼻子和嘴，父母有什么味儿。",
+        "u"
+      ],
+      "battle_message": [
+        "",
+        ""
+      ],
+      "type": 0,
+      "animation3_id": 0,
+      "hp_effect": 0,
+      "atk_effect": 0,
+      "eva_effect": 0
+    },
+    {
+      "consumable": false,
+      "animation1_id": 0,
+      "name": "纹身",
+      "minus_state_set": [
+
+      ],
+      "common_event_id": 0,
+      "price": 0,
+      "occasion": 2,
+      "plus_state_set": [
+
+      ],
+      "scope": 8,
+      "element_set": [
+
+      ],
+      "animation2_id": 0,
+      "id": 36,
+      "menu_message": [
+        "%s 使用了 纹身！自己腕上用纹身 刺了个牡丹花！",
+        "u"
+      ],
+      "battle_message": [
+        "",
+        ""
+      ],
+      "type": 0,
+      "animation3_id": 0,
+      "hp_effect": 0,
+      "atk_effect": 0,
+      "eva_effect": 0
+    },
+    {
+      "consumable": false,
+      "animation1_id": 0,
+      "name": "古币",
+      "minus_state_set": [
+
+      ],
+      "common_event_id": 0,
+      "price": 0,
+      "occasion": 0,
+      "plus_state_set": [
+
+      ],
+      "scope": 8,
+      "element_set": [
+
+      ],
+      "animation2_id": 0,
+      "id": 37,
+      "menu_message": [
+        "%s 把古币 弹出去… 是正面！",
+        "u",
+        "%s 把古币 弹出去… 是反面！",
+        "u"
+      ],
+      "battle_message": [
+        "%s 用古币 占卜运气！|%s可能会打胜！",
+        "u",
+        "%s 用古币 占卜运气！|%s可能要吃败仗！",
+        "u"
+      ],
+      "type": 0,
+      "animation3_id": 0,
+      "hp_effect": 0,
+      "atk_effect": 0,
+      "eva_effect": 0
+    },
+    {
+      "consumable": false,
+      "animation1_id": 0,
+      "name": "密码本",
+      "minus_state_set": [
+
+      ],
+      "common_event_id": 0,
+      "price": 0,
+      "occasion": 2,
+      "plus_state_set": [
+
+      ],
+      "scope": 8,
+      "element_set": [
+
+      ],
+      "animation2_id": 0,
+      "id": 38,
+      "menu_message": [
+        "%s 打开 密码本。",
+        "u"
+      ],
+      "battle_message": [
+        "",
+        ""
+      ],
+      "type": 0,
+      "animation3_id": 0,
+      "hp_effect": 0,
+      "atk_effect": 0,
+      "eva_effect": 0
+    },
+    {
+      "consumable": false,
+      "animation1_id": 0,
+      "name": "日记",
+      "minus_state_set": [
+
+      ],
+      "common_event_id": 0,
+      "price": 0,
+      "occasion": 2,
+      "plus_state_set": [
+
+      ],
+      "scope": 8,
+      "element_set": [
+
+      ],
+      "animation2_id": 0,
+      "id": 39,
+      "menu_message": [
+        "%s 打开 日记。",
+        "u"
+      ],
+      "battle_message": [
+        "",
+        ""
+      ],
+      "type": 0,
+      "animation3_id": 0,
+      "hp_effect": 0,
+      "atk_effect": 0,
+      "eva_effect": 0
+    },
+    {
+      "consumable": false,
+      "animation1_id": 0,
+      "name": "笔记",
+      "minus_state_set": [
+
+      ],
+      "common_event_id": 0,
+      "price": 0,
+      "occasion": 2,
+      "plus_state_set": [
+
+      ],
+      "scope": 8,
+      "element_set": [
+
+      ],
+      "animation2_id": 0,
+      "id": 40,
+      "menu_message": [
+        "%s 打开 笔记。",
+        "u"
+      ],
+      "battle_message": [
+        "",
+        ""
+      ],
+      "type": 0,
+      "animation3_id": 0,
+      "hp_effect": 0,
+      "atk_effect": 0,
+      "eva_effect": 0
+    },
+    {
+      "consumable": false,
+      "animation1_id": 0,
+      "name": "钥匙",
+      "minus_state_set": [
+
+      ],
+      "common_event_id": 0,
+      "price": 0,
+      "occasion": 2,
+      "plus_state_set": [
+
+      ],
+      "scope": 8,
+      "element_set": [
+
+      ],
+      "animation2_id": 0,
+      "id": 41,
+      "menu_message": [
+        "%s 使用了 钥匙。！",
+        "u"
+      ],
+      "battle_message": [
+        "",
+        ""
+      ],
+      "type": 0,
+      "animation3_id": 0,
+      "hp_effect": 0,
+      "atk_effect": 0,
+      "eva_effect": 0
+    },
+    {
+      "consumable": false,
+      "animation1_id": 0,
+      "name": "扳手",
+      "minus_state_set": [
+
+      ],
+      "common_event_id": 0,
+      "price": 0,
+      "occasion": 2,
+      "plus_state_set": [
+
+      ],
+      "scope": 8,
+      "element_set": [
+
+      ],
+      "animation2_id": 0,
+      "id": 42,
+      "menu_message": [
+        "%s 使用了 扳手！ ",
+        "u"
+      ],
+      "battle_message": [
+        "",
+        ""
+      ],
+      "type": 0,
+      "animation3_id": 0,
+      "hp_effect": 0,
+      "atk_effect": 0,
+      "eva_effect": 0
+    },
+    {
+      "consumable": false,
+      "animation1_id": 0,
+      "name": "地图",
+      "minus_state_set": [
+
+      ],
+      "common_event_id": 0,
+      "price": 0,
+      "occasion": 2,
+      "plus_state_set": [
+
+      ],
+      "scope": 8,
+      "element_set": [
+
+      ],
+      "animation2_id": 0,
+      "id": 43,
+      "menu_message": [
+        "使用了 地图！",
+        "u"
+      ],
+      "battle_message": [
+        "%s 使用了 地图！|给人造卫星发射信号！",
+        "u"
+      ],
+      "type": 0,
+      "animation3_id": 0,
+      "hp_effect": 0,
+      "atk_effect": 0,
+      "eva_effect": 0
+    },
+    {
+      "consumable": false,
+      "animation1_id": 0,
+      "name": "戒指",
+      "minus_state_set": [
+
+      ],
+      "common_event_id": 0,
+      "price": 0,
+      "occasion": 3,
+      "plus_state_set": [
+
+      ],
+      "scope": 8,
+      "element_set": [
+
+      ],
+      "animation2_id": 0,
+      "id": 44,
+      "menu_message": [
+        "",
+        ""
+      ],
+      "battle_message": [
+        "",
+        ""
+      ],
+      "type": 0,
+      "animation3_id": 0,
+      "hp_effect": 0,
+      "atk_effect": 0,
+      "eva_effect": 0
+    },
+    {
+      "consumable": false,
+      "animation1_id": 0,
+      "name": "宝石镜",
+      "minus_state_set": [
+
+      ],
+      "common_event_id": 0,
+      "price": 0,
+      "occasion": 3,
+      "plus_state_set": [
+
+      ],
+      "scope": 8,
+      "element_set": [
+
+      ],
+      "animation2_id": 0,
+      "id": 45,
+      "menu_message": [
+        "",
+        ""
+      ],
+      "battle_message": [
+        "",
+        ""
+      ],
+      "type": 0,
+      "animation3_id": 0,
+      "hp_effect": 0,
+      "atk_effect": 0,
+      "eva_effect": 0
+    },
+    {
+      "consumable": false,
+      "animation1_id": 0,
+      "name": "眼镜",
+      "minus_state_set": [
+
+      ],
+      "common_event_id": 0,
+      "price": 0,
+      "occasion": 3,
+      "plus_state_set": [
+
+      ],
+      "scope": 8,
+      "element_set": [
+
+      ],
+      "animation2_id": 0,
+      "id": 46,
+      "menu_message": [
+        "",
+        ""
+      ],
+      "battle_message": [
+        "",
+        ""
+      ],
+      "type": 0,
+      "animation3_id": 0,
+      "hp_effect": 0,
+      "atk_effect": 0,
+      "eva_effect": 0
+    },
+    {
+      "consumable": false,
+      "animation1_id": 0,
+      "name": "光镜",
+      "minus_state_set": [
+
+      ],
+      "common_event_id": 0,
+      "price": 0,
+      "occasion": 3,
+      "plus_state_set": [
+
+      ],
+      "scope": 8,
+      "element_set": [
+
+      ],
+      "animation2_id": 0,
+      "id": 47,
+      "menu_message": [
+        "",
+        ""
+      ],
+      "battle_message": [
+        "",
+        ""
+      ],
+      "type": 0,
+      "animation3_id": 0,
+      "hp_effect": 0,
+      "atk_effect": 0,
+      "eva_effect": 0
+    },
+    {
+      "consumable": false,
+      "animation1_id": 0,
+      "name": "太阳镜",
+      "minus_state_set": [
+
+      ],
+      "common_event_id": 0,
+      "price": 0,
+      "occasion": 3,
+      "plus_state_set": [
+
+      ],
+      "scope": 8,
+      "element_set": [
+
+      ],
+      "animation2_id": 0,
+      "id": 48,
+      "menu_message": [
+        "",
+        ""
+      ],
+      "battle_message": [
+        "",
+        ""
+      ],
+      "type": 0,
+      "animation3_id": 0,
+      "hp_effect": 0,
+      "atk_effect": 0,
+      "eva_effect": 0
+    },
+    {
+      "consumable": false,
+      "animation1_id": 0,
+      "name": "再生丸",
+      "minus_state_set": [
+
+      ],
+      "common_event_id": 0,
+      "price": 0,
+      "occasion": 0,
+      "plus_state_set": [
+
+      ],
+      "scope": 4,
+      "element_set": [
+
+      ],
+      "animation2_id": 0,
+      "id": 49,
+      "menu_message": [
+        "%s 使用了 再生丸！",
+        "u"
+      ],
+      "battle_message": [
+        "%s 使用了 再生丸！|%s 贴了装甲片",
+        "uu"
+      ],
+      "type": 0,
+      "animation3_id": 0,
+      "hp_effect": 0,
+      "atk_effect": 0,
+      "eva_effect": 0
+    }
+  ],
+  "tank_items": [
+    null,
+    {
+      "consumable": false,
+      "name": "传真",
+      "minus_state_set": [
+
+      ],
+      "common_event_id": 0,
+      "price": 350,
+      "occasion": 2,
+      "plus_state_set": [
+
+      ],
+      "scope": 4,
+      "element_set": [
+
+      ],
+      "id": 1,
+      "menu_message": [
+        "传真ON！请选择传送基地！",
+        "",
+        "传真ON！要返回地面吗？",
+        ""
+      ],
+      "battle_message": [
+        "",
+        ""
+      ],
+      "type": 1,
+      "hp_effect": 0,
+      "hit_effect": 0
+    },
+    {
+      "consumable": false,
+      "name": "迷彩条",
+      "minus_state_set": [
+
+      ],
+      "common_event_id": 0,
+      "price": 4600,
+      "occasion": 2,
+      "plus_state_set": [
+
+      ],
+      "scope": 4,
+      "element_set": [
+
+      ],
+      "id": 2,
+      "menu_message": [
+        "让迷彩条动作。",
+        ""
+      ],
+      "battle_message": [
+        "",
+        ""
+      ],
+      "type": 1,
+      "hp_effect": 0,
+      "hit_effect": 0
+    },
+    {
+      "consumable": true,
+      "name": "PAG40",
+      "minus_state_set": [
+
+      ],
+      "common_event_id": 0,
+      "price": 60,
+      "occasion": 2,
+      "plus_state_set": [
+
+      ],
+      "scope": 4,
+      "element_set": [
+
+      ],
+      "id": 3,
+      "menu_message": [
+        "%s 贴了 装甲片！",
+        "u"
+      ],
+      "battle_message": [
+        "",
+        ""
+      ],
+      "type": 1,
+      "hp_effect": 0,
+      "hit_effect": 40
+    },
+    {
+      "consumable": true,
+      "name": "PAG80",
+      "minus_state_set": [
+
+      ],
+      "common_event_id": 0,
+      "price": 120,
+      "occasion": 2,
+      "plus_state_set": [
+
+      ],
+      "scope": 4,
+      "element_set": [
+
+      ],
+      "id": 4,
+      "menu_message": [
+        "%s 贴了 装甲片！",
+        "u"
+      ],
+      "battle_message": [
+        "",
+        ""
+      ],
+      "type": 1,
+      "hp_effect": 0,
+      "hit_effect": 80
+    },
+    {
+      "consumable": true,
+      "name": "PAGL",
+      "minus_state_set": [
+
+      ],
+      "common_event_id": 0,
+      "price": 200,
+      "occasion": 2,
+      "plus_state_set": [
+
+      ],
+      "scope": 4,
+      "element_set": [
+
+      ],
+      "id": 5,
+      "menu_message": [
+        "%s 贴了 装甲片！。",
+        "u"
+      ],
+      "battle_message": [
+        "",
+        ""
+      ],
+      "type": 1,
+      "hp_effect": 0,
+      "hit_effect": 200
+    },
+    {
+      "consumable": true,
+      "name": "PAGLL",
+      "minus_state_set": [
+
+      ],
+      "common_event_id": 0,
+      "price": 300,
+      "occasion": 2,
+      "plus_state_set": [
+
+      ],
+      "scope": 4,
+      "element_set": [
+
+      ],
+      "id": 6,
+      "menu_message": [
+        "%s 贴了 装甲片！",
+        "u"
+      ],
+      "battle_message": [
+        "",
+        ""
+      ],
+      "type": 1,
+      "hp_effect": 0,
+      "hit_effect": 400
+    },
+    {
+      "consumable": false,
+      "name": "药箱",
+      "minus_state_set": [
+
+      ],
+      "common_event_id": 0,
+      "price": 200,
+      "occasion": 2,
+      "plus_state_set": [
+
+      ],
+      "scope": 4,
+      "element_set": [
+
+      ],
+      "id": 7,
+      "menu_message": [
+        "%s 使用了 药箱！HP恢复了！",
+        "u",
+        "%s 使用了 药箱！HP全满了！",
+        "u"
+      ],
+      "battle_message": [
+        "%s 使用了 药箱！|HP恢复了！",
+        "u",
+        "%s 使用了 药箱！|HP全满了！",
+        "u"
+      ],
+      "type": 1,
+      "hp_effect": 0,
+      "hit_effect": 200
+    },
+    {
+      "consumable": false,
+      "name": "石蜡",
+      "minus_state_set": [
+
+      ],
+      "common_event_id": 0,
+      "price": 60,
+      "occasion": 2,
+      "plus_state_set": [
+
+      ],
+      "scope": 4,
+      "element_set": [
+
+      ],
+      "id": 8,
+      "menu_message": [
+        "%s 获 石蜡！",
+        "u"
+      ],
+      "battle_message": [
+        "",
+        ""
+      ],
+      "type": 1,
+      "hp_effect": 0,
+      "hit_effect": 60
+    },
+    {
+      "consumable": false,
+      "name": "空调",
+      "minus_state_set": [
+
+      ],
+      "common_event_id": 0,
+      "price": 2400,
+      "occasion": 1,
+      "plus_state_set": [
+
+      ],
+      "scope": 4,
+      "element_set": [
+
+      ],
+      "id": 9,
+      "menu_message": [
+        "",
+        ""
+      ],
+      "battle_message": [
+        "%s 打开了 空调 的开关！",
+        "u"
+      ],
+      "type": 1,
+      "hp_effect": 0,
+      "hit_effect": 2400
+    },
+    {
+      "consumable": false,
+      "name": "暖风机",
+      "minus_state_set": [
+
+      ],
+      "common_event_id": 0,
+      "price": 500,
+      "occasion": 1,
+      "plus_state_set": [
+
+      ],
+      "scope": 4,
+      "element_set": [
+
+      ],
+      "id": 10,
+      "menu_message": [
+        "",
+        ""
+      ],
+      "battle_message": [
+        "%s 打开了 暖风机 的开关！",
+        "u"
+      ],
+      "type": 1,
+      "hp_effect": 0,
+      "hit_effect": 550
+    },
+    {
+      "consumable": false,
+      "name": "冷风机",
+      "minus_state_set": [
+
+      ],
+      "common_event_id": 0,
+      "price": 700,
+      "occasion": 1,
+      "plus_state_set": [
+
+      ],
+      "scope": 4,
+      "element_set": [
+
+      ],
+      "id": 12,
+      "menu_message": [
+        "",
+        ""
+      ],
+      "battle_message": [
+        "%s 打开了 冷风机 的开关！",
+        "u"
+      ],
+      "type": 1,
+      "hp_effect": 0,
+      "hit_effect": 700
+    },
+    {
+      "consumable": false,
+      "name": "气扇",
+      "minus_state_set": [
+
+      ],
+      "common_event_id": 0,
+      "price": 1075,
+      "occasion": 1,
+      "plus_state_set": [
+
+      ],
+      "scope": 4,
+      "element_set": [
+
+      ],
+      "id": 13,
+      "menu_message": [
+        "",
+        ""
+      ],
+      "battle_message": [
+        "%s 打开了 气扇 的开关！",
+        "u"
+      ],
+      "type": 1,
+      "hp_effect": 0,
+      "hit_effect": 1075
+    },
+    {
+      "consumable": false,
+      "name": "雷达",
+      "minus_state_set": [
+
+      ],
+      "common_event_id": 0,
+      "price": 7750,
+      "occasion": 1,
+      "plus_state_set": [
+
+      ],
+      "scope": 4,
+      "element_set": [
+
+      ],
+      "id": 14,
+      "menu_message": [
+        "",
+        ""
+      ],
+      "battle_message": [
+        "%s 打开了 雷达 的开关！|%s的命中率提高了！",
+        "uu"
+      ],
+      "type": 1,
+      "hp_effect": 0,
+      "hit_effect": 7750
+    },
+    {
+      "consumable": false,
+      "name": "护屏",
+      "minus_state_set": [
+
+      ],
+      "common_event_id": 0,
+      "price": 4000,
+      "occasion": 1,
+      "plus_state_set": [
+
+      ],
+      "scope": 4,
+      "element_set": [
+
+      ],
+      "id": 15,
+      "menu_message": null,
+      "battle_message": null,
+      "type": 1,
+      "hp_effect": 0,
+      "hit_effect": 4000
+    },
+    {
+      "consumable": false,
+      "name": "卡通兔",
+      "minus_state_set": [
+
+      ],
+      "common_event_id": 0,
+      "price": 100,
+      "occasion": 2,
+      "plus_state_set": [
+
+      ],
+      "scope": 4,
+      "element_set": [
+
+      ],
+      "id": 16,
+      "menu_message": [
+        "",
+        ""
+      ],
+      "battle_message": [
+        "%s 打开了 护屏 的开关！",
+        "u"
+      ],
+      "type": 1,
+      "hp_effect": 0,
+      "hit_effect": 100
+    },
+    {
+      "consumable": false,
+      "name": "撞击板",
+      "minus_state_set": [
+
+      ],
+      "common_event_id": 0,
+      "price": 7000,
+      "occasion": 1,
+      "plus_state_set": [
+
+      ],
+      "scope": 4,
+      "element_set": [
+
+      ],
+      "id": 17,
+      "menu_message": [
+        "%s 把 卡通兔 挂在车里！",
+        "u"
+      ],
+      "battle_message": [
+        "",
+        ""
+      ],
+      "type": 1,
+      "hp_effect": 0,
+      "hit_effect": 7000
+    },
+    {
+      "consumable": false,
+      "name": "鸟粪",
+      "minus_state_set": [
+
+      ],
+      "common_event_id": 0,
+      "price": 0,
+      "occasion": 3,
+      "plus_state_set": [
+
+      ],
+      "scope": 4,
+      "element_set": [
+
+      ],
+      "id": 18,
+      "menu_message": [
+        "",
+        ""
+      ],
+      "battle_message": [
+        "%s 的冲撞攻击！|%s损伤了%s！",
+        "utn"
+      ],
+      "type": 1,
+      "hp_effect": 0,
+      "hit_effect": 0
+    },
+    {
+      "consumable": false,
+      "name": "铅竹",
+      "minus_state_set": [
+
+      ],
+      "common_event_id": 0,
+      "price": 0,
+      "occasion": 3,
+      "plus_state_set": [
+
+      ],
+      "scope": 4,
+      "element_set": [
+
+      ],
+      "id": 19,
+      "menu_message": [
+        "",
+        ""
+      ],
+      "battle_message": [
+        "",
+        ""
+      ],
+      "type": 1,
+      "hp_effect": 0,
+      "hit_effect": 0
+    }
+  ],
+  "data_actor_item": [
+    null,
+    [
+      1,
+      "参丸",
+      4,
+      0,
+      0,
+      0,
+      0,
+      0,
+      10,
+      true,
+      100,
+      0,
+      0,
+      [
+
+      ],
+      [
+
+      ],
+      [
+
+      ]
+    ],
+    [
+      2,
+      "党参",
+      4,
+      0,
+      0,
+      0,
+      0,
+      0,
+      20,
+      true,
+      300,
+      0,
+      0,
+      [
+
+      ],
+      [
+
+      ],
+      [
+
+      ]
+    ],
+    [
+      3,
+      "人参",
+      4,
+      0,
+      0,
+      0,
+      0,
+      0,
+      50,
+      true,
+      1000,
+      0,
+      0,
+      [
+
+      ],
+      [
+
+      ],
+      [
+
+      ]
+    ],
+    [
+      4,
+      "灵丹",
+      4,
+      0,
+      0,
+      0,
+      0,
+      0,
+      100,
+      true,
+      4000,
+      0,
+      0,
+      [
+
+      ],
+      [
+
+      ],
+      [
+
+      ]
+    ],
+    [
+      5,
+      "解药",
+      4,
+      0,
+      0,
+      0,
+      0,
+      0,
+      20,
+      true,
+      0,
+      0,
+      0,
+      [
+
+      ],
+      [
+
+      ],
+      [
+
+      ]
+    ],
+    [
+      6,
+      "灭火器",
+      8,
+      0,
+      0,
+      0,
+      0,
+      0,
+      20,
+      true,
+      0,
+      0,
+      0,
+      [
+
+      ],
+      [
+
+      ],
+      [
+
+      ]
+    ],
+    [
+      7,
+      "消火栓",
+      8,
+      2,
+      0,
+      0,
+      0,
+      0,
+      150,
+      false,
+      0,
+      0,
+      0,
+      [
+
+      ],
+      [
+
+      ],
+      [
+
+      ]
+    ],
+    [
+      8,
+      "醉药",
+      4,
+      2,
+      2,
+      0,
+      0,
+      0,
+      30,
+      true,
+      0,
+      0,
+      0,
+      [
+
+      ],
+      [
+
+      ],
+      [
+
+      ]
+    ],
+    [
+      9,
+      "喷雾剂",
+      4,
+      0,
+      0,
+      0,
+      0,
+      0,
+      1000,
+      false,
+      0,
+      0,
+      0,
+      [
+
+      ],
+      [
+
+      ],
+      [
+
+      ]
+    ],
+    [
+      10,
+      "兴奋剂",
+      4,
+      2,
+      0,
+      0,
+      0,
+      0,
+      300,
+      true,
+      0,
+      0,
+      0,
+      [
+
+      ],
+      [
+
+      ],
+      [
+
+      ]
+    ],
+    [
+      11,
+      "烟雾",
+      8,
+      1,
+      0,
+      0,
+      0,
+      0,
+      50,
+      true,
+      0,
+      0,
+      0,
+      [
+
+      ],
+      [
+
+      ],
+      [
+
+      ]
+    ],
+    [
+      12,
+      "花扳",
+      8,
+      2,
+      0,
+      0,
+      0,
+      0,
+      80,
+      true,
+      0,
+      0,
+      0,
+      [
+
+      ],
+      [
+
+      ],
+      [
+
+      ]
+    ],
+    [
+      13,
+      "修理箱",
+      8,
+      2,
+      0,
+      0,
+      0,
+      0,
+      2000,
+      false,
+      0,
+      0,
+      0,
+      [
+
+      ],
+      [
+
+      ],
+      [
+
+      ]
+    ],
+    [
+      14,
+      "探雷器",
+      8,
+      2,
+      0,
+      0,
+      0,
+      0,
+      150,
+      false,
+      0,
+      0,
+      0,
+      [
+
+      ],
+      [
+
+      ],
+      [
+
+      ]
+    ],
+    [
+      15,
+      "探测仪",
+      8,
+      2,
+      0,
+      0,
+      0,
+      0,
+      450,
+      false,
+      0,
+      0,
+      0,
+      [
+
+      ],
+      [
+
+      ],
+      [
+
+      ]
+    ],
+    [
+      16,
+      "手雷",
+      1,
+      1,
+      0,
+      0,
+      0,
+      0,
+      5,
+      true,
+      0,
+      0,
+      0,
+      [
+
+      ],
+      [
+
+      ],
+      [
+
+      ]
+    ],
+    [
+      17,
+      "导弹",
+      1,
+      1,
+      0,
+      0,
+      0,
+      0,
+      20,
+      true,
+      0,
+      0,
+      0,
+      [
+
+      ],
+      [
+
+      ],
+      [
+
+      ]
+    ],
+    [
+      18,
+      "榴弹",
+      2,
+      1,
+      0,
+      0,
+      0,
+      0,
+      20,
+      true,
+      0,
+      0,
+      0,
+      [
+
+      ],
+      [
+
+      ],
+      [
+
+      ]
+    ],
+    [
+      19,
+      "穿甲弹",
+      2,
+      1,
+      0,
+      0,
+      0,
+      0,
+      30,
+      true,
+      0,
+      0,
+      0,
+      [
+
+      ],
+      [
+
+      ],
+      [
+
+      ]
+    ],
+    [
+      20,
+      "石子",
+      1,
+      1,
+      0,
+      0,
+      0,
+      0,
+      0,
+      true,
+      0,
+      0,
+      0,
+      [
+
+      ],
+      [
+
+      ],
+      [
+
+      ]
+    ],
+    [
+      21,
+      "钱包",
+      1,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      true,
+      0,
+      0,
+      0,
+      [
+
+      ],
+      [
+
+      ],
+      [
+
+      ]
+    ],
+    [
+      22,
+      "药液",
+      1,
+      0,
+      0,
+      0,
+      0,
+      0,
+      75,
+      false,
+      0,
+      0,
+      0,
+      [
+
+      ],
+      [
+
+      ],
+      [
+
+      ]
+    ],
+    [
+      23,
+      "火瓶",
+      1,
+      0,
+      0,
+      0,
+      0,
+      0,
+      10,
+      true,
+      0,
+      0,
+      0,
+      [
+
+      ],
+      [
+
+      ],
+      [
+
+      ]
+    ],
+    [
+      24,
+      "酸瓶",
+      1,
+      0,
+      0,
+      0,
+      0,
+      0,
+      60,
+      true,
+      0,
+      0,
+      0,
+      [
+
+      ],
+      [
+
+      ],
+      [
+
+      ]
+    ],
+    [
+      25,
+      "口罩",
+      4,
+      2,
+      0,
+      0,
+      0,
+      0,
+      110,
+      false,
+      0,
+      0,
+      0,
+      [
+
+      ],
+      [
+
+      ],
+      [
+
+      ]
+    ],
+    [
+      26,
+      "游戏机",
+      4,
+      2,
+      0,
+      0,
+      0,
+      0,
+      49800,
+      false,
+      0,
+      0,
+      0,
+      [
+
+      ],
+      [
+
+      ],
+      [
+
+      ]
+    ],
+    [
+      27,
+      "军号",
+      5,
+      1,
+      0,
+      0,
+      0,
+      0,
+      0,
+      false,
+      0,
+      0,
+      0,
+      [
+
+      ],
+      [
+
+      ],
+      [
+
+      ]
+    ],
+    [
+      28,
+      "铜棒",
+      8,
+      3,
+      0,
+      0,
+      0,
+      0,
+      250,
+      false,
+      0,
+      0,
+      0,
+      [
+
+      ],
+      [
+
+      ],
+      [
+
+      ]
+    ],
+    [
+      29,
+      "银棒",
+      8,
+      3,
+      0,
+      0,
+      0,
+      0,
+      500,
+      false,
+      0,
+      0,
+      0,
+      [
+
+      ],
+      [
+
+      ],
+      [
+
+      ]
+    ],
+    [
+      30,
+      "金棒",
+      8,
+      3,
+      0,
+      0,
+      0,
+      0,
+      1000,
+      false,
+      0,
+      0,
+      0,
+      [
+
+      ],
+      [
+
+      ],
+      [
+
+      ]
+    ],
+    [
+      31,
+      "象牙",
+      8,
+      3,
+      0,
+      0,
+      0,
+      0,
+      1150,
+      false,
+      0,
+      0,
+      0,
+      [
+
+      ],
+      [
+
+      ],
+      [
+
+      ]
+    ],
+    [
+      32,
+      "面具",
+      8,
+      1,
+      0,
+      0,
+      0,
+      0,
+      20,
+      false,
+      0,
+      0,
+      0,
+      [
+
+      ],
+      [
+
+      ],
+      [
+
+      ]
+    ],
+    [
+      33,
+      "毛巾",
+      8,
+      1,
+      0,
+      0,
+      0,
+      0,
+      0,
+      false,
+      0,
+      0,
+      0,
+      [
+
+      ],
+      [
+
+      ],
+      [
+
+      ]
+    ],
+    [
+      34,
+      "女内衣",
+      8,
+      2,
+      0,
+      0,
+      0,
+      0,
+      0,
+      false,
+      0,
+      0,
+      0,
+      [
+
+      ],
+      [
+
+      ],
+      [
+
+      ]
+    ],
+    [
+      35,
+      "男内衣",
+      8,
+      2,
+      0,
+      0,
+      0,
+      0,
+      0,
+      false,
+      0,
+      0,
+      0,
+      [
+
+      ],
+      [
+
+      ],
+      [
+
+      ]
+    ],
+    [
+      36,
+      "纹身",
+      8,
+      2,
+      0,
+      0,
+      0,
+      0,
+      0,
+      false,
+      0,
+      0,
+      0,
+      [
+
+      ],
+      [
+
+      ],
+      [
+
+      ]
+    ],
+    [
+      37,
+      "古币",
+      8,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      false,
+      0,
+      0,
+      0,
+      [
+
+      ],
+      [
+
+      ],
+      [
+
+      ]
+    ],
+    [
+      38,
+      "密码本",
+      8,
+      2,
+      0,
+      0,
+      0,
+      0,
+      0,
+      false,
+      0,
+      0,
+      0,
+      [
+
+      ],
+      [
+
+      ],
+      [
+
+      ]
+    ],
+    [
+      39,
+      "日记",
+      8,
+      2,
+      0,
+      0,
+      0,
+      0,
+      0,
+      false,
+      0,
+      0,
+      0,
+      [
+
+      ],
+      [
+
+      ],
+      [
+
+      ]
+    ],
+    [
+      40,
+      "笔记",
+      8,
+      2,
+      0,
+      0,
+      0,
+      0,
+      0,
+      false,
+      0,
+      0,
+      0,
+      [
+
+      ],
+      [
+
+      ],
+      [
+
+      ]
+    ],
+    [
+      41,
+      "钥匙",
+      8,
+      2,
+      0,
+      0,
+      0,
+      0,
+      0,
+      false,
+      0,
+      0,
+      0,
+      [
+
+      ],
+      [
+
+      ],
+      [
+
+      ]
+    ],
+    [
+      42,
+      "扳手",
+      8,
+      2,
+      0,
+      0,
+      0,
+      0,
+      0,
+      false,
+      0,
+      0,
+      0,
+      [
+
+      ],
+      [
+
+      ],
+      [
+
+      ]
+    ],
+    [
+      43,
+      "地图",
+      8,
+      2,
+      0,
+      0,
+      0,
+      0,
+      0,
+      false,
+      0,
+      0,
+      0,
+      [
+
+      ],
+      [
+
+      ],
+      [
+
+      ]
+    ],
+    [
+      44,
+      "戒指",
+      8,
+      3,
+      0,
+      0,
+      0,
+      0,
+      0,
+      false,
+      0,
+      0,
+      0,
+      [
+
+      ],
+      [
+
+      ],
+      [
+
+      ]
+    ],
+    [
+      45,
+      "宝石镜",
+      8,
+      3,
+      0,
+      0,
+      0,
+      0,
+      0,
+      false,
+      0,
+      0,
+      0,
+      [
+
+      ],
+      [
+
+      ],
+      [
+
+      ]
+    ],
+    [
+      46,
+      "眼镜",
+      8,
+      3,
+      0,
+      0,
+      0,
+      0,
+      0,
+      false,
+      0,
+      0,
+      0,
+      [
+
+      ],
+      [
+
+      ],
+      [
+
+      ]
+    ],
+    [
+      47,
+      "光镜",
+      8,
+      3,
+      0,
+      0,
+      0,
+      0,
+      0,
+      false,
+      0,
+      0,
+      0,
+      [
+
+      ],
+      [
+
+      ],
+      [
+
+      ]
+    ],
+    [
+      48,
+      "太阳镜",
+      8,
+      3,
+      0,
+      0,
+      0,
+      0,
+      0,
+      false,
+      0,
+      0,
+      0,
+      [
+
+      ],
+      [
+
+      ],
+      [
+
+      ]
+    ],
+    [
+      49,
+      "再生丸",
+      4,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      false,
+      0,
+      0,
+      0,
+      [
+
+      ],
+      [
+
+      ],
+      [
+
+      ]
+    ]
+  ],
+  "data_actor_start_equipments": [
+    null,
+    [
+      1,
+      1,
+      9,
+      17,
+      23,
+      29
+    ],
+    [
+      2,
+      2,
+      10,
+      18,
+      24,
+      30
+    ],
+    [
+      3,
+      3,
+      11,
+      19,
+      25,
+      31
+    ]
+  ],
+  "data_armor": [
+    null,
+    [
+      1,
+      "草帽",
+      0,
+      5,
+      1,
+      0,
+      [
+
+      ],
+      [
+
+      ],
+      [
+        1,
+        2,
+        3
+      ]
+    ],
+    [
+      2,
+      "皮帽",
+      0,
+      10,
+      2,
+      0,
+      [
+
+      ],
+      [
+
+      ],
+      [
+        1,
+        2,
+        3
+      ]
+    ],
+    [
+      3,
+      "布帽",
+      0,
+      60,
+      7,
+      0,
+      [
+
+      ],
+      [
+
+      ],
+      [
+        1,
+        2,
+        3
+      ]
+    ],
+    [
+      4,
+      "铁盔",
+      0,
+      200,
+      15,
+      0,
+      [
+
+      ],
+      [
+
+      ],
+      [
+        1,
+        2,
+        3
+      ]
+    ],
+    [
+      5,
+      "钢盔",
+      0,
+      400,
+      22,
+      0,
+      [
+
+      ],
+      [
+
+      ],
+      [
+        1,
+        2,
+        3
+      ]
+    ],
+    [
+      6,
+      "银盔",
+      0,
+      860,
+      36,
+      0,
+      [
+
+      ],
+      [
+
+      ],
+      [
+        1,
+        2,
+        3
+      ]
+    ],
+    [
+      7,
+      "金冠",
+      0,
+      1100,
+      45,
+      0,
+      [
+
+      ],
+      [
+
+      ],
+      [
+        1,
+        2,
+        3
+      ]
+    ],
+    [
+      8,
+      "头巾",
+      0,
+      705,
+      40,
+      0,
+      [
+
+      ],
+      [
+
+      ],
+      [
+        1,
+        2,
+        3
+      ]
+    ],
+    [
+      9,
+      "布衣",
+      1,
+      40,
+      6,
+      0,
+      [
+
+      ],
+      [
+
+      ],
+      [
+        1,
+        2,
+        3
+      ]
+    ],
+    [
+      10,
+      "皮衣",
+      1,
+      110,
+      12,
+      0,
+      [
+
+      ],
+      [
+
+      ],
+      [
+        1,
+        2,
+        3
+      ]
+    ],
+    [
+      11,
+      "披风",
+      1,
+      340,
+      28,
+      0,
+      [
+
+      ],
+      [
+
+      ],
+      [
+        1,
+        2,
+        3
+      ]
+    ],
+    [
+      12,
+      "铁衣",
+      1,
+      650,
+      40,
+      0,
+      [
+
+      ],
+      [
+
+      ],
+      [
+        1,
+        2,
+        3
+      ]
+    ],
+    [
+      13,
+      "铜衣",
+      1,
+      1210,
+      65,
+      0,
+      [
+
+      ],
+      [
+
+      ],
+      [
+        1,
+        2,
+        3
+      ]
+    ],
+    [
+      14,
+      "钢衣",
+      1,
+      1700,
+      75,
+      0,
+      [
+
+      ],
+      [
+
+      ],
+      [
+        1,
+        2,
+        3
+      ]
+    ],
+    [
+      15,
+      "银衣",
+      1,
+      2480,
+      99,
+      0,
+      [
+
+      ],
+      [
+
+      ],
+      [
+        3
+      ]
+    ],
+    [
+      16,
+      "金衣",
+      1,
+      7870,
+      110,
+      0,
+      [
+
+      ],
+      [
+
+      ],
+      [
+        1,
+        2,
+        3
+      ]
+    ],
+    [
+      17,
+      "布手套",
+      2,
+      10,
+      2,
+      0,
+      [
+
+      ],
+      [
+
+      ],
+      [
+        1,
+        2,
+        3
+      ]
+    ],
+    [
+      18,
+      "皮手套",
+      2,
+      50,
+      6,
+      0,
+      [
+
+      ],
+      [
+
+      ],
+      [
+        1,
+        2,
+        3
+      ]
+    ],
+    [
+      19,
+      "铁爪",
+      2,
+      180,
+      11,
+      0,
+      [
+
+      ],
+      [
+
+      ],
+      [
+        2
+      ]
+    ],
+    [
+      20,
+      "铜爪",
+      2,
+      600,
+      26,
+      0,
+      [
+
+      ],
+      [
+
+      ],
+      [
+        1,
+        2,
+        3
+      ]
+    ],
+    [
+      21,
+      "钢爪",
+      2,
+      740,
+      28,
+      0,
+      [
+
+      ],
+      [
+
+      ],
+      [
+        1,
+        2,
+        3
+      ]
+    ],
+    [
+      22,
+      "金爪",
+      2,
+      1000,
+      35,
+      0,
+      [
+
+      ],
+      [
+
+      ],
+      [
+        1,
+        2,
+        3
+      ]
+    ],
+    [
+      23,
+      "草鞋",
+      3,
+      15,
+      3,
+      0,
+      [
+
+      ],
+      [
+
+      ],
+      [
+        1,
+        2,
+        3
+      ]
+    ],
+    [
+      24,
+      "布鞋",
+      3,
+      80,
+      8,
+      0,
+      [
+
+      ],
+      [
+
+      ],
+      [
+        1,
+        2,
+        3
+      ]
+    ],
+    [
+      25,
+      "皮鞋",
+      3,
+      260,
+      16,
+      0,
+      [
+
+      ],
+      [
+
+      ],
+      [
+        1,
+        2,
+        3
+      ]
+    ],
+    [
+      26,
+      "皮靴",
+      3,
+      400,
+      20,
+      0,
+      [
+
+      ],
+      [
+
+      ],
+      [
+        1,
+        2,
+        3
+      ]
+    ],
+    [
+      27,
+      "铁靴",
+      3,
+      1400,
+      32,
+      0,
+      [
+
+      ],
+      [
+
+      ],
+      [
+        1,
+        2,
+        3
+      ]
+    ],
+    [
+      28,
+      "钢靴",
+      3,
+      1500,
+      40,
+      0,
+      [
+
+      ],
+      [
+
+      ],
+      [
+        1,
+        2,
+        3
+      ]
+    ],
+    [
+      29,
+      "金靴",
+      4,
+      0,
+      0,
+      0,
+      [
+
+      ],
+      [
+
+      ],
+      [
+        1,
+        2,
+        3
+      ]
+    ],
+    [
+      30,
+      "背心",
+      4,
+      160,
+      30,
+      0,
+      [
+
+      ],
+      [
+
+      ],
+      [
+        1,
+        2,
+        3
+      ]
+    ],
+    [
+      31,
+      "皮甲",
+      4,
+      320,
+      60,
+      0,
+      [
+
+      ],
+      [
+
+      ],
+      [
+        1,
+        2,
+        3
+      ]
+    ],
+    [
+      32,
+      "金甲",
+      4,
+      550,
+      80,
+      0,
+      [
+
+      ],
+      [
+
+      ],
+      [
+        1,
+        2,
+        3
+      ]
+    ],
+    [
+      33,
+      "钢甲",
+      4,
+      495,
+      140,
+      0,
+      [
+
+      ],
+      [
+
+      ],
+      [
+        1,
+        2,
+        3
+      ]
+    ],
+    [
+      34,
+      "铁甲",
+      4,
+      1240,
+      100,
+      0,
+      [
+
+      ],
+      [
+
+      ],
+      [
+        1,
+        2,
+        3
+      ]
+    ]
+  ],
+  "data_c_unit": [
+    null,
+    [
+      1,
+      "HAL900",
+      800,
+      [
+        200,
+        300
+      ],
+      0.8,
+      30
+    ],
+    [
+      2,
+      "尼克",
+      2000,
+      [
+        340,
+        400
+      ],
+      0.2,
+      40
+    ],
+    [
+      3,
+      "艾米",
+      4000,
+      [
+        450,
+        525
+      ],
+      3.0,
+      100
+    ],
+    [
+      4,
+      "SOLOMON2",
+      10000,
+      [
+        950,
+        1000
+      ],
+      2.0,
+      190
+    ]
+  ],
+  "data_c_unit_price": {
+    "1": [
+      1000,
+      2000
+    ],
+    "2": [
+      1200,
+      2500
+    ]
+  },
+  "data_c_unit_time": {
+    "1": [
+      0,
+      2
+    ],
+    "2": [
+      0,
+      2
+    ]
+  },
+  "data_enemy_animation": {
+    "1": [
+      1,
+      100,
+      90
+    ]
+  },
+  "data_enemy_boss": {
+    "10": 1000
+  },
+  "data_enemy_boss_info": {
+    "10": "据说水怪就潜伏在镇子北边的山洞里。"
+  },
+  "data_engine": [
+    null,
+    [
+      1,
+      "MOT1",
+      200,
+      [
+        40,
+        80
+      ],
+      0.1,
+      8.0,
+      24
+    ],
+    [
+      2,
+      "MOT2",
+      340,
+      [
+        70,
+        100
+      ],
+      0.2,
+      9.0,
+      24
+    ],
+    [
+      3,
+      "MOT2",
+      520,
+      [
+        90,
+        120
+      ],
+      0.3,
+      10.0,
+      24
+    ],
+    [
+      4,
+      "SOL0",
+      720,
+      [
+        150,
+        180
+      ],
+      0.2,
+      12.0,
+      30
+    ],
+    [
+      5,
+      "SOL1",
+      1210,
+      [
+        200,
+        220
+      ],
+      0.3,
+      15.0,
+      30
+    ],
+    [
+      6,
+      "SOL2",
+      1750,
+      [
+        250,
+        300
+      ],
+      0.4,
+      18.0,
+      30
+    ],
+    [
+      7,
+      "BUL",
+      2480,
+      [
+        320,
+        380
+      ],
+      0.3,
+      20.0,
+      40
+    ],
+    [
+      8,
+      "BUL1",
+      3150,
+      [
+        450,
+        490
+      ],
+      0.4,
+      23.0,
+      40
+    ],
+    [
+      9,
+      "BUL11",
+      3800,
+      [
+        520,
+        600
+      ],
+      0.5,
+      26.0,
+      40
+    ],
+    [
+      10,
+      "HUN0",
+      4750,
+      [
+        560,
+        650
+      ],
+      0.4,
+      27.0,
+      58
+    ],
+    [
+      11,
+      "HUN1",
+      6300,
+      [
+        620,
+        700
+      ],
+      0.5,
+      29.0,
+      58
+    ],
+    [
+      12,
+      "HUN2",
+      8210,
+      [
+        735,
+        815
+      ],
+      0.6,
+      31.0,
+      58
+    ],
+    [
+      13,
+      "V24",
+      12800,
+      [
+        840,
+        865
+      ],
+      0.5,
+      32.0,
+      83
+    ],
+    [
+      14,
+      "V32",
+      17900,
+      [
+        850,
+        880
+      ],
+      0.6,
+      35.0,
+      83
+    ],
+    [
+      15,
+      "V48",
+      22000,
+      [
+        870,
+        900
+      ],
+      0.7,
+      38.0,
+      83
+    ],
+    [
+      16,
+      "SIL0",
+      28000,
+      [
+        930,
+        960
+      ],
+      0.6,
+      40.0,
+      90
+    ],
+    [
+      17,
+      "SIL1",
+      32500,
+      [
+        950,
+        990
+      ],
+      0.7,
+      42.0,
+      90
+    ],
+    [
+      18,
+      "SIL2",
+      37500,
+      [
+        1000,
+        1300
+      ],
+      0.8,
+      44.0,
+      90
+    ],
+    [
+      19,
+      "OHC",
+      39800,
+      [
+        1250,
+        1600
+      ],
+      0.7,
+      45.0,
+      100
+    ],
+    [
+      20,
+      "涡轮",
+      56200,
+      [
+        1400,
+        1800
+      ],
+      0.8,
+      48.0,
+      100
+    ],
+    [
+      21,
+      "喷气",
+      64000,
+      [
+        1600,
+        2000
+      ],
+      0.9,
+      51.0,
+      100
+    ],
+    [
+      22,
+      "V48",
+      84100,
+      [
+        2100,
+        2350
+      ],
+      0.8,
+      52.0,
+      115
+    ],
+    [
+      23,
+      "V66",
+      108000,
+      [
+        1600,
+        2000
+      ],
+      0.9,
+      55.0,
+      115
+    ],
+    [
+      24,
+      "V100",
+      132000,
+      [
+        1600,
+        2000
+      ],
+      1.0,
+      58.0,
+      115
+    ]
+  ],
+  "data_enginetransform": {
+    "13": [
+      14,
+      0
+    ],
+    "14": [
+      15,
+      0
+    ]
+  },
+  "data_initialize_tankposition": {
+    "1": [
+      8,
+      6,
+      1,
+      "Tank_1"
+    ],
+    "2": [
+      8,
+      7,
+      1,
+      "Tank_2"
+    ],
+    "3": [
+      8,
+      8,
+      1,
+      "Tank_3"
+    ],
+    "4": [
+      6,
+      6,
+      1,
+      "Tank_4"
+    ],
+    "5": [
+      6,
+      7,
+      1,
+      "Tank_5"
+    ],
+    "6": [
+      6,
+      8,
+      1,
+      "Tank_6"
+    ],
+    "7": [
+      4,
+      7,
+      1,
+      "Tank_7"
+    ],
+    "8": [
+      4,
+      8,
+      1,
+      "Tank_8"
+    ]
+  },
+  "data_main_cannon": [
+    null,
+    [
+      1,
+      "45炮",
+      0,
+      0,
+      0,
+      32,
+      80,
+      48,
+      1.2,
+      [
+        20,
+        45
+      ],
+      440
+    ],
+    [
+      2,
+      "55炮",
+      0,
+      0,
+      0,
+      32,
+      120,
+      48,
+      1.6,
+      [
+        30,
+        55
+      ],
+      540
+    ],
+    [
+      3,
+      "75炮",
+      0,
+      0,
+      0,
+      32,
+      160,
+      48,
+      1.8,
+      [
+        50,
+        80
+      ],
+      940
+    ],
+    [
+      4,
+      "80高炮",
+      0,
+      0,
+      0,
+      62,
+      200,
+      60,
+      4.0,
+      [
+        60,
+        95
+      ],
+      1780
+    ],
+    [
+      5,
+      "95炮",
+      0,
+      0,
+      0,
+      32,
+      230,
+      48,
+      2.2,
+      [
+        85,
+        125
+      ],
+      2600
+    ],
+    [
+      6,
+      "105加农炮",
+      0,
+      0,
+      0,
+      32,
+      300,
+      50,
+      2.5,
+      [
+        100,
+        140
+      ],
+      3200
+    ],
+    [
+      7,
+      "115T型炮",
+      0,
+      0,
+      0,
+      48,
+      350,
+      58,
+      2.8,
+      [
+        150,
+        200
+      ],
+      4000
+    ],
+    [
+      8,
+      "125加农炮",
+      0,
+      0,
+      0,
+      32,
+      400,
+      50,
+      2.6,
+      [
+        170,
+        220
+      ],
+      5500
+    ],
+    [
+      9,
+      "125T型炮",
+      0,
+      0,
+      0,
+      48,
+      420,
+      58,
+      3.2,
+      [
+        245,
+        300
+      ],
+      6000
+    ],
+    [
+      10,
+      "135加农炮",
+      0,
+      0,
+      0,
+      32,
+      470,
+      50,
+      2.7,
+      [
+        280,
+        340
+      ],
+      8000
+    ],
+    [
+      11,
+      "140高炮",
+      0,
+      0,
+      0,
+      62,
+      520,
+      60,
+      4.8,
+      [
+        350,
+        380
+      ],
+      9900
+    ],
+    [
+      12,
+      "155加农炮",
+      0,
+      0,
+      0,
+      32,
+      540,
+      50,
+      2.8,
+      [
+        400,
+        430
+      ],
+      10600
+    ],
+    [
+      13,
+      "160滑膛炮",
+      0,
+      0,
+      0,
+      62,
+      570,
+      65,
+      5.6,
+      [
+        460,
+        500
+      ],
+      16000
+    ],
+    [
+      14,
+      "165T型炮",
+      0,
+      0,
+      0,
+      48,
+      620,
+      58,
+      3.6,
+      [
+        500,
+        540
+      ],
+      18000
+    ],
+    [
+      15,
+      "165钢炮",
+      0,
+      0,
+      0,
+      16,
+      670,
+      50,
+      1.0,
+      [
+        540,
+        580
+      ],
+      0
+    ],
+    [
+      16,
+      "175加农炮",
+      0,
+      0,
+      0,
+      32,
+      700,
+      50,
+      2.9,
+      [
+        600,
+        650
+      ],
+      25000
+    ],
+    [
+      17,
+      "180高炮",
+      0,
+      0,
+      0,
+      62,
+      710,
+      60,
+      10.0,
+      [
+        650,
+        700
+      ],
+      35000
+    ],
+    [
+      18,
+      "195加农炮",
+      0,
+      0,
+      0,
+      32,
+      720,
+      50,
+      3.0,
+      [
+        710,
+        740
+      ],
+      28000
+    ],
+    [
+      19,
+      "205加农炮",
+      0,
+      0,
+      0,
+      32,
+      780,
+      50,
+      3.1,
+      [
+        750,
+        800
+      ],
+      56200
+    ],
+    [
+      20,
+      "220炮",
+      0,
+      0,
+      0,
+      32,
+      800,
+      86,
+      10.0,
+      [
+        1000,
+        1500
+      ],
+      0
+    ]
+  ],
+  "data_main_cannon_price": {
+    "1": [
+      2000,
+      5000,
+      7000,
+      12000,
+      14000
+    ],
+    "2": [
+      2200,
+      5600,
+      8000,
+      13000,
+      16000
+    ]
+  },
+  "data_main_cannon_time": {
+    "1": [
+      0,
+      5
+    ],
+    "2": [
+      0,
+      5
+    ]
+  },
+  "data_musiclist": {
+    "1": [
+      [
+        "标题曲",
+        "1、Metal Max.ogg"
+      ],
+      [
+        "战斗",
+        "5、Battle.ogg"
+      ]
+    ]
+  },
+  "data_rent_tank": [
+    null,
+    [
+      1,
+      "R-轻型坦克",
+      "Tank_1",
+      0,
+      "Tank1.png",
+      0,
+      true,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1
+    ],
+    [
+      2,
+      "R-吉普车",
+      "Tank_2",
+      0,
+      "Tank2.png",
+      0,
+      true,
+      1,
+      1,
+      1,
+      1,
+      1,
+      2
+    ],
+    [
+      3,
+      "R-救护车",
+      "Tank_3",
+      0,
+      "Tank3.png",
+      0,
+      true,
+      1,
+      1,
+      1,
+      1,
+      1,
+      3
+    ],
+    [
+      4,
+      "R-装甲车",
+      "Tank_4",
+      0,
+      "Tank4.png",
+      0,
+      true,
+      1,
+      1,
+      1,
+      1,
+      1,
+      4
+    ],
+    [
+      5,
+      "R-野战坦克",
+      "Tank_5",
+      0,
+      "Tank5.png",
+      0,
+      true,
+      1,
+      1,
+      1,
+      1,
+      1,
+      5
+    ],
+    [
+      6,
+      "R-中型坦克",
+      "Tank_6",
+      0,
+      "Tank6.png",
+      0,
+      true,
+      1,
+      1,
+      1,
+      1,
+      1,
+      6
+    ],
+    [
+      7,
+      "R-红狼战车",
+      "Tank_7",
+      0,
+      "Tank7.png",
+      0,
+      true,
+      1,
+      1,
+      1,
+      1,
+      1,
+      7
+    ],
+    [
+      8,
+      "R-重型坦克",
+      "Tank_8",
+      0,
+      "Tank8.png",
+      0,
+      true,
+      1,
+      1,
+      1,
+      1,
+      1,
+      8
+    ]
+  ],
+  "data_rent_tank_list": {
+    "1": [
+      1,
+      2
+    ],
+    "2": [
+      1,
+      2,
+      3
+    ]
+  },
+  "data_se": [
+    null,
+    [
+      1,
+      "ATM导弹",
+      0,
+      0,
+      0,
+      8,
+      320,
+      25,
+      2.0,
+      [
+        40,
+        70
+      ],
+      800,
+      0,
+      [
+        true,
+        true,
+        true
+      ]
+    ],
+    [
+      2,
+      "喷火",
+      0,
+      0,
+      0,
+      8,
+      250,
+      20,
+      2.4,
+      [
+        50,
+        80
+      ],
+      1000,
+      0,
+      [
+        false,
+        false,
+        true
+      ]
+    ],
+    [
+      3,
+      "弹炮",
+      0,
+      0,
+      0,
+      4,
+      440,
+      28,
+      1.8,
+      [
+        75,
+        100
+      ],
+      1500,
+      0,
+      [
+        false,
+        false,
+        true
+      ]
+    ],
+    [
+      4,
+      "LI旋炮",
+      0,
+      0,
+      0,
+      2,
+      380,
+      100,
+      4.0,
+      [
+        110,
+        130
+      ],
+      1800,
+      0,
+      [
+        false,
+        false,
+        true
+      ]
+    ],
+    [
+      5,
+      "电光",
+      0,
+      0,
+      0,
+      4,
+      410,
+      140,
+      3.6,
+      [
+        140,
+        185
+      ],
+      2300,
+      0,
+      [
+        false,
+        false,
+        true
+      ]
+    ],
+    [
+      6,
+      "汽弹",
+      0,
+      0,
+      0,
+      16,
+      340,
+      200,
+      5.2,
+      [
+        215,
+        255
+      ],
+      2600,
+      0,
+      [
+        false,
+        false,
+        true
+      ]
+    ],
+    [
+      7,
+      "拉卡",
+      0,
+      0,
+      0,
+      8,
+      540,
+      180,
+      4.4,
+      [
+        240,
+        280
+      ],
+      3100,
+      0,
+      [
+        false,
+        false,
+        true
+      ]
+    ],
+    [
+      8,
+      "福特",
+      0,
+      0,
+      0,
+      4,
+      620,
+      350,
+      6.0,
+      [
+        300,
+        340
+      ],
+      3800,
+      0,
+      [
+        false,
+        false,
+        true
+      ]
+    ],
+    [
+      9,
+      "火狼",
+      0,
+      0,
+      0,
+      16,
+      420,
+      280,
+      7.0,
+      [
+        370,
+        400
+      ],
+      5000,
+      0,
+      [
+        false,
+        false,
+        true
+      ]
+    ],
+    [
+      10,
+      "台风",
+      0,
+      0,
+      0,
+      4,
+      420,
+      400,
+      11.0,
+      [
+        600,
+        675
+      ],
+      17500,
+      0,
+      [
+        false,
+        true,
+        true
+      ]
+    ],
+    [
+      11,
+      "巨炮",
+      0,
+      0,
+      0,
+      4,
+      710,
+      360,
+      2.4,
+      [
+        480,
+        550
+      ],
+      7000,
+      0,
+      [
+        false,
+        false,
+        true
+      ]
+    ],
+    [
+      12,
+      "雷电",
+      0,
+      0,
+      0,
+      16,
+      650,
+      410,
+      5.6,
+      [
+        600,
+        670
+      ],
+      15500,
+      0,
+      [
+        false,
+        false,
+        true
+      ]
+    ],
+    [
+      13,
+      "火神",
+      0,
+      0,
+      0,
+      8,
+      540,
+      420,
+      9.0,
+      [
+        520,
+        570
+      ],
+      6750,
+      0,
+      [
+        false,
+        false,
+        true
+      ]
+    ],
+    [
+      14,
+      "截击",
+      0,
+      0,
+      0,
+      8,
+      720,
+      500,
+      8.4,
+      [
+        650,
+        725
+      ],
+      16700,
+      0,
+      [
+        false,
+        false,
+        true
+      ]
+    ],
+    [
+      15,
+      "气旋",
+      0,
+      0,
+      0,
+      4,
+      680,
+      480,
+      12.0,
+      [
+        530,
+        585
+      ],
+      8500,
+      0,
+      [
+        false,
+        true,
+        true
+      ]
+    ],
+    [
+      16,
+      "托卢",
+      0,
+      0,
+      0,
+      16,
+      760,
+      600,
+      11.0,
+      [
+        1000,
+        1400
+      ],
+      35000,
+      0,
+      [
+        false,
+        true,
+        true
+      ]
+    ]
+  ],
+  "data_se_cannonball_price": {
+    "1": 20,
+    "2": 30
+  },
+  "data_se_price": {
+    "1": [
+      3000,
+      4000,
+      5000,
+      7000,
+      10000
+    ],
+    "2": [
+      4000,
+      6000,
+      8000,
+      10000,
+      12000
+    ]
+  },
+  "data_se_time": {
+    "1": [
+      0,
+      5
+    ],
+    "2": [
+      0,
+      5
+    ]
+  },
+  "data_special_cannonball": [
+    null,
+    [
+      1,
+      "铁弹",
+      10,
+      -1,
+      10
+    ],
+    [
+      2,
+      "榴弹",
+      30,
+      -1,
+      10
+    ],
+    [
+      3,
+      "焰幕弹",
+      50,
+      -1,
+      10
+    ],
+    [
+      4,
+      "催眠弹",
+      50,
+      -1,
+      10
+    ],
+    [
+      5,
+      "毒气弹",
+      20,
+      -1,
+      10
+    ],
+    [
+      6,
+      "汽油弹",
+      35,
+      0,
+      10
+    ],
+    [
+      7,
+      "散弹",
+      30,
+      0,
+      10
+    ],
+    [
+      8,
+      "炸弹",
+      200,
+      0,
+      10
+    ],
+    [
+      9,
+      "钢弹",
+      50,
+      0,
+      10
+    ],
+    [
+      10,
+      "流弹",
+      10,
+      0,
+      10
+    ],
+    [
+      11,
+      "臭弹",
+      5,
+      -1,
+      10
+    ]
+  ],
+  "data_special_cannonball_list": {
+    "1": [
+      1,
+      2,
+      3,
+      4,
+      5
+    ]
+  },
+  "data_sub_cannon": [
+    null,
+    [
+      1,
+      "07机关炮",
+      0,
+      0,
+      0,
+      0,
+      40,
+      28,
+      0.8,
+      [
+        20,
+        45
+      ],
+      200,
+      0,
+      [
+        false,
+        true
+      ]
+    ],
+    [
+      2,
+      "09机关炮",
+      0,
+      0,
+      0,
+      0,
+      60,
+      28,
+      0.9,
+      [
+        40,
+        60
+      ],
+      380,
+      0,
+      [
+        false,
+        true
+      ]
+    ],
+    [
+      3,
+      "格林炮",
+      0,
+      0,
+      0,
+      0,
+      75,
+      30,
+      1.2,
+      [
+        70,
+        100
+      ],
+      550,
+      0,
+      [
+        false,
+        true
+      ]
+    ],
+    [
+      4,
+      "09火炮",
+      0,
+      0,
+      0,
+      0,
+      80,
+      32,
+      1.4,
+      [
+        120,
+        150
+      ],
+      1075,
+      0,
+      [
+        false,
+        true
+      ]
+    ],
+    [
+      5,
+      "11机关炮",
+      0,
+      0,
+      0,
+      0,
+      100,
+      28,
+      1.0,
+      [
+        140,
+        160
+      ],
+      1210,
+      0,
+      [
+        false,
+        true
+      ]
+    ],
+    [
+      6,
+      "11火炮",
+      0,
+      0,
+      0,
+      0,
+      130,
+      32,
+      1.8,
+      [
+        190,
+        220
+      ],
+      1800,
+      0,
+      [
+        false,
+        true
+      ]
+    ],
+    [
+      7,
+      "15机关炮",
+      0,
+      0,
+      0,
+      0,
+      160,
+      28,
+      1.1,
+      [
+        240,
+        280
+      ],
+      2000,
+      0,
+      [
+        false,
+        true
+      ]
+    ],
+    [
+      8,
+      "激光",
+      0,
+      0,
+      0,
+      0,
+      200,
+      40,
+      2.0,
+      [
+        300,
+        340
+      ],
+      2480,
+      0,
+      [
+        false,
+        true
+      ]
+    ],
+    [
+      9,
+      "雷神",
+      0,
+      0,
+      0,
+      0,
+      210,
+      45,
+      2.0,
+      [
+        240,
+        280
+      ],
+      3800,
+      0,
+      [
+        false,
+        true
+      ]
+    ],
+    [
+      10,
+      "18机关炮",
+      0,
+      0,
+      0,
+      0,
+      240,
+      28,
+      1.2,
+      [
+        280,
+        320
+      ],
+      4600,
+      0,
+      [
+        false,
+        true
+      ]
+    ],
+    [
+      11,
+      "闪电",
+      0,
+      0,
+      0,
+      0,
+      245,
+      40,
+      2.5,
+      [
+        310,
+        350
+      ],
+      6000,
+      0,
+      [
+        false,
+        true
+      ]
+    ],
+    [
+      12,
+      "20火炮",
+      0,
+      0,
+      0,
+      0,
+      280,
+      32,
+      2.2,
+      [
+        330,
+        400
+      ],
+      7300,
+      0,
+      [
+        false,
+        true
+      ]
+    ],
+    [
+      13,
+      "25机关炮",
+      0,
+      0,
+      0,
+      0,
+      350,
+      28,
+      1.3,
+      [
+        375,
+        430
+      ],
+      9900,
+      0,
+      [
+        false,
+        true
+      ]
+    ],
+    [
+      14,
+      "波坦",
+      0,
+      0,
+      0,
+      0,
+      350,
+      95,
+      0.1,
+      [
+        450,
+        500
+      ],
+      32000,
+      0,
+      [
+        false,
+        true
+      ]
+    ],
+    [
+      15,
+      "火龙",
+      0,
+      0,
+      0,
+      0,
+      355,
+      45,
+      3.5,
+      [
+        375,
+        430
+      ],
+      15500,
+      0,
+      [
+        false,
+        true
+      ]
+    ],
+    [
+      16,
+      "风暴",
+      0,
+      0,
+      0,
+      0,
+      400,
+      45,
+      3.0,
+      [
+        500,
+        600
+      ],
+      25000,
+      0,
+      [
+        false,
+        true
+      ]
+    ]
+  ],
+  "data_sub_cannon_cannonball_price": {
+    "1": 0
+  },
+  "data_sub_cannon_price": {
+    "1": [
+      1000,
+      2000,
+      4000
+    ],
+    "2": [
+      1500,
+      2200,
+      5000
+    ]
+  },
+  "data_sub_cannon_time": {
+    "1": [
+      0,
+      3
+    ],
+    "2": [
+      0,
+      3
+    ]
+  },
+  "data_tank": [
+    null,
+    [
+      1,
+      "轻型坦克",
+      "Tank_1",
+      0,
+      "Tank1.png",
+      0,
+      false,
+      1,
+      1,
+      1,
+      13,
+      1,
+      1
+    ],
+    [
+      2,
+      "吉普车",
+      "Tank_2",
+      0,
+      "Tank2.png",
+      0,
+      false,
+      1,
+      1,
+      1,
+      13,
+      1,
+      2
+    ],
+    [
+      3,
+      "救护车",
+      "Tank_3",
+      0,
+      "Tank3.png",
+      0,
+      false,
+      1,
+      1,
+      1,
+      13,
+      1,
+      3
+    ],
+    [
+      4,
+      "装甲车",
+      "Tank_4",
+      0,
+      "Tank4.png",
+      0,
+      false,
+      1,
+      1,
+      1,
+      13,
+      1,
+      4
+    ],
+    [
+      5,
+      "野战坦克",
+      "Tank_5",
+      0,
+      "Tank5.png",
+      0,
+      false,
+      1,
+      1,
+      1,
+      13,
+      1,
+      5
+    ],
+    [
+      6,
+      "中型坦克",
+      "Tank_6",
+      0,
+      "Tank6.png",
+      0,
+      false,
+      1,
+      1,
+      1,
+      13,
+      1,
+      6
+    ],
+    [
+      7,
+      "红狼战车",
+      "Tank_7",
+      0,
+      "Tank7.png",
+      0,
+      false,
+      1,
+      1,
+      1,
+      13,
+      1,
+      7
+    ],
+    [
+      8,
+      "重型坦克",
+      "Tank_8",
+      0,
+      "Tank8.png",
+      0,
+      false,
+      1,
+      1,
+      1,
+      13,
+      1,
+      8
+    ]
+  ],
+  "data_tank_item": [
+    null,
+    [
+      1,
+      "传真",
+      4,
+      2,
+      0,
+      350,
+      false,
+      0,
+      0,
+      [
+
+      ],
+      [
+
+      ],
+      [
+
+      ]
+    ],
+    [
+      2,
+      "迷彩条",
+      4,
+      2,
+      0,
+      4600,
+      false,
+      0,
+      0,
+      [
+
+      ],
+      [
+
+      ],
+      [
+
+      ]
+    ],
+    [
+      3,
+      "PAG40",
+      4,
+      2,
+      0,
+      60,
+      true,
+      0,
+      40,
+      [
+
+      ],
+      [
+
+      ],
+      [
+
+      ]
+    ],
+    [
+      4,
+      "PAG80",
+      4,
+      2,
+      0,
+      120,
+      true,
+      0,
+      80,
+      [
+
+      ],
+      [
+
+      ],
+      [
+
+      ]
+    ],
+    [
+      5,
+      "PAGL",
+      4,
+      2,
+      0,
+      200,
+      true,
+      0,
+      200,
+      [
+
+      ],
+      [
+
+      ],
+      [
+
+      ]
+    ],
+    [
+      6,
+      "PAGLL",
+      4,
+      2,
+      0,
+      300,
+      true,
+      0,
+      400,
+      [
+
+      ],
+      [
+
+      ],
+      [
+
+      ]
+    ],
+    [
+      7,
+      "药箱",
+      4,
+      2,
+      0,
+      200,
+      false,
+      0,
+      200,
+      [
+
+      ],
+      [
+
+      ],
+      [
+
+      ]
+    ],
+    [
+      8,
+      "石蜡",
+      4,
+      2,
+      0,
+      60,
+      false,
+      0,
+      60,
+      [
+
+      ],
+      [
+
+      ],
+      [
+
+      ]
+    ],
+    [
+      9,
+      "空调",
+      4,
+      1,
+      0,
+      2400,
+      false,
+      0,
+      2400,
+      [
+
+      ],
+      [
+
+      ],
+      [
+
+      ]
+    ],
+    [
+      10,
+      "暖风机",
+      4,
+      1,
+      0,
+      500,
+      false,
+      0,
+      550,
+      [
+
+      ],
+      [
+
+      ],
+      [
+
+      ]
+    ],
+    [
+      12,
+      "冷风机",
+      4,
+      1,
+      0,
+      700,
+      false,
+      0,
+      700,
+      [
+
+      ],
+      [
+
+      ],
+      [
+
+      ]
+    ],
+    [
+      13,
+      "气扇",
+      4,
+      1,
+      0,
+      1075,
+      false,
+      0,
+      1075,
+      [
+
+      ],
+      [
+
+      ],
+      [
+
+      ]
+    ],
+    [
+      14,
+      "雷达",
+      4,
+      1,
+      0,
+      7750,
+      false,
+      0,
+      7750,
+      [
+
+      ],
+      [
+
+      ],
+      [
+
+      ]
+    ],
+    [
+      15,
+      "护屏",
+      4,
+      1,
+      0,
+      4000,
+      false,
+      0,
+      4000,
+      [
+
+      ],
+      [
+
+      ],
+      [
+
+      ]
+    ],
+    [
+      16,
+      "卡通兔",
+      4,
+      2,
+      0,
+      100,
+      false,
+      0,
+      100,
+      [
+
+      ],
+      [
+
+      ],
+      [
+
+      ]
+    ],
+    [
+      17,
+      "撞击板",
+      4,
+      1,
+      0,
+      7000,
+      false,
+      0,
+      7000,
+      [
+
+      ],
+      [
+
+      ],
+      [
+
+      ]
+    ],
+    [
+      18,
+      "鸟粪",
+      4,
+      3,
+      0,
+      0,
+      false,
+      0,
+      0,
+      [
+
+      ],
+      [
+
+      ],
+      [
+
+      ]
+    ],
+    [
+      19,
+      "铅竹",
+      4,
+      3,
+      0,
+      0,
+      false,
+      0,
+      0,
+      [
+
+      ],
+      [
+
+      ],
+      [
+
+      ]
+    ]
+  ],
+  "data_troop": {
+    "1": [
+      2
+    ],
+    "2": [
+      2,
+      2
+    ]
+  },
+  "data_underpan": [
+    null,
+    [
+      1,
+      "WEN",
+      [
+        true,
+        false,
+        false
+      ],
+      4.0,
+      {
+      },
+      16,
+      {
+      },
+      200,
+      [
+        200,
+        250
+      ],
+      60
+    ],
+    [
+      2,
+      "HOR",
+      [
+        false,
+        true,
+        false
+      ],
+      3.5,
+      {
+      },
+      16,
+      {
+      },
+      200,
+      [
+        300,
+        320
+      ],
+      50
+    ],
+    [
+      3,
+      "CAR",
+      [
+        false,
+        false,
+        false
+      ],
+      3.0,
+      {
+      },
+      16,
+      {
+      },
+      200,
+      [
+        310,
+        350
+      ],
+      35
+    ],
+    [
+      4,
+      "TAN",
+      [
+        true,
+        true,
+        false
+      ],
+      7.5,
+      {
+      },
+      24,
+      {
+      },
+      200,
+      [
+        330,
+        380
+      ],
+      90
+    ],
+    [
+      5,
+      "BAO",
+      [
+        true,
+        true,
+        true
+      ],
+      15.5,
+      {
+      },
+      32,
+      {
+      },
+      200,
+      [
+        350,
+        400
+      ],
+      100
+    ],
+    [
+      6,
+      "HU",
+      [
+        true,
+        true,
+        true
+      ],
+      10.5,
+      {
+      },
+      40,
+      {
+      },
+      200,
+      [
+        380,
+        430
+      ],
+      120
+    ],
+    [
+      7,
+      "RLA",
+      [
+        true,
+        true,
+        true
+      ],
+      13.0,
+      {
+      },
+      72,
+      {
+      },
+      200,
+      [
+        700,
+        800
+      ],
+      200
+    ],
+    [
+      8,
+      "KHU",
+      [
+        true,
+        true,
+        true
+      ],
+      16.0,
+      {
+      },
+      32,
+      {
+      },
+      200,
+      [
+        530,
+        600
+      ],
+      100
+    ]
+  ],
+  "data_weapon": [
+    null,
+    [
+      1,
+      "弹弓",
+      0,
+      0,
+      0,
+      30,
+      5,
+      [
+
+      ],
+      [
+        1,
+        2,
+        3
+      ],
+      0
+    ],
+    [
+      2,
+      "弩",
+      0,
+      0,
+      0,
+      80,
+      12,
+      [
+
+      ],
+      [
+        1,
+        2,
+        3
+      ],
+      0
+    ],
+    [
+      3,
+      "短枪",
+      0,
+      0,
+      0,
+      180,
+      22,
+      [
+
+      ],
+      [
+        1,
+        2,
+        3
+      ],
+      0
+    ],
+    [
+      4,
+      "战斧",
+      0,
+      0,
+      0,
+      240,
+      26,
+      [
+
+      ],
+      [
+        1,
+        3
+      ],
+      0
+    ],
+    [
+      5,
+      "火枪",
+      0,
+      0,
+      0,
+      295,
+      35,
+      [
+
+      ],
+      [
+        1,
+        2,
+        3
+      ],
+      0
+    ],
+    [
+      6,
+      "回旋镖",
+      0,
+      0,
+      0,
+      320,
+      40,
+      [
+
+      ],
+      [
+        2
+      ],
+      0
+    ],
+    [
+      7,
+      "钢刀",
+      0,
+      0,
+      0,
+      480,
+      45,
+      [
+
+      ],
+      [
+        1,
+        3
+      ],
+      0
+    ],
+    [
+      8,
+      "长枪",
+      0,
+      0,
+      0,
+      720,
+      48,
+      [
+
+      ],
+      [
+        1,
+        2,
+        3
+      ],
+      1
+    ],
+    [
+      9,
+      "机枪",
+      0,
+      0,
+      0,
+      860,
+      58,
+      [
+
+      ],
+      [
+        3
+      ],
+      0
+    ],
+    [
+      10,
+      "火焰枪",
+      0,
+      0,
+      0,
+      1000,
+      70,
+      [
+
+      ],
+      [
+        1,
+        2,
+        3
+      ],
+      0
+    ],
+    [
+      11,
+      "来福枪",
+      0,
+      0,
+      0,
+      1200,
+      86,
+      [
+
+      ],
+      [
+        1,
+        2,
+        3
+      ],
+      0
+    ],
+    [
+      12,
+      "排炮",
+      0,
+      0,
+      0,
+      1410,
+      78,
+      [
+
+      ],
+      [
+        1,
+        2,
+        3
+      ],
+      1
+    ],
+    [
+      13,
+      "军刀",
+      0,
+      0,
+      0,
+      1500,
+      95,
+      [
+
+      ],
+      [
+        1,
+        3
+      ],
+      0
+    ],
+    [
+      14,
+      "声纳枪",
+      0,
+      0,
+      0,
+      2200,
+      110,
+      [
+
+      ],
+      [
+        1,
+        2,
+        3
+      ],
+      0
+    ],
+    [
+      15,
+      "火焰炮",
+      0,
+      0,
+      0,
+      2400,
+      115,
+      [
+
+      ],
+      [
+        1,
+        2,
+        3
+      ],
+      1
+    ],
+    [
+      16,
+      "中子炮",
+      0,
+      0,
+      0,
+      2980,
+      135,
+      [
+
+      ],
+      [
+        1,
+        3
+      ],
+      0
+    ],
+    [
+      17,
+      "飞龙火",
+      0,
+      0,
+      0,
+      3200,
+      120,
+      [
+
+      ],
+      [
+        3
+      ],
+      1
+    ],
+    [
+      18,
+      "弹筒",
+      0,
+      0,
+      0,
+      3800,
+      160,
+      [
+
+      ],
+      [
+        1,
+        2,
+        3
+      ],
+      0
+    ],
+    [
+      19,
+      "音波枪",
+      0,
+      0,
+      0,
+      4600,
+      190,
+      [
+
+      ],
+      [
+        1,
+        2,
+        3
+      ],
+      1
+    ],
+    [
+      20,
+      "宝刀",
+      0,
+      0,
+      0,
+      5000,
+      205,
+      [
+
+      ],
+      [
+        1,
+        2,
+        3
+      ],
+      0
+    ],
+    [
+      21,
+      "火箭炮",
+      0,
+      0,
+      0,
+      5500,
+      220,
+      [
+
+      ],
+      [
+        1,
+        3
+      ],
+      0
+    ],
+    [
+      22,
+      "穿甲炮",
+      0,
+      0,
+      0,
+      7000,
+      250,
+      [
+
+      ],
+      [
+        1,
+        3
+      ],
+      0
+    ],
+    [
+      23,
+      "迫击炮",
+      0,
+      0,
+      0,
+      7300,
+      210,
+      [
+
+      ],
+      [
+        3
+      ],
+      2
+    ],
+    [
+      24,
+      "首",
+      0,
+      0,
+      0,
+      16000,
+      210,
+      [
+
+      ],
+      [
+        1,
+        3
+      ],
+      0
+    ]
+  ],
+  "music_name": "2、Name.ogg",
+  "picture_backup": "Backup.png",
+  "picture_backup_drop": "Backup_Drop.png",
+  "picture_backup_drop_select": "Backup_Drop_Select.png",
+  "picture_battle_dialog_back": "Battle_DialogBack.png",
+  "picture_battle_help_back": "Battle_HelpBack.png",
+  "picture_battle_people_back": "Battle_PeopleBack.png",
+  "picture_battle_tank_back": "Battle_TankBack.png",
+  "picture_cannonballshop_back": "SpecialCannonBallShop_Back.png",
+  "picture_cannonballshop_cannonballtypeselect": "SpecialCannonBallShop_CannonBallTypeSelect.png",
+  "picture_cannonballshop_cannonselect": "SpecialCannonBallShop_CannonSelect.png",
+  "picture_cannonballshop_command": "SpecialCannonBallShop_Command.png",
+  "picture_cannonballshop_numberinput": "SpecialCannonBallShop_NumberInput.png",
+  "picture_cursor_main": "Main_Cursor.png",
+  "picture_cursor_name": "Name_Corsur.png",
+  "picture_cursor_name_select": "Name_Select.png",
+  "picture_dialog_backup": "Backup_Dialog.png",
+  "picture_dialog_movie": "Dialog_Movie.png",
+  "picture_dialog_number_down_input": "Dialog_Number_Input_Down.png",
+  "picture_dialog_number_up_input": "Dialog_Number_Input_Up.png",
+  "picture_dialog_wait": "Dialog_Wait.png",
+  "picture_equip_back_actor": "Equip_Back_Actor.png",
+  "picture_equip_back_tank_normal": "Equip_Back_Tank_Normal.png",
+  "picture_equip_back_tank_pass": "Equip_Back_Tank_Pass.png",
+  "picture_game_header_back": "Game_Header_Back.png",
+  "picture_game_header_black_back": "Game_Header_Black_Back.png",
+  "picture_game_header_ct": "Game_Header_CT.png",
+  "picture_game_header_push": "Game_Header_Push.png",
+  "picture_game_header_title": "Game_Header_Title.png",
+  "picture_game_piripirilogo": "Pripiri_Logo.png",
+  "picture_load_back": "LOAD_Back.png",
+  "picture_machine_lift": "Lift_Back.png",
+  "picture_machine_lifttable": "Lift_FloorName.png",
+  "picture_machine_nextexp": "NextExp_Back.png",
+  "picture_machine_opencloseswitch": "OpenCloseSwitch_Back.png",
+  "picture_machine_password": "PassWord_Back.png",
+  "picture_menu_back": "Menu_Back.jpg",
+  "picture_mode_back": "Mode_Back.png",
+  "picture_mode_data_back": "Mode_Data_Back.png",
+  "picture_mode_moneybell_back": "Mode_MoneyBell_Back.png",
+  "picture_musicbox": "MusicBox.png",
+  "picture_name_back": "Name_Back.png",
+  "picture_name_select": "Name_Select.png",
+  "picture_plugin_back": "Plugin_Back.png",
+  "picture_repairshop_back": "RepairShop_Back.png",
+  "picture_repairshop_command": "RepairShop_Command.png",
+  "picture_resetorend": "ResetOrEnd.png",
+  "picture_shop_equipmentanditem": "Shop_EquipmentAndItem.png",
+  "picture_shop_mainback": "Shop_MainBack.png",
+  "picture_shop_maincommand": "Shop_MainCommand.png",
+  "picture_shop_peopleequipmentinfoforarmor": "Shop_PeopleEquipmentInfoForArmor.png",
+  "picture_shop_peopleequipmentinfoforweapon": "Shop_PeopleEquipmentInfoForWeapon.png",
+  "picture_shop_peopleequipmentshopname": "Shop_PeopleEquipmentShopName.png",
+  "picture_shop_peopleitemshopname": "Shop_PeopleItemShopName.png",
+  "picture_shop_tankequipmentinfoforcannon": "Shop_TankEquipmentInfoForCannon.png",
+  "picture_shop_tankequipmentinfoforcunit": "Shop_TankEquipmentInfoForCUnit.png",
+  "picture_shop_tankequipmentinfoforengine": "Shop_TankEquipmentInfoForEngine.png",
+  "picture_shop_tankequipmentshopname": "Shop_TankEquipmentShopName.png",
+  "picture_shop_tankitemshopname": "Shop_TankItemShopName.png",
+  "picture_specialcannonball_back": "SpecialCannonBall_Back.png",
+  "picture_status_back": "Status_Back.png",
+  "picture_status_people_back": "Status_PeopleBack.png",
+  "picture_status_tank_back": "Status_TankBack.png",
+  "picture_status_tank_drop": "Status_TankDrop.png",
+  "picture_status_tank_parament": "Status_Tank_Parament.png",
+  "picture_storageshop_back": "StorageShop_Back.png",
+  "picture_storageshop_command": "StorageShop_Command.png",
+  "picture_storageshop_getback": "StorageShop_GetBack.png",
+  "picture_storageshop_storeback": "StorageShop_StoreBack.png",
+  "picture_strikedwantedpersonlist_back": "StrikedWantedPersonBack.png",
+  "picture_supplyshop_armournumberselect": "SupplyShop_ArmourNumberSelect.png",
+  "picture_supplyshop_armoursupplyback": "SupplyShop_ArmourSupplyBack.png",
+  "picture_supplyshop_cannonballnumberselect": "SupplyShop_CannonBallNumberSelect.png",
+  "picture_supplyshop_cannonballsupplyback": "SupplyShop_CannonBallSupplyBack.png",
+  "picture_supplyshop_mainback": "SupplyShop_MainBack.png",
+  "picture_supplyshop_mainselection": "SupplyShop_MainSelection.png",
+  "picture_supplyshop_supplyselection": "SupplyShop_SupplySelection.png",
+  "picture_tankrent_back": "TankRent_Back.png",
+  "picture_tankrent_backup": "TankRent_Backup.png",
+  "picture_tankrent_command": "TankRent_Command.png",
+  "picture_tankrent_instrol": "TankRent_Instrol.png",
+  "picture_tankrent_tankselect": "TankRent_TankSelect.png",
+  "picture_tanks_status": [
+    null,
+    [
+      "Status_Tank_1_None.png",
+      "Status_Tank_1_Main_Cannon.png",
+      "Status_Tank_1_Sub_Cannon.png",
+      "Status_Tank_1_SE.png",
+      [
+        [
+          105,
+          84
+        ],
+        [
+          72,
+          99
+        ],
+        [
+          155,
+          63
+        ],
+        [
+          233,
+          81
+        ]
+      ]
+    ],
+    [
+      "Status_Tank_2_None.png",
+      "Status_Tank_2_Main_Cannon.png",
+      "Status_Tank_2_Sub_Cannon.png",
+      "Status_Tank_2_SE.png",
+      [
+        [
+          95,
+          120
+        ],
+        [
+          159,
+          109
+        ],
+        [
+          88,
+          127
+        ],
+        [
+          223,
+          122
+        ]
+      ]
+    ],
+    [
+      "Status_Tank_3_None.png",
+      "Status_Tank_3_Main_Cannon.png",
+      "Status_Tank_3_Sub_Cannon.png",
+      "Status_Tank_3_SE.png",
+      [
+        [
+          98,
+          96
+        ],
+        [
+          99,
+          89
+        ],
+        [
+          80,
+          107
+        ],
+        [
+          222,
+          92
+        ]
+      ]
+    ],
+    [
+      "Status_Tank_4_None.png",
+      "Status_Tank_4_Main_Cannon.png",
+      "Status_Tank_4_Sub_Cannon.png",
+      "Status_Tank_4_SE.png",
+      [
+        [
+          104,
+          108
+        ],
+        [
+          135,
+          101
+        ],
+        [
+          78,
+          115
+        ],
+        [
+          213,
+          102
+        ]
+      ]
+    ],
+    [
+      "Status_Tank_5_None.png",
+      "Status_Tank_5_Main_Cannon.png",
+      "Status_Tank_5_Sub_Cannon.png",
+      "Status_Tank_5_SE.png",
+      [
+        [
+          106,
+          90
+        ],
+        [
+          68,
+          104
+        ],
+        [
+          155,
+          91
+        ],
+        [
+          241,
+          98
+        ]
+      ]
+    ],
+    [
+      "Status_Tank_6_None.png",
+      "Status_Tank_6_Main_Cannon.png",
+      "Status_Tank_6_Sub_Cannon.png",
+      "Status_Tank_6_SE.png",
+      [
+        [
+          112,
+          104
+        ],
+        [
+          80,
+          120
+        ],
+        [
+          97,
+          137
+        ],
+        [
+          235,
+          111
+        ]
+      ]
+    ],
+    [
+      "Status_Tank_7_None.png",
+      "Status_Tank_7_Main_Cannon.png",
+      "Status_Tank_7_Sub_Cannon.png",
+      "Status_Tank_7_SE.png",
+      [
+        [
+          104,
+          97
+        ],
+        [
+          70,
+          113
+        ],
+        [
+          177,
+          94
+        ],
+        [
+          229,
+          94
+        ]
+      ]
+    ],
+    [
+      "Status_Tank_8_None.png",
+      "Status_Tank_8_Main_Cannon.png",
+      "Status_Tank_8_Sub_Cannon.png",
+      "Status_Tank_8_SE.png",
+      [
+        [
+          101,
+          95
+        ],
+        [
+          65,
+          113
+        ],
+        [
+          184,
+          93
+        ],
+        [
+          238,
+          97
+        ]
+      ]
+    ]
+  ],
+  "picture_tank_1_position": [
+    [
+      105,
+      84
+    ],
+    [
+      72,
+      99
+    ],
+    [
+      155,
+      63
+    ],
+    [
+      233,
+      81
+    ]
+  ],
+  "picture_tank_1_status": "Status_Tank_1_None.png",
+  "picture_tank_1_status_main_cannon": "Status_Tank_1_Main_Cannon.png",
+  "picture_tank_1_status_se_cannon": "Status_Tank_1_SE.png",
+  "picture_tank_1_status_sub_cannon": "Status_Tank_1_Sub_Cannon.png",
+  "picture_tank_2_position": [
+    [
+      95,
+      120
+    ],
+    [
+      159,
+      109
+    ],
+    [
+      88,
+      127
+    ],
+    [
+      223,
+      122
+    ]
+  ],
+  "picture_tank_2_status": "Status_Tank_2_None.png",
+  "picture_tank_2_status_main_cannon": "Status_Tank_2_Main_Cannon.png",
+  "picture_tank_2_status_se_cannon": "Status_Tank_2_SE.png",
+  "picture_tank_2_status_sub_cannon": "Status_Tank_2_Sub_Cannon.png",
+  "picture_tank_3_position": [
+    [
+      98,
+      96
+    ],
+    [
+      99,
+      89
+    ],
+    [
+      80,
+      107
+    ],
+    [
+      222,
+      92
+    ]
+  ],
+  "picture_tank_3_status": "Status_Tank_3_None.png",
+  "picture_tank_3_status_main_cannon": "Status_Tank_3_Main_Cannon.png",
+  "picture_tank_3_status_se_cannon": "Status_Tank_3_SE.png",
+  "picture_tank_3_status_sub_cannon": "Status_Tank_3_Sub_Cannon.png",
+  "picture_tank_4_position": [
+    [
+      104,
+      108
+    ],
+    [
+      135,
+      101
+    ],
+    [
+      78,
+      115
+    ],
+    [
+      213,
+      102
+    ]
+  ],
+  "picture_tank_4_status": "Status_Tank_4_None.png",
+  "picture_tank_4_status_main_cannon": "Status_Tank_4_Main_Cannon.png",
+  "picture_tank_4_status_se_cannon": "Status_Tank_4_SE.png",
+  "picture_tank_4_status_sub_cannon": "Status_Tank_4_Sub_Cannon.png",
+  "picture_tank_5_position": [
+    [
+      106,
+      90
+    ],
+    [
+      68,
+      104
+    ],
+    [
+      155,
+      91
+    ],
+    [
+      241,
+      98
+    ]
+  ],
+  "picture_tank_5_status": "Status_Tank_5_None.png",
+  "picture_tank_5_status_main_cannon": "Status_Tank_5_Main_Cannon.png",
+  "picture_tank_5_status_se_cannon": "Status_Tank_5_SE.png",
+  "picture_tank_5_status_sub_cannon": "Status_Tank_5_Sub_Cannon.png",
+  "picture_tank_6_position": [
+    [
+      112,
+      104
+    ],
+    [
+      80,
+      120
+    ],
+    [
+      97,
+      137
+    ],
+    [
+      235,
+      111
+    ]
+  ],
+  "picture_tank_6_status": "Status_Tank_6_None.png",
+  "picture_tank_6_status_main_cannon": "Status_Tank_6_Main_Cannon.png",
+  "picture_tank_6_status_se_cannon": "Status_Tank_6_SE.png",
+  "picture_tank_6_status_sub_cannon": "Status_Tank_6_Sub_Cannon.png",
+  "picture_tank_7_position": [
+    [
+      104,
+      97
+    ],
+    [
+      70,
+      113
+    ],
+    [
+      177,
+      94
+    ],
+    [
+      229,
+      94
+    ]
+  ],
+  "picture_tank_7_status": "Status_Tank_7_None.png",
+  "picture_tank_7_status_main_cannon": "Status_Tank_7_Main_Cannon.png",
+  "picture_tank_7_status_se_cannon": "Status_Tank_7_SE.png",
+  "picture_tank_7_status_sub_cannon": "Status_Tank_7_Sub_Cannon.png",
+  "picture_tank_8_position": [
+    [
+      101,
+      95
+    ],
+    [
+      65,
+      113
+    ],
+    [
+      184,
+      93
+    ],
+    [
+      238,
+      97
+    ]
+  ],
+  "picture_tank_8_status": "Status_Tank_8_None.png",
+  "picture_tank_8_status_main_cannon": "Status_Tank_8_Main_Cannon.png",
+  "picture_tank_8_status_se_cannon": "Status_Tank_8_SE.png",
+  "picture_tank_8_status_sub_cannon": "Status_Tank_8_Sub_Cannon.png",
+  "picture_transformshop_command": "TransformShop_Command.png",
+  "picture_transformshop_holeselect": "TransformShop_HoleSelection.png",
+  "picture_transformshop_mainback": "TransformShop_MainBack.png",
+  "picture_wanted_back": "Wanted_Back.png",
+  "picture_wanted_select": "Wanted_Select.png",
+  "vocab_acotr_item_battle": {
+    "0": null,
+    "1": [
+      "%s 喝了 参丸，|%s的HP回复了 %s！",
+      "uun"
+    ],
+    "2": [
+      "%s 喝了 党参，|%s的HP回复了 %s！",
+      "uun"
+    ],
+    "3": [
+      "%s 喝了 人参，|%s的HP回复了 %s！",
+      "uun"
+    ],
+    "4": [
+      "%s 喝了 灵丹，|%s的HP回复了 %s！",
+      "uun"
+    ],
+    "5": [
+      "%s 使用了 解药！|酸 被中和了！",
+      "u"
+    ],
+    "6": [
+      "%s 使用了 灭火器！|%s周围的 火焰消失了！",
+      "uu"
+    ],
+    "7": [
+      "%s 使用了 消火栓！|%s周围的 火焰消失了！",
+      "uu"
+    ],
+    "8": [
+      "",
+      "u"
+    ],
+    "9": [
+      "%s 使用了 喷雾剂！|酸 被中和了！",
+      "u"
+    ],
+    "10": [
+      "%s 喝了 兴奋剂！|%s的威力增加了！",
+      "uu"
+    ],
+    "11": [
+      "%s 使用了 烟雾！|%s化妆术！",
+      "uu"
+    ],
+    "12": [
+      "",
+      "u"
+    ],
+    "13": [
+      "",
+      "u"
+    ],
+    "14": [
+      "",
+      "u"
+    ],
+    "15": [
+      "",
+      "u"
+    ],
+    "16": [
+      "%s 扔了 手雷！|%s 损伤了 %s！",
+      "utn"
+    ],
+    "17": [
+      "%s 扔了 导弹！|%s 损伤了 %s！",
+      "utn"
+    ],
+    "18": [
+      "%s 扔了 榴弹！|%s 损伤了 %s！",
+      "utn"
+    ],
+    "19": [
+      "%s 扔了 穿甲弹！|%s 损伤了 %s！",
+      "utn"
+    ],
+    "20": [
+      "扔了 石子！|%s 损伤了 %s！",
+      "tn"
+    ],
+    "21": [
+      "%s 使用了 钱包！|%s 损伤了 %s！",
+      "utn"
+    ],
+    "22": [
+      "%s 使用了 药液！|%s 损伤了 %s！",
+      "utn"
+    ],
+    "23": [
+      "%s 使用了 火瓶！|%s 损伤了 %s！",
+      "utn"
+    ],
+    "24": [
+      "%s 使用了 酸瓶！|%s 损伤了 %s！",
+      "utn"
+    ],
+    "25": [
+      "%s 使用了 口罩！",
+      "u"
+    ],
+    "26": [
+      "",
+      ""
+    ],
+    "27": [
+      "%s 使用了 军号！|士气提高了！",
+      "u"
+    ],
+    "28": [
+      "",
+      ""
+    ],
+    "29": [
+      "",
+      ""
+    ],
+    "30": [
+      "",
+      ""
+    ],
+    "31": [
+      "",
+      ""
+    ],
+    "32": [
+      "",
+      ""
+    ],
+    "33": [
+      "%s 用毛巾 捂住了嘴和鼻子！",
+      "u"
+    ],
+    "34": [
+      "",
+      ""
+    ],
+    "35": [
+      "",
+      ""
+    ],
+    "36": [
+      "",
+      ""
+    ],
+    "37": [
+      "%s 用古币 占卜运气！|%s可能会打胜！",
+      "u",
+      "%s 用古币 占卜运气！|%s可能要吃败仗！",
+      "u"
+    ],
+    "38": [
+      "",
+      ""
+    ],
+    "39": [
+      "",
+      ""
+    ],
+    "40": [
+      "",
+      ""
+    ],
+    "41": [
+      "",
+      ""
+    ],
+    "42": [
+      "",
+      ""
+    ],
+    "43": [
+      "%s 使用了 地图！|给人造卫星发射信号！",
+      "u"
+    ],
+    "44": [
+      "",
+      ""
+    ],
+    "45": [
+      "",
+      ""
+    ],
+    "46": [
+      "",
+      ""
+    ],
+    "47": [
+      "",
+      ""
+    ],
+    "48": [
+      "",
+      ""
+    ],
+    "49": [
+      "%s 使用了 再生丸！|%s 贴了装甲片",
+      "uu"
+    ]
+  },
+  "vocab_acotr_item_menu": {
+    "0": null,
+    "1": [
+      "%s 喝了 参丸，%s的HP回复了 %s！",
+      "uun"
+    ],
+    "2": [
+      "%s 喝了 党参，%s的HP回复了 %s！",
+      "uun"
+    ],
+    "3": [
+      "%s 喝了 人参，%s的HP回复了 %s！",
+      "uun"
+    ],
+    "4": [
+      "%s 喝了 灵丹，%s的HP回复了 %s！",
+      "uun"
+    ],
+    "5": [
+      "%s 使用了 解药，身上的酸被中和了！",
+      "u"
+    ],
+    "6": [
+      "",
+      ""
+    ],
+    "7": [
+      "%s 使用了 消火栓！",
+      "u"
+    ],
+    "8": [
+      "%s 使用了 醉药，从麻痹状态中回复了！",
+      "u"
+    ],
+    "9": [
+      "%s 使用了 喷雾剂，身上的酸被中和了！",
+      "u"
+    ],
+    "10": [
+      "",
+      ""
+    ],
+    "11": [
+      "",
+      ""
+    ],
+    "12": [
+      "%s 使用了 花扳，当当当，损坏的地方修好了！",
+      "u"
+    ],
+    "13": [
+      "%s 使用了 修理箱，当当当，损坏的地方修好了！",
+      "u"
+    ],
+    "14": [
+      "%s 使用了 探雷器！",
+      "u"
+    ],
+    "15": [
+      "%s 使用了 探测仪！",
+      "u"
+    ],
+    "16": [
+      "",
+      ""
+    ],
+    "17": [
+      "",
+      ""
+    ],
+    "18": [
+      "",
+      ""
+    ],
+    "19": [
+      "",
+      ""
+    ],
+    "20": [
+      "",
+      ""
+    ],
+    "21": [
+      "%s 把钱塞进了钱包里，钱包仍然那么瘪。",
+      "u",
+      "%s 把钱塞进钱包里，钱包装不下了。",
+      "u"
+    ],
+    "22": [
+      "",
+      ""
+    ],
+    "23": [
+      "",
+      ""
+    ],
+    "24": [
+      "",
+      ""
+    ],
+    "25": [
+      "",
+      ""
+    ],
+    "26": [
+      "%s 使用了 游戏机！",
+      "u"
+    ],
+    "27": [
+      "%s 用军号 占卜！",
+      "u"
+    ],
+    "28": [
+      "",
+      "u"
+    ],
+    "29": [
+      "",
+      "u"
+    ],
+    "30": [
+      "",
+      "u"
+    ],
+    "31": [
+      "%s 敲着 象牙！激烈的战斗场面展现在眼前！。",
+      "u"
+    ],
+    "32": [
+      "",
+      "u"
+    ],
+    "33": [
+      "%s 用 毛巾 擦汗 散发出气味",
+      "u"
+    ],
+    "34": [
+      "%s 用女内衣捂住鼻子和嘴，姐姐有什么味儿。",
+      "u"
+    ],
+    "35": [
+      "%s 用男内衣捂住鼻子和嘴，父母有什么味儿。",
+      "u"
+    ],
+    "36": [
+      "%s 使用了 纹身！自己腕上用纹身 刺了个牡丹花！",
+      "u"
+    ],
+    "37": [
+      "%s 把古币 弹出去… 是正面！",
+      "u",
+      "%s 把古币 弹出去… 是反面！",
+      "u"
+    ],
+    "38": [
+      "%s 打开 密码本。",
+      "u"
+    ],
+    "39": [
+      "%s 打开 日记。",
+      "u"
+    ],
+    "40": [
+      "%s 打开 笔记。",
+      "u"
+    ],
+    "41": [
+      "%s 使用了 钥匙。！",
+      "u"
+    ],
+    "42": [
+      "%s 使用了 扳手！ ",
+      "u"
+    ],
+    "43": [
+      "使用了 地图！",
+      "u"
+    ],
+    "44": [
+      "",
+      ""
+    ],
+    "45": [
+      "",
+      ""
+    ],
+    "46": [
+      "",
+      ""
+    ],
+    "47": [
+      "",
+      ""
+    ],
+    "48": [
+      "",
+      ""
+    ],
+    "49": [
+      "%s 使用了 再生丸！",
+      "u"
+    ]
+  },
+  "vocab_battle_cannonball": {
+    "1": [
+      "",
+      ""
+    ]
+  },
+  "vocab_battle_effective_normal": "%s 的攻击 | %s 受到了 %s 的损伤！",
+  "vocab_battle_enemy": {
+    "1": [
+      "",
+      ""
+    ],
+    "2": [
+      "",
+      ""
+    ]
+  },
+  "vocab_battle_noeffective_normal": "%s 的攻击 | 但是没打中！",
+  "vocab_battle_skill": {
+    "1": [
+      "",
+      ""
+    ],
+    "2": [
+      "",
+      ""
+    ]
+  },
+  "vocab_noeffect": "%s 使用了 %s，什么也没发生！",
+  "vocab_status": {
+    "1": [
+      "",
+      "",
+      ""
+    ],
+    "2": [
+      "%s 被酸腐蚀了！",
+      "%s的酸被中和了！",
+      "SN"
+    ],
+    "3": [
+      "%s 被酸腐蚀了！",
+      "%s的酸被中和了！",
+      "KO"
+    ],
+    "4": [
+      "%s 麻痹了！",
+      "%s 麻痹状态解除了！",
+      "KO"
+    ],
+    "5": [
+      "%s 睡着了！",
+      "%s 醒来了！",
+      "SU"
+    ],
+    "6": [
+      "%s 被火焰包围了！",
+      "%s 周围的火焰消失了！",
+      "LN"
+    ],
+    "7": [
+      "%s 被火焰包围了！",
+      "%s 周围的火焰消失了！",
+      "HT"
+    ],
+    "8": [
+      "%s 周围弥漫着毒气！",
+      "",
+      ""
+    ],
+    "9": [
+      "%s 乱了阵脚！",
+      "",
+      ""
+    ],
+    "10": [
+      "部件损坏，无法攻击！",
+      "！",
+      ""
+    ]
+  },
+  "vocab_tank_item_battle": {
+    "0": null,
+    "1": [
+      "",
+      ""
+    ],
+    "2": [
+      "",
+      ""
+    ],
+    "3": [
+      "",
+      ""
+    ],
+    "4": [
+      "",
+      ""
+    ],
+    "5": [
+      "",
+      ""
+    ],
+    "6": [
+      "",
+      ""
+    ],
+    "7": [
+      "%s 使用了 药箱！|HP恢复了！",
+      "u",
+      "%s 使用了 药箱！|HP全满了！",
+      "u"
+    ],
+    "8": [
+      "",
+      ""
+    ],
+    "9": [
+      "%s 打开了 空调 的开关！",
+      "u"
+    ],
+    "10": [
+      "%s 打开了 暖风机 的开关！",
+      "u"
+    ],
+    "11": [
+      "%s 打开了 冷风机 的开关！",
+      "u"
+    ],
+    "12": [
+      "%s 打开了 气扇 的开关！",
+      "u"
+    ],
+    "13": [
+      "%s 打开了 雷达 的开关！|%s的命中率提高了！",
+      "uu"
+    ],
+    "15": [
+      "%s 打开了 护屏 的开关！",
+      "u"
+    ],
+    "16": [
+      "",
+      ""
+    ],
+    "17": [
+      "%s 的冲撞攻击！|%s损伤了%s！",
+      "utn"
+    ],
+    "18": [
+      "",
+      ""
+    ],
+    "19": [
+      "",
+      ""
+    ]
+  },
+  "vocab_tank_item_menu": {
+    "0": null,
+    "1": [
+      "传真ON！请选择传送基地！",
+      "",
+      "传真ON！要返回地面吗？",
+      ""
+    ],
+    "2": [
+      "让迷彩条动作。",
+      ""
+    ],
+    "3": [
+      "%s 贴了 装甲片！",
+      "u"
+    ],
+    "4": [
+      "%s 贴了 装甲片！",
+      "u"
+    ],
+    "5": [
+      "%s 贴了 装甲片！。",
+      "u"
+    ],
+    "6": [
+      "%s 贴了 装甲片！",
+      "u"
+    ],
+    "7": [
+      "%s 使用了 药箱！HP恢复了！",
+      "u",
+      "%s 使用了 药箱！HP全满了！",
+      "u"
+    ],
+    "8": [
+      "%s 获 石蜡！",
+      "u"
+    ],
+    "9": [
+      "",
+      ""
+    ],
+    "10": [
+      "",
+      ""
+    ],
+    "11": [
+      "",
+      ""
+    ],
+    "12": [
+      "",
+      ""
+    ],
+    "13": [
+      "",
+      ""
+    ],
+    "15": [
+      "",
+      ""
+    ],
+    "16": [
+      "%s 把 卡通兔 挂在车里！",
+      "u"
+    ],
+    "17": [
+      "",
+      ""
+    ],
+    "18": [
+      "",
+      ""
+    ],
+    "19": [
+      "",
+      ""
+    ]
+  }
+}
