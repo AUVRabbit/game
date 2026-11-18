@@ -1,20 +1,20 @@
 78098b89c88a74ebe8c20117b8754620
-::res://::1794904875
+::res://::1794909134
 icon.svg::CompressedTexture2D::806933915188498320::1794896851::1794904877::1::::<><><>0<>0<>5f12d8ca2469800dbfd7bf8bbbd8d5db<>res://.godot/imported/icon.svg-218a8f2b3041327d8a5756f3a245f83b.ctex::
 ::res://assets/::1794896700
 ::res://assets/audio/::1794896700
-::res://assets/audio/BGM/::1794903817
+::res://assets/audio/BGM/::1794904877
 1、Metal max.ogg::AudioStreamOggVorbis::7854301383404379963::1794896715::1794904877::1::::<><><>0<>0<>828d76e879eca309d2a073d63752e73b<>res://.godot/imported/1、Metal max.ogg-8a017515a43a132d1770d620cf774d60.oggvorbisstr::
 2、Name.ogg::AudioStreamOggVorbis::4037921181677088466::1794896715::1794904877::1::::<><><>0<>0<>8195bcec9faed5da74096fc0c1e94b4c<>res://.godot/imported/2、Name.ogg-1ea640e316ed66686b9a4166676d151e.oggvorbisstr::
 5、Battle.ogg::AudioStreamOggVorbis::4484753687853366512::1794896715::1794904877::1::::<><><>0<>0<>69a7045701cd1e2c0d87fa5aa0dd8dc8<>res://.godot/imported/5、Battle.ogg-a5ec3cff1d77a024aa88c819cb749b61.oggvorbisstr::
 10、Town.ogg::AudioStreamOggVorbis::4322047641220044948::1794896715::1794904877::1::::<><><>0<>0<>99f29856a2e2525feaece82cba5b8a5a<>res://.godot/imported/10、Town.ogg-1b36b41e7dcb5ffd5c679e69dd384ca6.oggvorbisstr::
 ::res://assets/audio/BGS/::1794896700
-::res://assets/audio/ME/::1794903817
+::res://assets/audio/ME/::1794904877
 battle-finish.mp3::AudioStreamMP3::398304987299752438::1794896715::1794904877::1::::<><><>0<>0<>07b9ca0714f649b4e2050e8c9fa8bd79<>res://.godot/imported/battle-finish.mp3-0bfe5dee4b0be931ff01a7e8fe3791a5.mp3str::
 find-out.mp3::AudioStreamMP3::4234938767852177747::1794896715::1794904877::1::::<><><>0<>0<>72e1c58f72522f2709334b5295d96feb<>res://.godot/imported/find-out.mp3-f10328871767da354724984373c3a766.mp3str::
 level-up.mp3::AudioStreamMP3::4046662056086176618::1794896715::1794904877::1::::<><><>0<>0<>6c7490048621f386823aea3fd4b01de5<>res://.godot/imported/level-up.mp3-b4423134c19a64ec614e94375c85973e.mp3str::
 wanted-brock.mp3::AudioStreamMP3::6660693552180190785::1794896715::1794904877::1::::<><><>0<>0<>534f4b38d05ab2b3f131ee9fb07c04f7<>res://.godot/imported/wanted-brock.mp3-664bfcf78c843a7f113fb5e49361a1ef.mp3str::
-::res://assets/audio/SE/::1794903818
+::res://assets/audio/SE/::1794904877
 mm-cursor.wav::AudioStreamWAV::306160243072384435::1794896715::1794904877::1::::<><><>0<>0<>0794b47b33f40dd687470cd0996cca8b<>res://.godot/imported/mm-cursor.wav-73d6dc3bcab8e64f8b36d27160dbc780.sample::
 mm-ok.wav::AudioStreamWAV::6047862034078740609::1794896715::1794904877::1::::<><><>0<>0<>26d76bfe4a8c79fb95d8eaedb1706043<>res://.godot/imported/mm-ok.wav-a271687863d61fb5ca0730a1b1c16d02.sample::
 mm-repaire.wav::AudioStreamWAV::2205699169115633214::1794896715::1794904877::1::::<><><>0<>0<>cc0889ecdb463287f6ee35907efd807d<>res://.godot/imported/mm-repaire.wav-47307205838d395c4f864c631c324f5e.sample::
@@ -22,10 +22,10 @@ mm-updown.mp3::AudioStreamMP3::5850190944463644852::1794896715::1794904877::1:::
 Piripiri.wav::AudioStreamWAV::1350566061664135949::1794896715::1794904877::1::::<><><>0<>0<>7b7731952c19edd20df63380e38a6ab2<>res://.godot/imported/Piripiri.wav-1b7499a20627472e2f3e79307f79c371.sample::
 ::res://assets/graphics/::1794896700
 ::res://assets/graphics/Animations/::1794896700
-::res://assets/graphics/Autotiles/::1794903817
+::res://assets/graphics/Autotiles/::1794904877
 001-G_Water01.png::CompressedTexture2D::2141771811066871348::1794896715::1794904877::1::::<><><>0<>0<>cd3e2db819047aa6f1b7111641d2cc8b<>res://.godot/imported/001-G_Water01.png-48aa69ad3da5e2ec597ab9113bd20de3.ctex::
 ::res://assets/graphics/Battlebacks/::1794896700
-::res://assets/graphics/Battlers/::1794903817
+::res://assets/graphics/Battlers/::1794904877
 DeadBody.png::CompressedTexture2D::5218199223912785853::1794896715::1794904877::1::::<><><>0<>0<>d6feae941ee65372f6e3928709323005<>res://.godot/imported/DeadBody.png-8abfca153a88d6f43f388512b413e24f.ctex::
 Tank1.png::CompressedTexture2D::9168404841808257912::1794896715::1794904877::1::::<><><>0<>0<>a1028f2de1e87b12c0d18c8d8c953a95<>res://.godot/imported/Tank1.png-1f5522c898b831813c227578485a4a3e.ctex::
 Tank2.png::CompressedTexture2D::7449210020072679729::1794896715::1794904877::1::::<><><>0<>0<>8dbe2a6223b43f1a07aa0a97d02acde7<>res://.godot/imported/Tank2.png-247a182ace34002d4e70cdabb20fc64b.ctex::
@@ -38,7 +38,7 @@ Tank8.png::CompressedTexture2D::5407163168558677008::1794896715::1794904877::1::
 角色1.png::CompressedTexture2D::1415459883022580967::1794896715::1794904877::1::::<><><>0<>0<>203e8c53cb2d9986cdb13e4d253a7f06<>res://.godot/imported/角色1.png-24be9b68daf873ca3792b483c2700289.ctex::
 角色2.png::CompressedTexture2D::8641981138715672687::1794896715::1794904877::1::::<><><>0<>0<>d40df368d45ba01ab873921ce5d10e27<>res://.godot/imported/角色2.png-a48bf6fa955039e04a435219545ac4fb.ctex::
 角色3.png::CompressedTexture2D::7407555148787648109::1794896715::1794904877::1::::<><><>0<>0<>f10f49f9ef608c58f6cc7518f54ebfa3<>res://.godot/imported/角色3.png-cf2bac6cda9670922e0f02f05aeafb06.ctex::
-::res://assets/graphics/Characters/::1794903817
+::res://assets/graphics/Characters/::1794904877
 $狼.png::CompressedTexture2D::3369498299875037855::1794896715::1794904877::1::::<><><>0<>0<>dcf6627adbaffa4e032cc6b239559275<>res://.godot/imported/$狼.png-2943ff7040787ac10c7fef72ab140bfb.ctex::
 DeadBody.png::CompressedTexture2D::1144575116096674414::1794896715::1794904877::1::::<><><>0<>0<>0e22fba2616746f17318fcc020083917<>res://.godot/imported/DeadBody.png-ce90e3de4e8194fe1844e7ead01efafd.ctex::
 Tank_1.png::CompressedTexture2D::5347124978333209219::1794896715::1794904877::1::::<><><>0<>0<>fca58e33e29fd5d30ad6c6b0dec7ac0e<>res://.godot/imported/Tank_1.png-6d4fe4def973bf14f7b731104a6ab221.ctex::
@@ -55,7 +55,7 @@ Tank_8.png::CompressedTexture2D::3733037793207721843::1794896715::1794904877::1:
 主角二.png::CompressedTexture2D::4382323256652607944::1794896715::1794904877::1::::<><><>0<>0<>e33060816d71c73906a92f95831746f5<>res://.godot/imported/主角二.png-0f1c021af3a0c60bb60f283d23940cbd.ctex::
 ::res://assets/graphics/Fogs/::1794896700
 ::res://assets/graphics/Gameovers/::1794896700
-::res://assets/graphics/Icons/::1794903817
+::res://assets/graphics/Icons/::1794904877
 Equipment_Body.png::CompressedTexture2D::4655165037465608147::1794896715::1794904877::1::::<><><>0<>0<>2fa08084ca294e2fe717dcc86a2f419d<>res://.godot/imported/Equipment_Body.png-066b97522f7177bf38f414aeb6a17f1d.ctex::
 Equipment_C_Unit.png::CompressedTexture2D::7909472879504363684::1794896715::1794904877::1::::<><><>0<>0<>5dc2773ff9ab7cd396ac48e20325ad51<>res://.godot/imported/Equipment_C_Unit.png-c7e20f5e30b173de048e2040071afb1a.ctex::
 Equipment_Engine.png::CompressedTexture2D::670269077593585232::1794896715::1794904877::1::::<><><>0<>0<>ad41e93fd813ea23a0ac2dd4c169b41d<>res://.godot/imported/Equipment_Engine.png-433dd7c5b60697e3f20800457b7d1cbe.ctex::
@@ -69,7 +69,7 @@ Equipment_SubCannon.png::CompressedTexture2D::964377031073031687::1794896715::17
 Equipment_Underpan.png::CompressedTexture2D::5386144915176384646::1794896715::1794904877::1::::<><><>0<>0<>d4e41037c2913d04f760b08667993b66<>res://.godot/imported/Equipment_Underpan.png-2fa717ad6a8a2098e08c8486ec963fa1.ctex::
 Equipment_Weapon.jpg::CompressedTexture2D::1317706831240740782::1794896715::1794904877::1::::<><><>0<>0<>e2f43ebc4ecf4710712cbba005af2cb2<>res://.godot/imported/Equipment_Weapon.jpg-0fa1d5f9b6c765cb52e3d4ea22298db7.ctex::
 ::res://assets/graphics/Panoramas/::1794896700
-::res://assets/graphics/Pictures/::1794903818
+::res://assets/graphics/Pictures/::1794904877
 Backup.png::CompressedTexture2D::504003542700137223::1794896715::1794904877::1::::<><><>0<>0<>d903fd9b9be2885f7d277b80c6bb18e1<>res://.godot/imported/Backup.png-d951bb3769846ef0fcda573f61acf3c9.ctex::
 Backup_Dialog.png::CompressedTexture2D::5412964365407167633::1794896715::1794904877::1::::<><><>0<>0<>24eade1c83d169538f4ddde7f214898f<>res://.godot/imported/Backup_Dialog.png-545f85bcca2e07ad211174e3eefdd4bf.ctex::
 Backup_Drop_Select.png::CompressedTexture2D::8578705423454363390::1794896715::1794904877::1::::<><><>0<>0<>1c2339834eb366160f9440710d925267<>res://.godot/imported/Backup_Drop_Select.png-1f22ecadd9c8365b679589ffb155fe2e.ctex::
@@ -186,7 +186,7 @@ TransformShop_HoleSelection.png::CompressedTexture2D::3530669090363217146::17948
 TransformShop_MainBack.png::CompressedTexture2D::8730041091239073300::1794896715::1794904877::1::::<><><>0<>0<>c07c679dc4818b351e2ae5bf1ef6f711<>res://.godot/imported/TransformShop_MainBack.png-6b9dc470d68930f706f64c702b846b86.ctex::
 Wanted_Back.png::CompressedTexture2D::3540739956486558066::1794896715::1794904877::1::::<><><>0<>0<>2dcf249ac0b011c3c9cc001c5e1953c8<>res://.godot/imported/Wanted_Back.png-115e5d8c644d8e721055646b015be328.ctex::
 Wanted_Select.png::CompressedTexture2D::8791869069337233014::1794896715::1794904877::1::::<><><>0<>0<>95cdd2b663d8fe660430da3e846b79b1<>res://.godot/imported/Wanted_Select.png-4d68734f9f7dc495caaef68af3318b78.ctex::
-::res://assets/graphics/Tilesets/::1794903818
+::res://assets/graphics/Tilesets/::1794904877
 mm1_cave_buddha.png::CompressedTexture2D::3071334548891931146::1794896715::1794904877::1::::<><><>0<>0<>2e4fd7e8bd2d3bb7615c6384720153de<>res://.godot/imported/mm1_cave_buddha.png-cf2d50e8a51ce168ede7ada4552faa80.ctex::
 mm1_cave_general.png::CompressedTexture2D::3173648584779769136::1794896715::1794904877::1::::<><><>0<>0<>28ce6fbcc6702fbd479dd54df537535f<>res://.godot/imported/mm1_cave_general.png-26d02a95e64ebe32dff14129a8319473.ctex::
 mm1_cave_sewer.png::CompressedTexture2D::2008870882606968606::1794896715::1794904877::1::::<><><>0<>0<>97d2e2250d31444ed816e5e49bc74b2d<>res://.godot/imported/mm1_cave_sewer.png-032139cf141f98f8041e8ab8f8d72e2f.ctex::
@@ -217,7 +217,7 @@ zzjbdt2 XII.png::CompressedTexture2D::198713008401493121::1794896715::1794904877
 重装-大地图素材.png::CompressedTexture2D::1415342944086551800::1794896715::1794904877::1::::<><><>0<>0<>3753d7853de50e60c76b5261d6ea9983<>res://.godot/imported/重装-大地图素材.png-b9629591373d66ee948ba28f1bef64a9.ctex::
 ::res://assets/graphics/Titles/::1794896700
 ::res://assets/graphics/Transitions/::1794896700
-::res://assets/graphics/Windowskins/::1794903817
+::res://assets/graphics/Windowskins/::1794904877
 DefultSkin.png::CompressedTexture2D::2056912437645271079::1794896715::1794904877::1::::<><><>0<>0<>a3f0b2b6668ab338c656e5f10d446c47<>res://.godot/imported/DefultSkin.png-470b1bb79fb0acc486b25c08775ce515.ctex::
 ::res://data/::1794896687
 actors.json::JSON::-1::1794896715::0::1::::<><><>0<>0<><>::
@@ -247,7 +247,7 @@ title.tscn::PackedScene::3255072362338560504::1794897666::0::1::::<><><>0<>0<><>
 map001.tscn::PackedScene::-1::1794896715::0::1::::<><><>0<>0<><>::res://scripts/core/map_scene.gd
 map002.tscn::PackedScene::-1::1794896715::0::1::::<><><>0<>0<><>::res://scripts/core/map_scene.gd
 ::res://scripts/::1794897687
-main.gd::GDScript::2520284166516872366::1794897660::0::1::::<>Node<><>0<>0<><>::
+main.gd::GDScript::2520284166516872366::1794905492::0::1::::<>Node<><>0<>0<><>::
 ::res://scripts/autoload/::1794897687
 audio_manager.gd::GDScript::6655186101079858754::1794897700::0::1::::<>Node<><>0<>0<><>::
 db.gd::GDScript::302924706917963843::1794899358::0::1::::<>Node<><>0<>0<><>::
@@ -262,7 +262,7 @@ game_event.gd::GDScript::8513346220347686170::1794897518::0::1::::GameEvent<>Nod
 game_player.gd::GDScript::6479750685270229912::1794902220::0::1::::GamePlayer<>Node2D<><>0<>0<><>::
 game_tank.gd::GDScript::261276879471690758::1794899038::0::1::::GameTank<>RefCounted<><>0<>0<><>::
 interpreter.gd::GDScript::2407256581174477526::1794903329::0::1::::Interpreter<>Node<><>0<>0<><>::
-map_scene.gd::GDScript::4245372661353239441::1794904792::0::1::::MapScene<>Node2D<><>0<>0<><>::
+map_scene.gd::GDScript::4245372661353239441::1794905539::0::1::::MapScene<>Node2D<><>0<>0<><>::
 party.gd::GDScript::2201819001246293195::1794896964::0::1::::GameParty<>RefCounted<><>0<>0<><>::
 script_bridge.gd::GDScript::3500754154143868591::1794903613::0::1::::ScriptBridge<>RefCounted<><>0<>0<><>::
 tile_layer.gd::GDScript::3563659823866377331::1794897482::0::1::::TileLayer<>Node2D<><>0<>0<><>::
@@ -290,8 +290,9 @@ simple_scene.gd::GDScript::2661126237441311571::1794898891::0::1::::SimpleScene<
 skin.gd::GDScript::5859410915976358361::1794897033::0::1::::UISkin<>RefCounted<><>0<>0<><>::
 title.gd::GDScript::3242999504053579244::1794902762::0::1::::<>Control<><>0<>0<><>::
 ui_window.gd::GDScript::5914002241925649039::1794897039::0::1::::UIWindow<>Control<><>0<>0<><>::
-::res://tools/::1794904374
-test_npc.gd::GDScript::5724700121479369957::1794904717::0::1::::<>Node2D<><>0<>0<><>::
+::res://tools/::1794909006
+test_ev2.gd::GDScript::8243967945348320345::1794905415::0::1::::<>Node2D<><>0<>0<><>::
+test_npc.gd::GDScript::5724700121479369957::1794905300::0::1::::<>Node2D<><>0<>0<><>::
 test_npc.tscn::PackedScene::2790760531699::1794904668::0::1::::<><><>0<>0<><>::res://tools/test_npc.gd
 ::res://tools/reference/::1794894813
 ::res://tools/reference_scripts/::1794896673
