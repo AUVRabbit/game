@@ -149,6 +149,10 @@ func _run() -> void:
 	var mage = GameManager.active_player
 	_check("切换到法师", mage != null and mage.character_data.class_id == "mage", mage.character_data.class_id if mage else "null")
 	if mage:
+		# 清除游荡中的刷怪，避免拦截弹道导致用例抖动
+		for wandering in get_tree().get_nodes_in_group("enemies"):
+			if is_instance_valid(wandering):
+				wandering.free()
 		var dummy_packed: PackedScene = load("res://scenes/enemies/enemy.tscn")
 		var dummy = dummy_packed.instantiate()
 		dummy.max_hp = 500
