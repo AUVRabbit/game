@@ -44,6 +44,11 @@ signal quest_accepted(quest_id: String)
 signal quest_updated(quest_id: String)
 signal quest_completed(quest_id: String)
 
+# ---------- 朋克改造 ----------
+signal punk_applied(class_id: String, slot: String, part_id: String)
+signal punk_removed(class_id: String, slot: String, part_id: String)
+signal punk_style_changed(class_id: String, style_id: String)
+
 # ---------- 流程 ----------
 signal toast_requested(text: String)
 signal save_completed(slot: int)

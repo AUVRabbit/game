@@ -12,6 +12,12 @@ var class_growth: Dictionary = {}
 var recipes: Array = []
 var quests: Dictionary = {}
 var dialogues: Dictionary = {}
+var punk_styles: Array = []
+var punk_parts: Array = []
+var punk_part_by_id: Dictionary = {}
+var punk_build_decorations: Array = []
+var class_style_bindings: Dictionary = {}
+var style_bonus_match: float = 0.15
 
 func _ready() -> void:
 	_load_all()
@@ -39,8 +45,24 @@ func _load_all() -> void:
 	if d_dialogue.has("dialogues"):
 		dialogues = d_dialogue["dialogues"]
 
-	print("[DataManager] 数据加载完成：物品 %d / 职业 %d / 配方 %d / 任务 %d / 对话 %d" % [
-		items.size(), classes.size(), recipes.size(), quests.size(), dialogues.size()
+	var d_punk := _read_json("res://data/punk_parts.json")
+	if d_punk.has("styles") and typeof(d_punk["styles"]) == TYPE_ARRAY:
+		punk_styles = d_punk["styles"]
+	if d_punk.has("parts") and typeof(d_punk["parts"]) == TYPE_ARRAY:
+		punk_parts = d_punk["parts"]
+		for p in punk_parts:
+			var pid: String = str(p.get("id", ""))
+			if pid != "":
+				punk_part_by_id[pid] = p
+	if d_punk.has("build_decorations") and typeof(d_punk["build_decorations"]) == TYPE_ARRAY:
+		punk_build_decorations = d_punk["build_decorations"]
+	if d_punk.has("class_style_bindings"):
+		class_style_bindings = d_punk["class_style_bindings"]
+	if d_punk.has("style_bonus_when_matched"):
+		style_bonus_match = float(d_punk["style_bonus_when_matched"])
+
+	print("[DataManager] 数据加载完成：物品 %d / 职业 %d / 配方 %d / 任务 %d / 对话 %d / 朋克部件 %d" % [
+		items.size(), classes.size(), recipes.size(), quests.size(), dialogues.size(), punk_parts.size()
 	])
 
 func _read_json(path: String) -> Dictionary:
@@ -105,3 +127,32 @@ func get_quest(quest_id: String) -> Dictionary:
 # ---------- 对话 ----------
 func get_dialogue(dialogue_id: String) -> Dictionary:
 	return dialogues.get(dialogue_id, {})
+
+# ---------- 朋克改造 ----------
+func get_punk_part(part_id: String) -> Dictionary:
+	return punk_part_by_id.get(part_id, {})
+
+func get_all_punk_parts() -> Array:
+	return punk_parts
+
+func get_punk_parts_by_style(style_id: String) -> Array:
+	var result: Array = []
+	for p in punk_parts:
+		if str(p.get("style", "")) == style_id:
+			result.append(p)
+	return result
+
+func get_punk_styles() -> Array:
+	return punk_styles
+
+func get_punk_style_color(style_id: String) -> Color:
+	for s in punk_styles:
+		if str(s.get("id", "")) == style_id:
+			return Color.from_string(str(s.get("color", "#ffffff")), Color.WHITE)
+	return Color.WHITE
+
+func get_class_allowed_styles(class_id: String) -> Array:
+	return class_style_bindings.get(class_id, [])
+
+func get_style_bonus_match() -> float:
+	return style_bonus_match

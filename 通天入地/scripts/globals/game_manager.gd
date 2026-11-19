@@ -344,7 +344,7 @@ func collect_state() -> Dictionary:
 	if get_tree().current_scene and get_tree().current_scene.scene_file_path != "":
 		scene_path = get_tree().current_scene.scene_file_path
 	return {
-		"version": "0.2.0",
+		"version": "1.0.0",
 		"game_name": "通天入地",
 		"timestamp": Time.get_unix_time_from_system(),
 		"scene": scene_path,
@@ -357,6 +357,7 @@ func collect_state() -> Dictionary:
 		"builds": BuildManager.serialize() if BuildManager else {},
 		"quests": QuestManager.serialize() if QuestManager else {},
 		"roguelike": RoguelikeManager.serialize() if RoguelikeManager else {},
+		"punk": PunkManager.serialize() if PunkManager else {},
 		"player_pos": active_player.global_position if is_instance_valid(active_player) else Vector2.ZERO
 	}
 
@@ -377,6 +378,8 @@ func apply_state(data: Dictionary) -> void:
 		QuestManager.deserialize(data.get("quests", {}))
 	if RoguelikeManager:
 		RoguelikeManager.deserialize(data.get("roguelike", {}))
+	if PunkManager:
+		PunkManager.apply_state(data.get("punk", {}))
 	pending_player_pos = _to_vector2(data.get("player_pos", Vector2.ZERO))
 	has_pending_pos = true
 	current_state = GameState.PLAYING

@@ -45,6 +45,7 @@ var growth: Dictionary = {}
 var skills: Array = []
 var equipment: Dictionary = {}
 var buffs: Array = []
+var punk_stats: Dictionary = {}
 var shield_hp: int = 0
 var initialized: bool = false
 
@@ -93,7 +94,7 @@ func recompute() -> void:
 	hp = mini(hp, max_hp)
 	mp = mini(mp, max_mp)
 
-# ---------- 装备 / Buff 加成 ----------
+# ---------- 装备 / Buff / 朋克加成 ----------
 func _equip_bonus(stat_name: String) -> float:
 	var total := 0.0
 	for slot in equipment.keys():
@@ -109,29 +110,65 @@ func _buff_value(stat_name: String) -> float:
 			total += float(b.get("value", 0.0))
 	return total
 
+func _punk_bonus(stat_name: String) -> float:
+	if PunkManager == null or punk_stats.is_empty():
+		punk_stats = PunkManager._compute_punk_stats(class_id, {}) if PunkManager else {}
+	return float(punk_stats.get(stat_name, 0.0))
+
+func refresh_punk_stats() -> void:
+	if PunkManager == null:
+		return
+	punk_stats = PunkManager._compute_punk_stats(class_id, {})
+	stats_changed.emit()
+
 func get_attack() -> int:
-	return maxi(1, int(round(attack + _equip_bonus("attack") + _buff_value("attack"))))
+	var base: float = attack + _equip_bonus("attack") + _buff_value("attack") + _punk_bonus("attack")
+	var all_mult: float = 1.0 + _punk_bonus("all_stats_bonus")
+	return maxi(1, int(round(base * all_mult)))
 
 func get_defense() -> int:
-	return maxi(0, int(round(defense + _equip_bonus("defense") + _buff_value("defense"))))
+	var base: float = defense + _equip_bonus("defense") + _buff_value("defense") + _punk_bonus("defense")
+	var all_mult: float = 1.0 + _punk_bonus("all_stats_bonus")
+	return maxi(0, int(round(base * all_mult)))
 
 func get_magic_attack() -> int:
-	return maxi(1, int(round(magic_attack + _equip_bonus("magic_attack") + _buff_value("magic_attack"))))
+	var base: float = magic_attack + _equip_bonus("magic_attack") + _buff_value("magic_attack") + _punk_bonus("magic_attack")
+	var all_mult: float = 1.0 + _punk_bonus("all_stats_bonus")
+	return maxi(1, int(round(base * all_mult)))
 
 func get_magic_defense() -> int:
-	return maxi(0, int(round(magic_defense + _equip_bonus("magic_defense") + _buff_value("magic_defense"))))
+	var base: float = magic_defense + _equip_bonus("magic_defense") + _buff_value("magic_defense") + _punk_bonus("magic_defense")
+	var all_mult: float = 1.0 + _punk_bonus("all_stats_bonus")
+	return maxi(0, int(round(base * all_mult)))
 
 func get_move_speed() -> float:
-	return maxf(20.0, move_speed + _equip_bonus("move_speed") + _buff_value("move_speed"))
+	var flat: float = move_speed + _equip_bonus("move_speed") + _buff_value("move_speed")
+	var pct: float = _punk_bonus("move_speed") + _punk_bonus("all_stats_bonus")
+	return maxf(20.0, flat * (1.0 + pct))
+
+func get_attack_speed() -> float:
+	var flat: float = attack_speed + _equip_bonus("attack_speed") + _buff_value("attack_speed")
+	var pct: float = _punk_bonus("attack_speed") + _punk_bonus("all_stats_bonus")
+	return maxf(0.2, flat * (1.0 + pct))
 
 func get_crit_rate() -> float:
-	return clampf(crit_rate + _equip_bonus("crit_rate") + _buff_value("crit_rate"), 0.0, 0.95)
+	return clampf(crit_rate + _equip_bonus("crit_rate") + _buff_value("crit_rate") + _punk_bonus("crit_rate"), 0.0, 0.95)
+
+func get_crit_damage() -> float:
+	return clampf(crit_damage + _equip_bonus("crit_damage") + _buff_value("crit_damage") + _punk_bonus("crit_damage"), 1.0, 3.0)
 
 func get_dodge_rate() -> float:
-	return clampf(dodge_rate + _equip_bonus("dodge_rate") + _buff_value("dodge_rate"), 0.0, 0.9)
+	return clampf(dodge_rate + _equip_bonus("dodge_rate") + _buff_value("dodge_rate") + _punk_bonus("dodge_rate"), 0.0, 0.9)
 
 func get_max_hp() -> int:
-	return maxi(1, int(round(max_hp + _equip_bonus("max_hp"))))
+	var flat: float = max_hp + _equip_bonus("max_hp") + _punk_bonus("max_hp")
+	var all_mult: float = 1.0 + _punk_bonus("all_stats_bonus")
+	return maxi(1, int(round(flat * all_mult)))
+
+func get_max_mp() -> int:
+	var flat: float = max_mp + _equip_bonus("max_mp") + _punk_bonus("max_mp")
+	var all_mult: float = 1.0 + _punk_bonus("all_stats_bonus")
+	return maxi(1, int(round(flat * all_mult)))
 
 # ---------- Buff ----------
 func add_buff(stat_name: String, value: float, duration: float) -> void:

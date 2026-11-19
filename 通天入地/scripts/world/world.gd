@@ -11,6 +11,7 @@ const NPC_SCRIPT := preload("res://scripts/world/npc.gd")
 const PORTAL_SCRIPT := preload("res://scripts/world/portal.gd")
 const RESOURCE_SCRIPT := preload("res://scripts/world/resource_node.gd")
 const ALTAR_SCRIPT := preload("res://scripts/world/class_altar.gd")
+const PUNK_FORGE_SCRIPT := preload("res://scripts/world/punk_forge.gd")
 
 var dynamic_root: Node2D
 
@@ -27,9 +28,10 @@ func _ready() -> void:
 	_setup_npcs()
 	_setup_resources()
 	_setup_altar()
+	_setup_punk_forge()
 	_setup_portals()
 	AudioManager.play_bgm("world")
-	EventBus.notify("WASD 移动 · 左键/空格攻击 · 1/2/3 技能 · Shift 冲刺 · E 交互/采集 · I 背包 · B 建造 · Q/P 换职业")
+	EventBus.notify("WASD 移动 · 左键/空格攻击 · 1/2/3 技能 · Shift 冲刺 · E 交互/采集 · I 背包 · B 建造 · Q/P 换职业 · 改造台：-360,0")
 	queue_redraw()
 
 func _setup_camera() -> void:
@@ -124,6 +126,11 @@ func _setup_altar() -> void:
 	var altar = ALTAR_SCRIPT.new()
 	altar.position = Vector2(-360, -90)
 	dynamic_root.add_child(altar)
+
+func _setup_punk_forge() -> void:
+	var forge := PUNK_FORGE_SCRIPT.new()
+	forge.position = Vector2(-360, 0)
+	dynamic_root.add_child(forge)
 
 func _draw() -> void:
 	var bm := BuildManager

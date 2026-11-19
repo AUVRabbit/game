@@ -169,6 +169,92 @@ func _run() -> void:
 		await _wait(0.1)
 		_check("护盾生效", mage.character_data.shield_hp > 0, str(mage.character_data.shield_hp))
 
+	# ---------- 护盾生效后验证朋克改造 ----------
+	GameManager.switch_character(-1)  # 切回弓箭手（初始）
+	await _wait(0.1)
+	var player0: Node = GameManager.active_player
+	_check("回到弓箭手", player0 != null and str(player0.character_data.class_id) == "archer", str(player0.character_data.class_id) if player0 else "null")
+	# 给朋克改造材料
+	GameManager.inventory.add_item("iron_ore", 20)
+	GameManager.inventory.add_item("herb", 20)
+	GameManager.inventory.add_item("wood", 20)
+	var archer_style: Array = PunkManager.get_all_parts_for_class("archer")
+	_check("朋克部件库加载", archer_style.size() > 0, str(archer_style.size()) + " 件")
+	# 给弓箭手装一个tech风格的
+	for part in archer_style:
+		if str(part.get("style", "")) == "tech" and str(part.get("slot", "")) == "helmet":
+			var ok: bool = PunkManager.apply_punk("archer", "helmet", str(part.get("id", "")))
+			_check("安装朋克部件", ok, str(part.get("id", "")))
+			player0.character_data.refresh_punk_stats()
+			var primary: String = PunkManager.get_primary_style("archer")
+			_check("主风格判定", primary == "tech", primary)
+			var crit_base: float = player0.character_data.get_crit_rate()
+			var punk_helm: Dictionary = DataManager.get_punk_part(str(part.get("id", "")))
+			_check("朋克属性生效", crit_base >= 0.10, "crit_rate=%.3f" % crit_base)
+			break
+	# 卸下
+	var removed: bool = PunkManager.remove_punk("archer", "helmet")
+	_check("卸下朋克部件", removed)
+	var primary2: String = PunkManager.get_primary_style("archer")
+	_check("主风格清除", primary2 == "neutral", primary2)
+
+	# 切换到机甲师，装mech风格，测试class_bonus
+	GameManager.add_class_member("mech_pilot")
+	await _wait(0.1)
+	# 找到机甲师的index
+	var mech_index: int = -1
+	for i in GameManager.party.size():
+		var data_node: Node = GameManager.party[i].get_node_or_null("CharacterData")
+		if data_node != null and str(data_node.class_id) == "mech_pilot":
+			mech_index = i
+			break
+	if mech_index >= 0:
+		while GameManager.active_index != mech_index:
+			GameManager.switch_character(1 if GameManager.active_index < mech_index else -1)
+			await _wait(0.1)
+	var mech: Node = GameManager.active_player
+	_check("切换到机甲师", mech != null and str(mech.character_data.class_id) == "mech_pilot", str(mech.character_data.class_id) if mech else "null")
+	GameManager.inventory.add_item("iron_ore", 30)
+	GameManager.inventory.add_item("leather", 20)
+	var mech_parts: Array = PunkManager.get_all_parts_for_class("mech_pilot")
+	for part in mech_parts:
+		var class_bonus_arr: Array = part.get("class_bonus", [])
+		if class_bonus_arr.has("mech_pilot") and str(part.get("slot", "")) == "helmet":
+			var ok2: bool = PunkManager.apply_punk("mech_pilot", "helmet", str(part.get("id", "")))
+			_check("机甲师专属改造安装", ok2)
+			var defense: int = mech.character_data.get_defense()
+			_check("风格匹配加成生效", defense > 12, "defense=%d" % defense)
+			PunkManager.remove_punk("mech_pilot", "helmet")
+			break
+
+	# 存档测试朋克数据：先给archer装tech部件再存档
+	PunkManager.apply_punk("archer", "helmet", "tech_quantum_sensor")
+	GameManager.switch_character(-1)
+	await _wait(0.1)
+	var archer_for_save: Node = GameManager.active_player
+	archer_for_save.character_data.refresh_punk_stats()
+	_check("存档前archer主风格=tech", PunkManager.get_primary_style("archer") == "tech")
+	SaveManager.save_game(0)
+	# 改一下朋克状态（卸下），再读档
+	PunkManager.remove_punk("archer", "helmet")
+	_check("卸下后archer主风格=neutral", PunkManager.get_primary_style("archer") == "neutral")
+	SaveManager.load_game(0)
+	await _wait(0.9)
+	# 读档后朋克应恢复
+	_check("读档恢复朋克数据", SaveManager.has_save(0))
+	# 切到弓箭手
+	for i in GameManager.party.size():
+		var nd: Node = GameManager.party[i].get_node_or_null("CharacterData")
+		if nd != null and str(nd.class_id) == "archer":
+			GameManager.active_index = i
+			break
+	GameManager.switch_character(0)
+	await _wait(0.1)
+	var archer_post: Node = GameManager.active_player
+	archer_post.character_data.refresh_punk_stats()
+	var restored_primary: String = PunkManager.get_primary_style("archer")
+	_check("读档后朋克风格保留", restored_primary == "tech", restored_primary)
+
 	# ---------- 7. 通天塔 / Roguelike ----------
 	GameManager.start_tower_run()
 	await _wait(0.9)
