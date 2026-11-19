@@ -1,6 +1,0 @@
-player=true
-CAP TOP_shore_y3 -> TOP_shore_y3_2026-11-19T15-40-04.png err=0
-CAP BOT_shore_y22 -> BOT_shore_y22_2026-11-19T15-40-04.png err=0
-CAP PILLAR_x12 -> PILLAR_x12_2026-11-19T15-40-04.png err=0
-CAP LEFT_col_x0 -> LEFT_col_x0_2026-11-19T15-40-04.png err=0
-=== DONE ===

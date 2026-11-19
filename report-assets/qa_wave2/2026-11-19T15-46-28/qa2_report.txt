@@ -1,4 +1,0 @@
-engine=4.7.2-stable (steam) renderer=gl_compatibility vp=(640.0, 480.0) mode=synth dir=/Users/l/game/report-assets/qa_wave2/2026-11-19T15-46-28
-synth water_tiles=78 mask_hist={ 9: 4, 1: 12, 3: 3, 12: 3, 4: 14, 6: 3, 8: 4, 0: 13, 2: 5, 10: 13, 11: 2, 15: 1, 14: 1 }
-CAP synth_all -> synth_all_2026-11-19T15-46-28.png black=0 white=1659 err=0
-=== SYNTH DONE ===
