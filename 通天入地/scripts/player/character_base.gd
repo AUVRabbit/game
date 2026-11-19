@@ -13,7 +13,7 @@ enum ClassType { WARRIOR, ARCHER, MAGE, PRIEST,
                  BOMBER, HACKER, MECH_PILOT, BOUNTY_HUNTER }
 
 var class_type: ClassType = ClassType.WARRIOR
-var class_name: String = "战士"
+var class_display_name: String = "战士"
 
 # ---------- 基础属性 ----------
 var level: int = 1
@@ -49,40 +49,40 @@ func _init_by_class() -> void:
     """根据职业设置初始属性 — 子类可覆盖"""
     match class_type:
         ClassType.WARRIOR:
-            class_name = "战士"
+            class_display_name = "战士"
             max_hp = 150; attack = 15; defense = 12; move_speed = 180
         ClassType.ARCHER:
-            class_name = "弓箭手"
+            class_display_name = "弓箭手"
             max_hp = 90; attack = 18; defense = 4; move_speed = 220; crit_rate = 0.1
         ClassType.MAGE:
-            class_name = "法师"
+            class_display_name = "法师"
             max_hp = 70; max_mp = 120; magic_attack = 22; defense = 2
         ClassType.PRIEST:
-            class_name = "牧师"
+            class_display_name = "牧师"
             max_hp = 85; max_mp = 100; magic_attack = 12; defense = 5
         ClassType.NECROMANCER:
-            class_name = "亡灵法师"
+            class_display_name = "亡灵法师"
             max_hp = 75; max_mp = 110; magic_attack = 20
         ClassType.DEATH_KNIGHT:
-            class_name = "死亡骑士"
+            class_display_name = "死亡骑士"
             max_hp = 140; attack = 14; defense = 10
         ClassType.THIEF:
-            class_name = "小偷"
+            class_display_name = "小偷"
             max_hp = 80; attack = 12; move_speed = 260; dodge_rate = 0.15
         ClassType.SNIPER:
-            class_name = "狙击手"
+            class_display_name = "狙击手"
             max_hp = 85; attack = 25; crit_rate = 0.2; crit_damage = 2.0
         ClassType.BOMBER:
-            class_name = "炸弹专家"
+            class_display_name = "炸弹专家"
             max_hp = 100; attack = 16; move_speed = 190
         ClassType.HACKER:
-            class_name = "黑客"
+            class_display_name = "黑客"
             max_hp = 65; max_mp = 130; magic_attack = 18
         ClassType.MECH_PILOT:
-            class_name = "机甲师"
+            class_display_name = "机甲师"
             max_hp = 180; attack = 13; defense = 15; move_speed = 140
         ClassType.BOUNTY_HUNTER:
-            class_name = "赏金猎人"
+            class_display_name = "赏金猎人"
             max_hp = 95; attack = 17; crit_rate = 0.08; dodge_rate = 0.08
     hp = max_hp
     mp = max_mp
@@ -124,4 +124,4 @@ func level_up() -> void:
     defense += 1
     hp = max_hp
     mp = max_mp
-    print("[%s] 升级！Lv.%d" % [class_name, level])
+    print("[%s] 升级！Lv.%d" % [class_display_name, level])

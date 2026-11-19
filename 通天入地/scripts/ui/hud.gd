@@ -34,7 +34,7 @@ func _process(_delta: float) -> void:
     if GameManager and GameManager.active_player:
         var char_data = GameManager.active_player.get_node_or_null("CharacterData")
         if char_data:
-            name_label.text = "%s Lv.%d" % [char_data.class_name, char_data.level]
+            name_label.text = "%s Lv.%d" % [char_data.class_display_name, char_data.level]
             hp_bar.max_value = char_data.max_hp
             hp_bar.value = char_data.hp
             hp_label.text = "HP %d/%d" % [char_data.hp, char_data.max_hp]

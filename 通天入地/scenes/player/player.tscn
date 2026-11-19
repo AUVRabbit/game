@@ -1,44 +1,37 @@
-; ============================================================
-; 角色基础场景 - Player
-; CharacterBody2D（Godot 4.x），支持多职业切换
-; y_sort_enabled 用于等距视角的深度排序
-; ============================================================
+# ============================================================
+# 角色基础场景 - Player
+# CharacterBody2D（Godot 4.x），支持多职业切换
+# y_sort_enabled 用于等距视角的深度排序
+# ============================================================
 
-[gd_scene load_steps=3 format=3 uid="uid://b3ttrudi_player001"]
+[gd_scene load_steps=4 format=3 uid="uid://b3ttrudi_player001"]
 
 [ext_resource type="Script" path="res://scripts/player/player_controller.gd" id="1_ctrl"]
 [ext_resource type="Script" path="res://scripts/player/character_base.gd" id="2_base"]
+
+[sub_resource type="RectangleShape2D" id="rect_shape"]
+size = Vector2(24, 40)
 
 [node name="Player" type="CharacterBody2D" groups=["player", "characters"]]
 collision_layer = 2
 collision_mask = 5
 script = ExtResource("1_ctrl")
 
-; ---------- 视觉层 ----------
-; 占位 Sprite，实际用 AnimatedSprite2D 或 Sprite2D
 [node name="Visual" type="Node2D" parent="."]
 y_sort_enabled = true
 
 [node name="Sprite2D" type="Sprite2D" parent="Visual"]
-texture = null  ; TODO: 替换为像素风角色贴图
 centered = true
 
-; ---------- 碰撞 ----------
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("rect_shape")
 
-; ---------- 职业基类脚本（存放属性/技能数据）----------
 [node name="CharacterData" type="Node" parent="."]
 script = ExtResource("2_base")
 
-; ---------- 武器/特效挂载点 ----------
 [node name="AttackPoint" type="Marker2D" parent="."]
 position = Vector2(20, -10)
 
 [node name="Effects" type="Node2D" parent="."]
 
-; ---------- 摄像机跟随锚点 ----------
 [node name="CameraAnchor" type="Marker2D" parent="."]
-
-[sub_resource type="RectangleShape2D" id="rect_shape"]
-size = Vector2(24, 40)
