@@ -28,13 +28,14 @@
 
 ```
 通天入地/
-├── project.godot                 # 9 个 Autoload、输入映射、960×540 视口
+├── project.godot                 # 10 个 Autoload、输入映射、960×540 视口
 ├── data/                         # 纯 JSON 数据表（可热改）
 │   ├── items.json                # 25 件物品
 │   ├── classes.json              # 12 职业 + 成长
 │   ├── recipes.json              # 15 条配方
 │   ├── quests.json               # 3 条任务
-│   └── dialogue.json             # 2 个 NPC 对话
+│   ├── dialogue.json             # 2 个 NPC 对话
+│   └── punk_parts.json           # 4 风格 20 件朋克部件 + 职业风格绑定
 ├── scenes/
 │   ├── main.tscn                 # 启动入口，仅挂 main.gd
 │   ├── player/player.tscn        # CharacterBody2D + CharacterData
@@ -43,17 +44,17 @@
 │   ├── world/tower_floor_1.tscn  # 通天塔/深渊通用楼层
 │   └── ui/                       # HUD、背包、建造、暂停、对话、触屏、GameUI 聚合
 ├── scripts/
-│   ├── globals/                  # 9 个 Autoload
+│   ├── globals/                  # 10 个 Autoload
 │   ├── player/                   # CharacterBase、PlayerController
 │   ├── combat/                   # SkillExecutor、Projectile、EffectRing、DamageNumber
 │   ├── enemies/                  # EnemyBase、EnemySpawner
 │   ├── economy/inventory.gd      # 40 格背包、合成、商店
-│   ├── world/                    # 世界、塔层、NPC、传送门、机关、资源点、祭坛、建筑块
-│   └── ui/                       # 全部界面（代码构建）
+│   ├── world/                    # 世界、塔层、NPC、传送门、机关、资源点、祭坛、改造台、建筑块
+│   └── ui/                       # 全部界面（代码构建，含朋克改造面板）
 ├── tools/
 │   ├── validate_project.py       # 静态结构校验
 │   ├── smoke_test.tscn/.gd       # 无头冒烟测试入口
-│   └── smoke_runner.gd           # 27 项自动化验收
+│   └── smoke_runner.gd           # 44 项自动化验收
 └── docs/
     ├── DESIGN.md                 # 本文
     └── VERIFICATION.md           # 验证方案
@@ -72,6 +73,7 @@
 | 7 | BuildManager | `scripts/globals/build_manager.gd` | 等距网格坐标、放置/拆除、按场景持久化 |
 | 8 | QuestManager | `scripts/globals/quest_manager.gd` | 任务接取/计数/完成/奖励 |
 | 9 | RoguelikeManager | `scripts/globals/roguelike_manager.gd` | 轮次种子、层数、随机词条、结算 |
+| 10 | PunkManager | `scripts/globals/punk_manager.gd` | 朋克改造槽位、风格匹配、属性叠加、存档序列化 |
 
 > 约束：Autoload 脚本一律不写 `class_name`，避免全局类名与单例名冲突。
 
@@ -138,6 +140,38 @@
 * 任务目标类型：`kill`（敌人类型）、`craft`（物品 id）、`reach_floor`（层号字符串）
 * 任务奖励：`{ "gold": 80, "items": { "healing_potion": 2 } }`
 * 对话：`{ "npc_id": { "name", "lines": [], "quest": "q_slime_hunt" } }`
+
+### 3.4 朋克部件 `data/punk_parts.json`
+
+```json
+{
+  "styles": [
+    { "id": "tech", "name": "科技朋克", "color": "#4ad6ff", "desc": "霓虹闪烁，电路板纹理，光纤导线" }
+  ],
+  "parts": [
+    {
+      "id": "tech_quantum_sensor", "name": "量子传感器", "style": "tech", "slot": "helmet",
+      "desc": "头盔搭载量子传感器，暴击率 +0.08，狙击手专属",
+      "stats": { "crit_rate": 0.08 }, "visual": "quantum_sensor",
+      "cost": { "iron_ore": 7, "herb": 3 }, "rarity": "epic",
+      "class_bonus": ["sniper"]
+    }
+  ],
+  "class_style_bindings": { "archer": ["tech", "neutral"] },
+  "style_bonus_when_matched": 0.15
+}
+```
+
+| 字段 | 说明 |
+| --- | --- |
+| `styles` | 4 大风格：`spell / mech / tech / abyss`，含展示名、颜色、描述 |
+| `parts[].slot` | `weapon / chest / helmet / back` 四槽位，每职业每槽至多 1 件 |
+| `parts[].stats` | 数值加成键与 `CharacterBase` getter 对齐（`attack`、`defense`、`max_hp`、`crit_rate`、`move_speed`、`all_stats_bonus` 等） |
+| `parts[].class_bonus` | 职业专属列表；命中的职业额外 +10% 数值 |
+| `parts[].tradeoff` | 标记负面换正面的取舍部件（如腐败晶体） |
+| `parts[].cost` | 安装材料；卸下退还 50% |
+| `class_style_bindings` | 职业主风格绑定，用于风格匹配判定 |
+| `style_bonus_when_matched` | 主风格匹配时全数值加成倍率（默认 0.15） |
 
 ---
 
@@ -255,8 +289,20 @@
 ### M10 存档
 
 * 路径：`user://saves/save_0.json`（支持多槽位）。
-* 快照内容：阵容、各职业进度、出战序号、金币、背包、装备、当前场景、层数、玩家坐标、建造记录、任务、Roguelike 状态、时间戳。
+* 快照内容：阵容、各职业进度、出战序号、金币、背包、装备、当前场景、层数、玩家坐标、建造记录、任务、Roguelike 状态、朋克改造（`punk.equipped`）、时间戳。
 * 读档：`SaveManager.load_game()` → `GameManager.apply_state()` → 延迟切换场景 → `bind_level()` 重生队伍并恢复坐标。
+
+### M11 朋克改造
+
+* **关键文件**：`data/punk_parts.json`、`scripts/globals/punk_manager.gd`、`scripts/player/character_base.gd`、`scripts/world/punk_forge.gd`、`scripts/ui/punk_panel.gd`。
+* **四大风格**：法术 `spell`（符文/奥术）、机械 `mech`（齿轮/蒸汽/铆钉）、科技 `tech`（霓虹/电路/光纤）、深渊 `abyss`（阴影/腐败/虚无），另有通用 `neutral`。
+* **槽位**：每职业 `weapon / chest / helmet / back` 四槽，每槽至多 1 件；`PunkManager.SLOTS` 为唯一来源。
+* **风格匹配**：`class_style_bindings` 定义职业主风格；装备部件中与主风格一致的占比最高者即当前主风格。主风格命中绑定列表时，全部朋克数值 ×(1 + 15%)；部件 `class_bonus` 命中当前职业时再 ×1.10。
+* **属性叠加**：`PunkManager._compute_punk_stats()` 汇总四槽 `stats` 并计算倍率，写入 `CharacterBase.punk_stats`；所有战斗 getter（攻击/防御/法攻/法防/生命/法力/移速/攻速/暴击率/暴伤/闪避）统一叠加，`all_stats_bonus` 以百分比二次放大。
+* **取舍设计**：部分深渊部件带负属性（如生命 -10 换攻击 +12），`tradeoff: true` 标记，保证「一切都有可能」的构筑多样性。
+* **改造台**：世界坐标 `(-360, 0)` 生成 `PunkForge`（`interactables` 组，交互半径内按 E），打开 `PunkPanel`（`punk_panel` 组，layer 28），复用 `GameManager.open_ui(DIALOG)` 暂停锁。
+* **面板交互**：左列四槽位实时展示已装部件与风格色；右侧列出该职业可用部件（槽位、名称、风格、材料），点击安装；已装槽位可一键卸下并退还 50% 材料。
+* **事件**：`EventBus.punk_applied / punk_removed / punk_style_changed`，供 HUD 或外部系统监听。
 
 ---
 
@@ -311,6 +357,8 @@ main.tscn → GameManager.enter_main_menu()
 | 新增任务 | 编辑 `quests.json`；目标类型支持 `kill / craft / reach_floor` |
 | 新增 NPC | 复制 `npc.gd` 节点，配置 `dialogue_id`，在 `dialogue.json` 增加对白 |
 | 新增建筑 | 在 `items.json` 中 `type: building` 且带非空 `craft_cost`，建造面板自动出现 |
+| 新增朋克部件 | 在 `punk_parts.json` 的 `parts` 增加条目（`style`/`slot`/`stats`/`cost`），改造面板自动列出；风格数值改 `style_bonus_when_matched` |
+| 新增朋克风格 | 在 `punk_parts.json` 的 `styles` 增加条目，并在 `class_style_bindings` 绑定职业，`PunkManager` 无需改动 |
 | 替换美术 | 将 `player.tscn` 的 `Visual/Body` 换成 AnimatedSprite2D，按状态播放动画即可 |
 | 替换音频 | 放置 `audio/bgm/*.ogg` 与 `audio/sfx/*.ogg`，AudioManager 会自动加载 |
 
@@ -325,6 +373,7 @@ main.tscn → GameManager.enter_main_menu()
 | 技能 1/2/3 | 1 / 2 / 3 | X / Y / RB | 技能按钮 |
 | 冲刺 | Shift | LB | 冲刺按钮 |
 | 交互 / 采集 | E | B | 交互按钮 |
+| 改造台 | 走到 `(-360, 0)` 按 E | B | 交互按钮 |
 | 切换职业 | Q / P | 左摇杆按下 / 右摇杆按下 | — |
 | 背包 | I | Back/Select | 背包按钮 |
 | 建造 | B | — | 建造按钮 |

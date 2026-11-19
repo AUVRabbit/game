@@ -174,6 +174,7 @@ func _toggle() -> void:
 	else:
 		if GameManager:
 			GameManager.close_ui()
+	visible = visible_panel
 	root.visible = visible_panel
 
 func _refresh() -> void:

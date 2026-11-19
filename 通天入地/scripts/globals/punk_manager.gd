@@ -113,7 +113,7 @@ func remove_punk(class_id: String, slot: String) -> bool:
 	c_dict.erase(slot)
 	punk_removed.emit(class_id, slot, part_id)
 	var part: Dictionary = DataManager.get_punk_part(part_id)
-	EventBus.notify("卸下朋克改造：%s（退还 50% 材料）" % str(part.get("name", part_id)))
+	EventBus.notify("卸下朋克改造：%s（退还 50%% 材料）" % str(part.get("name", part_id)))
 	_apply_to_character(class_id)
 	_update_primary_style()
 	return true
