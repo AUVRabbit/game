@@ -1,0 +1,51 @@
+; ============================================================
+; 等距开放世界场景 - Main World
+; 2D Isometric TileMap + 角色出生点 + 相机
+; ============================================================
+
+[gd_scene load_steps=3 format=3 uid="uid://b3ttrudi_world001"]
+
+[ext_resource type="Script" path="res://scripts/world/camera_controller.gd" id="1_cam"]
+
+[node name="MainWorld" type="Node2D"]
+
+; ---------- 地面 TileMap ----------
+[node name="Ground" type="TileMapLayer" parent="."]
+layer = 0
+y_sort_enabled = false
+
+; ---------- 装饰层（花、草、石头等）----------
+[node name="Decorations" type="TileMapLayer" parent="."]
+layer = 1
+y_sort_enabled = true
+
+; ---------- 建筑层 ----------
+[node name="Structures" type="TileMapLayer" parent="."]
+layer = 2
+y_sort_enabled = true
+
+; ---------- 交互物体层 ----------
+[node name="Interactables" type="Node2D" parent="."]
+
+; ---------- 角色出生点 ----------
+[node name="PlayerSpawn" type="Marker2D" parent="."]
+position = Vector2(0, 0)
+
+; ---------- 敌人刷怪点容器 ----------
+[node name="EnemySpawners" type="Node2D" parent="."]
+
+; ---------- 可收集物品容器 ----------
+[node name="Pickups" type="Node2D" parent="."]
+
+; ---------- 建造网格 ----------
+[node name="BuildGrid" type="Node2D" parent="."]
+
+; ---------- 相机 ----------
+[node name="Camera2D" type="Camera2D" parent="."]
+position_smoothing_enabled = true
+position_smoothing_speed = 5.0
+zoom = Vector2(1, 1)
+script = ExtResource("1_cam")
+
+; ---------- 环境光 ----------
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
