@@ -1,0 +1,15 @@
+# Godot 构建产物
+.import/
+imported/
+export_presets.cfg
+
+# Godot 4.x 自动生成的缓存
+.godot/
+*.uid
+
+# 系统文件
+.DS_Store
+Thumbs.db
+
+# 编辑器设置（本地）
+*.tmp

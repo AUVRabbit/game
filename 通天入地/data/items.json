@@ -1,0 +1,136 @@
+{
+  "version": "0.1.0",
+  "description": "通天入地 - 物品数据配置",
+  "items": {
+    "grass": {
+      "id": "grass",
+      "name": "草地方块",
+      "type": "building",
+      "description": "可以放置的草地",
+      "stackable": true,
+      "max_stack": 99
+    },
+    "dirt": {
+      "id": "dirt",
+      "name": "泥土",
+      "type": "material",
+      "description": "随处可见的泥土",
+      "stackable": true,
+      "max_stack": 99
+    },
+    "stone": {
+      "id": "stone",
+      "name": "石头",
+      "type": "material",
+      "description": "坚硬的石头",
+      "stackable": true,
+      "max_stack": 99,
+      "hardness": 2
+    },
+    "wood": {
+      "id": "wood",
+      "name": "木头",
+      "type": "material",
+      "description": "建筑常用的木头",
+      "stackable": true,
+      "max_stack": 99
+    },
+    "iron_ore": {
+      "id": "iron_ore",
+      "name": "铁矿石",
+      "type": "material",
+      "description": "含铁的矿石",
+      "stackable": true,
+      "max_stack": 99
+    },
+    "iron_ingot": {
+      "id": "iron_ingot",
+      "name": "铁锭",
+      "type": "material",
+      "description": "精炼后的铁锭",
+      "stackable": true,
+      "max_stack": 99
+    },
+    "healing_potion": {
+      "id": "healing_potion",
+      "name": "治疗药水",
+      "type": "consumable",
+      "description": "恢复 30 HP",
+      "stackable": true,
+      "max_stack": 10,
+      "effect": { "hp": 30 }
+    },
+    "mana_potion": {
+      "id": "mana_potion",
+      "name": "魔力药水",
+      "type": "consumable",
+      "description": "恢复 25 MP",
+      "stackable": true,
+      "max_stack": 10,
+      "effect": { "mp": 25 }
+    },
+    "wall": {
+      "id": "wall",
+      "name": "石墙",
+      "type": "building",
+      "description": "坚固的石墙",
+      "stackable": true,
+      "max_stack": 99,
+      "collidable": true,
+      "craft_cost": { "stone": 2 }
+    },
+    "torch": {
+      "id": "torch",
+      "name": "火把",
+      "type": "building",
+      "description": "照明用的火把",
+      "stackable": true,
+      "max_stack": 99,
+      "light_radius": 80,
+      "craft_cost": { "wood": 1, "stone": 1 }
+    },
+    "bed": {
+      "id": "bed",
+      "name": "床",
+      "type": "building",
+      "description": "可以设置重生点",
+      "stackable": false,
+      "craft_cost": { "wood": 4 }
+    },
+    "chest": {
+      "id": "chest",
+      "name": "储物箱",
+      "type": "building",
+      "description": "扩展存储",
+      "stackable": false,
+      "craft_cost": { "wood": 3 }
+    },
+    "weapon_sword_iron": {
+      "id": "weapon_sword_iron",
+      "name": "铁剑",
+      "type": "weapon",
+      "description": "普通的铁制长剑",
+      "slot": "weapon",
+      "attack": 12,
+      "stackable": false
+    },
+    "weapon_bow_wood": {
+      "id": "weapon_bow_wood",
+      "name": "木弓",
+      "type": "weapon",
+      "description": "远程攻击用的木弓",
+      "slot": "weapon",
+      "attack": 10,
+      "stackable": false
+    },
+    "armor_leather": {
+      "id": "armor_leather",
+      "name": "皮甲",
+      "type": "armor",
+      "description": "轻便的皮甲",
+      "slot": "armor",
+      "defense": 4,
+      "stackable": false
+    }
+  }
+}

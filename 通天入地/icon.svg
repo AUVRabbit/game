@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  通天入地 - 项目图标
+  一个简单的等距像素塔造型
+-->
+<svg xmlns="http://www.w3.org/2000/svg" width="128" height="128" viewBox="0 0 128 128">
+  <!-- 背景圆 -->
+  <circle cx="64" cy="64" r="60" fill="#1a1030"/>
+  <!-- 塔底座（等距菱形） -->
+  <polygon points="64,110 96,80 64,50 32,80" fill="#3a2a5a" stroke="#6a4aaa" stroke-width="2"/>
+  <!-- 塔身第二层 -->
+  <polygon points="64,80 84,60 64,40 44,60" fill="#4a3a7a" stroke="#8a6aca" stroke-width="2"/>
+  <!-- 塔身第三层 -->
+  <polygon points="64,55 78,43 64,31 50,43" fill="#5a4a9a" stroke="#aa8aea" stroke-width="2"/>
+  <!-- 塔尖 -->
+  <polygon points="64,31 70,20 64,8 58,20" fill="#7a6aba" stroke="#ccaeff" stroke-width="2"/>
+  <!-- 塔顶光点 -->
+  <circle cx="64" cy="14" r="4" fill="#ffee99"/>
+  <circle cx="64" cy="14" r="8" fill="#ffee99" opacity="0.3"/>
+  <!-- 装饰点 -->
+  <circle cx="48" cy="75" r="2" fill="#ffcc66"/>
+  <circle cx="80" cy="75" r="2" fill="#ffcc66"/>
+  <circle cx="58" cy="53" r="2" fill="#66ccff"/>
+  <circle cx="70" cy="53" r="2" fill="#66ccff"/>
+  <!-- 底部文字 -->
+  <text x="64" y="125" text-anchor="middle" fill="#ccaaee" font-size="10" font-family="monospace">通天入地</text>
+</svg>
