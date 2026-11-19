@@ -1,10 +1,6 @@
-; ============================================================
-; 主菜单场景 - Main Menu
-; ============================================================
+[gd_scene load_steps=2 format=3]
 
-[gd_scene load_steps=2 format=3 uid="uid://b3ttrudi_menu001"]
-
-[ext_resource type="Script" path="res://scripts/ui/main_menu.gd" id="1"]
+[ext_resource type="Script" path="res://scripts/ui/main_menu.gd" id="1_menu"]
 
 [node name="MainMenu" type="Control"]
 layout_mode = 3
@@ -13,98 +9,4 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-script = ExtResource("1")
-
-; 背景渐变
-[node name="Background" type="ColorRect" parent="."]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-color = Color(0.08, 0.06, 0.15, 1)
-
-; 标题
-[node name="Title" type="Label" parent="."]
-layout_mode = 1
-anchors_preset = 5
-anchor_left = 0.5
-anchor_right = 0.5
-offset_left = -180.0
-offset_top = 120.0
-offset_right = 180.0
-offset_bottom = 200.0
-grow_horizontal = 2
-theme_override_font_sizes/font_size = 72
-text = "通天入地"
-horizontal_alignment = 1
-vertical_alignment = 1
-
-[node name="Subtitle" type="Label" parent="."]
-layout_mode = 1
-anchors_preset = 5
-anchor_left = 0.5
-anchor_right = 0.5
-offset_left = -200.0
-offset_top = 200.0
-offset_right = 200.0
-offset_bottom = 230.0
-grow_horizontal = 2
-theme_override_font_sizes/font_size = 16
-text = "四朋克混搭 · 2D 等距 ARPG"
-horizontal_alignment = 1
-
-; 按钮容器
-[node name="ButtonContainer" type="VBoxContainer" parent="."]
-layout_mode = 1
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 1.0
-anchor_right = 0.5
-anchor_bottom = 1.0
-offset_left = -100.0
-offset_top = -320.0
-offset_right = 100.0
-offset_bottom = -80.0
-grow_horizontal = 2
-grow_vertical = 0
-theme_override_constants/separation = 16
-
-[node name="BtnNewGame" type="Button" parent="ButtonContainer"]
-layout_mode = 2
-theme_override_font_sizes/font_size = 22
-custom_minimum_size = Vector2(200, 50)
-text = "开始新游戏"
-
-[node name="BtnContinue" type="Button" parent="ButtonContainer"]
-layout_mode = 2
-theme_override_font_sizes/font_size = 22
-custom_minimum_size = Vector2(200, 50)
-text = "继续游戏"
-
-[node name="BtnSettings" type="Button" parent="ButtonContainer"]
-layout_mode = 2
-theme_override_font_sizes/font_size = 22
-custom_minimum_size = Vector2(200, 50)
-text = "设置"
-
-[node name="BtnExit" type="Button" parent="ButtonContainer"]
-layout_mode = 2
-theme_override_font_sizes/font_size = 22
-custom_minimum_size = Vector2(200, 50)
-text = "退出游戏"
-
-; 底部版权
-[node name="Footer" type="Label" parent="."]
-layout_mode = 1
-anchors_preset = 3
-anchor_left = 0.0
-anchor_top = 1.0
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_top = -30.0
-grow_vertical = 0
-theme_override_font_sizes/font_size = 12
-text = "© 通天入地 · Pixel Isometric ARPG · Made with Godot"
-horizontal_alignment = 1
+script = ExtResource("1_menu")

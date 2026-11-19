@@ -1,0 +1,20 @@
+{
+  "version": "0.2.0",
+  "recipes": [
+    { "id": "iron_ingot", "output": "iron_ingot", "count": 1, "cost": { "iron_ore": 2 } },
+    { "id": "healing_potion", "output": "healing_potion", "count": 1, "cost": { "herb": 2, "slime_gel": 1 } },
+    { "id": "mana_potion", "output": "mana_potion", "count": 1, "cost": { "ghost_dust": 1, "herb": 1 } },
+    { "id": "stone_block", "output": "stone_block", "count": 1, "cost": { "stone": 2 } },
+    { "id": "wood_block", "output": "wood_block", "count": 1, "cost": { "wood": 2 } },
+    { "id": "wall", "output": "wall", "count": 1, "cost": { "stone": 2 } },
+    { "id": "fence", "output": "fence", "count": 1, "cost": { "wood": 1 } },
+    { "id": "torch", "output": "torch", "count": 1, "cost": { "wood": 1, "stone": 1 } },
+    { "id": "bed", "output": "bed", "count": 1, "cost": { "wood": 4 } },
+    { "id": "chest", "output": "chest", "count": 1, "cost": { "wood": 3 } },
+    { "id": "weapon_sword_iron", "output": "weapon_sword_iron", "count": 1, "cost": { "iron_ingot": 3, "wood": 1 } },
+    { "id": "weapon_bow_wood", "output": "weapon_bow_wood", "count": 1, "cost": { "wood": 3, "leather": 1 } },
+    { "id": "staff_apprentice", "output": "staff_apprentice", "count": 1, "cost": { "wood": 2, "ghost_dust": 2 } },
+    { "id": "armor_leather", "output": "armor_leather", "count": 1, "cost": { "leather": 4 } },
+    { "id": "amulet_swift", "output": "amulet_swift", "count": 1, "cost": { "mech_core": 1, "ghost_dust": 1 } }
+  ]
+}

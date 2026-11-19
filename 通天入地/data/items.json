@@ -1,136 +1,131 @@
 {
-  "version": "0.1.0",
+  "version": "0.2.0",
   "description": "通天入地 - 物品数据配置",
   "items": {
     "grass": {
-      "id": "grass",
-      "name": "草地方块",
-      "type": "building",
-      "description": "可以放置的草地",
-      "stackable": true,
-      "max_stack": 99
-    },
-    "dirt": {
-      "id": "dirt",
-      "name": "泥土",
-      "type": "material",
-      "description": "随处可见的泥土",
-      "stackable": true,
-      "max_stack": 99
+      "id": "grass", "name": "草地方块", "type": "building",
+      "description": "可以放置的草地", "stackable": true, "max_stack": 99,
+      "color": "#4d8f4a", "craft_cost": {}
     },
     "stone": {
-      "id": "stone",
-      "name": "石头",
-      "type": "material",
-      "description": "坚硬的石头",
-      "stackable": true,
-      "max_stack": 99,
-      "hardness": 2
+      "id": "stone", "name": "石头", "type": "material",
+      "description": "坚硬的石头", "stackable": true, "max_stack": 99,
+      "color": "#9a9a9a"
     },
     "wood": {
-      "id": "wood",
-      "name": "木头",
-      "type": "material",
-      "description": "建筑常用的木头",
-      "stackable": true,
-      "max_stack": 99
+      "id": "wood", "name": "木头", "type": "material",
+      "description": "建筑常用的木头", "stackable": true, "max_stack": 99,
+      "color": "#a9743f"
     },
     "iron_ore": {
-      "id": "iron_ore",
-      "name": "铁矿石",
-      "type": "material",
-      "description": "含铁的矿石",
-      "stackable": true,
-      "max_stack": 99
+      "id": "iron_ore", "name": "铁矿石", "type": "material",
+      "description": "含铁的矿石", "stackable": true, "max_stack": 99,
+      "color": "#8a7f6a"
     },
     "iron_ingot": {
-      "id": "iron_ingot",
-      "name": "铁锭",
-      "type": "material",
-      "description": "精炼后的铁锭",
-      "stackable": true,
-      "max_stack": 99
+      "id": "iron_ingot", "name": "铁锭", "type": "material",
+      "description": "精炼后的铁锭", "stackable": true, "max_stack": 99,
+      "color": "#d8d8e0"
+    },
+    "herb": {
+      "id": "herb", "name": "草药", "type": "material",
+      "description": "有药效的植物", "stackable": true, "max_stack": 99,
+      "color": "#6fd36f"
+    },
+    "leather": {
+      "id": "leather", "name": "皮革", "type": "material",
+      "description": "鞣制过的兽皮", "stackable": true, "max_stack": 99,
+      "color": "#b8865b"
+    },
+    "slime_gel": {
+      "id": "slime_gel", "name": "史莱姆凝胶", "type": "material",
+      "description": "黏糊糊的凝胶", "stackable": true, "max_stack": 99,
+      "color": "#66cc99"
+    },
+    "mech_core": {
+      "id": "mech_core", "name": "机械核心", "type": "material",
+      "description": "还在微微发光的核心", "stackable": true, "max_stack": 99,
+      "color": "#e0a020"
+    },
+    "ghost_dust": {
+      "id": "ghost_dust", "name": "幽魂之尘", "type": "material",
+      "description": "触感冰凉的灰尘", "stackable": true, "max_stack": 99,
+      "color": "#a0b8ff"
     },
     "healing_potion": {
-      "id": "healing_potion",
-      "name": "治疗药水",
-      "type": "consumable",
-      "description": "恢复 30 HP",
-      "stackable": true,
-      "max_stack": 10,
-      "effect": { "hp": 30 }
+      "id": "healing_potion", "name": "治疗药水", "type": "consumable",
+      "description": "恢复 30 HP", "stackable": true, "max_stack": 10,
+      "color": "#e05252", "effect": { "hp": 30 }
     },
     "mana_potion": {
-      "id": "mana_potion",
-      "name": "魔力药水",
-      "type": "consumable",
-      "description": "恢复 25 MP",
-      "stackable": true,
-      "max_stack": 10,
-      "effect": { "mp": 25 }
+      "id": "mana_potion", "name": "魔力药水", "type": "consumable",
+      "description": "恢复 25 MP", "stackable": true, "max_stack": 10,
+      "color": "#4a7bff", "effect": { "mp": 25 }
+    },
+    "stone_block": {
+      "id": "stone_block", "name": "石砖", "type": "building",
+      "description": "可放置的石砖", "stackable": true, "max_stack": 99,
+      "color": "#7d7d85", "craft_cost": { "stone": 2 }
+    },
+    "wood_block": {
+      "id": "wood_block", "name": "木板", "type": "building",
+      "description": "可放置的木板", "stackable": true, "max_stack": 99,
+      "color": "#9c6b3c", "craft_cost": { "wood": 2 }
     },
     "wall": {
-      "id": "wall",
-      "name": "石墙",
-      "type": "building",
-      "description": "坚固的石墙",
-      "stackable": true,
-      "max_stack": 99,
-      "collidable": true,
-      "craft_cost": { "stone": 2 }
+      "id": "wall", "name": "石墙", "type": "building",
+      "description": "坚固的石墙", "stackable": true, "max_stack": 99,
+      "color": "#66667a", "collidable": true, "craft_cost": { "stone": 2 }
+    },
+    "fence": {
+      "id": "fence", "name": "栅栏", "type": "building",
+      "description": "木质栅栏", "stackable": true, "max_stack": 99,
+      "color": "#8a5a2b", "craft_cost": { "wood": 1 }
     },
     "torch": {
-      "id": "torch",
-      "name": "火把",
-      "type": "building",
-      "description": "照明用的火把",
-      "stackable": true,
-      "max_stack": 99,
-      "light_radius": 80,
-      "craft_cost": { "wood": 1, "stone": 1 }
+      "id": "torch", "name": "火把", "type": "building",
+      "description": "照明用的火把", "stackable": true, "max_stack": 99,
+      "color": "#ffb03a", "craft_cost": { "wood": 1, "stone": 1 }
     },
     "bed": {
-      "id": "bed",
-      "name": "床",
-      "type": "building",
-      "description": "可以设置重生点",
-      "stackable": false,
-      "craft_cost": { "wood": 4 }
+      "id": "bed", "name": "床", "type": "building",
+      "description": "可以设置重生点", "stackable": false,
+      "color": "#c05a7a", "craft_cost": { "wood": 4 }
     },
     "chest": {
-      "id": "chest",
-      "name": "储物箱",
-      "type": "building",
-      "description": "扩展存储",
-      "stackable": false,
-      "craft_cost": { "wood": 3 }
+      "id": "chest", "name": "储物箱", "type": "building",
+      "description": "扩展存储", "stackable": false,
+      "color": "#c8963c", "craft_cost": { "wood": 3 }
     },
     "weapon_sword_iron": {
-      "id": "weapon_sword_iron",
-      "name": "铁剑",
-      "type": "weapon",
-      "description": "普通的铁制长剑",
-      "slot": "weapon",
-      "attack": 12,
-      "stackable": false
+      "id": "weapon_sword_iron", "name": "铁剑", "type": "weapon",
+      "description": "普通的铁制长剑", "slot": "weapon", "stackable": false,
+      "color": "#cfd6e6", "stats": { "attack": 12 }
     },
     "weapon_bow_wood": {
-      "id": "weapon_bow_wood",
-      "name": "木弓",
-      "type": "weapon",
-      "description": "远程攻击用的木弓",
-      "slot": "weapon",
-      "attack": 10,
-      "stackable": false
+      "id": "weapon_bow_wood", "name": "木弓", "type": "weapon",
+      "description": "远程攻击用的木弓", "slot": "weapon", "stackable": false,
+      "color": "#b08a4a", "stats": { "attack": 10 }
+    },
+    "staff_apprentice": {
+      "id": "staff_apprentice", "name": "学徒法杖", "type": "weapon",
+      "description": "引导魔力的木杖", "slot": "weapon", "stackable": false,
+      "color": "#8a6bff", "stats": { "magic_attack": 10 }
     },
     "armor_leather": {
-      "id": "armor_leather",
-      "name": "皮甲",
-      "type": "armor",
-      "description": "轻便的皮甲",
-      "slot": "armor",
-      "defense": 4,
-      "stackable": false
+      "id": "armor_leather", "name": "皮甲", "type": "armor",
+      "description": "轻便的皮甲", "slot": "armor", "stackable": false,
+      "color": "#a9743f", "stats": { "defense": 4, "max_hp": 15 }
+    },
+    "amulet_swift": {
+      "id": "amulet_swift", "name": "疾风护符", "type": "accessory",
+      "description": "提升闪避与移速", "slot": "accessory", "stackable": false,
+      "color": "#5ad6c8", "stats": { "dodge_rate": 0.05, "move_speed": 15 }
+    },
+    "key_tower": {
+      "id": "key_tower", "name": "塔之钥", "type": "key",
+      "description": "开启通天塔的钥匙", "stackable": false,
+      "color": "#ffd24a"
     }
   }
 }

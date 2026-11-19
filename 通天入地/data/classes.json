@@ -1,0 +1,138 @@
+{
+  "version": "0.2.0",
+  "growth": { "max_hp": 16, "max_mp": 6, "attack": 3, "defense": 2, "magic_attack": 3, "magic_defense": 1 },
+  "classes": {
+    "warrior": {
+      "id": "warrior", "name": "战士", "color": "#e0533d",
+      "max_hp": 150, "max_mp": 50, "attack": 15, "defense": 12,
+      "magic_attack": 4, "magic_defense": 6, "move_speed": 180,
+      "attack_speed": 1.0, "crit_rate": 0.05, "crit_damage": 1.5, "dodge_rate": 0.02,
+      "skills": [
+        { "id": "whirlwind", "name": "旋风斩", "type": "melee_aoe", "cd": 3.0, "mp": 8, "power": 1.8, "radius": 76, "damage_type": "physical", "color": "#ff7b4a" },
+        { "id": "war_cry", "name": "战吼", "type": "buff", "cd": 10.0, "mp": 10, "stat": "attack", "value": 8, "duration": 6.0, "color": "#ffd24a" },
+        { "id": "shield_wall", "name": "盾墙", "type": "shield", "cd": 12.0, "mp": 12, "power": 45, "duration": 6.0, "color": "#9fd3ff" }
+      ]
+    },
+    "archer": {
+      "id": "archer", "name": "弓箭手", "color": "#5fbf5f",
+      "max_hp": 95, "max_mp": 60, "attack": 18, "defense": 4,
+      "magic_attack": 5, "magic_defense": 4, "move_speed": 220,
+      "attack_speed": 1.15, "crit_rate": 0.10, "crit_damage": 1.6, "dodge_rate": 0.05,
+      "skills": [
+        { "id": "piercing_shot", "name": "穿透射击", "type": "projectile", "cd": 2.0, "mp": 6, "power": 1.6, "speed": 520, "damage_type": "physical", "color": "#9dff8a" },
+        { "id": "arrow_rain", "name": "箭雨", "type": "aoe_zone", "cd": 8.0, "mp": 15, "power": 1.2, "radius": 90, "delay": 0.5, "damage_type": "physical", "color": "#c8ff6a" },
+        { "id": "hawk_eye", "name": "鹰眼", "type": "buff", "cd": 12.0, "mp": 10, "stat": "crit_rate", "value": 0.2, "duration": 6.0, "color": "#ffe28a" }
+      ]
+    },
+    "mage": {
+      "id": "mage", "name": "法师", "color": "#5a7bff",
+      "max_hp": 75, "max_mp": 130, "attack": 6, "defense": 3,
+      "magic_attack": 22, "magic_defense": 12, "move_speed": 190,
+      "attack_speed": 1.0, "crit_rate": 0.06, "crit_damage": 1.7, "dodge_rate": 0.02,
+      "skills": [
+        { "id": "fireball", "name": "火球术", "type": "projectile", "cd": 1.6, "mp": 10, "power": 1.9, "speed": 420, "damage_type": "magic", "color": "#ff8a3a" },
+        { "id": "frost_nova", "name": "冰霜新星", "type": "melee_aoe", "cd": 6.0, "mp": 18, "power": 1.5, "radius": 110, "damage_type": "magic", "color": "#7ad6ff" },
+        { "id": "arcane_shield", "name": "奥术护盾", "type": "shield", "cd": 12.0, "mp": 20, "power": 60, "duration": 8.0, "color": "#b48aff" }
+      ]
+    },
+    "priest": {
+      "id": "priest", "name": "牧师", "color": "#ffe6a0",
+      "max_hp": 88, "max_mp": 110, "attack": 8, "defense": 6,
+      "magic_attack": 14, "magic_defense": 14, "move_speed": 185,
+      "attack_speed": 1.0, "crit_rate": 0.04, "crit_damage": 1.5, "dodge_rate": 0.02,
+      "skills": [
+        { "id": "heal", "name": "治疗术", "type": "heal", "cd": 4.0, "mp": 14, "power": 45, "color": "#8affb0" },
+        { "id": "holy_nova", "name": "神圣新星", "type": "melee_aoe", "cd": 7.0, "mp": 18, "power": 1.3, "radius": 100, "damage_type": "magic", "color": "#fff2a0" },
+        { "id": "blessing", "name": "祝福", "type": "buff", "cd": 14.0, "mp": 16, "stat": "defense", "value": 10, "duration": 8.0, "color": "#ffe6a0" }
+      ]
+    },
+    "necromancer": {
+      "id": "necromancer", "name": "亡灵法师", "color": "#8a6bbf",
+      "max_hp": 80, "max_mp": 120, "attack": 7, "defense": 4,
+      "magic_attack": 20, "magic_defense": 11, "move_speed": 185,
+      "attack_speed": 1.0, "crit_rate": 0.06, "crit_damage": 1.7, "dodge_rate": 0.02,
+      "skills": [
+        { "id": "corrupt_bolt", "name": "腐蚀箭", "type": "projectile", "cd": 1.8, "mp": 18, "power": 1.7, "speed": 400, "damage_type": "magic", "color": "#9bff6b" },
+        { "id": "grave_field", "name": "亡者领域", "type": "aoe_zone", "cd": 9.0, "mp": 24, "power": 1.6, "radius": 100, "delay": 0.6, "damage_type": "magic", "color": "#7b5ab0" },
+        { "id": "drain", "name": "汲取", "type": "heal", "cd": 8.0, "mp": 14, "power": 30, "color": "#b48aff" }
+      ]
+    },
+    "death_knight": {
+      "id": "death_knight", "name": "死亡骑士", "color": "#7a2f3f",
+      "max_hp": 145, "max_mp": 70, "attack": 16, "defense": 12,
+      "magic_attack": 8, "magic_defense": 8, "move_speed": 175,
+      "attack_speed": 0.95, "crit_rate": 0.06, "crit_damage": 1.6, "dodge_rate": 0.03,
+      "skills": [
+        { "id": "death_charge", "name": "死亡冲锋", "type": "dash_strike", "cd": 5.0, "mp": 10, "power": 1.5, "distance": 120, "radius": 60, "damage_type": "physical", "color": "#ff5a5a" },
+        { "id": "blood_slash", "name": "血斩", "type": "melee_aoe", "cd": 4.0, "mp": 12, "power": 1.7, "radius": 80, "damage_type": "physical", "color": "#d9364a" },
+        { "id": "dark_shield", "name": "黑暗护盾", "type": "shield", "cd": 14.0, "mp": 16, "power": 55, "duration": 7.0, "color": "#8a4bbf" }
+      ]
+    },
+    "thief": {
+      "id": "thief", "name": "小偷", "color": "#4fc3a1",
+      "max_hp": 82, "max_mp": 55, "attack": 13, "defense": 4,
+      "magic_attack": 4, "magic_defense": 4, "move_speed": 260,
+      "attack_speed": 1.3, "crit_rate": 0.12, "crit_damage": 1.8, "dodge_rate": 0.15,
+      "skills": [
+        { "id": "backstab", "name": "背刺", "type": "melee_aoe", "cd": 2.4, "mp": 6, "power": 2.0, "radius": 50, "damage_type": "physical", "color": "#7bffd6" },
+        { "id": "smoke_bomb", "name": "烟雾弹", "type": "buff", "cd": 10.0, "mp": 10, "stat": "dodge_rate", "value": 0.3, "duration": 5.0, "color": "#c0c0c0" },
+        { "id": "poison_blade", "name": "毒刃", "type": "projectile", "cd": 3.0, "mp": 8, "power": 1.2, "speed": 480, "damage_type": "physical", "color": "#6bd35a" }
+      ]
+    },
+    "sniper": {
+      "id": "sniper", "name": "狙击手", "color": "#c8b45a",
+      "max_hp": 86, "max_mp": 50, "attack": 25, "defense": 3,
+      "magic_attack": 4, "magic_defense": 3, "move_speed": 200,
+      "attack_speed": 0.85, "crit_rate": 0.2, "crit_damage": 2.0, "dodge_rate": 0.03,
+      "skills": [
+        { "id": "snipe", "name": "狙击", "type": "projectile", "cd": 4.0, "mp": 8, "power": 2.4, "speed": 900, "damage_type": "physical", "color": "#ffe28a" },
+        { "id": "trap", "name": "陷阱", "type": "aoe_zone", "cd": 8.0, "mp": 12, "power": 1.8, "radius": 70, "delay": 0.8, "damage_type": "physical", "color": "#a8c86a" },
+        { "id": "focus", "name": "精准", "type": "buff", "cd": 12.0, "mp": 8, "stat": "crit_rate", "value": 0.25, "duration": 5.0, "color": "#ffd24a" }
+      ]
+    },
+    "bomber": {
+      "id": "bomber", "name": "炸弹专家", "color": "#e07a3a",
+      "max_hp": 105, "max_mp": 70, "attack": 16, "defense": 7,
+      "magic_attack": 9, "magic_defense": 6, "move_speed": 190,
+      "attack_speed": 0.9, "crit_rate": 0.06, "crit_damage": 1.6, "dodge_rate": 0.02,
+      "skills": [
+        { "id": "throw_bomb", "name": "投掷炸弹", "type": "aoe_zone", "cd": 3.0, "mp": 10, "power": 1.9, "radius": 85, "delay": 0.45, "damage_type": "physical", "color": "#ff7b3a" },
+        { "id": "blast_zone", "name": "爆破领域", "type": "aoe_zone", "cd": 9.0, "mp": 20, "power": 1.5, "radius": 120, "delay": 0.9, "damage_type": "magic", "color": "#ff5a2a" },
+        { "id": "incendiary", "name": "燃烧弹", "type": "melee_aoe", "cd": 6.0, "mp": 14, "power": 1.3, "radius": 95, "damage_type": "magic", "color": "#ffb03a" }
+      ]
+    },
+    "hacker": {
+      "id": "hacker", "name": "黑客", "color": "#4ad6ff",
+      "max_hp": 70, "max_mp": 135, "attack": 6, "defense": 3,
+      "magic_attack": 18, "magic_defense": 12, "move_speed": 195,
+      "attack_speed": 1.0, "crit_rate": 0.07, "crit_damage": 1.6, "dodge_rate": 0.04,
+      "skills": [
+        { "id": "virus", "name": "病毒入侵", "type": "chain", "cd": 4.0, "mp": 14, "power": 1.3, "radius": 220, "count": 3, "damage_type": "magic", "color": "#4affc8" },
+        { "id": "emp_pulse", "name": "EMP 脉冲", "type": "melee_aoe", "cd": 7.0, "mp": 18, "power": 1.4, "radius": 115, "damage_type": "magic", "color": "#4ad6ff" },
+        { "id": "overclock", "name": "系统过载", "type": "buff", "cd": 12.0, "mp": 14, "stat": "attack", "value": 12, "duration": 6.0, "color": "#8affff" }
+      ]
+    },
+    "mech_pilot": {
+      "id": "mech_pilot", "name": "机甲师", "color": "#a8a8b8",
+      "max_hp": 180, "max_mp": 70, "attack": 13, "defense": 15,
+      "magic_attack": 8, "magic_defense": 9, "move_speed": 140,
+      "attack_speed": 0.8, "crit_rate": 0.04, "crit_damage": 1.5, "dodge_rate": 0.01,
+      "skills": [
+        { "id": "cannon", "name": "重炮轰击", "type": "projectile", "cd": 3.0, "mp": 10, "power": 2.0, "speed": 360, "damage_type": "physical", "color": "#ffcf6a" },
+        { "id": "armor_up", "name": "装甲强化", "type": "shield", "cd": 12.0, "mp": 12, "power": 70, "duration": 8.0, "color": "#9fd3ff" },
+        { "id": "energy_field", "name": "能量护盾", "type": "buff", "cd": 14.0, "mp": 14, "stat": "defense", "value": 14, "duration": 7.0, "color": "#a8f0ff" }
+      ]
+    },
+    "bounty_hunter": {
+      "id": "bounty_hunter", "name": "赏金猎人", "color": "#c87a9a",
+      "max_hp": 100, "max_mp": 70, "attack": 17, "defense": 6,
+      "magic_attack": 6, "magic_defense": 6, "move_speed": 215,
+      "attack_speed": 1.1, "crit_rate": 0.08, "crit_damage": 1.7, "dodge_rate": 0.08,
+      "skills": [
+        { "id": "rapid_fire", "name": "连射", "type": "chain", "cd": 3.0, "mp": 10, "power": 1.0, "radius": 240, "count": 3, "damage_type": "physical", "color": "#ff9ac8" },
+        { "id": "mark", "name": "追踪标记", "type": "buff", "cd": 12.0, "mp": 8, "stat": "attack", "value": 10, "duration": 7.0, "color": "#ff6aa8" },
+        { "id": "disarm", "name": "缴械", "type": "melee_aoe", "cd": 5.0, "mp": 12, "power": 1.4, "radius": 70, "damage_type": "physical", "color": "#d88ab0" }
+      ]
+    }
+  }
+}
