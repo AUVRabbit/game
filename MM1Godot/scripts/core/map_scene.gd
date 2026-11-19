@@ -57,16 +57,37 @@ func _ready() -> void:
 
 
 func _build_tiles() -> void:
+	# 加载 tileset 主图
 	var tex: Texture2D = DB.tileset_texture(str(tileset.get("tileset_name", "")))
+	# 加载最多 7 张 autotile 图片
+	var autotile_names: Array = tileset.get("autotile_names", [])
+	var autos: Array = []
+	for i in range(7):
+		var name: String = autotile_names[i] if i < autotile_names.size() else ""
+		name = name.replace("'", "").replace('"', '').strip_edges()
+		if name.is_empty():
+			autos.append(null)
+		else:
+			var atex: Texture2D = DB.autotile_texture(name)
+			autos.append(atex)
 	var _tl_script: Script = load("res://scripts/core/tile_layer.gd")
 	var below: Variant = _tl_script.new()
 	below.z_index = -10
 	add_child(below)
-	below.configure(tex, width, height, layers, [0, 1, 2], priorities, -1)
+	below.configure(tex, autos, width, height, layers, [0, 1, 2], priorities, -1)
 	var above: Variant = _tl_script.new()
 	above.z_index = 10
 	add_child(above)
-	above.configure(tex, width, height, layers, [2], priorities, 1)
+	above.configure(tex, autos, width, height, layers, [2], priorities, 1)
+	# WaterRenderer —— 专用水渲染，覆盖 tile_layer 的水 tile
+	# 取第一张 autotile 图 (通常是 water01.png)
+	var water_tex: Texture2D = autos[0] if autos.size() > 0 else null
+	if water_tex != null:
+		var _wr_script: Script = load("res://scripts/core/water_renderer.gd")
+		var water_rend: Variant = _wr_script.new()
+		water_rend.z_index = 0   # 在 below 之上、above 之下
+		add_child(water_rend)
+		water_rend.configure(water_tex, width, height, layers)
 
 
 func _build_characters() -> void:

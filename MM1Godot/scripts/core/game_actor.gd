@@ -16,7 +16,7 @@ var hp: int = 1
 var sp: int = 0
 var states: Array[int] = []
 var equipment: Dictionary = {"weapon": 0, "armor1": 0, "armor2": 0, "armor3": 0, "armor4": 0}
-var tank: GameTank = null
+var tank = null
 var items: Array = []
 var skills: Array[int] = []
 var data: Dictionary = {}
@@ -232,7 +232,7 @@ func inputable() -> bool:
 	return exists() and not is_dead()
 
 
-func get_on(t: GameTank) -> void:
+func get_on(t) -> void:
 	tank = t
 	t.driver = self
 

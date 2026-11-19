@@ -230,7 +230,7 @@ func _use_item() -> void:
 	var actors: Array = State.party.member_actors()
 	if actors.is_empty():
 		return
-	var target: GameActor = actors[0]
+	var target = actors[0]
 	var heal := int(item.get("hp_effect", 0))
 	if heal <= 0:
 		_show_notice("现在无法使用")

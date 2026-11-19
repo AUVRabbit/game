@@ -7,7 +7,7 @@ signal finished
 const _BRIDGE_SCRIPT := preload("res://scripts/core/script_bridge.gd")
 
 var map_scene: Node = null
-var event_node: GameEvent = null
+var event_node = null
 var bridge = null
 var commands: Array = []
 var index := 0
@@ -20,7 +20,7 @@ func _ready() -> void:
 	bridge = _BRIDGE_SCRIPT.new(self)
 
 
-func setup(list: Array, event: GameEvent = null) -> void:
+func setup(list: Array, event = null) -> void:
 	commands = list.duplicate(true)
 	event_node = event
 	index = 0

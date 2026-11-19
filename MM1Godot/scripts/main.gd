@@ -1,14 +1,79 @@
 extends Node
 ## Entry point: defers to the router which owns scene transitions.
 
-const HEADLESS_TEST := true  # Set false for normal GUI mode
+const HEADLESS_TEST := false  # Set true for automated headless testing
+const SHOT_DIR := "/Users/l/game/report-assets/screenshots"
+
+var _shot_count := 0
+
+const AUTO_QUIT_AFTER_SHOT := true
 
 func _ready() -> void:
 	if HEADLESS_TEST:
 		call_deferred("_headless_test")
 	else:
 		await get_tree().process_frame
-		Router.start()
+		# State autoload already called new_game() in its _ready
+		Router.load_map(State.map_id, State.player_x, State.player_y, State.player_direction, false)
+		# change_scene_to_file 会把 main.gd 从 scene tree 移除，
+		# 所以截图逻辑移到 Router.load_map() 内部
+
+func _unhandled_input(event: InputEvent) -> void:
+	if event is InputEventKey and event.pressed and not event.echo:
+		if event.keycode == KEY_F12:
+			take_screenshot("manual_%d" % _shot_count)
+		elif event.keycode == KEY_F11:
+			# F11 连续截 5 张不同位置
+			_auto_screenshot_sequence()
+
+func take_screenshot(label: String = "shot") -> void:
+	"""从 Godot viewport 内部截帧，保存 PNG。只捕获游戏画面，不包含桌面其他窗口。"""
+	var dir := DirAccess.open(SHOT_DIR)
+	if dir == null:
+		DirAccess.make_dir_recursive_absolute(SHOT_DIR)
+	var tex := get_viewport().get_texture()   # ViewportTexture (继承 Texture2D)
+	if tex == null:
+		push_warning("take_screenshot: viewport texture is null")
+		return
+	var img: Image = tex.get_image()
+	if img == null or img.is_empty():
+		push_warning("take_screenshot: image is empty (ViewportTexture may need one frame)")
+		return
+	_shot_count += 1
+	var ts := Time.get_datetime_string_from_system().replace(":", "-")
+	var path := "%s/%s_%s.png" % [SHOT_DIR, label, ts]
+	var err := img.save_png(path)
+	if err == OK:
+		print("[SCREENSHOT] Saved viewport shot -> %s (%dx%d)" % [path, img.width, img.height])
+	else:
+		push_error("[SCREENSHOT] Failed to save: %s" % path)
+
+func _auto_screenshot_sequence() -> void:
+	"""移动玩家到几个位置分别截图，方便对比全地图。"""
+	var ms := State.current_map
+	if ms == null:
+		return
+	var positions := [
+		{"x": 2,  "y": 15, "name": "center"},
+		{"x": 0,  "y": 0,  "name": "top_left"},
+		{"x": 19, "y": 0,  "name": "top_right"},
+		{"x": 0,  "y": 29, "name": "bot_left"},
+		{"x": 19, "y": 29, "name": "bot_right"},
+	]
+	for p in positions:
+		var px: int = p["x"]
+		var py: int = p["y"]
+		var pname: String = p["name"]
+		ms.player.tile_x = px
+		ms.player.tile_y = py
+		ms.player.position = Vector2(px * 32 + 16, py * 32 + 16)
+		# 让相机跟随
+		var cam: Camera2D = ms.player.get_node_or_null("Camera2D")
+		if cam:
+			cam.make_current()
+		await get_tree().create_timer(0.3).timeout
+		call_deferred("take_screenshot", "seq_%s_%02dx%02d" % [pname, px, py])
+		await get_tree().process_frame
 
 func _headless_test() -> void:
 	_p("=== New game ===")

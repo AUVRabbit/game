@@ -210,7 +210,7 @@ func _assign(lhs: String, rhs: String) -> void:
 		var actors: Array = State.party.member_actors()
 		var idx2 := int(am.get_string(1))
 		if idx2 < actors.size():
-			var a: GameActor = actors[idx2]
+			var a = actors[idx2]
 			match am.get_string(2):
 				"hp": a.hp = int(value)
 				"sp": a.sp = int(value)
@@ -276,7 +276,7 @@ func resolve(expr: String) -> Variant:
 		var i2 := int(sm2.get_string(1))
 		if i2 >= ts2.size():
 			return null
-		var t2: GameTank = ts2[i2]
+		var t2 = ts2[i2]
 		var slot := sm2.get_string(2)
 		if slot == "main_cannon" or slot == "sub_cannon" or slot == "se" or slot == "c_unit" or slot == "engine" or slot == "underpan":
 			return t2.slot_equipment(slot)

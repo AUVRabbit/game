@@ -42,7 +42,7 @@ func _update_texture() -> void:
 	var name := "主角"
 	var actors: Array = State.party.member_actors()
 	if not actors.is_empty():
-		var a: GameActor = actors[0]
+		var a = actors[0]
 		if not a.character_name.is_empty():
 			name = a.character_name
 	_texture = DB.character_texture(name)

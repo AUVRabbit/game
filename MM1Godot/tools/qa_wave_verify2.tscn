@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://cqa2waveverify7x"]
+
+[ext_resource type="Script" path="res://tools/qa_wave_verify2.gd" id="1_qa2"]
+
+[node name="QAWaveVerify2" type="Node2D"]
+script = ExtResource("1_qa2")

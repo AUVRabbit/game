@@ -1,0 +1,10 @@
+A raw-immediate blackpx=37115 (半帧假象对照)
+B fixed(2x post_draw) #1 blackpx=37115
+C fixed #2 blackpx=37115 ; pixel-diff(B vs C)=0 (0=完全稳定)
+D tick0 blackpx=37115 changed_vs_prev=36432 (波纹应变化,黑洞不应出现)
+D tick1 blackpx=37115 changed_vs_prev=48028 (波纹应变化,黑洞不应出现)
+D tick2 blackpx=37115 changed_vs_prev=42412 (波纹应变化,黑洞不应出现)
+D tick3 blackpx=37115 changed_vs_prev=36432 (波纹应变化,黑洞不应出现)
+D tick4 blackpx=37115 changed_vs_prev=36432 (波纹应变化,黑洞不应出现)
+D tick5 blackpx=37115 changed_vs_prev=1016 (波纹应变化,黑洞不应出现)
+=== STABILITY DONE ===

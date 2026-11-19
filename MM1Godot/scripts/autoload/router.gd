@@ -66,6 +66,42 @@ func _action(action_name: String, keys: Array) -> void:
 		InputMap.action_add_event(action_name, ev)
 
 
+# -------------------------------------------------------------------- screenshot
+const SHOT_DIR := "/Users/l/game/report-assets/screenshots"
+var _shot_count := 0
+
+func _unhandled_input(event: InputEvent) -> void:
+	if event is InputEventKey and event.pressed and not event.echo:
+		if event.keycode == KEY_F12:
+			take_screenshot("manual_%d" % _shot_count)
+
+func take_screenshot(label: String = "shot") -> void:
+	"""从 Godot viewport 内部截帧，保存 PNG。只捕获游戏画面，不包含桌面其他窗口。"""
+	# GL Compatibility 下必须等整帧 GPU 绘制完成, 否则 get_image() 会读到
+	# 半帧 (表现为只剩最左一列 water tile、其余全黑 —— 见 godot_vs_expected.png)。
+	await RenderingServer.frame_post_draw
+	await RenderingServer.frame_post_draw
+	var dir := DirAccess.open(SHOT_DIR)
+	if dir == null:
+		DirAccess.make_dir_recursive_absolute(SHOT_DIR)
+	var tex := get_viewport().get_texture()
+	if tex == null:
+		push_warning("take_screenshot: viewport texture is null")
+		return
+	var img: Image = tex.get_image()
+	if img == null or img.is_empty():
+		push_warning("take_screenshot: image is empty (ViewportTexture may need one frame)")
+		return
+	_shot_count += 1
+	var ts := Time.get_datetime_string_from_system().replace(":", "-")
+	var path := "%s/%s_%s.png" % [SHOT_DIR, label, ts]
+	var err := img.save_png(path)
+	if err == OK:
+		print("[SCREENSHOT] Saved viewport shot -> %s (%dx%d)" % [path, img.get_width(), img.get_height()])
+	else:
+		push_error("[SCREENSHOT] Failed to save: %s" % path)
+
+
 # ------------------------------------------------------------------ transitions
 func start() -> void:
 	await fade_in(0.3)
@@ -110,6 +146,13 @@ func load_map(map_id: int, x: int, y: int, direction: int = 2, fade: bool = true
 	await get_tree().process_frame
 	if fade:
 		await fade_in(0.3)
+	# 地图加载完成后等待动画渲染再截图（等 1.5s 覆盖至少 1 个完整动画周期）
+	await get_tree().create_timer(1.5).timeout
+	await take_screenshot("map001_water")
+	# 截图后不自动退出，方便手动验证动画
+	# await get_tree().create_timer(0.5).timeout
+	get_tree().quit()
+	# get_tree().quit()
 
 
 func refresh_map() -> void:

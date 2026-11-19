@@ -2,16 +2,19 @@ class_name GameParty
 extends RefCounted
 ## Party state, ported from Game_Party / Game_Tanks.
 
+const GameActorScript = preload("res://scripts/core/game_actor.gd")
+const GameTankScript = preload("res://scripts/core/game_tank.gd")
+
 var actors: Dictionary = {}      # actor_id -> GameActor
 var tanks: Dictionary = {}       # tank_id -> GameTank
-var members: Array = []          # up to 4: GameActor or GameTank
+var members: Array = []          # up to 4 or GameTank
 var gold: int = 0
 var steps: int = 0
 var actor_items: Dictionary = {} # item_id -> count
 var tank_items: Dictionary = {}  # item_id -> count
 var trunk: Array = []            # array of {type, id, count}
 var rent_tanks: Array[int] = []
-var tow_tank: GameTank = null
+var tow_tank = null
 
 
 func setup_starting_members() -> void:
@@ -24,40 +27,40 @@ func setup_starting_members() -> void:
 	tank_items.clear()
 	trunk.clear()
 	for actor_id in DB.system.get("party_members", [1]):
-		var actor := GameActor.new(int(actor_id))
+		var actor := GameActorScript.new(int(actor_id))
 		actor.learn_skills()
 		actors[int(actor_id)] = actor
 		members.append(actor)
 
 
-func actor(actor_id: int) -> GameActor:
+func actor(actor_id: int) :
 	return actors.get(actor_id, null)
 
 
-func tank(tank_id: int) -> GameTank:
+func tank(tank_id: int) :
 	if not tanks.has(tank_id):
-		tanks[tank_id] = GameTank.new(tank_id)
+		tanks[tank_id] = GameTankScript.new(tank_id)
 	return tanks.get(tank_id)
 
 
-func member_actors() -> Array[GameActor]:
-	var out: Array[GameActor] = []
+func member_actors() -> Array:
+	var out: Array = []
 	for m in members:
-		if m is GameActor:
+		if m is GameActorScript:
 			out.append(m)
 	return out
 
 
-func member_tanks() -> Array[GameTank]:
-	var out: Array[GameTank] = []
+func member_tanks() -> Array:
+	var out: Array = []
 	for m in members:
-		if m is GameTank:
+		if m is GameTankScript:
 			out.append(m)
 	return out
 
 
-func party_tanks() -> Array[GameTank]:
-	var out: Array[GameTank] = []
+func party_tanks() -> Array:
+	var out: Array = []
 	for t in tanks.values():
 		out.append(t)
 	return out
@@ -78,9 +81,9 @@ func increase_steps() -> void:
 func add_actor(actor_id: int) -> void:
 	if members.size() >= 4:
 		return
-	var a: GameActor = actor(actor_id)
+	var a = actor(actor_id)
 	if a == null:
-		a = GameActor.new(actor_id)
+		a = GameActorScript.new(actor_id)
 		a.learn_skills()
 		actors[actor_id] = a
 	if not members.has(a):
@@ -88,7 +91,7 @@ func add_actor(actor_id: int) -> void:
 
 
 func remove_actor(actor_id: int) -> void:
-	var a: GameActor = actor(actor_id)
+	var a = actor(actor_id)
 	if a != null:
 		members.erase(a)
 		actors.erase(actor_id)
@@ -97,7 +100,7 @@ func remove_actor(actor_id: int) -> void:
 func add_tank(index: int, tank_id: int) -> bool:
 	if members.size() >= 4:
 		return false
-	var t: GameTank = tank(tank_id)
+	var t = tank(tank_id)
 	if members.has(t):
 		return false
 	if index >= 0 and index < members.size():
@@ -108,7 +111,7 @@ func add_tank(index: int, tank_id: int) -> bool:
 
 
 func remove_tank(index: int, tank_id: int) -> void:
-	var t: GameTank = tank(tank_id)
+	var t = tank(tank_id)
 	if t != null:
 		members.erase(t)
 		if t.driver != null:
@@ -130,9 +133,9 @@ func updown_in_battle(index: int) -> void:
 	if index < 0 or index >= members.size():
 		return
 	var m = members[index]
-	if m is GameActor and m.tank != null:
+	if m is GameActorScript and m.tank != null:
 		members[index] = m.tank
-	elif m is GameTank and m.driver != null:
+	elif m is GameTankScript and m.driver != null:
 		members[index] = m.driver
 
 
@@ -187,7 +190,7 @@ func all_dead() -> bool:
 
 func inputable() -> bool:
 	for m in members:
-		if m is GameTank:
+		if m is GameTankScript:
 			if m.inputable():
 				return true
 		elif m.inputable():
@@ -212,17 +215,17 @@ func total_weight() -> float:
 func to_save_dict() -> Dictionary:
 	var actor_data := {}
 	for id in actors:
-		var a: GameActor = actors[id]
+		var a = actors[id]
 		actor_data[str(id)] = {
 			"level": a.level, "exp": a.exp, "hp": a.hp, "sp": a.sp,
 			"states": a.states, "equipment": a.equipment, "skills": a.skills
 		}
 	var tank_data := {}
 	for id in tanks:
-		var t: GameTank = tanks[id]
+		var t = tanks[id]
 		var slots := {}
 		for key in ["main_cannon", "sub_cannon", "se", "c_unit", "engine", "underpan"]:
-			var e: GameTank.Equipment = t.slot_equipment(key)
+			var e = t.slot_equipment(key)
 			if e != null:
 				slots[key] = {"id": e.id, "status": e.status, "ammo": e.quantity_reality}
 			else:
@@ -230,9 +233,9 @@ func to_save_dict() -> Dictionary:
 		tank_data[str(id)] = {"hp": t.hp, "slots": slots, "rent": t.rent}
 	var member_ids := []
 	for m in members:
-		if m is GameActor:
+		if m is GameActorScript:
 			member_ids.append("a%d" % m.id)
-		elif m is GameTank:
+		elif m is GameTankScript:
 			member_ids.append("t%d" % m.id)
 	return {
 		"gold": gold, "steps": steps,
@@ -252,9 +255,9 @@ func load_save_dict(d: Dictionary) -> void:
 	rent_tanks = d.get("rent_tanks", [])
 	var ad: Dictionary = d.get("actors", {})
 	for key in ad:
-		var a: GameActor = actors.get(int(key), null)
+		var a = actors.get(int(key), null)
 		if a == null:
-			a = GameActor.new(int(key))
+			a = GameActorScript.new(int(key))
 			a.learn_skills()
 			actors[int(key)] = a
 		var e: Dictionary = ad[key]
@@ -270,7 +273,7 @@ func load_save_dict(d: Dictionary) -> void:
 		a.sp = int(e.get("sp", a.maxsp()))
 	var td: Dictionary = d.get("tanks", {})
 	for key in td:
-		var t: GameTank = tank(int(key))
+		var t = tank(int(key))
 		var e: Dictionary = td[key]
 		t.hp = int(e.get("hp", t.maxhp()))
 		t.rent = bool(e.get("rent", false))
@@ -281,7 +284,7 @@ func load_save_dict(d: Dictionary) -> void:
 				t.equip_slot(key2, 0)
 			else:
 				t.equip_slot(key2, int(s.get("id", 0)))
-				var eqe: GameTank.Equipment = t.slot_equipment(key2)
+				var eqe = t.slot_equipment(key2)
 				if eqe != null:
 					eqe.status = int(s.get("status", 0))
 					eqe.quantity_reality = int(s.get("ammo", eqe.quantity))
@@ -291,7 +294,7 @@ func load_save_dict(d: Dictionary) -> void:
 		for mid in ids:
 			var sid: String = str(mid)
 			if sid.begins_with("a"):
-				var a2: GameActor = actors.get(int(sid.substr(1)), null)
+				var a2 = actors.get(int(sid.substr(1)), null)
 				if a2 != null:
 					members.append(a2)
 			elif sid.begins_with("t"):

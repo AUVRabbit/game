@@ -10,7 +10,7 @@ func _ready() -> void:
 func build_entries() -> Array:
 	var out: Array = []
 	for t in State.party.member_tanks():
-		var missing := t.ammo_missing()
+		var missing: int = t.ammo_missing()
 		out.append({"label": "%s  弹药不足 %d" % [t.name, missing],
 			"sub": "补给费 %dG" % (missing * 2), "tank": t})
 	return out

@@ -197,6 +197,21 @@ func tileset_texture(name: String) -> Texture2D:
 	return tex
 
 
+func autotile_texture(name: String) -> Texture2D:
+	if name.is_empty():
+		return null
+	if _tileset_image_cache.has(name):
+		return _tileset_image_cache[name]
+	var path := "res://assets/graphics/Autotiles/%s.png" % name
+	var tex: Texture2D = load(path) if ResourceLoader.exists(path) else null
+	if tex == null:
+		# 部分 MM1 扩展把 autotile 放在 Tilesets 目录
+		path = "res://assets/graphics/Tilesets/%s.png" % name
+		tex = load(path) if ResourceLoader.exists(path) else null
+	_tileset_image_cache[name] = tex
+	return tex
+
+
 func windowskin_texture(name: String) -> Texture2D:
 	if name.is_empty():
 		return null

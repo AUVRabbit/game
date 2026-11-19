@@ -17,7 +17,7 @@ func build_entries() -> Array:
 					"map_id": int(info.get("id", 0))})
 		return out
 	for a in State.party.member_actors():
-		var next_exp := a.exp_for_level(a.level + 1)
+		var next_exp: int = a.exp_for_level(a.level + 1)
 		out.append({"label": "%s  Lv%d" % [a.name, a.level],
 			"sub": "距离下一级 %d" % maxi(next_exp - a.exp, 0)})
 	return out

@@ -1,0 +1,14 @@
+engine=4.7.2-stable (steam) renderer=gl_compatibility vp=(640.0, 480.0) mode=real dir=/Users/l/game/report-assets/qa_wave2/2026-11-19T15-45-25
+map_id=1
+WaterRenderer=true water_tiles=246 shore_tex=4
+CAP real_top -> real_top_2026-11-19T15-45-25.png black=37115 white=2102 err=0
+CAP real_bottom -> real_bottom_2026-11-19T15-45-25.png black=21336 white=3178 err=0
+CAP real_pillar -> real_pillar_2026-11-19T15-45-25.png black=37115 white=1862 err=0
+CAP real_left -> real_left_2026-11-19T15-45-25.png black=48927 white=1706 err=0
+CAP real_anim_f0 -> real_anim_f0_2026-11-19T15-45-25.png black=37115 white=1862 err=0
+CAP real_anim_f1 -> real_anim_f1_2026-11-19T15-45-25.png black=37115 white=2102 err=0
+CAP real_anim_f2 -> real_anim_f2_2026-11-19T15-45-25.png black=37115 white=1862 err=0
+CAP real_anim_f3 -> real_anim_f3_2026-11-19T15-45-25.png black=37115 white=1720 err=0
+CAP real_AB_with -> real_AB_with_2026-11-19T15-45-25.png black=37115 white=1720 err=0
+CAP real_AB_without -> real_AB_without_2026-11-19T15-45-25.png black=37115 white=1336 err=0
+=== REAL DONE ===

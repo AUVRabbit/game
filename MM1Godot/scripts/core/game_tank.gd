@@ -136,7 +136,7 @@ var name: String = ""
 var character_name: String = ""
 var character_hue: int = 0
 var battler_name: String = ""
-var driver: GameActor = null
+var driver = null
 var hp: int = 1
 var rent: bool = false
 var data: Dictionary = {}
@@ -197,7 +197,7 @@ func equipment_list() -> Array[Equipment]:
 	return equipments
 
 
-func set_driver(actor: GameActor) -> void:
+func set_driver(actor) -> void:
 	driver = actor
 
 
