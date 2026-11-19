@@ -7,21 +7,24 @@
 
 ## 1. 环境准备
 
-### 1.1 安装 Godot（无头验证）
+### 1.1 安装 Godot 4.7.2（固定版本）
 
 ```bash
 cd /tmp
 curl -L --fail -o godot.zip \
-  https://github.com/godotengine/godot/releases/download/4.3-stable/Godot_v4.3-stable_linux.x86_64.zip
+  https://github.com/godotengine/godot-builds/releases/download/4.7.2-stable/Godot_v4.7.2-stable_linux.x86_64.zip
 unzip -o godot.zip
-chmod +x Godot_v4.3-stable_linux.x86_64
-/tmp/Godot_v4.3-stable_linux.x86_64 --version
+chmod +x Godot_v4.7.2-stable_linux.x86_64
+/tmp/Godot_v4.7.2-stable_linux.x86_64 --version
 ```
 
-预期输出包含 `4.3.stable.official`。
+预期输出：
 
-> 工程 `project.godot` 的 `config/features` 标记为 `4.7`，这是项目元数据，不影响 4.3 打开与运行；
-> 若编辑器提示版本差异，选择「仅打开」即可。推荐使用 4.3 及以上版本。
+```
+4.7.2.stable.official.ed1daf0bf
+```
+
+> 工程通过 `config/features=PackedStringArray("4.7.2", "GL Compatibility")` 与根目录 `.godot-version` 双重固定版本。其他 Godot 4.7.x 兼容，但仅在 4.7.2 上完成回归验证。
 
 ### 1.2 工程自检
 
@@ -53,7 +56,7 @@ python3 tools/validate_project.py
 ```bash
 cd /workspace/通天入地
 rm -rf ~/.local/share/godot/app_userdata/通天入地/saves
-timeout 120 /tmp/Godot_v4.3-stable_linux.x86_64 --headless --path . tools/smoke_test.tscn
+timeout 180 /tmp/Godot_v4.7.2-stable_linux.x86_64 --headless --path . tools/smoke_test.tscn
 ```
 
 ### 2.2 预期输出
@@ -116,9 +119,9 @@ SMOKE_RESULT failures=0
 
 > 启动方式（有显示器）：
 > ```bash
-> /tmp/Godot_v4.3-stable_linux.x86_64 --path /workspace/通天入地
+> /tmp/Godot_v4.7.2-stable_linux.x86_64 --path /workspace/通天入地
 > ```
-> 或使用 Godot 编辑器导入工程后按 `F5`。
+> 或使用 Godot 4.7.2 编辑器导入工程后按 `F5`。
 
 ### V-01 启动与主菜单
 
@@ -363,7 +366,7 @@ SMOKE_RESULT failures=0
 
 1. **美术为程序化占位**：角色、敌人、建筑、特效使用 Polygon2D / `_draw`，未接入像素图集；替换方式见 `DESIGN.md` 第 6 节。
 2. **音频资源为空**：`audio/` 目录未附带素材，AudioManager 会静默跳过。
-3. **无官方 Godot 4.7**：本方案用 4.3-stable 完成实际运行验证；`project.godot` 中的 `4.7` 仅为元数据，如编辑器提示版本差异可忽略。
+3. **版本固定**：使用 Godot 4.7.2-stable，通过 `.godot-version` 与 `project.godot config/features="4.7.2"` 双重固定。
 4. **触屏按钮布局固定 960×540**：在极端宽高比下需按 `canvas_items` 缩放，已验证 16:9。
 5. **Roguelike 层数为程序化复用**：所有楼层共用 `tower_floor_1.tscn`，通过 `pending_floor` 生成内容，不是独立关卡文件。
 

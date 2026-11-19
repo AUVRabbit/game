@@ -1,6 +1,6 @@
 # 《通天入地》设计方案
 
-> 版本：1.0　|　引擎：Godot 4.x（实际验证版本 4.3-stable）　|　语言：GDScript
+> 版本：1.0　|　引擎：Godot **4.7.2-stable**（`config/features="4.7.2"`，`.godot-version` 固定）　|　语言：GDScript
 > 对应工程目录：`/workspace/通天入地`
 
 ---
