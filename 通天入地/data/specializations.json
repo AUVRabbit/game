@@ -1,0 +1,450 @@
+{
+ "version": "1.0.0",
+ "specializations": {
+  "warrior": [
+   {
+    "id": "berserker",
+    "name": "狂战士",
+    "desc": "以血换命：攻击大幅提升但承受更重的伤害，技能威力更强。",
+    "req_level": 5,
+    "icon": "portrait_warrior",
+    "stats": {
+     "attack": 10,
+     "crit_rate": 0.05,
+     "max_hp": -30,
+     "defense": -3
+    },
+    "skill_bonus": {
+     "power": 0.2,
+     "cooldown": 0.05
+    },
+    "passives": {
+     "lifesteal": 0.2
+    },
+    "bonus_points": 1
+   },
+   {
+    "id": "swordsman",
+    "name": "剑圣",
+    "desc": "攻防一体：护盾更厚、技能冷却更短，依靠格挡取胜。",
+    "req_level": 5,
+    "icon": "portrait_warrior",
+    "stats": {
+     "defense": 8,
+     "max_hp": 40,
+     "attack_speed": 0.1
+    },
+    "skill_bonus": {
+     "power": 0.1,
+     "cooldown": 0.2
+    },
+    "passives": {
+     "shield_bonus": 0.3
+    },
+    "bonus_points": 1
+   }
+  ],
+  "archer": [
+   {
+    "id": "sharpshooter",
+    "name": "神射手",
+    "desc": "远程极限：暴击与射程拉满，箭雨覆盖更广。",
+    "req_level": 5,
+    "icon": "portrait_archer",
+    "stats": {
+     "crit_rate": 0.07,
+     "crit_damage": 0.25,
+     "move_speed": -0.05
+    },
+    "skill_bonus": {
+     "power": 0.18
+    },
+    "passives": {},
+    "bonus_points": 1
+   },
+   {
+    "id": "ranger",
+    "name": "游侠",
+    "desc": "灵活作战：移速与闪避大幅提升，技能冷却缩短。",
+    "req_level": 5,
+    "icon": "portrait_archer",
+    "stats": {
+     "move_speed": 0.18,
+     "dodge_rate": 0.06,
+     "attack": 2
+    },
+    "skill_bonus": {
+     "cooldown": 0.25
+    },
+    "passives": {},
+    "bonus_points": 1
+   }
+  ],
+  "mage": [
+   {
+    "id": "pyromancer",
+    "name": "炎术士",
+    "desc": "焚尽一切：魔法攻击极高，火球命中后引发灼烧。",
+    "req_level": 5,
+    "icon": "portrait_mage",
+    "stats": {
+     "magic_attack": 12,
+     "max_mp": -10
+    },
+    "skill_bonus": {
+     "power": 0.25
+    },
+    "passives": {
+     "burn": 0.2
+    },
+    "bonus_points": 1
+   },
+   {
+    "id": "cryomancer",
+    "name": "霜法师",
+    "desc": "寒冰掌控：冰霜新星范围更大，护盾更厚。",
+    "req_level": 5,
+    "icon": "portrait_mage",
+    "stats": {
+     "magic_defense": 8,
+     "max_mp": 20
+    },
+    "skill_bonus": {
+     "power": 0.1,
+     "cooldown": 0.15
+    },
+    "passives": {
+     "shield_bonus": 0.25
+    },
+    "bonus_points": 1
+   }
+  ],
+  "priest": [
+   {
+    "id": "oracle",
+    "name": "神谕者",
+    "desc": "神谕之力：治疗与法强提升，魔力池更深。",
+    "req_level": 5,
+    "icon": "portrait_priest",
+    "stats": {
+     "magic_attack": 8,
+     "max_mp": 30
+    },
+    "skill_bonus": {
+     "power": 0.15,
+     "cooldown": 0.1
+    },
+    "passives": {
+     "heal_bonus": 0.2
+    },
+    "bonus_points": 1
+   },
+   {
+    "id": "templar",
+    "name": "圣殿骑士",
+    "desc": "以盾卫道：防御与生命提升，护盾效果更强。",
+    "req_level": 5,
+    "icon": "portrait_priest",
+    "stats": {
+     "defense": 8,
+     "max_hp": 45
+    },
+    "skill_bonus": {
+     "power": 0.05
+    },
+    "passives": {
+     "shield_bonus": 0.35
+    },
+    "bonus_points": 1
+   }
+  ],
+  "necromancer": [
+   {
+    "id": "reaper",
+    "name": "收割者",
+    "desc": "收割灵魂：伤害提升并通过汲取回血。",
+    "req_level": 5,
+    "icon": "portrait_necromancer",
+    "stats": {
+     "magic_attack": 9,
+     "max_hp": -10
+    },
+    "skill_bonus": {
+     "power": 0.2
+    },
+    "passives": {
+     "lifesteal": 0.18
+    },
+    "bonus_points": 1
+   },
+   {
+    "id": "plague",
+    "name": "瘟疫术士",
+    "desc": "疫病蔓延：持续伤害更强，魔力上限提升。",
+    "req_level": 5,
+    "icon": "portrait_necromancer",
+    "stats": {
+     "magic_attack": 6,
+     "max_mp": 30
+    },
+    "skill_bonus": {
+     "power": 0.12,
+     "cooldown": 0.15
+    },
+    "passives": {},
+    "bonus_points": 1
+   }
+  ],
+  "death_knight": [
+   {
+    "id": "bloodknight",
+    "name": "血骑",
+    "desc": "饮血而生：攻击极高，技能吸血。",
+    "req_level": 5,
+    "icon": "portrait_death_knight",
+    "stats": {
+     "attack": 12,
+     "max_hp": -20
+    },
+    "skill_bonus": {
+     "power": 0.22
+    },
+    "passives": {
+     "lifesteal": 0.22
+    },
+    "bonus_points": 1
+   },
+   {
+    "id": "tombguard",
+    "name": "墓卫",
+    "desc": "死亡壁垒：极高防御与生命，冷却更短。",
+    "req_level": 5,
+    "icon": "portrait_death_knight",
+    "stats": {
+     "defense": 10,
+     "max_hp": 60
+    },
+    "skill_bonus": {
+     "cooldown": 0.2
+    },
+    "passives": {
+     "shield_bonus": 0.3
+    },
+    "bonus_points": 1
+   }
+  ],
+  "thief": [
+   {
+    "id": "assassin",
+    "name": "刺客",
+    "desc": "一击致命：暴击率与暴击伤害极高。",
+    "req_level": 5,
+    "icon": "portrait_thief",
+    "stats": {
+     "crit_rate": 0.08,
+     "crit_damage": 0.3,
+     "attack": 4
+    },
+    "skill_bonus": {
+     "power": 0.15
+    },
+    "passives": {},
+    "bonus_points": 1
+   },
+   {
+    "id": "shadow",
+    "name": "影行者",
+    "desc": "无处可寻：移速与闪避拉满，冷却大幅缩短。",
+    "req_level": 5,
+    "icon": "portrait_thief",
+    "stats": {
+     "move_speed": 0.2,
+     "dodge_rate": 0.07
+    },
+    "skill_bonus": {
+     "cooldown": 0.25
+    },
+    "passives": {},
+    "bonus_points": 1
+   }
+  ],
+  "sniper": [
+   {
+    "id": "marksman",
+    "name": "狙击手",
+    "desc": "一击必杀：暴击与射程达到极限。",
+    "req_level": 5,
+    "icon": "portrait_sniper",
+    "stats": {
+     "crit_rate": 0.09,
+     "crit_damage": 0.35,
+     "move_speed": -0.05
+    },
+    "skill_bonus": {
+     "power": 0.22
+    },
+    "passives": {},
+    "bonus_points": 1
+   },
+   {
+    "id": "trapmaster",
+    "name": "陷阱大师",
+    "desc": "工程布防：防御提升，陷阱伤害更高、冷却更短。",
+    "req_level": 5,
+    "icon": "portrait_sniper",
+    "stats": {
+     "defense": 6,
+     "max_hp": 25
+    },
+    "skill_bonus": {
+     "power": 0.12,
+     "cooldown": 0.25
+    },
+    "passives": {},
+    "bonus_points": 1
+   }
+  ],
+  "bomber": [
+   {
+    "id": "demolitionist",
+    "name": "爆破专家",
+    "desc": "极端火力：攻击极高，装药伤害翻倍。",
+    "req_level": 5,
+    "icon": "portrait_bomber",
+    "stats": {
+     "attack": 12,
+     "max_hp": -15
+    },
+    "skill_bonus": {
+     "power": 0.25
+    },
+    "passives": {},
+    "bonus_points": 1
+   },
+   {
+    "id": "firefighter",
+    "name": "纵火者",
+    "desc": "持续灼烧：范围更大，冷却更短，自带护甲。",
+    "req_level": 5,
+    "icon": "portrait_bomber",
+    "stats": {
+     "defense": 7,
+     "max_hp": 35
+    },
+    "skill_bonus": {
+     "power": 0.12,
+     "cooldown": 0.2
+    },
+    "passives": {},
+    "bonus_points": 1
+   }
+  ],
+  "hacker": [
+   {
+    "id": "netrunner",
+    "name": "网络行者",
+    "desc": "入侵一切：法强与攻速提升，病毒蔓延更快。",
+    "req_level": 5,
+    "icon": "portrait_hacker",
+    "stats": {
+     "magic_attack": 9,
+     "attack_speed": 0.15
+    },
+    "skill_bonus": {
+     "power": 0.18,
+     "cooldown": 0.1
+    },
+    "passives": {},
+    "bonus_points": 1
+   },
+   {
+    "id": "ghost",
+    "name": "幽灵",
+    "desc": "无影无踪：闪避与移速极高，机动性拉满。",
+    "req_level": 5,
+    "icon": "portrait_hacker",
+    "stats": {
+     "dodge_rate": 0.08,
+     "move_speed": 0.18
+    },
+    "skill_bonus": {
+     "cooldown": 0.25
+    },
+    "passives": {},
+    "bonus_points": 1
+   }
+  ],
+  "mech_pilot": [
+   {
+    "id": "juggernaut",
+    "name": "重装机兵",
+    "desc": "碾压：生命与防御极高，近战推进无惧。",
+    "req_level": 5,
+    "icon": "portrait_mech_pilot",
+    "stats": {
+     "max_hp": 80,
+     "defense": 10,
+     "move_speed": -0.08
+    },
+    "skill_bonus": {
+     "power": 0.15
+    },
+    "passives": {
+     "shield_bonus": 0.3
+    },
+    "bonus_points": 1
+   },
+   {
+    "id": "gunslinger",
+    "name": "速射炮手",
+    "desc": "弹幕压制：攻速与暴击提升，冷却大幅缩短。",
+    "req_level": 5,
+    "icon": "portrait_mech_pilot",
+    "stats": {
+     "attack_speed": 0.2,
+     "crit_rate": 0.06,
+     "move_speed": 0.08
+    },
+    "skill_bonus": {
+     "cooldown": 0.28
+    },
+    "passives": {},
+    "bonus_points": 1
+   }
+  ],
+  "bounty_hunter": [
+   {
+    "id": "collector",
+    "name": "赏金猎人",
+    "desc": "高效处决：攻击与暴击提升，缴械伤害翻倍。",
+    "req_level": 5,
+    "icon": "portrait_bounty_hunter",
+    "stats": {
+     "attack": 10,
+     "crit_rate": 0.06
+    },
+    "skill_bonus": {
+     "power": 0.18
+    },
+    "passives": {},
+    "bonus_points": 1
+   },
+   {
+    "id": "tracer",
+    "name": "追迹者",
+    "desc": "锁定猎物：移速与攻速提升，连射更密集。",
+    "req_level": 5,
+    "icon": "portrait_bounty_hunter",
+    "stats": {
+     "move_speed": 0.16,
+     "attack_speed": 0.18
+    },
+    "skill_bonus": {
+     "cooldown": 0.25
+    },
+    "passives": {},
+    "bonus_points": 1
+   }
+  ]
+ }
+}

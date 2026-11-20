@@ -1,0 +1,32 @@
+{
+  "version": "0.2.0",
+  "quests": {
+    "q_slime_hunt": {
+      "id": "q_slime_hunt",
+      "name": "清理史莱姆",
+      "description": "村庄外的史莱姆越来越多，击败 5 只。",
+      "objectives": [
+        { "type": "kill", "target": "slime", "count": 5, "text": "击败史莱姆" }
+      ],
+      "rewards": { "gold": 80, "items": { "healing_potion": 2 } }
+    },
+    "q_craft_iron": {
+      "id": "q_craft_iron",
+      "name": "铁匠的委托",
+      "description": "为铁匠锻造 2 块铁锭。",
+      "objectives": [
+        { "type": "craft", "target": "iron_ingot", "count": 2, "text": "锻造铁锭" }
+      ],
+      "rewards": { "gold": 120, "items": { "weapon_sword_iron": 1 } }
+    },
+    "q_tower_2": {
+      "id": "q_tower_2",
+      "name": "向塔而行",
+      "description": "抵达通天塔第 2 层。",
+      "objectives": [
+        { "type": "reach_floor", "target": "2", "count": 1, "text": "抵达第 2 层" }
+      ],
+      "rewards": { "gold": 150, "items": { "key_tower": 1 } }
+    }
+  }
+}

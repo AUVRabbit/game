@@ -1,0 +1,28 @@
+[gd_scene load_steps=9 format=3]
+
+[ext_resource type="PackedScene" path="res://scenes/ui/hud.tscn" id="1_hud"]
+[ext_resource type="PackedScene" path="res://scenes/ui/build_palette.tscn" id="2_build"]
+[ext_resource type="PackedScene" path="res://scenes/ui/inventory_panel.tscn" id="3_inv"]
+[ext_resource type="PackedScene" path="res://scenes/ui/dialogue_box.tscn" id="4_dialogue"]
+[ext_resource type="PackedScene" path="res://scenes/ui/pause_menu.tscn" id="5_pause"]
+[ext_resource type="PackedScene" path="res://scenes/ui/touch_controls.tscn" id="6_touch"]
+[ext_resource type="PackedScene" path="res://scenes/ui/punk_panel.tscn" id="7_punk"]
+[ext_resource type="PackedScene" path="res://scenes/ui/skill_tree_panel.tscn" id="8_skill"]
+
+[node name="GameUI" type="Node"]
+
+[node name="HUD" parent="." instance=ExtResource("1_hud")]
+
+[node name="BuildPalette" parent="." instance=ExtResource("2_build")]
+
+[node name="InventoryPanel" parent="." instance=ExtResource("3_inv")]
+
+[node name="DialogueBox" parent="." instance=ExtResource("4_dialogue")]
+
+[node name="PauseMenu" parent="." instance=ExtResource("5_pause")]
+
+[node name="TouchControls" parent="." instance=ExtResource("6_touch")]
+
+[node name="PunkPanel" parent="." instance=ExtResource("7_punk")]
+
+[node name="SkillTreePanel" parent="." instance=ExtResource("8_skill")]

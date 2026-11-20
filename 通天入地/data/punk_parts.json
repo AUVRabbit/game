@@ -1,0 +1,152 @@
+{
+  "version": "1.0.0",
+  "styles": [
+    {"id": "spell", "name": "法术朋克", "color": "#8a6bbf", "desc": "奥术能量外露，符文发光，法阵旋转"},
+    {"id": "mech", "name": "机械朋克", "color": "#c87a3a", "desc": "齿轮旋转，管道喷汽，铆钉装甲"},
+    {"id": "tech", "name": "科技朋克", "color": "#4ad6ff", "desc": "霓虹闪烁，电路板纹理，光纤导线"},
+    {"id": "abyss", "name": "深渊朋克", "color": "#7a2f3f", "desc": "黑暗侵蚀，腐败结晶，虚无粒子"}
+  ],
+  "parts": [
+    {
+      "id": "spell_rune_glyph", "name": "奥术符文", "style": "spell", "slot": "weapon",
+      "desc": "武器刻入流动的奥术符文，魔法攻击 +8",
+      "stats": {"magic_attack": 8}, "visual": "rune_glow",
+      "cost": {"herb": 3, "iron_ore": 1}, "rarity": "common"
+    },
+    {
+      "id": "spell_arcane_core", "name": "奥术核心", "style": "spell", "slot": "chest",
+      "desc": "胸甲嵌入奥术核心，魔法防御 +6，魔力上限 +20",
+      "stats": {"magic_defense": 6, "max_mp": 20}, "visual": "arcane_core",
+      "cost": {"herb": 5, "iron_ore": 2}, "rarity": "rare"
+    },
+    {
+      "id": "spell_dark_crystal", "name": "黑暗结晶", "style": "spell", "slot": "helmet",
+      "desc": "头盔镶嵌黑暗结晶，暴击率 +0.05，亡灵术士专属",
+      "stats": {"crit_rate": 0.05}, "visual": "dark_crystal",
+      "cost": {"herb": 8, "leather": 2}, "rarity": "epic", "class_bonus": ["necromancer"]
+    },
+    {
+      "id": "spell_holy_aura", "name": "神圣辉光", "style": "spell", "slot": "back",
+      "desc": "背后浮现神圣辉光，治疗效果 +15%，牧师专属",
+      "stats": {"heal_bonus": 0.15}, "visual": "holy_aura",
+      "cost": {"herb": 10, "stone": 5}, "rarity": "epic", "class_bonus": ["priest"]
+    },
+    {
+      "id": "mech_hydraulic_gear", "name": "液压齿轮", "style": "mech", "slot": "weapon",
+      "desc": "武器加装液压齿轮，攻击速度 +12%，攻击 +6",
+      "stats": {"attack_speed": 0.12, "attack": 6}, "visual": "gear_spin",
+      "cost": {"iron_ore": 4, "wood": 3}, "rarity": "common"
+    },
+    {
+      "id": "mech_steam_pipe", "name": "蒸汽管道", "style": "mech", "slot": "chest",
+      "desc": "装甲外露蒸汽管道，防御 +8，移动速度 +10%",
+      "stats": {"defense": 8, "move_speed": 0.10}, "visual": "steam_pipe",
+      "cost": {"iron_ore": 6, "stone": 3}, "rarity": "rare"
+    },
+    {
+      "id": "mech_rivet_plate", "name": "铆钉装甲", "style": "mech", "slot": "helmet",
+      "desc": "头盔覆盖铆钉装甲，物理防御 +5，机甲师专属",
+      "stats": {"defense": 5}, "visual": "rivet_plate",
+      "cost": {"iron_ore": 8, "leather": 4}, "rarity": "epic", "class_bonus": ["mech_pilot"]
+    },
+    {
+      "id": "mech_black_plate", "name": "暗黑装甲", "style": "mech", "slot": "back",
+      "desc": "背后挂载暗黑装甲，生命上限 +40，死亡骑士专属",
+      "stats": {"max_hp": 40}, "visual": "black_plate",
+      "cost": {"iron_ore": 10, "herb": 5}, "rarity": "epic", "class_bonus": ["death_knight"]
+    },
+    {
+      "id": "tech_neon_circuit", "name": "霓虹电路板", "style": "tech", "slot": "weapon",
+      "desc": "武器蚀刻霓虹电路板，攻击 +5，暴击伤害 +10%",
+      "stats": {"attack": 5, "crit_damage": 0.10}, "visual": "neon_circuit",
+      "cost": {"iron_ore": 3, "herb": 2}, "rarity": "common"
+    },
+    {
+      "id": "tech_fiber_optic", "name": "光纤导线", "style": "tech", "slot": "chest",
+      "desc": "胸甲内嵌光纤导线，闪避率 +0.05，黑客专属",
+      "stats": {"dodge_rate": 0.05}, "visual": "fiber_optic",
+      "cost": {"iron_ore": 5, "wood": 4}, "rarity": "rare", "class_bonus": ["hacker"]
+    },
+    {
+      "id": "tech_quantum_sensor", "name": "量子传感器", "style": "tech", "slot": "helmet",
+      "desc": "头盔搭载量子传感器，暴击率 +0.08，狙击手专属",
+      "stats": {"crit_rate": 0.08}, "visual": "quantum_sensor",
+      "cost": {"iron_ore": 7, "herb": 3}, "rarity": "epic", "class_bonus": ["sniper"]
+    },
+    {
+      "id": "tech_nano_coating", "name": "纳米涂层", "style": "tech", "slot": "back",
+      "desc": "背部覆盖纳米涂层，全属性 +3%",
+      "stats": {"all_stats_bonus": 0.03}, "visual": "nano_coating",
+      "cost": {"iron_ore": 8, "herb": 6}, "rarity": "epic"
+    },
+    {
+      "id": "abyss_shadow_shard", "name": "阴影碎片", "style": "abyss", "slot": "weapon",
+      "desc": "武器附着阴影碎片，攻击 +7，投掷类技能伤害 +10%",
+      "stats": {"attack": 7, "throw_bonus": 0.10}, "visual": "shadow_shard",
+      "cost": {"herb": 4, "stone": 3}, "rarity": "common"
+    },
+    {
+      "id": "abyss_corrupt_crystal", "name": "腐败晶体", "style": "abyss", "slot": "chest",
+      "desc": "胸甲嵌入腐败晶体，生命上限 -10，攻击 +12",
+      "stats": {"max_hp": -10, "attack": 12}, "visual": "corrupt_crystal",
+      "cost": {"herb": 6, "leather": 3}, "rarity": "rare", "tradeoff": true
+    },
+    {
+      "id": "abyss_void_particle", "name": "虚无粒子", "style": "abyss", "slot": "helmet",
+      "desc": "头盔环绕虚无粒子，移动速度 +20%，小偷专属",
+      "stats": {"move_speed": 0.20}, "visual": "void_particle",
+      "cost": {"herb": 9, "wood": 5}, "rarity": "epic", "class_bonus": ["thief"]
+    },
+    {
+      "id": "abyss_explosive_core", "name": "爆破核心", "style": "abyss", "slot": "back",
+      "desc": "背后挂载爆破核心，爆炸伤害 +20%，炸弹专家专属",
+      "stats": {"explosion_bonus": 0.20}, "visual": "explosive_core",
+      "cost": {"iron_ore": 7, "herb": 5, "stone": 4}, "rarity": "epic", "class_bonus": ["bomber"]
+    },
+    {
+      "id": "common_cyber_prosthetic", "name": "赛博义肢", "style": "neutral", "slot": "weapon",
+      "desc": "通用赛博改造，攻击 +4，攻击速度 +8%",
+      "stats": {"attack": 4, "attack_speed": 0.08}, "visual": "cyber_prosthetic",
+      "cost": {"iron_ore": 3, "wood": 2}, "rarity": "common"
+    },
+    {
+      "id": "common_nano_armor", "name": "纳米护甲", "style": "neutral", "slot": "chest",
+      "desc": "通用纳米护甲，生命上限 +20，防御 +3",
+      "stats": {"max_hp": 20, "defense": 3}, "visual": "nano_armor",
+      "cost": {"stone": 5, "leather": 2}, "rarity": "common"
+    },
+    {
+      "id": "common_fusion_core", "name": "融合核心", "style": "neutral", "slot": "back",
+      "desc": "通用融合核心，魔力上限 +30，魔法攻击 +5",
+      "stats": {"max_mp": 30, "magic_attack": 5}, "visual": "fusion_core",
+      "cost": {"iron_ore": 5, "herb": 3}, "rarity": "rare"
+    },
+    {
+      "id": "common_quantum_drive", "name": "量子驱动器", "style": "neutral", "slot": "helmet",
+      "desc": "通用量子驱动器，闪避率 +0.03，移动速度 +5%",
+      "stats": {"dodge_rate": 0.03, "move_speed": 0.05}, "visual": "quantum_drive",
+      "cost": {"iron_ore": 4, "stone": 3}, "rarity": "common"
+    }
+  ],
+  "build_decorations": [
+    {"id": "build_spell_torch", "name": "奥术火炬", "style": "spell", "color": "#8a6bbf", "desc": "法术朋克风格火炬，散发紫色奥术光芒"},
+    {"id": "build_mech_pipe", "name": "蒸汽管道", "style": "mech", "color": "#c87a3a", "desc": "机械朋克风格管道，周期性喷蒸汽"},
+    {"id": "build_tech_neon", "name": "霓虹招牌", "style": "tech", "color": "#4ad6ff", "desc": "科技朋克风格霓虹招牌，闪烁蓝光"},
+    {"id": "build_abyss_crystal", "name": "深渊水晶", "style": "abyss", "color": "#7a2f3f", "desc": "深渊朋克风格水晶，散发暗红色侵蚀气息"}
+  ],
+  "class_style_bindings": {
+    "warrior": ["mech", "neutral"],
+    "archer": ["tech", "neutral"],
+    "mage": ["spell"],
+    "priest": ["spell"],
+    "necromancer": ["spell", "abyss"],
+    "death_knight": ["mech", "abyss"],
+    "thief": ["abyss", "tech"],
+    "sniper": ["tech"],
+    "bomber": ["abyss", "mech"],
+    "hacker": ["tech"],
+    "mech_pilot": ["mech"],
+    "bounty_hunter": ["tech", "mech"]
+  },
+  "style_bonus_when_matched": 0.15
+}
