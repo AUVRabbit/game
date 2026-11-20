@@ -91,6 +91,7 @@ func setup_class(new_class_id: String) -> void:
 	class_id = new_class_id
 	initialized = false
 	initialize()
+	stats_changed.emit()
 
 func recompute() -> void:
 	max_hp = int(base_stats.get("max_hp", 100)) + int(growth.get("max_hp", 0)) * (level - 1)

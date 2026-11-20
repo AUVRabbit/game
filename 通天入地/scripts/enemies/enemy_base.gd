@@ -27,6 +27,7 @@ enum State { PATROL, CHASE, ATTACK, DEAD }
 @export var body_radius: float = 16.0
 
 var sprite_texture: Texture2D = null
+var sprite_content: Rect2i = Rect2i()
 var hp: int = 40
 var state: State = State.PATROL
 var attack_timer: float = 0.0
@@ -69,7 +70,21 @@ func _load_sprite() -> Texture2D:
 				asset_id = ""
 	if asset_id == "":
 		return null
-	return AssetLibrary.texture(asset_id)
+	var tex := AssetLibrary.texture(asset_id)
+	if tex == null:
+		return null
+	sprite_content = _content_rect(tex)
+	return tex
+
+# 取贴图里不透明内容的包围盒（用于把角色对齐到地面）
+func _content_rect(tex: Texture2D) -> Rect2i:
+	var img: Image = tex.get_image()
+	if img == null:
+		return Rect2i()
+	if img.is_compressed():
+		if img.decompress() != OK:
+			return Rect2i()
+	return img.get_used_rect()
 
 func _physics_process(delta: float) -> void:
 	if hp <= 0:
@@ -191,11 +206,17 @@ func _draw() -> void:
 	if flash_timer > 0.0:
 		fill = Color(1.0, 1.0, 1.0)
 	if sprite_texture:
-		var size := body_radius * 2.4
 		var tint := Color(1, 1, 1, 1)
 		if flash_timer > 0.0:
 			tint = Color(1.6, 1.6, 1.6, 1)
-		draw_texture_rect(sprite_texture, Rect2(-size * 0.5, -size * 0.5, size, size), false, tint)
+		var src := sprite_content
+		if src.size.x <= 0 or src.size.y <= 0:
+			src = Rect2i(Vector2i.ZERO, sprite_texture.get_size())
+		var fit := body_radius * 2.6
+		var factor: float = fit / float(maxi(src.size.x, src.size.y))
+		var dest_size := Vector2(src.size) * factor
+		var dest := Rect2(-dest_size.x * 0.5, -dest_size.y + body_radius * 0.6, dest_size.x, dest_size.y)
+		draw_texture_rect_region(sprite_texture, dest, src, tint)
 	else:
 		if is_boss:
 			draw_circle(Vector2.ZERO, body_radius + 6.0, Color(fill.r, fill.g, fill.b, 0.25))

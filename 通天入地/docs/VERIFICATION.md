@@ -40,8 +40,8 @@ python3 tools/validate_project.py
 ```
 
 校验内容：
-1. `project.godot` 主场景、9 个 Autoload 路径存在且未声明 `class_name`；
-2. 所有输入动作齐全；
+1. `project.godot` 主场景、11 个 Autoload 路径存在且未声明 `class_name`；
+2. 所有输入动作齐全（含 `open_skill_tree`）；
 3. `.gd` 全部使用 Tab 缩进、无 `emit_signalv` / `randi(a,b)` / `groups.add` / Camera2D `offset` 冲突；
 4. `.tscn` 的 `ext_resource` / `sub_resource` 引用与 `load_steps` 一致；
 5. JSON 可解析，12 职业各 3 技能，配方/任务/建筑引用的物品都存在；
@@ -49,7 +49,7 @@ python3 tools/validate_project.py
 
 ---
 
-## 2. 自动化冒烟测试（44 项）
+## 2. 自动化冒烟测试（64 项）
 
 ### 2.1 执行命令
 
@@ -64,23 +64,23 @@ timeout 180 /tmp/Godot_v4.7.2-stable_linux.x86_64 --headless --path . tools/smok
 ```
 PASS  场景=主世界 res://scenes/world/main_world.tscn
 PASS  队伍=3人 3
-PASS  出战角色有效
+PASS  出战角色有效 
 PASS  起始金币=120 120
 PASS  初始背包>=4格 stone=8
-PASS  普攻造成伤害 500 -> 487
-PASS  技能可释放
+PASS  普攻造成伤害 500 -> 475
+PASS  技能可释放 
 PASS  冲刺进入冷却 0.7
 PASS  配方可查 iron_ingot
-PASS  合成成功
-PASS  资源点采集
+PASS  合成成功 
+PASS  资源点采集 
 PASS  放置建筑 stone_block
-PASS  拆除建筑
-PASS  打开背包暂停
-PASS  关闭背包恢复
-PASS  存档写入
+PASS  拆除建筑 
+PASS  打开背包暂停 
+PASS  关闭背包恢复 
+PASS  存档写入 
 PASS  读档恢复金币 120
 PASS  Q/P 切换职业 弓箭手
-PASS  NPC 对话打开
+PASS  NPC 对话打开 
 PASS  对话结束接取任务 ["q_slime_hunt"]
 PASS  职业祭坛解锁 3 -> 4
 PASS  切换到法师 mage
@@ -91,18 +91,38 @@ PASS  朋克部件库加载 8 件
 PASS  安装朋克部件 tech_quantum_sensor
 PASS  主风格判定 tech
 PASS  朋克属性生效 crit_rate=0.192
-PASS  卸下朋克部件
+PASS  卸下朋克部件 
 PASS  主风格清除 neutral
 PASS  切换到机甲师 mech_pilot
-PASS  机甲师专属改造安装
+PASS  机甲师专属改造安装 
 PASS  风格匹配加成生效 defense=21
-PASS  存档前archer主风格=tech
-PASS  卸下后archer主风格=neutral
-PASS  读档恢复朋克数据
+PASS  存档前archer主风格=tech 
+PASS  卸下后archer主风格=neutral 
+PASS  读档恢复朋克数据 
 PASS  读档后朋克风格保留 tech
+PASS  技能图标素材加载 
+PASS  职业立绘素材加载 
+PASS  物品图标素材加载 
+PASS  特效素材加载 
+PASS  技能树数据加载 9
+PASS  初始技能点 1
+PASS  解锁技能树节点 
+PASS  前置节点校验 需先解锁前置节点
+PASS  技能树威力加成生效 x1.25
+PASS  技能树冷却缩减生效 x0.90
+PASS  职业专职选择 
+PASS  专职属性生效 crit=0.262
+PASS  专职显示名 神射手
+PASS  专职不可重复选择 
+PASS  技能树面板存在 
+PASS  技能树面板可打开 
+PASS  技能树面板可关闭 
+PASS  技能树重置返还技能点 
+PASS  读档恢复技能树 
+PASS  读档恢复专职 
 PASS  进入塔层1 res://scenes/world/tower_floor_1.tscn
 PASS  解谜机关数量 2
-PASS  全部机关开门
+PASS  全部机关开门 
 PASS  Roguelike 运行中 1
 PASS  进入塔层2 2
 PASS  进入深渊-1层 -1
@@ -129,6 +149,34 @@ SMOKE_RESULT failures=0
 | A-12 | 朋克改造 | 部件库加载、安装/卸下、主风格判定与清除、属性数值生效 |
 | A-13 | 朋克职业专属 | 机甲师 `class_bonus` 命中、风格匹配 `defense` 提升 |
 | A-14 | 朋克存档 | 安装后存档 → 卸下 → 读档，主风格恢复为 `tech` |
+| A-15 | 真实素材加载 | `skill_*` / `portrait_*` / `item_*` / `vfx_*` 四类贴图全部非空（无占位） |
+| A-16 | 技能树数据 | 12 职业树可加载、单职业 9 节点、初始技能点 ≥ 1 |
+| A-17 | 技能树解锁 | 解锁扣点成功、前置未满足被拒、威力加成 ×1.25、冷却加成 ×0.90 |
+| A-18 | 职业专职 | 选定专职、属性生效、显示名带专职、二次选择被拒 |
+| A-19 | 技能树面板 | 面板存在、可打开、可关闭、重置返还技能点 |
+| A-20 | 成长存档 | 读档后技能树解锁状态与专职选择均恢复 |
+
+### 2.4 真实渲染截图验收（8 张）
+
+```bash
+cd /workspace/通天入地
+xvfb-run -a /tmp/Godot_v4.7.2-stable_linux.x86_64 --path . --resolution 1280x720 res://tools/shot.tscn
+```
+
+截图输出到 `docs/screenshots/`，逐项目视检查：
+
+| 编号 | 截图 | 验收内容 |
+| --- | --- | --- |
+| V-25a | `01_main_menu.jpg` | 主菜单背景为通天塔夜景真实素材，标题与 5 个按钮清晰不重叠，底部提示可读 |
+| V-25b | `02_world_hud.jpg` | 草地贴图连续平铺无接缝、角色立绘脚底贴合地面、敌人为真实精灵、HUD 完整 |
+| V-25c | `03_world_closeup.jpg` | 掉落物为透明精灵而非方块、上下浮动、地面光圈保留 |
+| V-25d | `04_skill_tree.jpg` | 技能图标真实、四阶分层与连接线正确、详情区特效预览播放 |
+| V-25e | `05_inventory.jpg` | 背包 40 格网格显示真实物品图标、右侧使用/装备/出售按钮可用 |
+| V-25f | `06_punk_panel.jpg` | 改造台部件列表文本完整（槽位、名称、风格、材料），无重叠截断 |
+| V-25g | `07_skill_vfx.jpg` | 技能特效为加法混合发光、尺寸约 1/3 屏、不糊满视野 |
+| V-25h | `08_tower_floor.jpg` | 通天塔紫调石砖地面铺满视野、机关与门可见、塔卫为真实精灵 |
+
+> 截图由 `tools/shot_runner.gd` 自动生成到 `docs/screenshots/`（JPEG），`docs/.gdignore` 让 Godot 不导入该目录。
 
 ---
 
@@ -365,6 +413,47 @@ SMOKE_RESULT failures=0
 
 **预期**：安装/卸下即时生效；主风格颜色与 `punk_parts.json` 一致；读档后四槽与主风格完整恢复；材料不足时提示且不扣材料。
 
+### V-26 真实素材渲染
+
+1. 启动游戏进入主世界，绕场走一圈观察地面。
+2. 观察角色自身、史莱姆、机械蛛、幽魂、资源点、三个 NPC、改造台、传送门、职业祭坛。
+3. 击杀敌人观察掉落物。
+4. 打开背包观察物品图标，打开技能树观察技能与天赋图标，打开改造台观察部件图标。
+
+**预期**：所有元素均为真实绘制的 PNG 素材，不是纯色方块或几何占位；地面为连续平铺贴图无接缝；掉落物背景透明；角色立绘与地面有正确脚底对齐。
+
+### V-27 技能树
+
+1. 按 `K` 打开技能树面板。
+2. 观察左侧职业立绘与名称、中部节点网格（四阶、三列、带连接线）、右侧详情区。
+3. 点击一个「精通」节点，确认扣除 1 技能点且节点变为已解锁高亮。
+4. 尝试点击前置节点未满足的节点，确认按钮禁用并提示原因。
+5. 升级（击杀敌人获取经验）确认技能点 +1。
+6. 释放对应技能，确认威力提升 / 冷却缩短。
+7. 点击「重置技能树」，确认技能点全额返还、节点回到未解锁。
+8. 存档后退出重进，确认解锁状态保留。
+
+**预期**：图标为真实素材贴图；解锁校验（等级 / 技能点 / 前置）严格生效；被动加成实时反映到角色面板数值。
+
+### V-28 职业专职
+
+1. 打开技能树面板切到「职业专职」页签。
+2. 观察当前职业的 2 条专职路线（图标、名称、描述、加成明细）。
+3. 等级或技能点不足时确认按钮禁用并给出原因。
+4. 满足条件后选定一条，确认角色显示名变为「职业名 · 专职名」。
+5. 确认属性面板数值按 `stats` 提升、技能威力/冷却按 `skill_bonus` 变化。
+6. 尝试再选另一条，确认被拒绝。
+
+**预期**：同一职业仅能选一条；加成实时生效；存档后专职保留。
+
+### V-29 技能展示特效
+
+1. 在主世界对敌人释放不同类型技能（近战 / 弹道 / 治疗 / 增益 / 护盾 / 连锁 / 区域 / 突进）。
+2. 观察技能爆发时的发光贴图、命中时的爆点。
+3. 打开技能树，在右侧详情区查看节点特效预览。
+
+**预期**：特效为加法混合发光而非生硬矩形；尺寸约 1/3 屏不糊满视野；近战特效沿攻击方向旋转、弹道沿飞行方向、治疗/护盾在角色脚下展开。
+
 ---
 
 ## 4. 回归检查清单
@@ -372,7 +461,7 @@ SMOKE_RESULT failures=0
 | # | 检查项 | 通过标准 |
 | --- | --- | --- |
 | 1 | `python3 tools/validate_project.py` | PASS，0 错误 |
-| 2 | 无头冒烟测试 | 44 项全 PASS，`failures=0` |
+| 2 | 无头冒烟测试 | 64 项全 PASS，`failures=0` |
 | 3 | 主菜单五个按钮 | 均可点击，无报错 |
 | 4 | 新游戏 → 主世界 | 3 人队伍、金币 120、初始物资 |
 | 5 | 普攻/技能/冲刺 | 扣血、冷却、法力、无敌均生效 |
@@ -385,24 +474,30 @@ SMOKE_RESULT failures=0
 | 12 | 塔层 2 | 法师限定机关生效 |
 | 13 | 深渊 -1 | 标题与层号正确，可返回地面 |
 | 14 | Roguelike | 每 3 层词条、每 5 层 BOSS、死亡结算 |
-| 15 | 存/读档 | 位置、背包、任务、建筑、层数恢复 |
-| 16 | 暂停/背包/对话 | 暂停树、输入锁定、关闭恢复 |
+| 15 | 存/读档 | 位置、背包、任务、建筑、层数、技能树、专职恢复 |
+| 16 | 暂停/背包/对话/技能树 | 暂停树、输入锁定、关闭恢复 |
 | 17 | 手柄/触屏 | 映射与按钮可用 |
 | 18 | 无音频素材 | 静默降级，无错误 |
 | 19 | 朋克改造台 | `(-360,0)` 可交互，四槽位与部件列表正常 |
 | 20 | 朋克安装/卸下 | 材料扣除、退还 50%、属性即时生效 |
 | 21 | 朋克风格匹配 | 主风格判定正确，职业专属 `class_bonus` 生效 |
 | 22 | 朋克存档 | 读档后四槽与主风格恢复 |
+| 23 | 真实素材 | 地面/角色/敌人/NPC/资源点/掉落物均为 PNG 素材，无占位方块 |
+| 24 | 技能树 | 12 树 108 节点加载、解锁校验、被动生效、可重置 |
+| 25 | 职业专职 | 24 条路线可选、互斥、加成生效、存档保留 |
+| 26 | 技能特效 | 14 类特效贴图按技能类型正确匹配、缩放合理 |
+| 27 | xvfb 截图 | 8 张关键界面截图全部生成且目视无占位 |
 
 ---
 
 ## 5. 已知限制
 
-1. **美术为程序化占位**：角色、敌人、建筑、特效使用 Polygon2D / `_draw`，未接入像素图集；替换方式见 `DESIGN.md` 第 6 节。
-2. **音频资源为空**：`audio/` 目录未附带素材，AudioManager 会静默跳过。
-3. **版本固定**：使用 Godot 4.7.2-stable，通过 `.godot-version` 与 `project.godot config/features="4.7.2"` 双重固定。
-4. **触屏按钮布局固定 960×540**：在极端宽高比下需按 `canvas_items` 缩放，已验证 16:9。
-5. **Roguelike 层数为程序化复用**：所有楼层共用 `tower_floor_1.tscn`，通过 `pending_floor` 生成内容，不是独立关卡文件。
+1. **音频资源为空**：`audio/` 目录未附带素材，AudioManager 会静默跳过。
+2. **版本固定**：使用 Godot 4.7.2-stable，通过 `.godot-version` 与 `project.godot config/features="4.7.2"` 双重固定。
+3. **触屏按钮布局固定 960×540**：在极端宽高比下需按 `canvas_items` 缩放，已验证 16:9。
+4. **Roguelike 层数为程序化复用**：所有楼层共用 `tower_floor_1.tscn`，通过 `pending_floor` 生成内容，不是独立关卡文件。
+5. **AI 素材为离屏生成**：原图带洋红键背景与水印，已用 `tools/` 脚本去水印、键色反解算抠图、无缝化处理；再生成同批素材需重跑该工具链。
+6. **地面贴图存在可见重复**：草地贴图以 320px 为平铺周期，大场景下可见规律性斑块，可调 `draw_ground_texture()` 的 `tile_px` 缓解。
 
 ---
 
@@ -418,3 +513,9 @@ SMOKE_RESULT failures=0
 | 建造方块不恢复 | 确认 `BuildManager.restore_scene()` 在关卡 `_ready` 中调用，且场景路径与保存时一致 |
 | 存档目录 | Linux：`~/.local/share/godot/app_userdata/通天入地/saves/`；Windows：`%APPDATA%\Godot\app_userdata\通天入地\saves\` |
 | 修改数据表后未生效 | 重新启动游戏；DataManager 仅在启动时加载 JSON |
+| 地面贴图不显示（纯色） | 检查 `assets/ground/` 下贴图是否存在；`AssetLibrary` 的 `ground_` 分支必须 `substr(7)`，否则会解析成 `_grass.png` |
+| 地面贴图拉伸变形 | `draw_polygon` 的 UV 是归一化坐标，必须按 `point / tile_px` 计算，并开启 `texture_repeat = TEXTURE_REPEAT_ENABLED` |
+| 贴图出现洋红边 | 素材未做键色反解算抠图，用 `python3 tools/make_enemy_sprites.py` / `clean_magenta.py` 重跑 |
+| 掉落物显示为黑方块 | 物品图标原图是 256² 深底方块，需用 `python3 tools/make_pickup_sprites.py` 转成透明精灵 |
+| 主菜单背景出现"AI生成"水印 | 水印位于原图右下角，`python3 tools/make_menu_bg.py` 通过裁掉右下边缘条带规避 |
+| 地面贴图有明显重复斑块 | `make_ground_tiles.py` 的 `reduce_blob_contrast()` 已把土斑压低对比；必要时调大 `strength` 参数重跑 |

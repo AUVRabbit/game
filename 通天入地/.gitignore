@@ -11,5 +11,9 @@ export_presets.cfg
 .DS_Store
 Thumbs.db
 
+# Python 工具缓存
+__pycache__/
+*.pyc
+
 # 编辑器设置（本地）
 *.tmp

@@ -30,16 +30,29 @@ func _build_background() -> void:
 	bg.set_anchors_preset(Control.PRESET_FULL_RECT)
 	bg.color = Color(0.05, 0.06, 0.11)
 	add_child(bg)
+	# 真实主菜单背景（通天塔夜景）
+	var bg_tex: Texture2D = _load_menu_background()
+	if bg_tex:
+		var texture_rect := TextureRect.new()
+		texture_rect.texture = bg_tex
+		texture_rect.set_anchors_preset(Control.PRESET_FULL_RECT)
+		texture_rect.expand_mode = TextureRect.EXPAND_IGNORE_SIZE
+		texture_rect.stretch_mode = TextureRect.STRETCH_KEEP_ASPECT_COVERED
+		texture_rect.mouse_filter = Control.MOUSE_FILTER_IGNORE
+		add_child(texture_rect)
 	var accent := ColorRect.new()
 	accent.position = Vector2(0, 380)
 	accent.size = Vector2(960, 160)
-	accent.color = Color(0.12, 0.08, 0.22, 0.75)
+	accent.color = Color(0.12, 0.08, 0.22, 0.45)
 	add_child(accent)
 	var top := ColorRect.new()
 	top.position = Vector2(0, 0)
 	top.size = Vector2(960, 6)
 	top.color = Color(0.55, 0.4, 0.95)
 	add_child(top)
+
+func _load_menu_background() -> Texture2D:
+	return AssetLibrary.texture("ui_menu_bg")
 
 func _build_title() -> void:
 	var title := Label.new()
@@ -65,47 +78,50 @@ func _build_title() -> void:
 
 func _build_buttons() -> void:
 	var vbox := VBoxContainer.new()
-	vbox.position = Vector2(350, 215)
+	vbox.position = Vector2(350, 205)
 	vbox.custom_minimum_size = Vector2(260, 0)
-	vbox.add_theme_constant_override("separation", 12)
+	vbox.add_theme_constant_override("separation", 10)
 	add_child(vbox)
 
 	var new_button := Button.new()
 	new_button.text = "新游戏"
-	new_button.custom_minimum_size = Vector2(260, 46)
+	new_button.custom_minimum_size = Vector2(260, 42)
 	new_button.pressed.connect(_on_new_game)
 	vbox.add_child(new_button)
 
 	continue_button = Button.new()
 	continue_button.text = "继续游戏"
-	continue_button.custom_minimum_size = Vector2(260, 46)
+	continue_button.custom_minimum_size = Vector2(260, 42)
 	continue_button.pressed.connect(_on_continue)
 	vbox.add_child(continue_button)
 
 	var tower_button := Button.new()
 	tower_button.text = "通天塔试炼（Roguelike）"
-	tower_button.custom_minimum_size = Vector2(260, 46)
+	tower_button.custom_minimum_size = Vector2(260, 42)
 	tower_button.pressed.connect(_on_tower)
 	vbox.add_child(tower_button)
 
 	var settings_button := Button.new()
 	settings_button.text = "设置"
-	settings_button.custom_minimum_size = Vector2(260, 46)
+	settings_button.custom_minimum_size = Vector2(260, 42)
 	settings_button.pressed.connect(_toggle_settings)
 	vbox.add_child(settings_button)
 
 	var quit_button := Button.new()
 	quit_button.text = "退出"
-	quit_button.custom_minimum_size = Vector2(260, 46)
+	quit_button.custom_minimum_size = Vector2(260, 42)
 	quit_button.pressed.connect(func(): get_tree().quit())
 	vbox.add_child(quit_button)
 
 	save_info = Label.new()
-	save_info.position = Vector2(0, 500)
-	save_info.size = Vector2(960, 22)
+	save_info.position = Vector2(130, 505)
+	save_info.size = Vector2(700, 22)
 	save_info.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
 	save_info.add_theme_font_size_override("font_size", 13)
-	save_info.add_theme_color_override("font_color", Color(0.65, 0.7, 0.85))
+	save_info.add_theme_color_override("font_color", Color(0.72, 0.76, 0.9))
+	save_info.add_theme_color_override("font_shadow_color", Color(0, 0, 0, 0.85))
+	save_info.add_theme_constant_override("shadow_offset_x", 1)
+	save_info.add_theme_constant_override("shadow_offset_y", 1)
 	add_child(save_info)
 
 func _build_settings() -> void:
@@ -161,16 +177,19 @@ func _make_label(text: String) -> Label:
 
 func _build_footer() -> void:
 	var hint := Label.new()
-	hint.text = "WASD 移动 · 左键/空格 攻击 · 1/2/3 技能 · Shift 冲刺 · I 背包 · B 建造 · Esc 暂停"
-	hint.position = Vector2(0, 462)
+	hint.text = "WASD 移动 · 左键/空格 攻击 · 1/2/3 技能 · Shift 冲刺 · I 背包 · B 建造 · K 技能树 · Esc 暂停"
+	hint.position = Vector2(0, 470)
 	hint.size = Vector2(960, 24)
 	hint.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
 	hint.add_theme_font_size_override("font_size", 12)
-	hint.add_theme_color_override("font_color", Color(0.55, 0.6, 0.72))
+	hint.add_theme_color_override("font_color", Color(0.78, 0.82, 0.95))
+	hint.add_theme_color_override("font_shadow_color", Color(0, 0, 0, 0.9))
+	hint.add_theme_constant_override("shadow_offset_x", 1)
+	hint.add_theme_constant_override("shadow_offset_y", 1)
 	add_child(hint)
 
 	var version := Label.new()
-	version.text = "v0.2.0 · Godot 4.x"
+	version.text = "v0.3.0 · Godot 4.7.2"
 	version.position = Vector2(820, 512)
 	version.size = Vector2(130, 20)
 	version.horizontal_alignment = HORIZONTAL_ALIGNMENT_RIGHT

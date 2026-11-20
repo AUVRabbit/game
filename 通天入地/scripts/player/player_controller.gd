@@ -18,6 +18,8 @@ var character_data = null
 var visual: Node2D = null
 var attack_point: Marker2D = null
 var body_poly: Polygon2D = null
+var sprite: Sprite2D = null
+var _sprite_class_id: String = ""
 
 var state: State = State.IDLE
 var facing: Vector2 = Vector2.DOWN
@@ -52,6 +54,50 @@ func _apply_class_color() -> void:
 			Vector2(-15, 0), Vector2(0, -22), Vector2(15, 0), Vector2(0, 15)
 		])
 		body_poly.polygon = outline
+	_refresh_class_sprite()
+
+# 按当前职业加载真实角色立绘（贴图缺失时保留 Polygon2D 占位）
+func _refresh_class_sprite() -> void:
+	if character_data == null or visual == null:
+		return
+	var class_id := str(character_data.class_id)
+	if class_id == _sprite_class_id:
+		return
+	_sprite_class_id = class_id
+	var tex: Texture2D = AssetLibrary.texture("sprite_player_%s" % class_id)
+	if tex == null:
+		if sprite:
+			sprite.visible = false
+		if body_poly:
+			body_poly.visible = true
+		return
+	if sprite == null or not is_instance_valid(sprite):
+		sprite = Sprite2D.new()
+		sprite.name = "ClassSprite"
+		visual.add_child(sprite)
+	sprite.texture = tex
+	sprite.visible = true
+	var scale_factor := 0.42
+	var half := float(tex.get_width()) * 0.5
+	var rect := _content_rect(tex)
+	var center_x := half
+	var bottom := float(tex.get_height())
+	if rect.size.x > 0 and rect.size.y > 0:
+		center_x = float(rect.position.x) + float(rect.size.x) * 0.5
+		bottom = float(rect.position.y) + float(rect.size.y)
+	sprite.scale = Vector2.ONE * scale_factor
+	sprite.position = Vector2((half - center_x) * scale_factor, (half - bottom) * scale_factor)
+	if body_poly:
+		body_poly.visible = false
+
+func _content_rect(tex: Texture2D) -> Rect2i:
+	var img: Image = tex.get_image()
+	if img == null:
+		return Rect2i()
+	if img.is_compressed():
+		if img.decompress() != OK:
+			return Rect2i()
+	return img.get_used_rect()
 
 func _on_stats_changed() -> void:
 	_apply_class_color()

@@ -140,7 +140,7 @@ func _draw() -> void:
 		bm.grid_to_world(Vector2i(18, 18)),
 		bm.grid_to_world(Vector2i(-18, 18))
 	])
-	draw_colored_polygon(corners, Color(0.16, 0.26, 0.18))
+	draw_ground_texture(corners, "ground_grass", 512.0)
 	var step := 3
 	for i in range(-18, 19, step):
 		var a := bm.grid_to_world(Vector2i(i, -18))
@@ -149,4 +149,18 @@ func _draw() -> void:
 		var c := bm.grid_to_world(Vector2i(-18, i))
 		var d := bm.grid_to_world(Vector2i(18, i))
 		draw_line(c, d, Color(1, 1, 1, 0.05), 1.0)
-	draw_circle(Vector2.ZERO, 120.0, Color(0.2, 0.32, 0.22, 0.55))
+	draw_arc(Vector2.ZERO, 120.0, 0.0, TAU, 48, Color(0.55, 0.95, 0.65, 0.35), 2.0)
+
+# 用真实地面贴图铺满区域（贴图缺失时回退纯色）
+func draw_ground_texture(corners: PackedVector2Array, asset_id: String, tile_px: float) -> void:
+	var tex: Texture2D = AssetLibrary.texture(asset_id)
+	if tex == null:
+		draw_colored_polygon(corners, Color(0.16, 0.26, 0.18))
+		return
+	texture_repeat = CanvasItem.TEXTURE_REPEAT_ENABLED
+	var uvs := PackedVector2Array()
+	var colors := PackedColorArray()
+	for point in corners:
+		uvs.append(point / maxf(1.0, tile_px))
+		colors.append(Color.WHITE)
+	draw_polygon(corners, colors, uvs, tex)

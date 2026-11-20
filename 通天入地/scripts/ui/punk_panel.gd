@@ -44,9 +44,9 @@ func _build_ui() -> void:
 	panel.anchor_top = 0.5
 	panel.anchor_right = 0.5
 	panel.anchor_bottom = 0.5
-	panel.offset_left = -280
+	panel.offset_left = -320
 	panel.offset_top = -240
-	panel.offset_right = 280
+	panel.offset_right = 320
 	panel.offset_bottom = 240
 	panel.add_theme_stylebox_override("panel", _make_style(Color(0.12, 0.08, 0.18, 0.96), Color(0.8, 0.4, 1.0)))
 	panel.mouse_filter = Control.MOUSE_FILTER_STOP
@@ -64,7 +64,7 @@ func _build_ui() -> void:
 	# 关闭按钮
 	var close := Button.new()
 	close.text = "✕"
-	close.position = Vector2(520, 12)
+	close.position = Vector2(578, 12)
 	close.size = Vector2(36, 30)
 	close.pressed.connect(_toggle)
 	panel.add_child(close)
@@ -72,7 +72,7 @@ func _build_ui() -> void:
 	# 当前主风格
 	active_style_label = Label.new()
 	active_style_label.position = Vector2(20, 48)
-	active_style_label.size = Vector2(480, 20)
+	active_style_label.size = Vector2(560, 20)
 	active_style_label.add_theme_font_size_override("font_size", 14)
 	panel.add_child(active_style_label)
 
@@ -128,28 +128,29 @@ func _build_ui() -> void:
 	# 部件列表（右侧）
 	var list_title := Label.new()
 	list_title.text = "可选部件（点击安装）"
-	list_title.position = Vector2(300, 80)
-	list_title.size = Vector2(240, 20)
+	list_title.position = Vector2(310, 76)
+	list_title.size = Vector2(290, 20)
 	list_title.add_theme_font_size_override("font_size", 14)
 	list_title.add_theme_color_override("font_color", Color(0.7, 0.7, 1.0))
 	panel.add_child(list_title)
 
+	part_count_label = Label.new()
+	part_count_label.position = Vector2(310, 98)
+	part_count_label.size = Vector2(290, 16)
+	part_count_label.add_theme_font_size_override("font_size", 11)
+	part_count_label.add_theme_color_override("font_color", Color(0.6, 0.6, 0.6))
+	panel.add_child(part_count_label)
+
 	var list_container := ScrollContainer.new()
-	list_container.position = Vector2(300, 104)
-	list_container.size = Vector2(240, 320)
+	list_container.position = Vector2(310, 118)
+	list_container.size = Vector2(290, 300)
+	list_container.clip_contents = true
 	panel.add_child(list_container)
 
 	part_list_vb = VBoxContainer.new()
 	part_list_vb.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 	part_list_vb.add_theme_constant_override("separation", 6)
 	list_container.add_child(part_list_vb)
-
-	part_count_label = Label.new()
-	part_count_label.position = Vector2(300, 428)
-	part_count_label.size = Vector2(240, 16)
-	part_count_label.add_theme_font_size_override("font_size", 11)
-	part_count_label.add_theme_color_override("font_color", Color(0.6, 0.6, 0.6))
-	panel.add_child(part_count_label)
 
 func _make_style(bg: Color, border: Color) -> StyleBoxFlat:
 	var s := StyleBoxFlat.new()
@@ -241,15 +242,39 @@ func _add_part_button(part: Dictionary) -> void:
 	var cost: Dictionary = part.get("cost", {})
 	var cost_str: String = ""
 	for cid in cost.keys():
-		cost_str += "%s×%d " % [str(cid), int(cost[cid])]
-	btn.text = "【%s】%s · %s · 需 %s" % [
-		slot_id, pname, _style_cn(style_id), cost_str.strip_edges()
+		cost_str += "%s×%d " % [_item_name(str(cid)), int(cost[cid])]
+	btn.text = "【%s】%s · %s\n需 %s" % [
+		_slot_cn(slot_id), pname, _style_cn(style_id), cost_str.strip_edges()
 	]
 	btn.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+	btn.custom_minimum_size = Vector2(282, 0)
+	btn.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
+	btn.alignment = HORIZONTAL_ALIGNMENT_LEFT
+	btn.add_theme_font_size_override("font_size", 12)
+	btn.add_theme_constant_override("h_separation", 6)
 	var style_color: Color = DataManager.get_punk_style_color(style_id) if DataManager else Color.WHITE
 	btn.add_theme_color_override("font_color", style_color)
 	btn.pressed.connect(_install_punk.bind(str(part.get("id", ""))))
 	part_list_vb.add_child(btn)
+
+func _slot_cn(slot_id: String) -> String:
+	match slot_id:
+		"weapon":
+			return "武器"
+		"helmet":
+			return "头盔"
+		"chest":
+			return "胸甲"
+		"back":
+			return "背挂"
+	return slot_id
+
+func _item_name(item_id: String) -> String:
+	if DataManager:
+		var tpl: Dictionary = DataManager.get_item(item_id)
+		if not tpl.is_empty():
+			return str(tpl.get("name", item_id))
+	return item_id
 
 func _style_cn(style_id: String) -> String:
 	if style_id == "neutral":

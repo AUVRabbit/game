@@ -43,19 +43,19 @@ static func spawn_skill(level: Node, skill: Dictionary, origin: Vector2, dir: Ve
 	var angle := dir.angle() if dir.length() > 0.01 else 0.0
 	match type_name:
 		"melee_aoe":
-			spawn(level, origin, kind, color, 1.2, angle + PI * 0.5)
+			spawn(level, origin, kind, color, 0.9, angle + PI * 0.5)
 		"projectile":
-			spawn(level, origin + dir * 18.0, kind, color, 0.8, angle)
+			spawn(level, origin + dir * 18.0, kind, color, 0.7, angle)
 		"heal", "buff", "shield":
-			spawn(level, origin, kind, color, 1.1)
+			spawn(level, origin, kind, color, 0.6)
 		"aoe_zone":
-			spawn(level, origin, kind, color, 1.4)
+			spawn(level, origin, kind, color, 0.9)
 		"chain":
-			spawn(level, origin, kind, color, 1.0)
+			spawn(level, origin, kind, color, 0.8)
 		"dash_strike":
-			spawn(level, origin, kind, color, 1.2, angle)
+			spawn(level, origin, kind, color, 0.9, angle)
 		_:
-			spawn(level, origin, kind, color, 1.0)
+			spawn(level, origin, kind, color, 0.8)
 
 static func spawn_impact(level: Node, pos: Vector2, kind: String, color: Color = Color.WHITE) -> void:
 	spawn(level, pos, kind, color, 0.9)

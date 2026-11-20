@@ -24,7 +24,9 @@ static func path_for(asset_id: String) -> String:
 	if asset_id.begins_with("sprite_"):
 		return "res://assets/sprites/world/%s.png" % asset_id.substr(7)
 	if asset_id.begins_with("ground_"):
-		return "res://assets/ground/%s.png" % asset_id.substr(6)
+		return "res://assets/ground/%s.png" % asset_id.substr(7)
+	if asset_id.begins_with("ui_"):
+		return "res://assets/ui/%s.png" % asset_id.substr(3)
 	return "res://assets/icons/%s.png" % asset_id
 
 static func has(asset_id: String) -> bool:

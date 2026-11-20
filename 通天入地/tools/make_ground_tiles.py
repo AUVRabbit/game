@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""地面贴图后处理：去除 AI 水印 → 无缝化 → 输出 256x256 PNG。
+"""地面贴图后处理：去除 AI 水印 → 无缝化 → 输出 512x512 PNG。
 
 用法:
     python3 tools/make_ground_tiles.py
@@ -12,7 +12,7 @@ from PIL import Image, ImageFilter
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 GROUND_DIR = os.path.join(ROOT, "assets", "ground")
-OUT_SIZE = 256
+OUT_SIZE = 512
 
 
 def remove_watermark(img: Image.Image) -> Image.Image:
@@ -56,6 +56,27 @@ def make_seamless(img: Image.Image, size: int = OUT_SIZE) -> Image.Image:
     return Image.fromarray(np.clip(out, 0, 255).astype(np.uint8))
 
 
+def reduce_blob_contrast(img: Image.Image, strength: float = 0.6) -> Image.Image:
+    """弱化褐色土块与绿草的色差，降低平铺时的重复可辨识度。
+
+    先用非褐色像素的中位色代表"草地基色"，再把褐色像素按 strength 混向基色，
+    使大块土斑的明度/色相都贴近周围草地，视觉上不再形成醒目的重复图案。
+    """
+    arr = np.asarray(img.convert("RGB")).astype(np.float32)
+    r, g, b = arr[:, :, 0], arr[:, :, 1], arr[:, :, 2]
+    brown = (r > g + 8) & (r > b + 12) & (r > 60)
+    if not brown.any():
+        return img
+    grass = arr[~brown]
+    if len(grass) == 0:
+        return img
+    base = np.median(grass, axis=0)
+    out = arr.copy()
+    for i in range(3):
+        out[:, :, i] = np.where(brown, arr[:, :, i] * (1.0 - strength) + base[i] * strength, arr[:, :, i])
+    return Image.fromarray(np.clip(out, 0, 255).astype(np.uint8))
+
+
 def process(src_name: str, dst_name: str) -> None:
     src_path = os.path.join(GROUND_DIR, src_name)
     dst_path = os.path.join(GROUND_DIR, dst_name)
@@ -64,6 +85,7 @@ def process(src_name: str, dst_name: str) -> None:
         return
     img = Image.open(src_path).convert("RGB")
     img = remove_watermark(img)
+    img = reduce_blob_contrast(img)
     out = make_seamless(img, OUT_SIZE)
     out.save(dst_path, "PNG")
     print("wrote %s (%dx%d)" % (dst_name, out.size[0], out.size[1]))

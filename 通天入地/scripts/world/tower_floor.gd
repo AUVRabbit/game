@@ -220,13 +220,27 @@ func _reset_puzzle() -> void:
 	AudioManager.play_sfx("hurt")
 
 func _draw() -> void:
-	var extent := 720.0
+	var extent := 1100.0
 	var corners := PackedVector2Array([
 		Vector2(0, -extent * 0.5), Vector2(extent, 0),
 		Vector2(0, extent * 0.5), Vector2(-extent, 0)
 	])
-	draw_colored_polygon(corners, Color(0.14, 0.11, 0.2))
+	draw_ground_texture(corners, "ground_tower", 512.0)
 	for i in range(-6, 7):
 		var a := Vector2(i * 64.0, -i * 32.0 - 420.0)
 		draw_line(a, a + Vector2(420.0, 210.0), Color(1, 1, 1, 0.04), 1.0)
-	draw_circle(Vector2(0, -20), 320.0, Color(0.25, 0.18, 0.35, 0.35))
+	draw_arc(Vector2(0, -20), 320.0, 0.0, TAU, 64, Color(0.7, 0.5, 1.0, 0.3), 2.0)
+
+# 用真实地面贴图铺满区域（贴图缺失时回退纯色）
+func draw_ground_texture(corners: PackedVector2Array, asset_id: String, tile_px: float) -> void:
+	var tex: Texture2D = AssetLibrary.texture(asset_id)
+	if tex == null:
+		draw_colored_polygon(corners, Color(0.14, 0.11, 0.2))
+		return
+	texture_repeat = CanvasItem.TEXTURE_REPEAT_ENABLED
+	var uvs := PackedVector2Array()
+	var colors := PackedColorArray()
+	for point in corners:
+		uvs.append(point / maxf(1.0, tile_px))
+		colors.append(Color.WHITE)
+	draw_polygon(corners, colors, uvs, tex)
