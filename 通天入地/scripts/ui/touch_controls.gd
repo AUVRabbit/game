@@ -72,6 +72,27 @@ func _add_action_button(text: String, action: String, pos: Vector2, size: Vector
 	button.size = size
 	button.add_theme_font_size_override("font_size", 13)
 	button.pressed.connect(_trigger.bind(action))
+	var sb := StyleBoxFlat.new()
+	sb.bg_color = Color(0.05, 0.05, 0.10, 0.72)
+	sb.set_corner_radius_all(8)
+	sb.set_border_width_all(2)
+	sb.border_color = Color(0.45, 0.55, 0.85, 0.85)
+	sb.content_margin_left = 6
+	sb.content_margin_right = 6
+	sb.content_margin_top = 4
+	sb.content_margin_bottom = 4
+	button.add_theme_stylebox_override("normal", sb)
+	var sb_hover := sb.duplicate()
+	sb_hover.bg_color = Color(0.10, 0.10, 0.18, 0.80)
+	sb_hover.border_color = Color(0.70, 0.78, 1.0, 1.0)
+	button.add_theme_stylebox_override("hover", sb_hover)
+	var sb_pressed := sb.duplicate()
+	sb_pressed.bg_color = Color(0.18, 0.15, 0.28, 0.88)
+	sb_pressed.border_color = Color(0.95, 0.85, 1.0, 1.0)
+	button.add_theme_stylebox_override("pressed", sb_pressed)
+	button.add_theme_color_override("font_color", Color(1.0, 1.0, 1.0, 0.95))
+	button.add_theme_color_override("font_hover_color", Color(1.0, 1.0, 1.0, 1.0))
+	button.add_theme_color_override("font_pressed_color", Color(1.0, 0.92, 0.55))
 	root.add_child(button)
 
 func _trigger(action: String) -> void:

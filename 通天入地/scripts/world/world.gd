@@ -164,3 +164,8 @@ func draw_ground_texture(corners: PackedVector2Array, asset_id: String, tile_px:
 		uvs.append(point / maxf(1.0, tile_px))
 		colors.append(Color.WHITE)
 	draw_polygon(corners, colors, uvs, tex)
+	# 叠一层淡纯色统一色调，弱化平铺接缝与斑块色差
+	var tint := PackedColorArray()
+	for point in corners:
+		tint.append(Color(0.22, 0.35, 0.22, 0.14))
+	draw_polygon(corners, tint)

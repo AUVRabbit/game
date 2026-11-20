@@ -76,6 +76,34 @@ func _build_title() -> void:
 	subtitle.add_theme_color_override("font_color", Color(0.7, 0.75, 0.9))
 	add_child(subtitle)
 
+func _menu_button(text: String, min_w: float = 260.0, min_h: float = 42.0) -> Button:
+	var btn := Button.new()
+	btn.text = text
+	btn.custom_minimum_size = Vector2(min_w, min_h)
+	var sb := StyleBoxFlat.new()
+	sb.bg_color = Color(0.06, 0.07, 0.13, 0.88)
+	sb.set_corner_radius_all(6)
+	sb.set_border_width_all(1)
+	sb.border_color = Color(0.45, 0.38, 0.78, 0.9)
+	sb.content_margin_left = 12
+	sb.content_margin_right = 12
+	sb.content_margin_top = 8
+	sb.content_margin_bottom = 8
+	btn.add_theme_stylebox_override("normal", sb)
+	var sb_hover := sb.duplicate()
+	sb_hover.bg_color = Color(0.10, 0.08, 0.18, 0.92)
+	sb_hover.border_color = Color(0.70, 0.55, 0.98, 1.0)
+	btn.add_theme_stylebox_override("hover", sb_hover)
+	var sb_pressed := sb.duplicate()
+	sb_pressed.bg_color = Color(0.14, 0.10, 0.22, 0.95)
+	sb_pressed.border_color = Color(0.85, 0.70, 1.0, 1.0)
+	btn.add_theme_stylebox_override("pressed", sb_pressed)
+	btn.add_theme_color_override("font_color", Color(0.96, 0.90, 0.72))
+	btn.add_theme_color_override("font_hover_color", Color(1.0, 1.0, 0.85))
+	btn.add_theme_color_override("font_pressed_color", Color(1.0, 0.86, 0.45))
+	btn.add_theme_font_size_override("font_size", 16)
+	return btn
+
 func _build_buttons() -> void:
 	var vbox := VBoxContainer.new()
 	vbox.position = Vector2(350, 205)
@@ -83,33 +111,23 @@ func _build_buttons() -> void:
 	vbox.add_theme_constant_override("separation", 10)
 	add_child(vbox)
 
-	var new_button := Button.new()
-	new_button.text = "新游戏"
-	new_button.custom_minimum_size = Vector2(260, 42)
+	var new_button := _menu_button("新游戏")
 	new_button.pressed.connect(_on_new_game)
 	vbox.add_child(new_button)
 
-	continue_button = Button.new()
-	continue_button.text = "继续游戏"
-	continue_button.custom_minimum_size = Vector2(260, 42)
+	continue_button = _menu_button("继续游戏")
 	continue_button.pressed.connect(_on_continue)
 	vbox.add_child(continue_button)
 
-	var tower_button := Button.new()
-	tower_button.text = "通天塔试炼（Roguelike）"
-	tower_button.custom_minimum_size = Vector2(260, 42)
+	var tower_button := _menu_button("通天塔试炼（Roguelike）")
 	tower_button.pressed.connect(_on_tower)
 	vbox.add_child(tower_button)
 
-	var settings_button := Button.new()
-	settings_button.text = "设置"
-	settings_button.custom_minimum_size = Vector2(260, 42)
+	var settings_button := _menu_button("设置")
 	settings_button.pressed.connect(_toggle_settings)
 	vbox.add_child(settings_button)
 
-	var quit_button := Button.new()
-	quit_button.text = "退出"
-	quit_button.custom_minimum_size = Vector2(260, 42)
+	var quit_button := _menu_button("退出")
 	quit_button.pressed.connect(func(): get_tree().quit())
 	vbox.add_child(quit_button)
 
