@@ -12,6 +12,7 @@ class_name ClassAltar
 
 var label: Label = null
 var pulse: float = 0.0
+var sprite: Sprite2D = null
 
 func _ready() -> void:
 	add_to_group("interactables")
@@ -23,6 +24,7 @@ func _ready() -> void:
 	circle.radius = 26.0
 	shape.shape = circle
 	add_child(shape)
+	_load_sprite()
 	label = Label.new()
 	label.position = Vector2(-80, -58)
 	label.size = Vector2(160, 20)
@@ -31,6 +33,16 @@ func _ready() -> void:
 	add_child(label)
 	_refresh_label()
 	queue_redraw()
+
+func _load_sprite() -> void:
+	var tex: Texture2D = AssetLibrary.texture("sprite_altar")
+	if tex == null:
+		return
+	sprite = Sprite2D.new()
+	sprite.texture = tex
+	sprite.scale = Vector2.ONE * 0.5
+	sprite.position = Vector2(0, -8)
+	add_child(sprite)
 
 func _process(delta: float) -> void:
 	pulse += delta
@@ -79,6 +91,8 @@ func _draw() -> void:
 	var glow := 0.5 + 0.3 * sin(pulse * 2.2)
 	draw_circle(Vector2.ZERO, 30.0, Color(altar_color.r, altar_color.g, altar_color.b, 0.18))
 	draw_arc(Vector2.ZERO, 28.0, 0.0, TAU, 28, Color(altar_color.r, altar_color.g, altar_color.b, glow), 3.0, true)
+	if sprite:
+		return
 	draw_colored_polygon(PackedVector2Array([
 		Vector2(0, -18), Vector2(16, 0), Vector2(0, 18), Vector2(-16, 0)
 	]), Color(altar_color.r, altar_color.g, altar_color.b, 0.85))

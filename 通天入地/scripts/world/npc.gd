@@ -5,12 +5,21 @@
 extends Area2D
 class_name DialogueNPC
 
+const SPRITE_MAP := {
+	"npc_blacksmith": "sprite_npc_blacksmith",
+	"npc_scholar": "sprite_npc_scholar",
+	"npc_artisan": "sprite_npc_merchant",
+	"npc_merchant": "sprite_npc_merchant",
+}
+
 @export var npc_name: String = "村民"
 @export var dialogue_id: String = ""
 @export var quest_id: String = ""
 @export var npc_color: Color = Color(0.85, 0.7, 0.35)
+@export var sprite_id: String = ""
 
 var label: Label = null
+var sprite: Sprite2D = null
 
 func _ready() -> void:
 	add_to_group("interactables")
@@ -22,6 +31,7 @@ func _ready() -> void:
 	circle.radius = 22.0
 	shape.shape = circle
 	add_child(shape)
+	_load_sprite()
 	label = Label.new()
 	label.text = npc_name
 	label.position = Vector2(-60, -54)
@@ -30,6 +40,21 @@ func _ready() -> void:
 	label.add_theme_font_size_override("font_size", 13)
 	add_child(label)
 	queue_redraw()
+
+func _load_sprite() -> void:
+	var asset_id := sprite_id
+	if asset_id == "":
+		asset_id = str(SPRITE_MAP.get(dialogue_id, ""))
+	if asset_id == "":
+		return
+	var tex: Texture2D = AssetLibrary.texture(asset_id)
+	if tex == null:
+		return
+	sprite = Sprite2D.new()
+	sprite.texture = tex
+	sprite.scale = Vector2.ONE * 0.46
+	sprite.position = Vector2(0, -10)
+	add_child(sprite)
 
 func interact(_player: Node) -> void:
 	var dialogue: Dictionary = DataManager.get_dialogue(dialogue_id) if DataManager else {}
@@ -50,7 +75,9 @@ func _after_dialogue() -> void:
 		QuestManager.start_quest(quest_id)
 
 func _draw() -> void:
-	draw_circle(Vector2.ZERO, 20.0, Color(npc_color.r, npc_color.g, npc_color.b, 0.2))
+	draw_circle(Vector2.ZERO, 18.0, Color(npc_color.r, npc_color.g, npc_color.b, 0.18))
+	if sprite:
+		return
 	draw_colored_polygon(PackedVector2Array([
 		Vector2(0, -18), Vector2(16, 0), Vector2(0, 18), Vector2(-16, 0)
 	]), npc_color)

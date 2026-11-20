@@ -70,9 +70,22 @@ func initialize() -> void:
 		growth = DataManager.get_class_growth()
 	var raw_skills = def.get("skills", [])
 	skills = raw_skills.duplicate(true) if raw_skills is Array else []
+	if SkillManager:
+		SkillManager.ensure_class(class_id)
+	_apply_specialization_name()
 	recompute()
 	hp = max_hp
 	mp = max_mp
+
+func _apply_specialization_name() -> void:
+	if SkillManager == null:
+		return
+	var spec: Dictionary = SkillManager.get_specialization(class_id)
+	if spec.is_empty():
+		return
+	var spec_name := str(spec.get("name", ""))
+	if spec_name != "":
+		class_display_name = spec_name
 
 func setup_class(new_class_id: String) -> void:
 	class_id = new_class_id
@@ -115,6 +128,54 @@ func _punk_bonus(stat_name: String) -> float:
 		punk_stats = PunkManager._compute_punk_stats(class_id, {}) if PunkManager else {}
 	return float(punk_stats.get(stat_name, 0.0))
 
+# ---------- 技能树 / 职业专职加成 ----------
+func _skill_bonus(stat_name: String) -> float:
+	if SkillManager == null:
+		return 0.0
+	var passive: Dictionary = SkillManager.get_passive_bonus(class_id)
+	var spec: Dictionary = SkillManager.get_spec_stats(class_id)
+	return float(passive.get(stat_name, 0.0)) + float(spec.get(stat_name, 0.0))
+
+func refresh_skill_stats() -> void:
+	recompute()
+	stats_changed.emit()
+
+func get_skill_power_multiplier(skill_id: String) -> float:
+	var mult := 1.0
+	if SkillManager:
+		var tree_bonus: Dictionary = SkillManager.get_skill_bonus(class_id, skill_id)
+		mult += float(tree_bonus.get("power", 0.0))
+		var spec_bonus: Dictionary = SkillManager.get_spec_skill_bonus(class_id)
+		mult += float(spec_bonus.get("power", 0.0))
+	return maxf(0.1, mult)
+
+func get_skill_cooldown_multiplier(skill_id: String) -> float:
+	var mult := 1.0
+	if SkillManager:
+		var tree_bonus: Dictionary = SkillManager.get_skill_bonus(class_id, skill_id)
+		mult -= float(tree_bonus.get("cooldown", 0.0))
+		var spec_bonus: Dictionary = SkillManager.get_spec_skill_bonus(class_id)
+		mult -= float(spec_bonus.get("cooldown", 0.0))
+	return clampf(mult, 0.3, 2.0)
+
+func _spec_passive(key: String) -> float:
+	if SkillManager == null:
+		return 0.0
+	var passives: Dictionary = SkillManager.get_spec_passives(class_id)
+	return float(passives.get(key, 0.0))
+
+func get_lifesteal() -> float:
+	return _spec_passive("lifesteal")
+
+func get_shield_bonus() -> float:
+	return _spec_passive("shield_bonus")
+
+func get_heal_bonus() -> float:
+	return _spec_passive("heal_bonus")
+
+func get_burn_bonus() -> float:
+	return _spec_passive("burn")
+
 func refresh_punk_stats() -> void:
 	if PunkManager == null:
 		return
@@ -122,52 +183,52 @@ func refresh_punk_stats() -> void:
 	stats_changed.emit()
 
 func get_attack() -> int:
-	var base: float = attack + _equip_bonus("attack") + _buff_value("attack") + _punk_bonus("attack")
-	var all_mult: float = 1.0 + _punk_bonus("all_stats_bonus")
+	var base: float = attack + _equip_bonus("attack") + _buff_value("attack") + _punk_bonus("attack") + _skill_bonus("attack")
+	var all_mult: float = 1.0 + _punk_bonus("all_stats_bonus") + _skill_bonus("all_stats_bonus")
 	return maxi(1, int(round(base * all_mult)))
 
 func get_defense() -> int:
-	var base: float = defense + _equip_bonus("defense") + _buff_value("defense") + _punk_bonus("defense")
-	var all_mult: float = 1.0 + _punk_bonus("all_stats_bonus")
+	var base: float = defense + _equip_bonus("defense") + _buff_value("defense") + _punk_bonus("defense") + _skill_bonus("defense")
+	var all_mult: float = 1.0 + _punk_bonus("all_stats_bonus") + _skill_bonus("all_stats_bonus")
 	return maxi(0, int(round(base * all_mult)))
 
 func get_magic_attack() -> int:
-	var base: float = magic_attack + _equip_bonus("magic_attack") + _buff_value("magic_attack") + _punk_bonus("magic_attack")
-	var all_mult: float = 1.0 + _punk_bonus("all_stats_bonus")
+	var base: float = magic_attack + _equip_bonus("magic_attack") + _buff_value("magic_attack") + _punk_bonus("magic_attack") + _skill_bonus("magic_attack")
+	var all_mult: float = 1.0 + _punk_bonus("all_stats_bonus") + _skill_bonus("all_stats_bonus")
 	return maxi(1, int(round(base * all_mult)))
 
 func get_magic_defense() -> int:
-	var base: float = magic_defense + _equip_bonus("magic_defense") + _buff_value("magic_defense") + _punk_bonus("magic_defense")
-	var all_mult: float = 1.0 + _punk_bonus("all_stats_bonus")
+	var base: float = magic_defense + _equip_bonus("magic_defense") + _buff_value("magic_defense") + _punk_bonus("magic_defense") + _skill_bonus("magic_defense")
+	var all_mult: float = 1.0 + _punk_bonus("all_stats_bonus") + _skill_bonus("all_stats_bonus")
 	return maxi(0, int(round(base * all_mult)))
 
 func get_move_speed() -> float:
 	var flat: float = move_speed + _equip_bonus("move_speed") + _buff_value("move_speed")
-	var pct: float = _punk_bonus("move_speed") + _punk_bonus("all_stats_bonus")
+	var pct: float = _punk_bonus("move_speed") + _punk_bonus("all_stats_bonus") + _skill_bonus("move_speed")
 	return maxf(20.0, flat * (1.0 + pct))
 
 func get_attack_speed() -> float:
 	var flat: float = attack_speed + _equip_bonus("attack_speed") + _buff_value("attack_speed")
-	var pct: float = _punk_bonus("attack_speed") + _punk_bonus("all_stats_bonus")
+	var pct: float = _punk_bonus("attack_speed") + _punk_bonus("all_stats_bonus") + _skill_bonus("attack_speed")
 	return maxf(0.2, flat * (1.0 + pct))
 
 func get_crit_rate() -> float:
-	return clampf(crit_rate + _equip_bonus("crit_rate") + _buff_value("crit_rate") + _punk_bonus("crit_rate"), 0.0, 0.95)
+	return clampf(crit_rate + _equip_bonus("crit_rate") + _buff_value("crit_rate") + _punk_bonus("crit_rate") + _skill_bonus("crit_rate"), 0.0, 0.95)
 
 func get_crit_damage() -> float:
-	return clampf(crit_damage + _equip_bonus("crit_damage") + _buff_value("crit_damage") + _punk_bonus("crit_damage"), 1.0, 3.0)
+	return clampf(crit_damage + _equip_bonus("crit_damage") + _buff_value("crit_damage") + _punk_bonus("crit_damage") + _skill_bonus("crit_damage"), 1.0, 3.0)
 
 func get_dodge_rate() -> float:
-	return clampf(dodge_rate + _equip_bonus("dodge_rate") + _buff_value("dodge_rate") + _punk_bonus("dodge_rate"), 0.0, 0.9)
+	return clampf(dodge_rate + _equip_bonus("dodge_rate") + _buff_value("dodge_rate") + _punk_bonus("dodge_rate") + _skill_bonus("dodge_rate"), 0.0, 0.9)
 
 func get_max_hp() -> int:
-	var flat: float = max_hp + _equip_bonus("max_hp") + _punk_bonus("max_hp")
-	var all_mult: float = 1.0 + _punk_bonus("all_stats_bonus")
+	var flat: float = max_hp + _equip_bonus("max_hp") + _punk_bonus("max_hp") + _skill_bonus("max_hp")
+	var all_mult: float = 1.0 + _punk_bonus("all_stats_bonus") + _skill_bonus("all_stats_bonus")
 	return maxi(1, int(round(flat * all_mult)))
 
 func get_max_mp() -> int:
-	var flat: float = max_mp + _equip_bonus("max_mp") + _punk_bonus("max_mp")
-	var all_mult: float = 1.0 + _punk_bonus("all_stats_bonus")
+	var flat: float = max_mp + _equip_bonus("max_mp") + _punk_bonus("max_mp") + _skill_bonus("max_mp")
+	var all_mult: float = 1.0 + _punk_bonus("all_stats_bonus") + _skill_bonus("all_stats_bonus")
 	return maxi(1, int(round(flat * all_mult)))
 
 # ---------- Buff ----------
@@ -245,6 +306,9 @@ func add_exp(amount: int) -> void:
 		mp = max_mp
 		shield_hp = 0
 		leveled_up.emit(level)
+		if SkillManager:
+			SkillManager.grant_level_points(class_id, level)
+			refresh_skill_stats()
 		if EventBus:
 			EventBus.player_leveled_up.emit(get_parent(), level)
 		EventBus.notify("升级！%s Lv.%d" % [class_display_name, level])

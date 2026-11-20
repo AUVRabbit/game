@@ -1,0 +1,779 @@
+{
+ "style_note": "square opaque art; vfx on pure black for additive blending; world sprites on chroma key magenta",
+ "entries": [
+  {
+   "id": "skill_whirlwind",
+   "path": "assets/icons/skill/whirlwind",
+   "out_size": 256,
+   "prompt": "digital game UI icon, hand-painted dark-fantasy steampunk-punk art style, bold readable silhouette, strong rim light, high contrast, centered single subject, square composition, solid deep charcoal #14161c background with subtle vignette, no text, no letters, no logo, no watermark, subject: a spinning broad sword slash arc carving a circular whirlwind of steel"
+  },
+  {
+   "id": "skill_war_cry",
+   "path": "assets/icons/skill/war_cry",
+   "out_size": 256,
+   "prompt": "digital game UI icon, hand-painted dark-fantasy steampunk-punk art style, bold readable silhouette, strong rim light, high contrast, centered single subject, square composition, solid deep charcoal #14161c background with subtle vignette, no text, no letters, no logo, no watermark, subject: a roaring warrior helmet emitting a golden shockwave of battle cry"
+  },
+  {
+   "id": "skill_shield_wall",
+   "path": "assets/icons/skill/shield_wall",
+   "out_size": 256,
+   "prompt": "digital game UI icon, hand-painted dark-fantasy steampunk-punk art style, bold readable silhouette, strong rim light, high contrast, centered single subject, square composition, solid deep charcoal #14161c background with subtle vignette, no text, no letters, no logo, no watermark, subject: a heavy steel tower shield bristling with rivets and a blocking stance"
+  },
+  {
+   "id": "skill_piercing_shot",
+   "path": "assets/icons/skill/piercing_shot",
+   "out_size": 256,
+   "prompt": "digital game UI icon, hand-painted dark-fantasy steampunk-punk art style, bold readable silhouette, strong rim light, high contrast, centered single subject, square composition, solid deep charcoal #14161c background with subtle vignette, no text, no letters, no logo, no watermark, subject: a long piercing arrow wrapped in piercing green wind energy"
+  },
+  {
+   "id": "skill_arrow_rain",
+   "path": "assets/icons/skill/arrow_rain",
+   "out_size": 256,
+   "prompt": "digital game UI icon, hand-painted dark-fantasy steampunk-punk art style, bold readable silhouette, strong rim light, high contrast, centered single subject, square composition, solid deep charcoal #14161c background with subtle vignette, no text, no letters, no logo, no watermark, subject: a downpour of glowing arrows raining from the sky"
+  },
+  {
+   "id": "skill_hawk_eye",
+   "path": "assets/icons/skill/hawk_eye",
+   "out_size": 256,
+   "prompt": "digital game UI icon, hand-painted dark-fantasy steampunk-punk art style, bold readable silhouette, strong rim light, high contrast, centered single subject, square composition, solid deep charcoal #14161c background with subtle vignette, no text, no letters, no logo, no watermark, subject: a keen eagle eye with golden targeting reticle rings"
+  },
+  {
+   "id": "skill_fireball",
+   "path": "assets/icons/skill/fireball",
+   "out_size": 256,
+   "prompt": "digital game UI icon, hand-painted dark-fantasy steampunk-punk art style, bold readable silhouette, strong rim light, high contrast, centered single subject, square composition, solid deep charcoal #14161c background with subtle vignette, no text, no letters, no logo, no watermark, subject: a blazing orange fireball meteor with trailing flame"
+  },
+  {
+   "id": "skill_frost_nova",
+   "path": "assets/icons/skill/frost_nova",
+   "out_size": 256,
+   "prompt": "digital game UI icon, hand-painted dark-fantasy steampunk-punk art style, bold readable silhouette, strong rim light, high contrast, centered single subject, square composition, solid deep charcoal #14161c background with subtle vignette, no text, no letters, no logo, no watermark, subject: a ring of jagged blue ice shards exploding outward"
+  },
+  {
+   "id": "skill_arcane_shield",
+   "path": "assets/icons/skill/arcane_shield",
+   "out_size": 256,
+   "prompt": "digital game UI icon, hand-painted dark-fantasy steampunk-punk art style, bold readable silhouette, strong rim light, high contrast, centered single subject, square composition, solid deep charcoal #14161c background with subtle vignette, no text, no letters, no logo, no watermark, subject: a hexagonal violet arcane barrier dome with runes"
+  },
+  {
+   "id": "skill_heal",
+   "path": "assets/icons/skill/heal",
+   "out_size": 256,
+   "prompt": "digital game UI icon, hand-painted dark-fantasy steampunk-punk art style, bold readable silhouette, strong rim light, high contrast, centered single subject, square composition, solid deep charcoal #14161c background with subtle vignette, no text, no letters, no logo, no watermark, subject: a radiant green healing cross of light and rising motes"
+  },
+  {
+   "id": "skill_holy_nova",
+   "path": "assets/icons/skill/holy_nova",
+   "out_size": 256,
+   "prompt": "digital game UI icon, hand-painted dark-fantasy steampunk-punk art style, bold readable silhouette, strong rim light, high contrast, centered single subject, square composition, solid deep charcoal #14161c background with subtle vignette, no text, no letters, no logo, no watermark, subject: a burst of golden holy light rays forming a nova"
+  },
+  {
+   "id": "skill_blessing",
+   "path": "assets/icons/skill/blessing",
+   "out_size": 256,
+   "prompt": "digital game UI icon, hand-painted dark-fantasy steampunk-punk art style, bold readable silhouette, strong rim light, high contrast, centered single subject, square composition, solid deep charcoal #14161c background with subtle vignette, no text, no letters, no logo, no watermark, subject: a golden blessing halo with descending light feathers"
+  },
+  {
+   "id": "skill_corrupt_bolt",
+   "path": "assets/icons/skill/corrupt_bolt",
+   "out_size": 256,
+   "prompt": "digital game UI icon, hand-painted dark-fantasy steampunk-punk art style, bold readable silhouette, strong rim light, high contrast, centered single subject, square composition, solid deep charcoal #14161c background with subtle vignette, no text, no letters, no logo, no watermark, subject: a sickly green necrotic energy bolt dripping rot"
+  },
+  {
+   "id": "skill_grave_field",
+   "path": "assets/icons/skill/grave_field",
+   "out_size": 256,
+   "prompt": "digital game UI icon, hand-painted dark-fantasy steampunk-punk art style, bold readable silhouette, strong rim light, high contrast, centered single subject, square composition, solid deep charcoal #14161c background with subtle vignette, no text, no letters, no logo, no watermark, subject: a cursed graveyard circle of raised tombstone glyphs"
+  },
+  {
+   "id": "skill_drain",
+   "path": "assets/icons/skill/drain",
+   "out_size": 256,
+   "prompt": "digital game UI icon, hand-painted dark-fantasy steampunk-punk art style, bold readable silhouette, strong rim light, high contrast, centered single subject, square composition, solid deep charcoal #14161c background with subtle vignette, no text, no letters, no logo, no watermark, subject: a violet life-drain siphon pulling a soul thread into a skull"
+  },
+  {
+   "id": "skill_death_charge",
+   "path": "assets/icons/skill/death_charge",
+   "out_size": 256,
+   "prompt": "digital game UI icon, hand-painted dark-fantasy steampunk-punk art style, bold readable silhouette, strong rim light, high contrast, centered single subject, square composition, solid deep charcoal #14161c background with subtle vignette, no text, no letters, no logo, no watermark, subject: a crimson knight charging forward with a dark speed trail"
+  },
+  {
+   "id": "skill_blood_slash",
+   "path": "assets/icons/skill/blood_slash",
+   "out_size": 256,
+   "prompt": "digital game UI icon, hand-painted dark-fantasy steampunk-punk art style, bold readable silhouette, strong rim light, high contrast, centered single subject, square composition, solid deep charcoal #14161c background with subtle vignette, no text, no letters, no logo, no watermark, subject: a diagonal blood-red sword slash dripping crimson"
+  },
+  {
+   "id": "skill_dark_shield",
+   "path": "assets/icons/skill/dark_shield",
+   "out_size": 256,
+   "prompt": "digital game UI icon, hand-painted dark-fantasy steampunk-punk art style, bold readable silhouette, strong rim light, high contrast, centered single subject, square composition, solid deep charcoal #14161c background with subtle vignette, no text, no letters, no logo, no watermark, subject: a black obsidian dome shield with purple runes"
+  },
+  {
+   "id": "skill_backstab",
+   "path": "assets/icons/skill/backstab",
+   "out_size": 256,
+   "prompt": "digital game UI icon, hand-painted dark-fantasy steampunk-punk art style, bold readable silhouette, strong rim light, high contrast, centered single subject, square composition, solid deep charcoal #14161c background with subtle vignette, no text, no letters, no logo, no watermark, subject: a stealth dagger strike from behind in teal shadow"
+  },
+  {
+   "id": "skill_smoke_bomb",
+   "path": "assets/icons/skill/smoke_bomb",
+   "out_size": 256,
+   "prompt": "digital game UI icon, hand-painted dark-fantasy steampunk-punk art style, bold readable silhouette, strong rim light, high contrast, centered single subject, square composition, solid deep charcoal #14161c background with subtle vignette, no text, no letters, no logo, no watermark, subject: a round smoke bomb canister venting grey smoke"
+  },
+  {
+   "id": "skill_poison_blade",
+   "path": "assets/icons/skill/poison_blade",
+   "out_size": 256,
+   "prompt": "digital game UI icon, hand-painted dark-fantasy steampunk-punk art style, bold readable silhouette, strong rim light, high contrast, centered single subject, square composition, solid deep charcoal #14161c background with subtle vignette, no text, no letters, no logo, no watermark, subject: a slim poison-coated dagger dripping green toxin"
+  },
+  {
+   "id": "skill_snipe",
+   "path": "assets/icons/skill/snipe",
+   "out_size": 256,
+   "prompt": "digital game UI icon, hand-painted dark-fantasy steampunk-punk art style, bold readable silhouette, strong rim light, high contrast, centered single subject, square composition, solid deep charcoal #14161c background with subtle vignette, no text, no letters, no logo, no watermark, subject: a long sniper rifle barrel with a golden precision scope"
+  },
+  {
+   "id": "skill_trap",
+   "path": "assets/icons/skill/trap",
+   "out_size": 256,
+   "prompt": "digital game UI icon, hand-painted dark-fantasy steampunk-punk art style, bold readable silhouette, strong rim light, high contrast, centered single subject, square composition, solid deep charcoal #14161c background with subtle vignette, no text, no letters, no logo, no watermark, subject: a mechanical ground trap with steel jaws and green gas"
+  },
+  {
+   "id": "skill_focus",
+   "path": "assets/icons/skill/focus",
+   "out_size": 256,
+   "prompt": "digital game UI icon, hand-painted dark-fantasy steampunk-punk art style, bold readable silhouette, strong rim light, high contrast, centered single subject, square composition, solid deep charcoal #14161c background with subtle vignette, no text, no letters, no logo, no watermark, subject: a focused crosshair eye with golden concentration beams"
+  },
+  {
+   "id": "skill_throw_bomb",
+   "path": "assets/icons/skill/throw_bomb",
+   "out_size": 256,
+   "prompt": "digital game UI icon, hand-painted dark-fantasy steampunk-punk art style, bold readable silhouette, strong rim light, high contrast, centered single subject, square composition, solid deep charcoal #14161c background with subtle vignette, no text, no letters, no logo, no watermark, subject: a thrown iron bomb with a burning fuse"
+  },
+  {
+   "id": "skill_blast_zone",
+   "path": "assets/icons/skill/blast_zone",
+   "out_size": 256,
+   "prompt": "digital game UI icon, hand-painted dark-fantasy steampunk-punk art style, bold readable silhouette, strong rim light, high contrast, centered single subject, square composition, solid deep charcoal #14161c background with subtle vignette, no text, no letters, no logo, no watermark, subject: an orange blast crater ring with rising fire"
+  },
+  {
+   "id": "skill_incendiary",
+   "path": "assets/icons/skill/incendiary",
+   "out_size": 256,
+   "prompt": "digital game UI icon, hand-painted dark-fantasy steampunk-punk art style, bold readable silhouette, strong rim light, high contrast, centered single subject, square composition, solid deep charcoal #14161c background with subtle vignette, no text, no letters, no logo, no watermark, subject: a burning incendiary splash with spreading flames"
+  },
+  {
+   "id": "skill_virus",
+   "path": "assets/icons/skill/virus",
+   "out_size": 256,
+   "prompt": "digital game UI icon, hand-painted dark-fantasy steampunk-punk art style, bold readable silhouette, strong rim light, high contrast, centered single subject, square composition, solid deep charcoal #14161c background with subtle vignette, no text, no letters, no logo, no watermark, subject: a green computer virus code blob corrupting a circuit"
+  },
+  {
+   "id": "skill_emp_pulse",
+   "path": "assets/icons/skill/emp_pulse",
+   "out_size": 256,
+   "prompt": "digital game UI icon, hand-painted dark-fantasy steampunk-punk art style, bold readable silhouette, strong rim light, high contrast, centered single subject, square composition, solid deep charcoal #14161c background with subtle vignette, no text, no letters, no logo, no watermark, subject: a cyan electromagnetic pulse ring with lightning arcs"
+  },
+  {
+   "id": "skill_overclock",
+   "path": "assets/icons/skill/overclock",
+   "out_size": 256,
+   "prompt": "digital game UI icon, hand-painted dark-fantasy steampunk-punk art style, bold readable silhouette, strong rim light, high contrast, centered single subject, square composition, solid deep charcoal #14161c background with subtle vignette, no text, no letters, no logo, no watermark, subject: an overclocked CPU core glowing with heat and cyan energy"
+  },
+  {
+   "id": "skill_cannon",
+   "path": "assets/icons/skill/cannon",
+   "out_size": 256,
+   "prompt": "digital game UI icon, hand-painted dark-fantasy steampunk-punk art style, bold readable silhouette, strong rim light, high contrast, centered single subject, square composition, solid deep charcoal #14161c background with subtle vignette, no text, no letters, no logo, no watermark, subject: a heavy siege cannon muzzle firing a golden shell"
+  },
+  {
+   "id": "skill_armor_up",
+   "path": "assets/icons/skill/armor_up",
+   "out_size": 256,
+   "prompt": "digital game UI icon, hand-painted dark-fantasy steampunk-punk art style, bold readable silhouette, strong rim light, high contrast, centered single subject, square composition, solid deep charcoal #14161c background with subtle vignette, no text, no letters, no logo, no watermark, subject: a mech pilot chest plate locking into armored mode"
+  },
+  {
+   "id": "skill_energy_field",
+   "path": "assets/icons/skill/energy_field",
+   "out_size": 256,
+   "prompt": "digital game UI icon, hand-painted dark-fantasy steampunk-punk art style, bold readable silhouette, strong rim light, high contrast, centered single subject, square composition, solid deep charcoal #14161c background with subtle vignette, no text, no letters, no logo, no watermark, subject: a hexagonal energy field dome around a mech core"
+  },
+  {
+   "id": "skill_rapid_fire",
+   "path": "assets/icons/skill/rapid_fire",
+   "out_size": 256,
+   "prompt": "digital game UI icon, hand-painted dark-fantasy steampunk-punk art style, bold readable silhouette, strong rim light, high contrast, centered single subject, square composition, solid deep charcoal #14161c background with subtle vignette, no text, no letters, no logo, no watermark, subject: a rapid-fire gatling gun barrel with muzzle flashes"
+  },
+  {
+   "id": "skill_mark",
+   "path": "assets/icons/skill/mark",
+   "out_size": 256,
+   "prompt": "digital game UI icon, hand-painted dark-fantasy steampunk-punk art style, bold readable silhouette, strong rim light, high contrast, centered single subject, square composition, solid deep charcoal #14161c background with subtle vignette, no text, no letters, no logo, no watermark, subject: a pink tracking marker reticle stamped on a target"
+  },
+  {
+   "id": "skill_disarm",
+   "path": "assets/icons/skill/disarm",
+   "out_size": 256,
+   "prompt": "digital game UI icon, hand-painted dark-fantasy steampunk-punk art style, bold readable silhouette, strong rim light, high contrast, centered single subject, square composition, solid deep charcoal #14161c background with subtle vignette, no text, no letters, no logo, no watermark, subject: a bounty hunter disarm wrench snapping a weapon"
+  },
+  {
+   "id": "item_grass",
+   "path": "assets/icons/item/grass",
+   "out_size": 256,
+   "prompt": "digital game UI icon, hand-painted dark-fantasy steampunk-punk art style, bold readable silhouette, strong rim light, high contrast, centered single subject, square composition, solid deep charcoal #14161c background with subtle vignette, no text, no letters, no logo, no watermark, subject: a square tile of lush green grass turf"
+  },
+  {
+   "id": "item_stone",
+   "path": "assets/icons/item/stone",
+   "out_size": 256,
+   "prompt": "digital game UI icon, hand-painted dark-fantasy steampunk-punk art style, bold readable silhouette, strong rim light, high contrast, centered single subject, square composition, solid deep charcoal #14161c background with subtle vignette, no text, no letters, no logo, no watermark, subject: a rough grey cobblestone chunk"
+  },
+  {
+   "id": "item_wood",
+   "path": "assets/icons/item/wood",
+   "out_size": 256,
+   "prompt": "digital game UI icon, hand-painted dark-fantasy steampunk-punk art style, bold readable silhouette, strong rim light, high contrast, centered single subject, square composition, solid deep charcoal #14161c background with subtle vignette, no text, no letters, no logo, no watermark, subject: a bundle of cut wooden logs"
+  },
+  {
+   "id": "item_iron_ore",
+   "path": "assets/icons/item/iron_ore",
+   "out_size": 256,
+   "prompt": "digital game UI icon, hand-painted dark-fantasy steampunk-punk art style, bold readable silhouette, strong rim light, high contrast, centered single subject, square composition, solid deep charcoal #14161c background with subtle vignette, no text, no letters, no logo, no watermark, subject: a chunk of raw iron ore rock with metallic veins"
+  },
+  {
+   "id": "item_iron_ingot",
+   "path": "assets/icons/item/iron_ingot",
+   "out_size": 256,
+   "prompt": "digital game UI icon, hand-painted dark-fantasy steampunk-punk art style, bold readable silhouette, strong rim light, high contrast, centered single subject, square composition, solid deep charcoal #14161c background with subtle vignette, no text, no letters, no logo, no watermark, subject: a polished iron ingot bar"
+  },
+  {
+   "id": "item_herb",
+   "path": "assets/icons/item/herb",
+   "out_size": 256,
+   "prompt": "digital game UI icon, hand-painted dark-fantasy steampunk-punk art style, bold readable silhouette, strong rim light, high contrast, centered single subject, square composition, solid deep charcoal #14161c background with subtle vignette, no text, no letters, no logo, no watermark, subject: a bundle of healing green herbs"
+  },
+  {
+   "id": "item_leather",
+   "path": "assets/icons/item/leather",
+   "out_size": 256,
+   "prompt": "digital game UI icon, hand-painted dark-fantasy steampunk-punk art style, bold readable silhouette, strong rim light, high contrast, centered single subject, square composition, solid deep charcoal #14161c background with subtle vignette, no text, no letters, no logo, no watermark, subject: a folded tanned leather hide"
+  },
+  {
+   "id": "item_slime_gel",
+   "path": "assets/icons/item/slime_gel",
+   "out_size": 256,
+   "prompt": "digital game UI icon, hand-painted dark-fantasy steampunk-punk art style, bold readable silhouette, strong rim light, high contrast, centered single subject, square composition, solid deep charcoal #14161c background with subtle vignette, no text, no letters, no logo, no watermark, subject: a blob of glowing green slime gel"
+  },
+  {
+   "id": "item_mech_core",
+   "path": "assets/icons/item/mech_core",
+   "out_size": 256,
+   "prompt": "digital game UI icon, hand-painted dark-fantasy steampunk-punk art style, bold readable silhouette, strong rim light, high contrast, centered single subject, square composition, solid deep charcoal #14161c background with subtle vignette, no text, no letters, no logo, no watermark, subject: a cogs and pipes mechanical core with a glowing cyan lens"
+  },
+  {
+   "id": "item_ghost_dust",
+   "path": "assets/icons/item/ghost_dust",
+   "out_size": 256,
+   "prompt": "digital game UI icon, hand-painted dark-fantasy steampunk-punk art style, bold readable silhouette, strong rim light, high contrast, centered single subject, square composition, solid deep charcoal #14161c background with subtle vignette, no text, no letters, no logo, no watermark, subject: a swirling cloud of pale ghostly spectral dust"
+  },
+  {
+   "id": "item_healing_potion",
+   "path": "assets/icons/item/healing_potion",
+   "out_size": 256,
+   "prompt": "digital game UI icon, hand-painted dark-fantasy steampunk-punk art style, bold readable silhouette, strong rim light, high contrast, centered single subject, square composition, solid deep charcoal #14161c background with subtle vignette, no text, no letters, no logo, no watermark, subject: a red liquid healing potion in a glass bottle"
+  },
+  {
+   "id": "item_mana_potion",
+   "path": "assets/icons/item/mana_potion",
+   "out_size": 256,
+   "prompt": "digital game UI icon, hand-painted dark-fantasy steampunk-punk art style, bold readable silhouette, strong rim light, high contrast, centered single subject, square composition, solid deep charcoal #14161c background with subtle vignette, no text, no letters, no logo, no watermark, subject: a blue liquid mana potion in a glass bottle"
+  },
+  {
+   "id": "item_stone_block",
+   "path": "assets/icons/item/stone_block",
+   "out_size": 256,
+   "prompt": "digital game UI icon, hand-painted dark-fantasy steampunk-punk art style, bold readable silhouette, strong rim light, high contrast, centered single subject, square composition, solid deep charcoal #14161c background with subtle vignette, no text, no letters, no logo, no watermark, subject: a neatly cut stone brick block"
+  },
+  {
+   "id": "item_wood_block",
+   "path": "assets/icons/item/wood_block",
+   "out_size": 256,
+   "prompt": "digital game UI icon, hand-painted dark-fantasy steampunk-punk art style, bold readable silhouette, strong rim light, high contrast, centered single subject, square composition, solid deep charcoal #14161c background with subtle vignette, no text, no letters, no logo, no watermark, subject: a neatly cut wooden plank block"
+  },
+  {
+   "id": "item_wall",
+   "path": "assets/icons/item/wall",
+   "out_size": 256,
+   "prompt": "digital game UI icon, hand-painted dark-fantasy steampunk-punk art style, bold readable silhouette, strong rim light, high contrast, centered single subject, square composition, solid deep charcoal #14161c background with subtle vignette, no text, no letters, no logo, no watermark, subject: a solid stone wall segment"
+  },
+  {
+   "id": "item_fence",
+   "path": "assets/icons/item/fence",
+   "out_size": 256,
+   "prompt": "digital game UI icon, hand-painted dark-fantasy steampunk-punk art style, bold readable silhouette, strong rim light, high contrast, centered single subject, square composition, solid deep charcoal #14161c background with subtle vignette, no text, no letters, no logo, no watermark, subject: a wooden fence segment"
+  },
+  {
+   "id": "item_torch",
+   "path": "assets/icons/item/torch",
+   "out_size": 256,
+   "prompt": "digital game UI icon, hand-painted dark-fantasy steampunk-punk art style, bold readable silhouette, strong rim light, high contrast, centered single subject, square composition, solid deep charcoal #14161c background with subtle vignette, no text, no letters, no logo, no watermark, subject: a burning wall torch with warm flame"
+  },
+  {
+   "id": "item_bed",
+   "path": "assets/icons/item/bed",
+   "out_size": 256,
+   "prompt": "digital game UI icon, hand-painted dark-fantasy steampunk-punk art style, bold readable silhouette, strong rim light, high contrast, centered single subject, square composition, solid deep charcoal #14161c background with subtle vignette, no text, no letters, no logo, no watermark, subject: a simple wooden bed with straw mattress"
+  },
+  {
+   "id": "item_chest",
+   "path": "assets/icons/item/chest",
+   "out_size": 256,
+   "prompt": "digital game UI icon, hand-painted dark-fantasy steampunk-punk art style, bold readable silhouette, strong rim light, high contrast, centered single subject, square composition, solid deep charcoal #14161c background with subtle vignette, no text, no letters, no logo, no watermark, subject: a iron-banded treasure chest"
+  },
+  {
+   "id": "item_weapon_sword_iron",
+   "path": "assets/icons/item/weapon_sword_iron",
+   "out_size": 256,
+   "prompt": "digital game UI icon, hand-painted dark-fantasy steampunk-punk art style, bold readable silhouette, strong rim light, high contrast, centered single subject, square composition, solid deep charcoal #14161c background with subtle vignette, no text, no letters, no logo, no watermark, subject: a plain iron longsword with leather grip"
+  },
+  {
+   "id": "item_weapon_bow_wood",
+   "path": "assets/icons/item/weapon_bow_wood",
+   "out_size": 256,
+   "prompt": "digital game UI icon, hand-painted dark-fantasy steampunk-punk art style, bold readable silhouette, strong rim light, high contrast, centered single subject, square composition, solid deep charcoal #14161c background with subtle vignette, no text, no letters, no logo, no watermark, subject: a wooden recurve bow with a strung arrow"
+  },
+  {
+   "id": "item_staff_apprentice",
+   "path": "assets/icons/item/staff_apprentice",
+   "out_size": 256,
+   "prompt": "digital game UI icon, hand-painted dark-fantasy steampunk-punk art style, bold readable silhouette, strong rim light, high contrast, centered single subject, square composition, solid deep charcoal #14161c background with subtle vignette, no text, no letters, no logo, no watermark, subject: an apprentice mage staff with a glowing blue crystal"
+  },
+  {
+   "id": "item_armor_leather",
+   "path": "assets/icons/item/armor_leather",
+   "out_size": 256,
+   "prompt": "digital game UI icon, hand-painted dark-fantasy steampunk-punk art style, bold readable silhouette, strong rim light, high contrast, centered single subject, square composition, solid deep charcoal #14161c background with subtle vignette, no text, no letters, no logo, no watermark, subject: a brown leather chest armor vest with buckles"
+  },
+  {
+   "id": "item_amulet_swift",
+   "path": "assets/icons/item/amulet_swift",
+   "out_size": 256,
+   "prompt": "digital game UI icon, hand-painted dark-fantasy steampunk-punk art style, bold readable silhouette, strong rim light, high contrast, centered single subject, square composition, solid deep charcoal #14161c background with subtle vignette, no text, no letters, no logo, no watermark, subject: a silver amulet with a wind swirl gemstone"
+  },
+  {
+   "id": "item_key_tower",
+   "path": "assets/icons/item/key_tower",
+   "out_size": 256,
+   "prompt": "digital game UI icon, hand-painted dark-fantasy steampunk-punk art style, bold readable silhouette, strong rim light, high contrast, centered single subject, square composition, solid deep charcoal #14161c background with subtle vignette, no text, no letters, no logo, no watermark, subject: an ornate golden tower key"
+  },
+  {
+   "id": "portrait_warrior",
+   "path": "assets/portraits/warrior",
+   "out_size": 512,
+   "prompt": "character portrait bust, three-quarter view, hand-painted dark-fantasy steampunk-punk art style, dramatic rim lighting, detailed face and gear, centered, square composition, solid deep charcoal #14161c background with subtle vignette, no text, no letters, no watermark, subject: a grizzled swordsman with heavy riveted plate armor and a glowing red blade"
+  },
+  {
+   "id": "portrait_archer",
+   "path": "assets/portraits/archer",
+   "out_size": 512,
+   "prompt": "character portrait bust, three-quarter view, hand-painted dark-fantasy steampunk-punk art style, dramatic rim lighting, detailed face and gear, centered, square composition, solid deep charcoal #14161c background with subtle vignette, no text, no letters, no watermark, subject: a nimble hooded ranger holding a wind-charged longbow"
+  },
+  {
+   "id": "portrait_mage",
+   "path": "assets/portraits/mage",
+   "out_size": 512,
+   "prompt": "character portrait bust, three-quarter view, hand-painted dark-fantasy steampunk-punk art style, dramatic rim lighting, detailed face and gear, centered, square composition, solid deep charcoal #14161c background with subtle vignette, no text, no letters, no watermark, subject: a robed pyromancer wreathed in arcane fire with a crystal staff"
+  },
+  {
+   "id": "portrait_priest",
+   "path": "assets/portraits/priest",
+   "out_size": 512,
+   "prompt": "character portrait bust, three-quarter view, hand-painted dark-fantasy steampunk-punk art style, dramatic rim lighting, detailed face and gear, centered, square composition, solid deep charcoal #14161c background with subtle vignette, no text, no letters, no watermark, subject: a radiant priestess in white-gold vestments with holy light around her hands"
+  },
+  {
+   "id": "portrait_necromancer",
+   "path": "assets/portraits/necromancer",
+   "out_size": 512,
+   "prompt": "character portrait bust, three-quarter view, hand-painted dark-fantasy steampunk-punk art style, dramatic rim lighting, detailed face and gear, centered, square composition, solid deep charcoal #14161c background with subtle vignette, no text, no letters, no watermark, subject: a skeletal sorcerer in tattered violet robes casting a green soul bolt"
+  },
+  {
+   "id": "portrait_death_knight",
+   "path": "assets/portraits/death_knight",
+   "out_size": 512,
+   "prompt": "character portrait bust, three-quarter view, hand-painted dark-fantasy steampunk-punk art style, dramatic rim lighting, detailed face and gear, centered, square composition, solid deep charcoal #14161c background with subtle vignette, no text, no letters, no watermark, subject: a black armored death knight with a crimson greatsword and horned helm"
+  },
+  {
+   "id": "portrait_thief",
+   "path": "assets/portraits/thief",
+   "out_size": 512,
+   "prompt": "character portrait bust, three-quarter view, hand-painted dark-fantasy steampunk-punk art style, dramatic rim lighting, detailed face and gear, centered, square composition, solid deep charcoal #14161c background with subtle vignette, no text, no letters, no watermark, subject: a masked rogue in dark leather with teal daggers and smoke at his feet"
+  },
+  {
+   "id": "portrait_sniper",
+   "path": "assets/portraits/sniper",
+   "out_size": 512,
+   "prompt": "character portrait bust, three-quarter view, hand-painted dark-fantasy steampunk-punk art style, dramatic rim lighting, detailed face and gear, centered, square composition, solid deep charcoal #14161c background with subtle vignette, no text, no letters, no watermark, subject: a long-range marksman with a scoped rifle and golden targeting lens"
+  },
+  {
+   "id": "portrait_bomber",
+   "path": "assets/portraits/bomber",
+   "out_size": 512,
+   "prompt": "character portrait bust, three-quarter view, hand-painted dark-fantasy steampunk-punk art style, dramatic rim lighting, detailed face and gear, centered, square composition, solid deep charcoal #14161c background with subtle vignette, no text, no letters, no watermark, subject: a reckless bomber with a bandolier of bombs and an orange flare"
+  },
+  {
+   "id": "portrait_hacker",
+   "path": "assets/portraits/hacker",
+   "out_size": 512,
+   "prompt": "character portrait bust, three-quarter view, hand-painted dark-fantasy steampunk-punk art style, dramatic rim lighting, detailed face and gear, centered, square composition, solid deep charcoal #14161c background with subtle vignette, no text, no letters, no watermark, subject: a neon cyber-hacker with glowing cyan circuit tattoos and visor"
+  },
+  {
+   "id": "portrait_mech_pilot",
+   "path": "assets/portraits/mech_pilot",
+   "out_size": 512,
+   "prompt": "character portrait bust, three-quarter view, hand-painted dark-fantasy steampunk-punk art style, dramatic rim lighting, detailed face and gear, centered, square composition, solid deep charcoal #14161c background with subtle vignette, no text, no letters, no watermark, subject: a mech pilot in bulky orange riveted armor with a glowing cockpit visor"
+  },
+  {
+   "id": "portrait_bounty_hunter",
+   "path": "assets/portraits/bounty_hunter",
+   "out_size": 512,
+   "prompt": "character portrait bust, three-quarter view, hand-painted dark-fantasy steampunk-punk art style, dramatic rim lighting, detailed face and gear, centered, square composition, solid deep charcoal #14161c background with subtle vignette, no text, no letters, no watermark, subject: a scarred bounty hunter with a gatling gun and pink neon tracker"
+  },
+  {
+   "id": "vfx_melee_slash",
+   "path": "assets/vfx/melee_slash",
+   "out_size": 512,
+   "prompt": "game VFX sprite, luminous glowing energy effect, pure black background, high intensity emissive colors suitable for additive blending, soft edges, centered composition, no text, no watermark, subject: a crescent sword slash arc of white-orange energy"
+  },
+  {
+   "id": "vfx_fireball",
+   "path": "assets/vfx/fireball",
+   "out_size": 512,
+   "prompt": "game VFX sprite, luminous glowing energy effect, pure black background, high intensity emissive colors suitable for additive blending, soft edges, centered composition, no text, no watermark, subject: a burning fireball comet with flame tail"
+  },
+  {
+   "id": "vfx_arrow",
+   "path": "assets/vfx/arrow",
+   "out_size": 512,
+   "prompt": "game VFX sprite, luminous glowing energy effect, pure black background, high intensity emissive colors suitable for additive blending, soft edges, centered composition, no text, no watermark, subject: a streaking arrow with wind trail"
+  },
+  {
+   "id": "vfx_explosion",
+   "path": "assets/vfx/explosion",
+   "out_size": 512,
+   "prompt": "game VFX sprite, luminous glowing energy effect, pure black background, high intensity emissive colors suitable for additive blending, soft edges, centered composition, no text, no watermark, subject: a round fireball explosion with flying debris"
+  },
+  {
+   "id": "vfx_lightning",
+   "path": "assets/vfx/lightning",
+   "out_size": 512,
+   "prompt": "game VFX sprite, luminous glowing energy effect, pure black background, high intensity emissive colors suitable for additive blending, soft edges, centered composition, no text, no watermark, subject: forked blue lightning bolts"
+  },
+  {
+   "id": "vfx_ice_shard",
+   "path": "assets/vfx/ice_shard",
+   "out_size": 512,
+   "prompt": "game VFX sprite, luminous glowing energy effect, pure black background, high intensity emissive colors suitable for additive blending, soft edges, centered composition, no text, no watermark, subject: jagged blue ice shards bursting outward"
+  },
+  {
+   "id": "vfx_heal_spark",
+   "path": "assets/vfx/heal_spark",
+   "out_size": 512,
+   "prompt": "game VFX sprite, luminous glowing energy effect, pure black background, high intensity emissive colors suitable for additive blending, soft edges, centered composition, no text, no watermark, subject: rising green healing sparkles and a soft cross of light"
+  },
+  {
+   "id": "vfx_shield_bubble",
+   "path": "assets/vfx/shield_bubble",
+   "out_size": 512,
+   "prompt": "game VFX sprite, luminous glowing energy effect, pure black background, high intensity emissive colors suitable for additive blending, soft edges, centered composition, no text, no watermark, subject: a translucent hex-grid shield dome"
+  },
+  {
+   "id": "vfx_buff_swirl",
+   "path": "assets/vfx/buff_swirl",
+   "out_size": 512,
+   "prompt": "game VFX sprite, luminous glowing energy effect, pure black background, high intensity emissive colors suitable for additive blending, soft edges, centered composition, no text, no watermark, subject: a golden swirl of rising light motes"
+  },
+  {
+   "id": "vfx_dash_streak",
+   "path": "assets/vfx/dash_streak",
+   "out_size": 512,
+   "prompt": "game VFX sprite, luminous glowing energy effect, pure black background, high intensity emissive colors suitable for additive blending, soft edges, centered composition, no text, no watermark, subject: a horizontal crimson speed streak with impact dust"
+  },
+  {
+   "id": "vfx_void_pulse",
+   "path": "assets/vfx/void_pulse",
+   "out_size": 512,
+   "prompt": "game VFX sprite, luminous glowing energy effect, pure black background, high intensity emissive colors suitable for additive blending, soft edges, centered composition, no text, no watermark, subject: a violet void shockwave ripple"
+  },
+  {
+   "id": "vfx_steam_burst",
+   "path": "assets/vfx/steam_burst",
+   "out_size": 512,
+   "prompt": "game VFX sprite, luminous glowing energy effect, pure black background, high intensity emissive colors suitable for additive blending, soft edges, centered composition, no text, no watermark, subject: a burst of white steam jets"
+  },
+  {
+   "id": "vfx_rune_glyph",
+   "path": "assets/vfx/rune_glyph",
+   "out_size": 512,
+   "prompt": "game VFX sprite, luminous glowing energy effect, pure black background, high intensity emissive colors suitable for additive blending, soft edges, centered composition, no text, no watermark, subject: a rotating arcane rune circle of violet glyphs"
+  },
+  {
+   "id": "vfx_neon_grid",
+   "path": "assets/vfx/neon_grid",
+   "out_size": 512,
+   "prompt": "game VFX sprite, luminous glowing energy effect, pure black background, high intensity emissive colors suitable for additive blending, soft edges, centered composition, no text, no watermark, subject: a cyan neon circuit grid pulse"
+  },
+  {
+   "id": "passive_stat_attack",
+   "path": "assets/icons/passive/stat_attack",
+   "out_size": 256,
+   "prompt": "digital game UI icon, hand-painted dark-fantasy steampunk-punk art style, bold readable silhouette, strong rim light, high contrast, centered single subject, square composition, solid deep charcoal #14161c background with subtle vignette, no text, no letters, no logo, no watermark, subject: a crossed pair of battle axes emitting red energy"
+  },
+  {
+   "id": "passive_stat_defense",
+   "path": "assets/icons/passive/stat_defense",
+   "out_size": 256,
+   "prompt": "digital game UI icon, hand-painted dark-fantasy steampunk-punk art style, bold readable silhouette, strong rim light, high contrast, centered single subject, square composition, solid deep charcoal #14161c background with subtle vignette, no text, no letters, no logo, no watermark, subject: a heavy tower shield emblem with steel plating"
+  },
+  {
+   "id": "passive_stat_crit",
+   "path": "assets/icons/passive/stat_crit",
+   "out_size": 256,
+   "prompt": "digital game UI icon, hand-painted dark-fantasy steampunk-punk art style, bold readable silhouette, strong rim light, high contrast, centered single subject, square composition, solid deep charcoal #14161c background with subtle vignette, no text, no letters, no logo, no watermark, subject: a critical hit burst marker with a white impact star"
+  },
+  {
+   "id": "passive_stat_speed",
+   "path": "assets/icons/passive/stat_speed",
+   "out_size": 256,
+   "prompt": "digital game UI icon, hand-painted dark-fantasy steampunk-punk art style, bold readable silhouette, strong rim light, high contrast, centered single subject, square composition, solid deep charcoal #14161c background with subtle vignette, no text, no letters, no logo, no watermark, subject: a winged boot with wind swirls for cooldown reduction"
+  },
+  {
+   "id": "passive_stat_skill",
+   "path": "assets/icons/passive/stat_skill",
+   "out_size": 256,
+   "prompt": "digital game UI icon, hand-painted dark-fantasy steampunk-punk art style, bold readable silhouette, strong rim light, high contrast, centered single subject, square composition, solid deep charcoal #14161c background with subtle vignette, no text, no letters, no logo, no watermark, subject: an open spell tome with radiant energy pages"
+  },
+  {
+   "id": "passive_stat_capstone",
+   "path": "assets/icons/passive/stat_capstone",
+   "out_size": 256,
+   "prompt": "digital game UI icon, hand-painted dark-fantasy steampunk-punk art style, bold readable silhouette, strong rim light, high contrast, centered single subject, square composition, solid deep charcoal #14161c background with subtle vignette, no text, no letters, no logo, no watermark, subject: a radiant golden trophy-like crest of mastery"
+  },
+  {
+   "id": "enemy_slime",
+   "path": "assets/sprites/enemy_slime",
+   "out_size": 512,
+   "prompt": "top-down video game enemy sprite, hand-painted dark-fantasy steampunk-punk art style, readable silhouette, centered, square composition, solid deep charcoal #14161c background, no text, no watermark, subject: a translucent green blob slime creature with a glossy highlight"
+  },
+  {
+   "id": "enemy_mech_spider",
+   "path": "assets/sprites/enemy_mech_spider",
+   "out_size": 512,
+   "prompt": "top-down video game enemy sprite, hand-painted dark-fantasy steampunk-punk art style, readable silhouette, centered, square composition, solid deep charcoal #14161c background, no text, no watermark, subject: a mechanical spider enemy with steel legs and a red glowing eye"
+  },
+  {
+   "id": "enemy_wraith",
+   "path": "assets/sprites/enemy_wraith",
+   "out_size": 512,
+   "prompt": "top-down video game enemy sprite, hand-painted dark-fantasy steampunk-punk art style, readable silhouette, centered, square composition, solid deep charcoal #14161c background, no text, no watermark, subject: a floating spectral wraith ghost with tattered blue robes"
+  },
+  {
+   "id": "enemy_boss",
+   "path": "assets/sprites/enemy_boss",
+   "out_size": 512,
+   "prompt": "top-down video game enemy sprite, hand-painted dark-fantasy steampunk-punk art style, readable silhouette, centered, square composition, solid deep charcoal #14161c background, no text, no watermark, subject: a huge armored boss creature with glowing crimson core and heavy plating"
+  },
+  {
+   "id": "sprite_res_wood",
+   "path": "assets/sprites/world/res_wood",
+   "out_size": 512,
+   "prompt": "top-down video game world sprite, hand-painted dark-fantasy steampunk-punk art style, single object seen from directly above at a slight isometric tilt, strong readable silhouette, evenly lit, centered composition, isolated on a plain pure chroma key magenta background #FF00FF, no ground shadow, no text, no letters, no logo, no watermark, subject: a felled oak log pile with an axe embedded in it"
+  },
+  {
+   "id": "sprite_res_stone",
+   "path": "assets/sprites/world/res_stone",
+   "out_size": 512,
+   "prompt": "top-down video game world sprite, hand-painted dark-fantasy steampunk-punk art style, single object seen from directly above at a slight isometric tilt, strong readable silhouette, evenly lit, centered composition, isolated on a plain pure chroma key magenta background #FF00FF, no ground shadow, no text, no letters, no logo, no watermark, subject: a heap of rough grey quarry boulders with chipped rock fragments"
+  },
+  {
+   "id": "sprite_res_herb",
+   "path": "assets/sprites/world/res_herb",
+   "out_size": 512,
+   "prompt": "top-down video game world sprite, hand-painted dark-fantasy steampunk-punk art style, single object seen from directly above at a slight isometric tilt, strong readable silhouette, evenly lit, centered composition, isolated on a plain pure chroma key magenta background #FF00FF, no ground shadow, no text, no letters, no logo, no watermark, subject: a cluster of glowing green healing herbs sprouting from the ground"
+  },
+  {
+   "id": "sprite_res_iron_ore",
+   "path": "assets/sprites/world/res_iron_ore",
+   "out_size": 512,
+   "prompt": "top-down video game world sprite, hand-painted dark-fantasy steampunk-punk art style, single object seen from directly above at a slight isometric tilt, strong readable silhouette, evenly lit, centered composition, isolated on a plain pure chroma key magenta background #FF00FF, no ground shadow, no text, no letters, no logo, no watermark, subject: a chunk of raw iron ore rock with bright metallic veins"
+  },
+  {
+   "id": "sprite_res_leather",
+   "path": "assets/sprites/world/res_leather",
+   "out_size": 512,
+   "prompt": "top-down video game world sprite, hand-painted dark-fantasy steampunk-punk art style, single object seen from directly above at a slight isometric tilt, strong readable silhouette, evenly lit, centered composition, isolated on a plain pure chroma key magenta background #FF00FF, no ground shadow, no text, no letters, no logo, no watermark, subject: a folded tanned leather hide stretched on a wooden rack"
+  },
+  {
+   "id": "sprite_npc_blacksmith",
+   "path": "assets/sprites/world/npc_blacksmith",
+   "out_size": 512,
+   "prompt": "top-down video game world sprite, hand-painted dark-fantasy steampunk-punk art style, single object seen from directly above at a slight isometric tilt, strong readable silhouette, evenly lit, centered composition, isolated on a plain pure chroma key magenta background #FF00FF, no ground shadow, no text, no letters, no logo, no watermark, subject: a burly blacksmith NPC with a hammer, standing behind a wooden workbench"
+  },
+  {
+   "id": "sprite_npc_scholar",
+   "path": "assets/sprites/world/npc_scholar",
+   "out_size": 512,
+   "prompt": "top-down video game world sprite, hand-painted dark-fantasy steampunk-punk art style, single object seen from directly above at a slight isometric tilt, strong readable silhouette, evenly lit, centered composition, isolated on a plain pure chroma key magenta background #FF00FF, no ground shadow, no text, no letters, no logo, no watermark, subject: a robed scholar NPC holding an open arcane tome and a brass magnifier"
+  },
+  {
+   "id": "sprite_npc_merchant",
+   "path": "assets/sprites/world/npc_merchant",
+   "out_size": 512,
+   "prompt": "top-down video game world sprite, hand-painted dark-fantasy steampunk-punk art style, single object seen from directly above at a slight isometric tilt, strong readable silhouette, evenly lit, centered composition, isolated on a plain pure chroma key magenta background #FF00FF, no ground shadow, no text, no letters, no logo, no watermark, subject: a travelling merchant NPC with a heavy pack and a spread of goods"
+  },
+  {
+   "id": "sprite_altar",
+   "path": "assets/sprites/world/altar",
+   "out_size": 512,
+   "prompt": "top-down video game world sprite, hand-painted dark-fantasy steampunk-punk art style, single object seen from directly above at a slight isometric tilt, strong readable silhouette, evenly lit, centered composition, isolated on a plain pure chroma key magenta background #FF00FF, no ground shadow, no text, no letters, no logo, no watermark, subject: a circular stone class-selection altar carved with glowing runes"
+  },
+  {
+   "id": "sprite_forge",
+   "path": "assets/sprites/world/forge",
+   "out_size": 512,
+   "prompt": "top-down video game world sprite, hand-painted dark-fantasy steampunk-punk art style, single object seen from directly above at a slight isometric tilt, strong readable silhouette, evenly lit, centered composition, isolated on a plain pure chroma key magenta background #FF00FF, no ground shadow, no text, no letters, no logo, no watermark, subject: a punk workbench forge with anvil, tools and a steaming coolant tank"
+  },
+  {
+   "id": "sprite_portal",
+   "path": "assets/sprites/world/portal",
+   "out_size": 512,
+   "prompt": "top-down video game world sprite, hand-painted dark-fantasy steampunk-punk art style, single object seen from directly above at a slight isometric tilt, strong readable silhouette, evenly lit, centered composition, isolated on a plain pure chroma key magenta background #FF00FF, no ground shadow, no text, no letters, no logo, no watermark, subject: a tall stone obelisk portal arch with a swirling violet energy vortex"
+  },
+  {
+   "id": "sprite_tower",
+   "path": "assets/sprites/world/tower",
+   "out_size": 512,
+   "prompt": "top-down video game world sprite, hand-painted dark-fantasy steampunk-punk art style, single object seen from directly above at a slight isometric tilt, strong readable silhouette, evenly lit, centered composition, isolated on a plain pure chroma key magenta background #FF00FF, no ground shadow, no text, no letters, no logo, no watermark, subject: a towering stone tower entrance gate with iron bands and green crystal lamps"
+  },
+  {
+   "id": "sprite_block_stone_block",
+   "path": "assets/sprites/world/block_stone_block",
+   "out_size": 512,
+   "prompt": "top-down video game world sprite, hand-painted dark-fantasy steampunk-punk art style, single object seen from directly above at a slight isometric tilt, strong readable silhouette, evenly lit, centered composition, isolated on a plain pure chroma key magenta background #FF00FF, no ground shadow, no text, no letters, no logo, no watermark, subject: a neatly cut grey stone brick block, top-down square"
+  },
+  {
+   "id": "sprite_block_wood_block",
+   "path": "assets/sprites/world/block_wood_block",
+   "out_size": 512,
+   "prompt": "top-down video game world sprite, hand-painted dark-fantasy steampunk-punk art style, single object seen from directly above at a slight isometric tilt, strong readable silhouette, evenly lit, centered composition, isolated on a plain pure chroma key magenta background #FF00FF, no ground shadow, no text, no letters, no logo, no watermark, subject: a neatly cut wooden plank block, top-down square"
+  },
+  {
+   "id": "sprite_block_wall",
+   "path": "assets/sprites/world/block_wall",
+   "out_size": 512,
+   "prompt": "top-down video game world sprite, hand-painted dark-fantasy steampunk-punk art style, single object seen from directly above at a slight isometric tilt, strong readable silhouette, evenly lit, centered composition, isolated on a plain pure chroma key magenta background #FF00FF, no ground shadow, no text, no letters, no logo, no watermark, subject: a solid stone wall segment with mortar lines, top-down square"
+  },
+  {
+   "id": "sprite_block_fence",
+   "path": "assets/sprites/world/block_fence",
+   "out_size": 512,
+   "prompt": "top-down video game world sprite, hand-painted dark-fantasy steampunk-punk art style, single object seen from directly above at a slight isometric tilt, strong readable silhouette, evenly lit, centered composition, isolated on a plain pure chroma key magenta background #FF00FF, no ground shadow, no text, no letters, no logo, no watermark, subject: a wooden fence segment with two posts and rails, top-down square"
+  },
+  {
+   "id": "sprite_block_torch",
+   "path": "assets/sprites/world/block_torch",
+   "out_size": 512,
+   "prompt": "top-down video game world sprite, hand-painted dark-fantasy steampunk-punk art style, single object seen from directly above at a slight isometric tilt, strong readable silhouette, evenly lit, centered composition, isolated on a plain pure chroma key magenta background #FF00FF, no ground shadow, no text, no letters, no logo, no watermark, subject: a wall torch bracket with a burning flame, top-down square"
+  },
+  {
+   "id": "sprite_block_bed",
+   "path": "assets/sprites/world/block_bed",
+   "out_size": 512,
+   "prompt": "top-down video game world sprite, hand-painted dark-fantasy steampunk-punk art style, single object seen from directly above at a slight isometric tilt, strong readable silhouette, evenly lit, centered composition, isolated on a plain pure chroma key magenta background #FF00FF, no ground shadow, no text, no letters, no logo, no watermark, subject: a simple wooden bed with a straw mattress, top-down square"
+  },
+  {
+   "id": "sprite_block_chest",
+   "path": "assets/sprites/world/block_chest",
+   "out_size": 512,
+   "prompt": "top-down video game world sprite, hand-painted dark-fantasy steampunk-punk art style, single object seen from directly above at a slight isometric tilt, strong readable silhouette, evenly lit, centered composition, isolated on a plain pure chroma key magenta background #FF00FF, no ground shadow, no text, no letters, no logo, no watermark, subject: an iron-banded treasure chest with a brass lock, top-down square"
+  },
+  {
+   "id": "sprite_block_grass",
+   "path": "assets/sprites/world/block_grass",
+   "out_size": 512,
+   "prompt": "top-down video game world sprite, hand-painted dark-fantasy steampunk-punk art style, single object seen from directly above at a slight isometric tilt, strong readable silhouette, evenly lit, centered composition, isolated on a plain pure chroma key magenta background #FF00FF, no ground shadow, no text, no letters, no logo, no watermark, subject: a square tile of lush green grass turf, top-down square"
+  },
+  {
+   "id": "sprite_player_warrior",
+   "path": "assets/sprites/world/player_warrior",
+   "out_size": 512,
+   "prompt": "top-down video game world sprite, hand-painted dark-fantasy steampunk-punk art style, single object seen from directly above at a slight isometric tilt, strong readable silhouette, evenly lit, centered composition, isolated on a plain pure chroma key magenta background #FF00FF, no ground shadow, no text, no letters, no logo, no watermark, subject: a top-down view of a grizzled swordsman in heavy riveted plate armor"
+  },
+  {
+   "id": "sprite_player_archer",
+   "path": "assets/sprites/world/player_archer",
+   "out_size": 512,
+   "prompt": "top-down video game world sprite, hand-painted dark-fantasy steampunk-punk art style, single object seen from directly above at a slight isometric tilt, strong readable silhouette, evenly lit, centered composition, isolated on a plain pure chroma key magenta background #FF00FF, no ground shadow, no text, no letters, no logo, no watermark, subject: a top-down view of a hooded ranger archer in green leather with a quiver"
+  },
+  {
+   "id": "sprite_player_mage",
+   "path": "assets/sprites/world/player_mage",
+   "out_size": 512,
+   "prompt": "top-down video game world sprite, hand-painted dark-fantasy steampunk-punk art style, single object seen from directly above at a slight isometric tilt, strong readable silhouette, evenly lit, centered composition, isolated on a plain pure chroma key magenta background #FF00FF, no ground shadow, no text, no letters, no logo, no watermark, subject: a top-down view of a robed pyromancer holding a glowing crystal staff"
+  },
+  {
+   "id": "sprite_player_priest",
+   "path": "assets/sprites/world/player_priest",
+   "out_size": 512,
+   "prompt": "top-down video game world sprite, hand-painted dark-fantasy steampunk-punk art style, single object seen from directly above at a slight isometric tilt, strong readable silhouette, evenly lit, centered composition, isolated on a plain pure chroma key magenta background #FF00FF, no ground shadow, no text, no letters, no logo, no watermark, subject: a top-down view of a radiant priestess in white-gold vestments"
+  },
+  {
+   "id": "sprite_player_necromancer",
+   "path": "assets/sprites/world/player_necromancer",
+   "out_size": 512,
+   "prompt": "top-down video game world sprite, hand-painted dark-fantasy steampunk-punk art style, single object seen from directly above at a slight isometric tilt, strong readable silhouette, evenly lit, centered composition, isolated on a plain pure chroma key magenta background #FF00FF, no ground shadow, no text, no letters, no logo, no watermark, subject: a top-down view of a skeletal sorcerer in tattered violet robes"
+  },
+  {
+   "id": "sprite_player_death_knight",
+   "path": "assets/sprites/world/player_death_knight",
+   "out_size": 512,
+   "prompt": "top-down video game world sprite, hand-painted dark-fantasy steampunk-punk art style, single object seen from directly above at a slight isometric tilt, strong readable silhouette, evenly lit, centered composition, isolated on a plain pure chroma key magenta background #FF00FF, no ground shadow, no text, no letters, no logo, no watermark, subject: a top-down view of a black armored death knight with a crimson greatsword"
+  },
+  {
+   "id": "sprite_player_thief",
+   "path": "assets/sprites/world/player_thief",
+   "out_size": 512,
+   "prompt": "top-down video game world sprite, hand-painted dark-fantasy steampunk-punk art style, single object seen from directly above at a slight isometric tilt, strong readable silhouette, evenly lit, centered composition, isolated on a plain pure chroma key magenta background #FF00FF, no ground shadow, no text, no letters, no logo, no watermark, subject: a top-down view of a masked rogue in dark leather with twin daggers"
+  },
+  {
+   "id": "sprite_player_sniper",
+   "path": "assets/sprites/world/player_sniper",
+   "out_size": 512,
+   "prompt": "top-down video game world sprite, hand-painted dark-fantasy steampunk-punk art style, single object seen from directly above at a slight isometric tilt, strong readable silhouette, evenly lit, centered composition, isolated on a plain pure chroma key magenta background #FF00FF, no ground shadow, no text, no letters, no logo, no watermark, subject: a top-down view of a long-range marksman with a scoped rifle"
+  },
+  {
+   "id": "sprite_player_bomber",
+   "path": "assets/sprites/world/player_bomber",
+   "out_size": 512,
+   "prompt": "top-down video game world sprite, hand-painted dark-fantasy steampunk-punk art style, single object seen from directly above at a slight isometric tilt, strong readable silhouette, evenly lit, centered composition, isolated on a plain pure chroma key magenta background #FF00FF, no ground shadow, no text, no letters, no logo, no watermark, subject: a top-down view of a bomber with a bandolier of bombs"
+  },
+  {
+   "id": "sprite_player_hacker",
+   "path": "assets/sprites/world/player_hacker",
+   "out_size": 512,
+   "prompt": "top-down video game world sprite, hand-painted dark-fantasy steampunk-punk art style, single object seen from directly above at a slight isometric tilt, strong readable silhouette, evenly lit, centered composition, isolated on a plain pure chroma key magenta background #FF00FF, no ground shadow, no text, no letters, no logo, no watermark, subject: a top-down view of a neon cyber-hacker with glowing cyan circuit tattoos"
+  },
+  {
+   "id": "sprite_player_mech_pilot",
+   "path": "assets/sprites/world/player_mech_pilot",
+   "out_size": 512,
+   "prompt": "top-down video game world sprite, hand-painted dark-fantasy steampunk-punk art style, single object seen from directly above at a slight isometric tilt, strong readable silhouette, evenly lit, centered composition, isolated on a plain pure chroma key magenta background #FF00FF, no ground shadow, no text, no letters, no logo, no watermark, subject: a top-down view of a mech pilot in bulky orange riveted armor"
+  },
+  {
+   "id": "sprite_player_bounty_hunter",
+   "path": "assets/sprites/world/player_bounty_hunter",
+   "out_size": 512,
+   "prompt": "top-down video game world sprite, hand-painted dark-fantasy steampunk-punk art style, single object seen from directly above at a slight isometric tilt, strong readable silhouette, evenly lit, centered composition, isolated on a plain pure chroma key magenta background #FF00FF, no ground shadow, no text, no letters, no logo, no watermark, subject: a top-down view of a bounty hunter with a gatling gun and pink neon tracker"
+  }
+ ]
+}

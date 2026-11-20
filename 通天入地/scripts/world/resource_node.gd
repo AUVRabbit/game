@@ -6,6 +6,14 @@
 extends Area2D
 class_name ResourceNode
 
+const SPRITE_MAP := {
+	"wood": "sprite_res_wood",
+	"stone": "sprite_res_stone",
+	"herb": "sprite_res_herb",
+	"iron_ore": "sprite_res_iron_ore",
+	"leather": "sprite_res_leather",
+}
+
 @export var resource_id: String = "wood"
 @export var display_name: String = ""
 @export var quantity: int = 2
@@ -16,6 +24,7 @@ class_name ResourceNode
 var available: bool = true
 var timer: float = 0.0
 var label: Label = null
+var sprite: Sprite2D = null
 
 func _ready() -> void:
 	add_to_group("interactables")
@@ -27,6 +36,7 @@ func _ready() -> void:
 	circle.radius = 22.0
 	shape.shape = circle
 	add_child(shape)
+	_load_sprite()
 	if display_name == "":
 		var tpl: Dictionary = DataManager.get_item(resource_id) if DataManager else {}
 		display_name = str(tpl.get("name", resource_id))
@@ -40,6 +50,19 @@ func _ready() -> void:
 	add_child(label)
 	_refresh_label()
 	queue_redraw()
+
+func _load_sprite() -> void:
+	var asset_id: String = str(SPRITE_MAP.get(resource_id, ""))
+	if asset_id == "":
+		return
+	var tex: Texture2D = AssetLibrary.texture(asset_id)
+	if tex == null:
+		return
+	sprite = Sprite2D.new()
+	sprite.texture = tex
+	sprite.scale = Vector2.ONE * 0.42
+	sprite.position = Vector2(0, -6)
+	add_child(sprite)
 
 func interact(_player: Node) -> void:
 	if not available:
@@ -82,7 +105,9 @@ func _refresh_label() -> void:
 
 func _draw() -> void:
 	var alpha := 0.9 if available else 0.25
-	draw_circle(Vector2.ZERO, 22.0, Color(node_color.r, node_color.g, node_color.b, 0.18))
+	draw_circle(Vector2.ZERO, 20.0, Color(node_color.r, node_color.g, node_color.b, 0.16))
+	if sprite:
+		return
 	var pts := PackedVector2Array([
 		Vector2(0, -20), Vector2(14, -4), Vector2(8, 16), Vector2(-8, 16), Vector2(-14, -4)
 	])

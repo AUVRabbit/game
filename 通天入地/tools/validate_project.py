@@ -238,6 +238,8 @@ def check_res_paths():
             for res in set(pattern.findall(read(path))):
                 if res.endswith("/"):
                     continue
+                if "%" in res:
+                    continue  # 动态拼接的资源路径（如 assets/%s.png），运行时按 id 解析
                 target = os.path.join(ROOT, res.replace("res://", ""))
                 if not os.path.isfile(target):
                     warn("%s 引用的资源不存在：%s（运行时应优雅降级）" % (rel, res))

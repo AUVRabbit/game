@@ -49,6 +49,11 @@ signal punk_applied(class_id: String, slot: String, part_id: String)
 signal punk_removed(class_id: String, slot: String, part_id: String)
 signal punk_style_changed(class_id: String, style_id: String)
 
+# ---------- 技能树 / 职业专职 ----------
+signal skill_node_unlocked(class_id: String, node_id: String)
+signal skill_tree_reset(class_id: String)
+signal specialization_chosen(class_id: String, spec_id: String)
+
 # ---------- 流程 ----------
 signal toast_requested(text: String)
 signal save_completed(slot: int)

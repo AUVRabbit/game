@@ -12,7 +12,7 @@ signal game_resumed
 signal active_character_changed(player: Node)
 signal roster_changed
 
-enum GameState { MENU, PLAYING, PAUSED, DIALOG, INVENTORY, BUILDING, DEAD }
+enum GameState { MENU, PLAYING, PAUSED, DIALOG, INVENTORY, BUILDING, DEAD, SKILL_TREE }
 
 const SCENE_MAIN_MENU := "res://scenes/ui/main_menu.tscn"
 const SCENE_MAIN_WORLD := "res://scenes/world/main_world.tscn"
@@ -63,7 +63,7 @@ func is_playing() -> bool:
 func is_input_blocked() -> bool:
 	if get_tree().paused:
 		return true
-	return current_state in [GameState.PAUSED, GameState.DIALOG, GameState.INVENTORY, GameState.DEAD, GameState.MENU]
+	return current_state in [GameState.PAUSED, GameState.DIALOG, GameState.INVENTORY, GameState.DEAD, GameState.MENU, GameState.SKILL_TREE]
 
 func is_menu() -> bool:
 	return current_state == GameState.MENU
@@ -294,7 +294,7 @@ func open_ui(state: GameState) -> void:
 	get_tree().paused = true
 
 func close_ui() -> void:
-	if current_state != GameState.DIALOG and current_state != GameState.INVENTORY:
+	if current_state != GameState.DIALOG and current_state != GameState.INVENTORY and current_state != GameState.SKILL_TREE:
 		return
 	get_tree().paused = false
 	current_state = GameState.PLAYING
@@ -358,6 +358,7 @@ func collect_state() -> Dictionary:
 		"quests": QuestManager.serialize() if QuestManager else {},
 		"roguelike": RoguelikeManager.serialize() if RoguelikeManager else {},
 		"punk": PunkManager.serialize() if PunkManager else {},
+		"skills": SkillManager.serialize() if SkillManager else {},
 		"player_pos": active_player.global_position if is_instance_valid(active_player) else Vector2.ZERO
 	}
 
@@ -380,6 +381,8 @@ func apply_state(data: Dictionary) -> void:
 		RoguelikeManager.deserialize(data.get("roguelike", {}))
 	if PunkManager:
 		PunkManager.apply_state(data.get("punk", {}))
+	if SkillManager:
+		SkillManager.apply_state(data.get("skills", {}))
 	pending_player_pos = _to_vector2(data.get("player_pos", Vector2.ZERO))
 	has_pending_pos = true
 	current_state = GameState.PLAYING

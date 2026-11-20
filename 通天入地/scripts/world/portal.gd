@@ -12,6 +12,7 @@ class_name Portal
 
 var enabled: bool = true
 var pulse: float = 0.0
+var sprite: Sprite2D = null
 
 func _ready() -> void:
 	collision_layer = 0
@@ -22,6 +23,7 @@ func _ready() -> void:
 	circle.radius = 26.0
 	shape.shape = circle
 	add_child(shape)
+	_load_sprite()
 	var label := Label.new()
 	label.text = label_text
 	label.position = Vector2(-30, -52)
@@ -31,6 +33,16 @@ func _ready() -> void:
 	add_child(label)
 	body_entered.connect(_on_body_entered)
 	queue_redraw()
+
+func _load_sprite() -> void:
+	var tex: Texture2D = AssetLibrary.texture("sprite_portal")
+	if tex == null:
+		return
+	sprite = Sprite2D.new()
+	sprite.texture = tex
+	sprite.scale = Vector2.ONE * 0.46
+	sprite.position = Vector2(0, -8)
+	add_child(sprite)
 
 func _process(delta: float) -> void:
 	pulse += delta
@@ -62,3 +74,8 @@ func _draw() -> void:
 	draw_circle(Vector2.ZERO, 26.0, Color(portal_color.r, portal_color.g, portal_color.b, 0.15 * glow))
 	draw_arc(Vector2.ZERO, 24.0, 0.0, TAU, 32, Color(portal_color.r, portal_color.g, portal_color.b, glow), 3.0, true)
 	draw_arc(Vector2.ZERO, 16.0, pulse, TAU + pulse, 24, Color(1, 1, 1, 0.6 * glow), 2.0, true)
+	if sprite:
+		return
+	draw_colored_polygon(PackedVector2Array([
+		Vector2(0, -20), Vector2(12, 0), Vector2(0, 20), Vector2(-12, 0)
+	]), Color(portal_color.r, portal_color.g, portal_color.b, 0.8))

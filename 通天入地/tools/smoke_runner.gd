@@ -259,6 +259,53 @@ func _run() -> void:
 	var restored_primary: String = PunkManager.get_primary_style("archer")
 	_check("读档后朋克风格保留", restored_primary == "tech", restored_primary)
 
+	# ---------- 6.8 技能树与职业专职 ----------
+	_check("技能图标素材加载", AssetLibrary.texture("skill_fireball") != null)
+	_check("职业立绘素材加载", AssetLibrary.texture("portrait_warrior") != null)
+	_check("物品图标素材加载", AssetLibrary.texture("item_stone") != null)
+	_check("特效素材加载", AssetLibrary.texture("vfx_fireball") != null)
+	var tree_nodes: Array = DataManager.get_skill_tree_nodes("archer")
+	_check("技能树数据加载", tree_nodes.size() == 9, str(tree_nodes.size()))
+	var points_before: int = SkillManager.get_points("archer")
+	_check("初始技能点", points_before >= 1, str(points_before))
+	var mastery_ok: bool = SkillManager.unlock_node("archer", "archer_mastery_0")
+	_check("解锁技能树节点", mastery_ok)
+	var tier2_check: Dictionary = SkillManager.can_unlock("archer", "archer_passive_a")
+	_check("前置节点校验", not bool(tier2_check.get("ok", true)), str(tier2_check.get("reason", "")))
+	var archer_data: Node = GameManager.active_player.character_data
+	var power_mult: float = archer_data.get_skill_power_multiplier(str(archer_data.skills[0].get("id", "")))
+	_check("技能树威力加成生效", power_mult > 1.0, "x%.2f" % power_mult)
+	var cd_mult: float = archer_data.get_skill_cooldown_multiplier(str(archer_data.skills[0].get("id", "")))
+	_check("技能树冷却缩减生效", cd_mult < 1.0, "x%.2f" % cd_mult)
+	var spec_ok: bool = SkillManager.choose_specialization("archer", "sharpshooter", 5)
+	_check("职业专职选择", spec_ok)
+	archer_data.refresh_skill_stats()
+	_check("专职属性生效", archer_data.get_crit_rate() > 0.05, "crit=%.3f" % archer_data.get_crit_rate())
+	var spec_name: String = str(SkillManager.get_specialization("archer").get("name", ""))
+	_check("专职显示名", spec_name == "神射手", spec_name)
+	var spec_dup: bool = SkillManager.choose_specialization("archer", "ranger", 5)
+	_check("专职不可重复选择", not spec_dup)
+	var tree_panel: Node = null
+	for node in get_tree().get_nodes_in_group("skill_tree_panel"):
+		tree_panel = node
+		break
+	_check("技能树面板存在", tree_panel != null)
+	if tree_panel:
+		tree_panel._toggle()
+		await _wait(0.2)
+		_check("技能树面板可打开", tree_panel.visible and get_tree().paused)
+		tree_panel._toggle()
+		await _wait(0.2)
+		_check("技能树面板可关闭", not tree_panel.visible and not get_tree().paused)
+	SaveManager.save_game(0)
+	await _wait(0.1)
+	SkillManager.reset_tree("archer")
+	_check("技能树重置返还技能点", SkillManager.get_points("archer") > points_before - 1)
+	SaveManager.load_game(0)
+	await _wait(0.9)
+	_check("读档恢复技能树", SkillManager.is_unlocked("archer", "archer_mastery_0"))
+	_check("读档恢复专职", str(SkillManager.get_specialization("archer").get("id", "")) == "sharpshooter")
+
 	# ---------- 7. 通天塔 / Roguelike ----------
 	GameManager.start_tower_run()
 	await _wait(0.9)

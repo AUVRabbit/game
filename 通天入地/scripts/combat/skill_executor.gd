@@ -23,19 +23,26 @@ static func cast(caster, skill: Dictionary) -> bool:
 	var dir: Vector2 = caster.facing if caster.facing.length() > 0.01 else Vector2.DOWN
 	var origin: Vector2 = caster.global_position
 	var power := float(skill.get("power", 1.0))
+	if data.has_method("get_skill_power_multiplier"):
+		power *= float(data.get_skill_power_multiplier(str(skill.get("id", ""))))
 	var is_magic := str(skill.get("damage_type", "physical")) == "magic"
 	var base_stat: float = float(data.get_magic_attack() if is_magic else data.get_attack())
 	var base_damage := maxi(1, int(round(float(base_stat) * power)))
 	var color := Color.from_string(str(skill.get("color", "#ffffff")), Color.WHITE)
 	var level: Node = caster.get_parent()
 
+	SkillVfx.spawn_skill(level, skill, origin, dir)
+
 	match type_name:
 		"melee_aoe":
 			_melee_aoe(caster, origin, float(skill.get("radius", 80)), base_damage, is_magic, color, level)
 		"projectile":
-			_projectile(caster, origin, dir, base_damage, is_magic, float(skill.get("speed", 420)), color)
+			_projectile(caster, origin, dir, base_damage, is_magic, float(skill.get("speed", 420)), color, str(skill.get("icon", "")))
 		"heal":
-			var healed: int = data.heal(int(skill.get("power", 30)))
+			var heal_power := float(skill.get("power", 30))
+			if data.has_method("get_heal_bonus"):
+				heal_power *= 1.0 + float(data.get_heal_bonus())
+			var healed: int = data.heal(int(heal_power))
 			DamageNumber.spawn(level, origin + Vector2(0, -30), healed, false, true)
 			EffectRing.spawn(level, origin, 46.0, color)
 		"buff":
@@ -43,9 +50,12 @@ static func cast(caster, skill: Dictionary) -> bool:
 			EffectRing.spawn(level, origin, 44.0, color)
 			EventBus.notify("获得增益：%s" % str(skill.get("name", "")))
 		"shield":
-			data.add_shield(int(skill.get("power", 40)))
+			var shield_power := float(skill.get("power", 40))
+			if data.has_method("get_shield_bonus"):
+				shield_power *= 1.0 + float(data.get_shield_bonus())
+			data.add_shield(int(shield_power))
 			EffectRing.spawn(level, origin, 50.0, color)
-			EventBus.notify("获得护盾：%d" % int(skill.get("power", 40)))
+			EventBus.notify("获得护盾：%d" % int(shield_power))
 		"chain":
 			_chain(origin, float(skill.get("radius", 220)), int(skill.get("count", 3)), base_damage, is_magic, color, level)
 		"aoe_zone":
@@ -65,7 +75,7 @@ static func _melee_aoe(caster, origin: Vector2, radius: float, damage: int, is_m
 		if _dist(enemy, origin) <= radius:
 			_apply_damage(caster, enemy, damage, is_magic, level)
 
-static func _projectile(caster, origin: Vector2, dir: Vector2, damage: int, is_magic: bool, speed: float, color: Color) -> void:
+static func _projectile(caster, origin: Vector2, dir: Vector2, damage: int, is_magic: bool, speed: float, color: Color, icon_id: String = "") -> void:
 	var level: Node = caster.get_parent()
 	if level == null:
 		return
@@ -75,6 +85,7 @@ static func _projectile(caster, origin: Vector2, dir: Vector2, damage: int, is_m
 	projectile.damage = damage
 	projectile.is_magic = is_magic
 	projectile.color = color
+	projectile.icon_id = icon_id
 	projectile.source = caster
 	level.add_child(projectile)
 	projectile.global_position = origin

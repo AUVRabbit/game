@@ -15,6 +15,7 @@ var tabs: TabContainer
 var grid: GridContainer
 var slot_buttons: Array = []
 var detail_name: Label
+var detail_icon: TextureRect
 var detail_desc: Label
 var detail_stats: Label
 var use_button: Button
@@ -110,6 +111,9 @@ func _build_backpack_tab() -> void:
 		var button := Button.new()
 		button.custom_minimum_size = Vector2(58, 46)
 		button.add_theme_font_size_override("font_size", 11)
+		button.expand_icon = true
+		button.icon_alignment = HORIZONTAL_ALIGNMENT_CENTER
+		button.vertical_icon_alignment = VERTICAL_ALIGNMENT_CENTER
 		button.pressed.connect(_on_slot_pressed.bind(i))
 		grid.add_child(button)
 		slot_buttons.append(button)
@@ -118,6 +122,11 @@ func _build_backpack_tab() -> void:
 	detail.custom_minimum_size = Vector2(248, 0)
 	detail.add_theme_constant_override("separation", 6)
 	hbox.add_child(detail)
+	detail_icon = TextureRect.new()
+	detail_icon.custom_minimum_size = Vector2(72, 72)
+	detail_icon.expand_mode = TextureRect.EXPAND_IGNORE_SIZE
+	detail_icon.stretch_mode = TextureRect.STRETCH_KEEP_ASPECT_CENTERED
+	detail.add_child(detail_icon)
 	detail_name = Label.new()
 	detail_name.add_theme_font_size_override("font_size", 17)
 	detail_name.add_theme_color_override("font_color", Color(1.0, 0.88, 0.55))
@@ -287,11 +296,14 @@ func _refresh_grid() -> void:
 		var button: Button = slot_buttons[i]
 		if s.is_empty():
 			button.text = ""
+			button.icon = null
 			button.modulate = Color.WHITE
 			continue
 		var item_id := str(s.get("id", ""))
 		var tpl: Dictionary = DataManager.get_item(item_id) if DataManager else {}
-		button.text = "%s\n×%d" % [str(tpl.get("name", item_id)), int(s.get("quantity", 1))]
+		button.text = "×%d" % int(s.get("quantity", 1))
+		button.tooltip_text = str(tpl.get("name", item_id))
+		button.icon = AssetLibrary.texture("item_%s" % item_id)
 		button.modulate = Color.from_string(str(tpl.get("color", "#ffffff")), Color.WHITE)
 		button.modulate = Color(
 			lerpf(1.0, button.modulate.r, 0.35),
@@ -303,6 +315,7 @@ func _refresh_details() -> void:
 	var s: Dictionary = GameManager.inventory.get_slot(selected_index) if GameManager.inventory else {}
 	if s.is_empty():
 		detail_name.text = "未选择物品"
+		detail_icon.texture = null
 		detail_desc.text = ""
 		detail_stats.text = ""
 		use_button.disabled = true
@@ -311,6 +324,7 @@ func _refresh_details() -> void:
 		return
 	var item_id := str(s.get("id", ""))
 	var tpl: Dictionary = DataManager.get_item(item_id) if DataManager else {}
+	detail_icon.texture = AssetLibrary.texture("item_%s" % item_id)
 	detail_name.text = str(tpl.get("name", item_id))
 	detail_desc.text = str(tpl.get("description", ""))
 	var type_name := str(tpl.get("type", ""))

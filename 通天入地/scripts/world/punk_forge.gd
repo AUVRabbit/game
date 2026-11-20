@@ -8,6 +8,7 @@ class_name PunkForge
 
 var label: Label = null
 var sparkle: float = 0.0
+var sprite: Sprite2D = null
 
 func _ready() -> void:
 	add_to_group("interactables")
@@ -21,6 +22,7 @@ func _ready() -> void:
 	add_child(shape)
 	body_entered.connect(_on_body_entered)
 	body_exited.connect(_on_body_exited)
+	_load_sprite()
 
 	# 标签
 	label = Label.new()
@@ -31,6 +33,16 @@ func _ready() -> void:
 	label.add_theme_color_override("font_color", Color(1.0, 0.8, 0.2))
 	add_child(label)
 	queue_redraw()
+
+func _load_sprite() -> void:
+	var tex: Texture2D = AssetLibrary.texture("sprite_forge")
+	if tex == null:
+		return
+	sprite = Sprite2D.new()
+	sprite.texture = tex
+	sprite.scale = Vector2.ONE * 0.52
+	sprite.position = Vector2(0, -8)
+	add_child(sprite)
 
 func _process(delta: float) -> void:
 	sparkle += delta * 2.5
@@ -81,6 +93,9 @@ func _draw() -> void:
 		var x: float = cx + cos(angle) * 18.0
 		var y: float = cy + sin(angle) * 10.0  # 等距压缩
 		draw_circle(Vector2(x, y), 10.0, style_colors[i])
+
+	if sprite:
+		return
 
 	# 中央核心
 	draw_circle(Vector2(0, -4), 12.0, Color(0.9, 0.7, 0.25, 0.9))

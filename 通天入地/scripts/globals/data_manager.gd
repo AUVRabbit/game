@@ -18,6 +18,10 @@ var punk_part_by_id: Dictionary = {}
 var punk_build_decorations: Array = []
 var class_style_bindings: Dictionary = {}
 var style_bonus_match: float = 0.15
+var skill_trees: Dictionary = {}
+var skill_points_per_level: int = 1
+var skill_starting_points: int = 1
+var specializations: Dictionary = {}
 
 func _ready() -> void:
 	_load_all()
@@ -61,8 +65,18 @@ func _load_all() -> void:
 	if d_punk.has("style_bonus_when_matched"):
 		style_bonus_match = float(d_punk["style_bonus_when_matched"])
 
-	print("[DataManager] 数据加载完成：物品 %d / 职业 %d / 配方 %d / 任务 %d / 对话 %d / 朋克部件 %d" % [
-		items.size(), classes.size(), recipes.size(), quests.size(), dialogues.size(), punk_parts.size()
+	var d_trees := _read_json("res://data/skill_trees.json")
+	if d_trees.has("trees"):
+		skill_trees = d_trees["trees"]
+	skill_points_per_level = int(d_trees.get("points_per_level", 1))
+	skill_starting_points = int(d_trees.get("starting_points", 1))
+
+	var d_spec := _read_json("res://data/specializations.json")
+	if d_spec.has("specializations"):
+		specializations = d_spec["specializations"]
+
+	print("[DataManager] 数据加载完成：物品 %d / 职业 %d / 配方 %d / 任务 %d / 对话 %d / 朋克部件 %d / 技能树 %d" % [
+		items.size(), classes.size(), recipes.size(), quests.size(), dialogues.size(), punk_parts.size(), skill_trees.size()
 	])
 
 func _read_json(path: String) -> Dictionary:
@@ -156,3 +170,26 @@ func get_class_allowed_styles(class_id: String) -> Array:
 
 func get_style_bonus_match() -> float:
 	return style_bonus_match
+
+# ---------- 技能树 / 职业专职 ----------
+func get_skill_tree(class_id: String) -> Dictionary:
+	return skill_trees.get(class_id, {})
+
+func get_skill_tree_nodes(class_id: String) -> Array:
+	var tree: Dictionary = get_skill_tree(class_id)
+	return tree.get("nodes", []) if tree.has("nodes") else []
+
+func get_skill_node(class_id: String, node_id: String) -> Dictionary:
+	for n in get_skill_tree_nodes(class_id):
+		if str(n.get("id", "")) == node_id:
+			return n
+	return {}
+
+func get_specializations(class_id: String) -> Array:
+	return specializations.get(class_id, [])
+
+func get_specialization_data(class_id: String, spec_id: String) -> Dictionary:
+	for s in get_specializations(class_id):
+		if str(s.get("id", "")) == spec_id:
+			return s
+	return {}

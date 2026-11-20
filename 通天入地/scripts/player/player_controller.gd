@@ -152,6 +152,9 @@ func try_attack() -> void:
 		DamageNumber.spawn(get_parent(), enemy.global_position + Vector2(0, -26), dealt, is_crit)
 		EventBus.attack_performed.emit(self, enemy)
 		hit_any = true
+		var lifesteal: float = character_data.get_lifesteal()
+		if lifesteal > 0.0 and dealt > 0:
+			character_data.heal(int(round(float(dealt) * lifesteal)))
 	if hit_any:
 		AudioManager.play_sfx("hit")
 	EffectRing.spawn(get_parent(), origin, ATTACK_RADIUS, Color(1.0, 0.85, 0.4, 0.9))
@@ -171,7 +174,8 @@ func try_skill(slot: int) -> void:
 	if SkillExecutor.cast(self, skill):
 		state = State.CAST
 		if slot < skill_cooldowns.size():
-			skill_cooldowns[slot] = float(skill.get("cd", 3.0))
+			var cd_mult: float = character_data.get_skill_cooldown_multiplier(str(skill.get("id", "")))
+			skill_cooldowns[slot] = float(skill.get("cd", 3.0)) * cd_mult
 		await get_tree().create_timer(0.15).timeout
 		if state == State.CAST:
 			state = State.IDLE

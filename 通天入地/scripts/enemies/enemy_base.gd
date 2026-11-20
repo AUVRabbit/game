@@ -26,6 +26,7 @@ enum State { PATROL, CHASE, ATTACK, DEAD }
 @export var body_color: Color = Color(0.4, 0.8, 0.5)
 @export var body_radius: float = 16.0
 
+var sprite_texture: Texture2D = null
 var hp: int = 40
 var state: State = State.PATROL
 var attack_timer: float = 0.0
@@ -49,7 +50,26 @@ func _ready() -> void:
 	if is_boss:
 		body_radius = 28.0
 		move_speed *= 0.8
+	sprite_texture = _load_sprite()
 	queue_redraw()
+
+func _load_sprite() -> Texture2D:
+	var asset_id := ""
+	if is_boss:
+		asset_id = "enemy_boss"
+	else:
+		match enemy_type:
+			"slime":
+				asset_id = "enemy_slime"
+			"mech":
+				asset_id = "enemy_mech_spider"
+			"wraith":
+				asset_id = "enemy_wraith"
+			_:
+				asset_id = ""
+	if asset_id == "":
+		return null
+	return AssetLibrary.texture(asset_id)
 
 func _physics_process(delta: float) -> void:
 	if hp <= 0:
@@ -170,14 +190,21 @@ func _draw() -> void:
 	var fill := body_color
 	if flash_timer > 0.0:
 		fill = Color(1.0, 1.0, 1.0)
-	if is_boss:
-		draw_circle(Vector2.ZERO, body_radius + 6.0, Color(fill.r, fill.g, fill.b, 0.25))
-	var points := PackedVector2Array()
-	var sides := 10
-	for i in sides:
-		var a := TAU * float(i) / float(sides)
-		points.append(Vector2(cos(a), sin(a) * 0.85) * body_radius)
-	draw_colored_polygon(points, fill)
+	if sprite_texture:
+		var size := body_radius * 2.4
+		var tint := Color(1, 1, 1, 1)
+		if flash_timer > 0.0:
+			tint = Color(1.6, 1.6, 1.6, 1)
+		draw_texture_rect(sprite_texture, Rect2(-size * 0.5, -size * 0.5, size, size), false, tint)
+	else:
+		if is_boss:
+			draw_circle(Vector2.ZERO, body_radius + 6.0, Color(fill.r, fill.g, fill.b, 0.25))
+		var points := PackedVector2Array()
+		var sides := 10
+		for i in sides:
+			var a := TAU * float(i) / float(sides)
+			points.append(Vector2(cos(a), sin(a) * 0.85) * body_radius)
+		draw_colored_polygon(points, fill)
 	# 血条
 	var bar_w := body_radius * 2.4
 	var bar_pos := Vector2(-bar_w * 0.5, -body_radius - 14.0)
