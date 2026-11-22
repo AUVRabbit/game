@@ -15,7 +15,8 @@ const DEFAULT_CLASS := {
 	"max_hp": 150, "max_mp": 50, "attack": 15, "defense": 12,
 	"magic_attack": 4, "magic_defense": 6, "move_speed": 180,
 	"attack_speed": 1.0, "crit_rate": 0.05, "crit_damage": 1.5, "dodge_rate": 0.02,
-	"skills": []
+	"skills": [],
+	"basic_attack": {"kind": "melee", "radius": 56, "cooldown": 0.42}
 }
 
 var class_id: String = "warrior"
@@ -43,6 +44,7 @@ var dodge_rate: float = 0.02
 var base_stats: Dictionary = {}
 var growth: Dictionary = {}
 var skills: Array = []
+var basic_attack: Dictionary = {}
 var equipment: Dictionary = {}
 var buffs: Array = []
 var punk_stats: Dictionary = {}
@@ -70,6 +72,10 @@ func initialize() -> void:
 		growth = DataManager.get_class_growth()
 	var raw_skills = def.get("skills", [])
 	skills = raw_skills.duplicate(true) if raw_skills is Array else []
+	var raw_basic = def.get("basic_attack", {})
+	basic_attack = raw_basic.duplicate(true) if raw_basic is Dictionary else {}
+	if basic_attack.is_empty():
+		basic_attack = DEFAULT_CLASS["basic_attack"].duplicate(true)
 	if SkillManager:
 		SkillManager.ensure_class(class_id)
 	_apply_specialization_name()
@@ -140,6 +146,12 @@ func _skill_bonus(stat_name: String) -> float:
 func refresh_skill_stats() -> void:
 	recompute()
 	stats_changed.emit()
+
+# 普攻配置：由职业数据驱动（melee / projectile / beam / lob）
+func get_basic_attack() -> Dictionary:
+	if basic_attack.is_empty():
+		return DEFAULT_CLASS["basic_attack"].duplicate(true)
+	return basic_attack
 
 func get_skill_power_multiplier(skill_id: String) -> float:
 	var mult := 1.0

@@ -14,6 +14,11 @@ var color: Color = Color(0.5, 0.8, 1.0)
 var elapsed: float = 0.0
 var icon_id: String = ""
 var sprite: Sprite2D = null
+var pierce: int = 0
+var splash_radius: float = 0.0
+var is_crit: bool = false
+var knockback: float = 0.0
+var hit_bodies: Array = []
 
 func _ready() -> void:
 	collision_layer = 0
@@ -53,15 +58,35 @@ func _physics_process(delta: float) -> void:
 		queue_free()
 
 func _on_body_entered(body: Node) -> void:
-	if body == source:
+	if body == source or hit_bodies.has(body):
 		return
-	if body.has_method("take_damage"):
-		var dealt: int = body.take_damage(damage, is_magic, source)
-		var level := get_parent()
-		if level:
-			DamageNumber.spawn(level, body.global_position + Vector2(0, -24), dealt, false)
-			SkillVfx.spawn_impact(level, body.global_position, "explosion", color)
+	if not body.has_method("take_damage"):
+		return
+	hit_bodies.append(body)
+	var dealt: int = body.take_damage(damage, is_magic, source)
+	var level := get_parent()
+	if level:
+		DamageNumber.spawn(level, body.global_position + Vector2(0, -24), dealt, is_crit)
+		SkillVfx.spawn_impact(level, body.global_position, "explosion", color)
+	if knockback > 0.0 and body is Node2D:
+		(body as Node2D).global_position += direction.normalized() * knockback
+	if splash_radius > 0.0:
+		_splash(level, body)
+	if pierce > 0:
+		pierce -= 1
+	else:
 		queue_free()
+
+func _splash(level: Node, primary: Node) -> void:
+	if level == null:
+		return
+	for e in level.get_tree().get_nodes_in_group("enemies"):
+		if not is_instance_valid(e) or e == primary or not (e is Node2D):
+			continue
+		if (e as Node2D).global_position.distance_to(global_position) > splash_radius:
+			continue
+		var dealt: int = e.take_damage(int(round(damage * 0.6)), is_magic, source)
+		DamageNumber.spawn(level, e.global_position + Vector2(0, -24), dealt, is_crit)
 
 func _draw() -> void:
 	if sprite:

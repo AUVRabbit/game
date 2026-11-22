@@ -17,6 +17,18 @@ func _check(label: String, condition: bool, detail: String = "") -> void:
 func _wait(seconds: float) -> void:
 	await get_tree().create_timer(seconds, true).timeout
 
+func _spawn_dummy(host: Node, packed: PackedScene, dist: float) -> Node:
+	var e = packed.instantiate()
+	e.enemy_name = "特色靶子"
+	e.max_hp = 9999
+	e.hp = 9999
+	e.attack = 0
+	e.move_speed = 0.0
+	e.detect_range = 0.0
+	host.get_parent().add_child(e)
+	e.global_position = host.global_position + Vector2(dist, 0)
+	return e
+
 func _run() -> void:
 	await _wait(0.2)
 
@@ -339,6 +351,80 @@ func _run() -> void:
 	await _wait(0.9)
 	var abyss = get_tree().current_scene
 	_check("进入深渊-1层", abyss != null and abyss.floor_num == -1, str(abyss.floor_num) if abyss else "null")
+
+	# ---------- 8. 职业攻击特色 ----------
+	var sniper_def: Dictionary = DataManager.get_class_data("sniper")
+	_check("狙击手普攻=超远射线", str(sniper_def.get("basic_attack", {}).get("kind", "")) == "beam",
+		str(sniper_def.get("basic_attack", {})))
+	var bomber_def: Dictionary = DataManager.get_class_data("bomber")
+	_check("炸弹专家普攻=抛掷", str(bomber_def.get("basic_attack", {}).get("kind", "")) == "lob")
+	var necro_def: Dictionary = DataManager.get_class_data("necromancer")
+	var has_summon := false
+	for s in necro_def.get("skills", []):
+		if str(s.get("type", "")) == "summon":
+			has_summon = true
+	_check("亡灵法师存在召唤技", has_summon)
+
+	var host: Node = GameManager.active_player
+	if is_instance_valid(host) and host.character_data != null:
+		var orig_class := str(host.character_data.class_id)
+		var dummy_packed: PackedScene = load("res://scenes/enemies/enemy.tscn")
+		for e in get_tree().get_nodes_in_group("enemies"):
+			if is_instance_valid(e):
+				e.free()
+		# 狙击手：460px 外普攻与技能均应命中
+		host.character_data.setup_class("sniper")
+		host.character_data.mp = host.character_data.get_max_mp()
+		host.facing = Vector2.RIGHT
+		var far = _spawn_dummy(host, dummy_packed, 460.0)
+		await _wait(0.15)
+		var far_hp: int = far.hp
+		host.attack_cooldown = 0.0
+		host.try_attack()
+		await _wait(0.25)
+		_check("狙击手超远普攻命中", far.hp < far_hp, "%d -> %d" % [far_hp, far.hp])
+		far_hp = far.hp
+		SkillExecutor.cast(host, host.character_data.skills[0])
+		await _wait(0.2)
+		_check("狙击技能超远命中", far.hp < far_hp, "%d -> %d" % [far_hp, far.hp])
+		if is_instance_valid(far):
+			far.free()
+		# 炸弹专家：部署炸药并引爆
+		host.character_data.setup_class("bomber")
+		host.character_data.mp = host.character_data.get_max_mp()
+		host.facing = Vector2.RIGHT
+		var near = _spawn_dummy(host, dummy_packed, 88.0)
+		await _wait(0.15)
+		var near_hp: int = near.hp
+		SkillExecutor.cast(host, host.character_data.skills[0])
+		await _wait(1.0)
+		_check("炸弹专家部署炸药并引爆", near.hp < near_hp, "%d -> %d" % [near_hp, near.hp])
+		if is_instance_valid(near):
+			near.free()
+		# 亡灵法师：召唤亡灵
+		for s in get_tree().get_nodes_in_group("summons"):
+			if is_instance_valid(s):
+				s.free()
+		host.character_data.setup_class("necromancer")
+		host.character_data.mp = host.character_data.get_max_mp()
+		SkillExecutor.cast(host, host.character_data.skills[1])
+		await _wait(0.25)
+		var summon_count: int = get_tree().get_nodes_in_group("summons").size()
+		_check("亡灵法师召唤亡灵", summon_count >= 1, str(summon_count))
+		# 工程师：部署炮塔
+		for d in get_tree().get_nodes_in_group("deployables"):
+			if is_instance_valid(d):
+				d.free()
+		host.character_data.setup_class("engineer")
+		host.character_data.mp = host.character_data.get_max_mp()
+		SkillExecutor.cast(host, host.character_data.skills[0])
+		await _wait(0.2)
+		var turrets := 0
+		for d in get_tree().get_nodes_in_group("deployables"):
+			if is_instance_valid(d) and str(d.mode) == "turret":
+				turrets += 1
+		_check("工程师部署炮塔", turrets >= 1, str(turrets))
+		host.character_data.setup_class(orig_class)
 
 	# ---------- 结束 ----------
 	print("SMOKE_RESULT failures=%d" % failures)

@@ -173,7 +173,10 @@ def check_tscn():
 
 # ---------------------------------------------------------------- 数据表
 SKILL_TYPES = ["melee_aoe", "projectile", "heal", "buff", "shield",
-               "chain", "aoe_zone", "dash_strike"]
+               "chain", "aoe_zone", "dash_strike",
+               "snipe", "deployable", "summon", "blink_strike",
+               "root_zone", "heal_zone", "mark", "stun_wave", "pull_zone"]
+BASIC_KINDS = ["melee", "projectile", "beam", "lob"]
 
 
 def asset_path(icon):
@@ -234,6 +237,18 @@ def check_data():
             p = asset_path(icon)
             if p and not os.path.isfile(p):
                 err("职业 %s 技能 %s 缺少图标素材：%s" % (cid, skill.get("id"), icon))
+        ba = cdef.get("basic_attack", {})
+        kind = str(ba.get("kind", ""))
+        if kind not in BASIC_KINDS:
+            err("职业 %s basic_attack.kind 非法：%s" % (cid, kind))
+        elif kind == "melee" and not ba.get("radius"):
+            err("职业 %s 近战普攻缺少 radius" % cid)
+        elif kind == "projectile" and (not ba.get("speed") or not ba.get("range")):
+            err("职业 %s 弹丸普攻缺少 speed/range" % cid)
+        elif kind == "beam" and (not ba.get("range") or not ba.get("width")):
+            err("职业 %s 射线普攻缺少 range/width" % cid)
+        elif kind == "lob" and (not ba.get("range") or not ba.get("radius")):
+            err("职业 %s 抛掷普攻缺少 range/radius" % cid)
         for key in ["source", "role", "source_name", "role_name", "identity"]:
             if not cdef.get(key):
                 err("职业 %s 缺少设计字段 %s" % (cid, key))

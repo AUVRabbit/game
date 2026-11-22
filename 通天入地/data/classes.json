@@ -43,17 +43,18 @@
         {
           "id": "frost_nova",
           "name": "冰霜新星",
-          "type": "melee_aoe",
+          "type": "root_zone",
           "cd": 6.0,
           "mp": 18,
           "power": 1.5,
           "radius": 110,
           "damage_type": "magic",
           "color": "#7ad6ff",
-          "desc": "以自身为中心炸开冰霜，冻结范围内的敌人。",
+          "desc": "以自身为心炸开冰霜，冻结范围内的敌人。",
           "icon": "skill_frost_nova",
           "vfx": "ice_shard",
-          "slot": 2
+          "slot": 2,
+          "root": 1.6
         },
         {
           "id": "arcane_shield",
@@ -90,19 +91,20 @@
         {
           "id": "absolute_zero",
           "name": "绝对零度",
-          "type": "melee_aoe",
+          "type": "root_zone",
           "cd": 10.0,
           "mp": 22,
           "power": 2.1,
-          "radius": 115,
+          "radius": 118,
           "damage_type": "magic",
           "color": "#8fd8ff",
-          "desc": "以自身为心的极寒爆裂，冻结近身之敌。",
+          "desc": "极寒爆裂，冻结并灼伤近身之敌。",
           "vfx": "ice_shard",
           "icon": "skill_absolute_zero",
           "slot": 5,
           "advanced": true,
-          "requires": "mage_mastery_1"
+          "requires": "mage_mastery_1",
+          "root": 2.2
         },
         {
           "id": "arcane_surge",
@@ -125,7 +127,16 @@
       "role": "assault",
       "source_name": "法术",
       "role_name": "破军",
-      "identity": "元素爆发：以太塑形，远距离高倍率法术是主要伤害来源。"
+      "identity": "元素爆发：以太塑形，远距离高倍率法术是主要伤害来源。",
+      "basic_attack": {
+        "kind": "projectile",
+        "speed": 460,
+        "range": 300,
+        "cooldown": 0.6,
+        "splash_radius": 34,
+        "magic": true,
+        "color": "#b28dff"
+      }
     },
     "runeward": {
       "id": "runeward",
@@ -160,17 +171,19 @@
         {
           "id": "rune_burst",
           "name": "符爆",
-          "type": "melee_aoe",
+          "type": "stun_wave",
           "cd": 5.0,
           "mp": 12,
           "power": 1.4,
           "radius": 86,
           "damage_type": "magic",
           "color": "#b6a8ff",
-          "desc": "引爆贴身符文，震退周围敌人。",
+          "desc": "引爆贴身符文，震退并定住周围敌人。",
           "vfx": "rune_glyph",
           "icon": "skill_rune_burst",
-          "slot": 2
+          "slot": 2,
+          "stun": 0.6,
+          "knockback": 60
         },
         {
           "id": "rune_aura",
@@ -206,7 +219,7 @@
         {
           "id": "rune_prison",
           "name": "符文禁锢",
-          "type": "aoe_zone",
+          "type": "root_zone",
           "cd": 11.0,
           "mp": 20,
           "power": 1.9,
@@ -214,12 +227,13 @@
           "delay": 0.4,
           "damage_type": "magic",
           "color": "#9a8cff",
-          "desc": "地面浮现符文，圈住并灼烧敌人。",
+          "desc": "地面浮出符文阵，禁锢圈内敌人。",
           "vfx": "rune_glyph",
           "icon": "skill_rune_prison",
           "slot": 5,
           "advanced": true,
-          "requires": "runeward_mastery_1"
+          "requires": "runeward_mastery_1",
+          "root": 2.0
         },
         {
           "id": "aegis_circle",
@@ -239,6 +253,14 @@
           "requires": "runeward_mastery_2"
         }
       ],
+      "basic_attack": {
+        "kind": "melee",
+        "radius": 60,
+        "cooldown": 0.46,
+        "knockback": 8,
+        "magic": true,
+        "color": "#b6a8ff"
+      },
       "source": "arcane",
       "role": "bulwark",
       "source_name": "法术",
@@ -307,34 +329,40 @@
         {
           "id": "sanctuary",
           "name": "圣愈光辉",
-          "type": "heal",
+          "type": "heal_zone",
           "cd": 14.0,
           "mp": 32,
           "power": 90,
           "color": "#ffe9a8",
-          "desc": "降下圣光，大量回复自身生命。",
+          "desc": "降下圣光领域，持续回复自身生命。",
           "vfx": "heal_spark",
           "icon": "skill_sanctuary",
           "slot": 4,
           "advanced": true,
-          "requires": "priest_mastery_0"
+          "requires": "priest_mastery_0",
+          "radius": 120,
+          "heal": 24,
+          "duration": 5.0,
+          "tick": 1.0
         },
         {
           "id": "judgement",
           "name": "审判之光",
-          "type": "melee_aoe",
+          "type": "stun_wave",
           "cd": 11.0,
           "mp": 24,
           "power": 2.0,
           "radius": 110,
           "damage_type": "magic",
           "color": "#ffd76a",
-          "desc": "圣光柱自天而降，审判周围罪业。",
+          "desc": "圣光柱自天而降，审判并定住周围罪业。",
           "vfx": "rune_glyph",
           "icon": "skill_judgement",
           "slot": 5,
           "advanced": true,
-          "requires": "priest_mastery_1"
+          "requires": "priest_mastery_1",
+          "stun": 0.8,
+          "knockback": 50
         },
         {
           "id": "holy_covenant",
@@ -358,7 +386,16 @@
       "role": "support",
       "source_name": "法术",
       "role_name": "辅弼",
-      "identity": "神圣庇佑：治疗、圣光爆发与团队祝福三位一体。"
+      "identity": "神圣庇佑：治疗、圣光爆发与团队祝福三位一体。",
+      "basic_attack": {
+        "kind": "projectile",
+        "speed": 430,
+        "range": 300,
+        "cooldown": 0.55,
+        "splash_radius": 30,
+        "magic": true,
+        "color": "#ffe9a8"
+      }
     },
     "necromancer": {
       "id": "necromancer",
@@ -386,15 +423,16 @@
           "speed": 400,
           "damage_type": "magic",
           "color": "#9bff6b",
-          "desc": "射出腐蚀能量，造成持续伤害。",
+          "desc": "射出腐蚀魂矢，穿透第一个敌人继续飞行。",
           "icon": "skill_corrupt_bolt",
           "vfx": "void_pulse",
-          "slot": 1
+          "slot": 1,
+          "pierce": 1
         },
         {
           "id": "grave_field",
           "name": "亡者领域",
-          "type": "aoe_zone",
+          "type": "summon",
           "cd": 9.0,
           "mp": 24,
           "power": 1.6,
@@ -402,23 +440,33 @@
           "delay": 0.6,
           "damage_type": "magic",
           "color": "#7b5ab0",
-          "desc": "召唤亡者领域，迟滞与侵蚀敌人。",
+          "desc": "从墓场唤出两只骷髅兵为你作战。",
           "icon": "skill_grave_field",
           "vfx": "rune_glyph",
-          "slot": 2
+          "slot": 2,
+          "count": 2,
+          "duration": 10.0,
+          "speed": 115,
+          "interval": 1.1,
+          "attack_range": 40,
+          "detect_range": 420
         },
         {
           "id": "drain",
           "name": "汲取",
-          "type": "heal",
+          "type": "snipe",
           "cd": 8.0,
           "mp": 14,
           "power": 30,
           "color": "#b48aff",
-          "desc": "吸取敌人生命回复自身。",
+          "desc": "射出噬魂射线，造成伤害并回复生命。",
           "icon": "skill_drain",
           "vfx": "void_pulse",
-          "slot": 3
+          "slot": 3,
+          "range": 300,
+          "width": 14,
+          "lifesteal": 0.35,
+          "damage_type": "magic"
         },
         {
           "id": "soul_barrage",
@@ -441,7 +489,7 @@
         {
           "id": "mass_grave",
           "name": "万尸之地",
-          "type": "aoe_zone",
+          "type": "summon",
           "cd": 15.0,
           "mp": 26,
           "power": 2.0,
@@ -449,12 +497,19 @@
           "delay": 0.6,
           "damage_type": "magic",
           "color": "#8a5cff",
-          "desc": "唤出墓地，尸骸从地下撕扯敌人。",
+          "desc": "万尸之地：召唤三只强化亡灵投入战场。",
           "vfx": "void_pulse",
           "icon": "skill_mass_grave",
           "slot": 5,
           "advanced": true,
-          "requires": "necromancer_mastery_1"
+          "requires": "necromancer_mastery_1",
+          "count": 3,
+          "duration": 14.0,
+          "speed": 130,
+          "interval": 1.0,
+          "attack_range": 44,
+          "detect_range": 460,
+          "scale": 1.1
         },
         {
           "id": "soul_feast",
@@ -476,7 +531,16 @@
       "role": "trickster",
       "source_name": "法术",
       "role_name": "诡道",
-      "identity": "生死操控：以腐蚀、墓场与噬魂维持长时间消耗战。"
+      "identity": "生死操控：以腐蚀、墓场与噬魂维持长时间消耗战。",
+      "basic_attack": {
+        "kind": "projectile",
+        "speed": 400,
+        "range": 320,
+        "cooldown": 0.55,
+        "pierce": 1,
+        "magic": true,
+        "color": "#a06bff"
+      }
     },
     "bomber": {
       "id": "bomber",
@@ -497,94 +561,114 @@
         {
           "id": "throw_bomb",
           "name": "投掷炸弹",
-          "type": "aoe_zone",
+          "type": "deployable",
           "cd": 3.0,
           "mp": 10,
           "power": 1.9,
-          "radius": 85,
+          "radius": 70,
           "delay": 0.45,
           "damage_type": "physical",
           "color": "#ff7b3a",
-          "desc": "投掷炸弹，落地爆炸。",
+          "desc": "抛出一枚定时炸弹，落地后引爆。",
           "icon": "skill_throw_bomb",
           "vfx": "explosion",
-          "slot": 1
+          "slot": 1,
+          "deploy": "bomb",
+          "count": 1,
+          "offset": 70,
+          "fuse": 0.6
         },
         {
           "id": "blast_zone",
           "name": "爆破领域",
-          "type": "aoe_zone",
+          "type": "deployable",
           "cd": 9.0,
           "mp": 20,
           "power": 1.5,
-          "radius": 120,
+          "radius": 64,
           "delay": 0.9,
           "damage_type": "magic",
           "color": "#ff5a2a",
-          "desc": "制造持续爆破的危险区域。",
+          "desc": "向前方排布两枚炸药。",
           "icon": "skill_blast_zone",
           "vfx": "explosion",
-          "slot": 2
+          "slot": 2,
+          "deploy": "bomb",
+          "count": 2,
+          "offset": 60,
+          "spread": 80,
+          "fuse": 0.7
         },
         {
           "id": "incendiary",
           "name": "燃烧弹",
-          "type": "melee_aoe",
+          "type": "root_zone",
           "cd": 6.0,
           "mp": 14,
           "power": 1.3,
-          "radius": 95,
+          "radius": 100,
           "damage_type": "magic",
           "color": "#ffb03a",
-          "desc": "燃烧弹引燃区域，持续灼烧。",
+          "desc": "倾泻燃烧弹，火海灼烧并迟滞近身之敌。",
           "icon": "skill_incendiary",
           "vfx": "fireball",
-          "slot": 3
+          "slot": 3,
+          "root": 2.0
         },
         {
           "id": "cluster_bomb",
           "name": "集束炸弹",
-          "type": "aoe_zone",
+          "type": "deployable",
           "cd": 9.0,
           "mp": 20,
           "power": 2.6,
-          "radius": 100,
+          "radius": 76,
           "delay": 0.4,
           "damage_type": "physical",
           "color": "#ffab4a",
-          "desc": "母弹分裂成多枚子弹，覆盖更密。",
+          "desc": "母弹分裂成三枚子弹炸药，覆盖更密。",
           "vfx": "explosion",
           "icon": "skill_cluster_bomb",
           "slot": 4,
           "advanced": true,
-          "requires": "bomber_mastery_0"
+          "requires": "bomber_mastery_0",
+          "deploy": "bomb",
+          "count": 3,
+          "offset": 60,
+          "spread": 100,
+          "fuse": 0.5
         },
         {
           "id": "chain_blast",
           "name": "连环爆破",
-          "type": "aoe_zone",
+          "type": "deployable",
           "cd": 14.0,
           "mp": 26,
           "power": 2.2,
-          "radius": 130,
+          "radius": 82,
           "delay": 0.6,
           "damage_type": "physical",
           "color": "#ff8f3a",
-          "desc": "预埋炸药连锁起爆，范围最大。",
+          "desc": "预埋四枚炸药连锁起爆，范围最大。",
           "vfx": "explosion",
           "icon": "skill_chain_blast",
           "slot": 5,
           "advanced": true,
-          "requires": "bomber_mastery_1"
+          "requires": "bomber_mastery_1",
+          "deploy": "bomb",
+          "count": 4,
+          "offset": 50,
+          "spread": 150,
+          "fuse": 0.6
         },
         {
           "id": "fire_barrage",
           "name": "燃烧弹幕",
-          "type": "melee_aoe",
+          "type": "root_zone",
           "cd": 9.0,
           "mp": 18,
           "power": 1.9,
-          "radius": 110,
+          "radius": 120,
           "damage_type": "magic",
           "color": "#ff6a3a",
           "desc": "倾泻燃烧弹，近身区域化为火海。",
@@ -592,14 +676,23 @@
           "icon": "skill_fire_barrage",
           "slot": 6,
           "advanced": true,
-          "requires": "bomber_mastery_2"
+          "requires": "bomber_mastery_2",
+          "root": 2.5
         }
       ],
       "source": "mech",
       "role": "assault",
       "source_name": "机械",
       "role_name": "破军",
-      "identity": "爆破工程：用火药与燃烧覆盖战场，追求范围清场。"
+      "identity": "爆破工程：用火药与燃烧覆盖战场，追求范围清场。",
+      "basic_attack": {
+        "kind": "lob",
+        "range": 250,
+        "radius": 66,
+        "fuse": 0.55,
+        "cooldown": 0.75,
+        "color": "#ffab4a"
+      }
     },
     "mech_pilot": {
       "id": "mech_pilot",
@@ -627,10 +720,11 @@
           "speed": 360,
           "damage_type": "physical",
           "color": "#ffcf6a",
-          "desc": "重炮轰击，造成巨额范围伤害。",
+          "desc": "机甲主炮轰击，命中后小范围爆裂。",
           "icon": "skill_cannon",
           "vfx": "explosion",
-          "slot": 1
+          "slot": 1,
+          "splash_radius": 40
         },
         {
           "id": "armor_up",
@@ -664,19 +758,21 @@
         {
           "id": "rail_cannon",
           "name": "轨道炮",
-          "type": "projectile",
+          "type": "snipe",
           "cd": 9.0,
           "mp": 18,
           "power": 2.6,
           "speed": 520,
           "damage_type": "physical",
           "color": "#ffc06a",
-          "desc": "机甲主炮蓄能发射，穿透整条直线。",
+          "desc": "机甲主炮蓄能发射，贯穿整条直线。",
           "vfx": "explosion",
           "icon": "skill_rail_cannon",
           "slot": 4,
           "advanced": true,
-          "requires": "mech_pilot_mastery_0"
+          "requires": "mech_pilot_mastery_0",
+          "range": 640,
+          "width": 12
         },
         {
           "id": "composite_armor",
@@ -716,7 +812,15 @@
       "role": "bulwark",
       "source_name": "机械",
       "role_name": "铁壁",
-      "identity": "重装要塞：机甲护甲与力场保证持续站桩输出。"
+      "identity": "重装要塞：机甲护甲与力场保证持续站桩输出。",
+      "basic_attack": {
+        "kind": "projectile",
+        "speed": 500,
+        "range": 360,
+        "cooldown": 0.65,
+        "splash_radius": 38,
+        "color": "#ffc06a"
+      }
     },
     "engineer": {
       "id": "engineer",
@@ -737,7 +841,7 @@
         {
           "id": "turret",
           "name": "炮塔部署",
-          "type": "aoe_zone",
+          "type": "deployable",
           "cd": 7.0,
           "mp": 16,
           "power": 1.6,
@@ -745,10 +849,15 @@
           "delay": 0.8,
           "damage_type": "physical",
           "color": "#ffc768",
-          "desc": "架起自动炮塔，短时间内扫射区域。",
+          "desc": "架起自动炮塔，持续扫射附近敌人。",
           "vfx": "explosion",
           "icon": "skill_turret",
-          "slot": 1
+          "slot": 1,
+          "deploy": "turret",
+          "count": 1,
+          "offset": 40,
+          "duration": 10.0,
+          "interval": 0.8
         },
         {
           "id": "repair",
@@ -781,7 +890,7 @@
         {
           "id": "heavy_turret",
           "name": "重型炮塔",
-          "type": "aoe_zone",
+          "type": "deployable",
           "cd": 11.0,
           "mp": 24,
           "power": 2.2,
@@ -794,7 +903,12 @@
           "icon": "skill_heavy_turret",
           "slot": 4,
           "advanced": true,
-          "requires": "engineer_mastery_0"
+          "requires": "engineer_mastery_0",
+          "deploy": "turret",
+          "count": 1,
+          "offset": 40,
+          "duration": 14.0,
+          "interval": 0.6
         },
         {
           "id": "field_repair",
@@ -829,6 +943,13 @@
           "requires": "engineer_mastery_2"
         }
       ],
+      "basic_attack": {
+        "kind": "projectile",
+        "speed": 520,
+        "range": 340,
+        "cooldown": 0.55,
+        "color": "#ffd88f"
+      },
       "source": "mech",
       "role": "support",
       "source_name": "机械",
@@ -870,17 +991,19 @@
         {
           "id": "mark",
           "name": "追踪标记",
-          "type": "buff",
+          "type": "mark",
           "cd": 12.0,
           "mp": 8,
           "stat": "attack",
           "value": 10,
-          "duration": 7.0,
+          "duration": 8.0,
           "color": "#ff6aa8",
-          "desc": "标记猎物，被标记目标承受额外伤害。",
+          "desc": "标记最近的猎物，使其受到的伤害提升。",
           "icon": "skill_mark",
           "vfx": "rune_glyph",
-          "slot": 2
+          "slot": 2,
+          "radius": 340,
+          "amp": 0.25
         },
         {
           "id": "disarm",
@@ -918,43 +1041,56 @@
         {
           "id": "death_mark",
           "name": "死神标记",
-          "type": "buff",
+          "type": "mark",
           "cd": 16.0,
           "mp": 14,
           "stat": "attack",
           "value": 16,
-          "duration": 9.0,
+          "duration": 10.0,
           "color": "#ffb45a",
-          "desc": "标记猎物，攻击大幅提升。",
+          "desc": "锁定猎物，易伤大幅提升。",
           "vfx": "rune_glyph",
           "icon": "skill_death_mark",
           "slot": 5,
           "advanced": true,
-          "requires": "bounty_hunter_mastery_1"
+          "requires": "bounty_hunter_mastery_1",
+          "radius": 420,
+          "amp": 0.35
         },
         {
           "id": "wrist_shot",
           "name": "断腕射击",
-          "type": "melee_aoe",
+          "type": "stun_wave",
           "cd": 8.0,
           "mp": 16,
           "power": 2.2,
           "radius": 85,
           "damage_type": "physical",
           "color": "#ffcf7a",
-          "desc": "贴脸轰击，打断敌人动作。",
+          "desc": "贴脸轰击，震退并打断敌人动作。",
           "vfx": "melee_slash",
           "icon": "skill_wrist_shot",
           "slot": 6,
           "advanced": true,
-          "requires": "bounty_hunter_mastery_2"
+          "requires": "bounty_hunter_mastery_2",
+          "stun": 0.6,
+          "knockback": 70
         }
       ],
       "source": "mech",
       "role": "trickster",
       "source_name": "机械",
       "role_name": "诡道",
-      "identity": "猎杀契约：标记目标后以速射与缴械压制。"
+      "identity": "猎杀契约：标记目标后以速射与缴械压制。",
+      "basic_attack": {
+        "kind": "projectile",
+        "speed": 620,
+        "range": 340,
+        "cooldown": 0.58,
+        "pellets": 2,
+        "spread": 0.06,
+        "color": "#ffd76a"
+      }
     },
     "death_knight": {
       "id": "death_knight",
@@ -1038,19 +1174,22 @@
         {
           "id": "blood_fury",
           "name": "血怒斩",
-          "type": "melee_aoe",
+          "type": "snipe",
           "cd": 8.0,
           "mp": 18,
           "power": 2.4,
           "radius": 95,
           "damage_type": "physical",
           "color": "#e05070",
-          "desc": "以血饲刃，斩出环绕自身的血色刀光。",
+          "desc": "斩出穿透血刃，造成伤害并回复自身生命。",
           "vfx": "melee_slash",
           "icon": "skill_blood_fury",
           "slot": 5,
           "advanced": true,
-          "requires": "death_knight_mastery_1"
+          "requires": "death_knight_mastery_1",
+          "range": 260,
+          "width": 22,
+          "lifesteal": 0.4
         },
         {
           "id": "shadow_bulwark",
@@ -1073,7 +1212,14 @@
       "role": "assault",
       "source_name": "传武",
       "role_name": "破军",
-      "identity": "血怒冲锋：以自身生命为代价换取突进与范围斩击。"
+      "identity": "血怒冲锋：以自身生命为代价换取突进与范围斩击。",
+      "basic_attack": {
+        "kind": "melee",
+        "radius": 66,
+        "cooldown": 0.5,
+        "knockback": 4,
+        "color": "#e05070"
+      }
     },
     "warrior": {
       "id": "warrior",
@@ -1138,19 +1284,21 @@
         {
           "id": "earth_shatter",
           "name": "裂地斩",
-          "type": "melee_aoe",
+          "type": "stun_wave",
           "cd": 9.0,
           "mp": 18,
           "power": 2.3,
-          "radius": 105,
+          "radius": 110,
           "damage_type": "physical",
           "color": "#ff7b4a",
-          "desc": "纵身劈地，裂痕向四周扩散并击退敌人。",
+          "desc": "纵身劈地，裂痕向四周扩散并震晕敌人。",
           "vfx": "melee_slash",
           "icon": "skill_earth_shatter",
           "slot": 4,
           "advanced": true,
-          "requires": "warrior_mastery_0"
+          "requires": "warrior_mastery_0",
+          "stun": 0.6,
+          "knockback": 90
         },
         {
           "id": "unyielding_will",
@@ -1190,7 +1338,14 @@
       "role": "bulwark",
       "source_name": "传武",
       "role_name": "铁壁",
-      "identity": "铁壁反击：以高护甲与盾墙承伤，靠战吼把防御转成输出窗口。"
+      "identity": "铁壁反击：以高护甲与盾墙承伤，靠战吼把防御转成输出窗口。",
+      "basic_attack": {
+        "kind": "melee",
+        "radius": 62,
+        "cooldown": 0.45,
+        "knockback": 6,
+        "color": "#ff8a5a"
+      }
     },
     "qi_adept": {
       "id": "qi_adept",
@@ -1254,34 +1409,40 @@
         {
           "id": "qi_burst",
           "name": "罡气爆",
-          "type": "melee_aoe",
+          "type": "stun_wave",
           "cd": 7.0,
           "mp": 16,
           "power": 2.2,
-          "radius": 96,
+          "radius": 100,
           "damage_type": "physical",
           "color": "#7fffd0",
-          "desc": "罡气外放成环，震碎近身之敌。",
+          "desc": "罡气外放成环，震退并定住近身之敌。",
           "vfx": "explosion",
           "icon": "skill_qi_burst",
           "slot": 4,
           "advanced": true,
-          "requires": "qi_adept_mastery_0"
+          "requires": "qi_adept_mastery_0",
+          "stun": 0.5,
+          "knockback": 80
         },
         {
           "id": "qi_renew",
           "name": "生生不息",
-          "type": "heal",
+          "type": "heal_zone",
           "cd": 12.0,
           "mp": 30,
           "power": 80,
           "color": "#a0ffe0",
-          "desc": "气海周天运转，回复大量生命。",
+          "desc": "气海成域，在领域内持续回复生命。",
           "vfx": "heal_spark",
           "icon": "skill_qi_renew",
           "slot": 5,
           "advanced": true,
-          "requires": "qi_adept_mastery_1"
+          "requires": "qi_adept_mastery_1",
+          "radius": 120,
+          "heal": 22,
+          "duration": 5.0,
+          "tick": 1.0
         },
         {
           "id": "qi_guard",
@@ -1300,6 +1461,13 @@
           "requires": "qi_adept_mastery_2"
         }
       ],
+      "basic_attack": {
+        "kind": "melee",
+        "radius": 72,
+        "cooldown": 0.42,
+        "knockback": 12,
+        "color": "#7ff0c0"
+      },
       "source": "martial",
       "role": "support",
       "source_name": "传武",
@@ -1325,17 +1493,18 @@
         {
           "id": "backstab",
           "name": "背刺",
-          "type": "melee_aoe",
+          "type": "blink_strike",
           "cd": 2.4,
           "mp": 6,
           "power": 2.0,
-          "radius": 50,
+          "radius": 60,
           "damage_type": "physical",
           "color": "#7bffd6",
-          "desc": "自背后突袭，造成极高暴击伤害。",
+          "desc": "闪现至最近敌人身后，刺出致命一击。",
           "icon": "skill_backstab",
           "vfx": "melee_slash",
-          "slot": 1
+          "slot": 1,
+          "range": 150
         },
         {
           "id": "smoke_bomb",
@@ -1370,7 +1539,7 @@
         {
           "id": "lethal_backstab",
           "name": "致命背刺",
-          "type": "melee_aoe",
+          "type": "blink_strike",
           "cd": 6.0,
           "mp": 14,
           "power": 2.8,
@@ -1382,7 +1551,8 @@
           "icon": "skill_lethal_backstab",
           "slot": 4,
           "advanced": true,
-          "requires": "thief_mastery_0"
+          "requires": "thief_mastery_0",
+          "range": 190
         },
         {
           "id": "veil_step",
@@ -1423,7 +1593,14 @@
       "role": "trickster",
       "source_name": "传武",
       "role_name": "诡道",
-      "identity": "影袭毒刃：依赖背刺与烟幕在高风险窗口内爆发。"
+      "identity": "影袭毒刃：依赖背刺与烟幕在高风险窗口内爆发。",
+      "basic_attack": {
+        "kind": "melee",
+        "radius": 52,
+        "cooldown": 0.3,
+        "knockback": 0,
+        "color": "#ff6a8a"
+      }
     },
     "archer": {
       "id": "archer",
@@ -1448,13 +1625,15 @@
           "cd": 2.0,
           "mp": 6,
           "power": 1.6,
-          "speed": 520,
+          "speed": 620,
           "damage_type": "physical",
           "color": "#9dff8a",
-          "desc": "贯穿箭矢，无视路径上的首个敌人。",
+          "desc": "蓄力贯射，箭矢可穿透多个敌人。",
           "icon": "skill_piercing_shot",
           "vfx": "arrow",
-          "slot": 1
+          "slot": 1,
+          "pierce": 2,
+          "range": 380
         },
         {
           "id": "arrow_rain",
@@ -1494,15 +1673,17 @@
           "cd": 6.0,
           "mp": 12,
           "power": 2.5,
-          "speed": 620,
+          "speed": 680,
           "damage_type": "physical",
           "color": "#9dff8a",
-          "desc": "淬钢箭矢高速贯穿，专破重甲。",
+          "desc": "破甲贯射，贯穿整条直线。",
           "vfx": "arrow",
           "icon": "skill_armor_pierce",
           "slot": 4,
           "advanced": true,
-          "requires": "archer_mastery_0"
+          "requires": "archer_mastery_0",
+          "pierce": 3,
+          "range": 420
         },
         {
           "id": "arrow_storm",
@@ -1544,7 +1725,15 @@
       "role": "assault",
       "source_name": "科技",
       "role_name": "破军",
-      "identity": "精确投射：复合弓与瞄准镜把暴击转化为稳定输出。"
+      "identity": "精确投射：复合弓与瞄准镜把暴击转化为稳定输出。",
+      "basic_attack": {
+        "kind": "projectile",
+        "speed": 680,
+        "range": 400,
+        "cooldown": 0.5,
+        "pierce": 1,
+        "color": "#9dff8a"
+      }
     },
     "cyborg": {
       "id": "cyborg",
@@ -1610,19 +1799,21 @@
         {
           "id": "seismic_slam",
           "name": "震荡践踏",
-          "type": "melee_aoe",
+          "type": "stun_wave",
           "cd": 9.0,
           "mp": 18,
           "power": 2.5,
-          "radius": 105,
+          "radius": 110,
           "damage_type": "physical",
           "color": "#6fd8f0",
-          "desc": "义体重踏地面，冲击波四散。",
+          "desc": "义体重踏地面，冲击波震晕周围敌人。",
           "vfx": "explosion",
           "icon": "skill_seismic_slam",
           "slot": 4,
           "advanced": true,
-          "requires": "cyborg_mastery_0"
+          "requires": "cyborg_mastery_0",
+          "stun": 0.7,
+          "knockback": 100
         },
         {
           "id": "aegis_protocol",
@@ -1659,6 +1850,13 @@
           "requires": "cyborg_mastery_2"
         }
       ],
+      "basic_attack": {
+        "kind": "melee",
+        "radius": 64,
+        "cooldown": 0.5,
+        "knockback": 10,
+        "color": "#7fdcf0"
+      },
       "source": "tech",
       "role": "bulwark",
       "source_name": "科技",
@@ -1700,17 +1898,19 @@
         {
           "id": "emp_pulse",
           "name": "EMP 脉冲",
-          "type": "melee_aoe",
+          "type": "stun_wave",
           "cd": 7.0,
           "mp": 18,
           "power": 1.4,
-          "radius": 115,
+          "radius": 120,
           "damage_type": "magic",
           "color": "#4ad6ff",
-          "desc": "释放电磁脉冲，瘫痪周围敌人。",
+          "desc": "释放电磁脉冲，瘫痪并震退周围敌人。",
           "icon": "skill_emp_pulse",
           "vfx": "lightning",
-          "slot": 2
+          "slot": 2,
+          "stun": 0.7,
+          "knockback": 40
         },
         {
           "id": "overclock",
@@ -1748,19 +1948,21 @@
         {
           "id": "blackout",
           "name": "全域断电",
-          "type": "melee_aoe",
+          "type": "stun_wave",
           "cd": 12.0,
           "mp": 22,
           "power": 1.9,
-          "radius": 120,
+          "radius": 130,
           "damage_type": "magic",
           "color": "#7ae8ff",
-          "desc": "切断范围供能，电磁脉冲横扫敌群。",
+          "desc": "全域断电：范围瘫痪敌人。",
           "vfx": "lightning",
           "icon": "skill_blackout",
           "slot": 5,
           "advanced": true,
-          "requires": "hacker_mastery_1"
+          "requires": "hacker_mastery_1",
+          "stun": 1.2,
+          "knockback": 30
         },
         {
           "id": "overdrive_protocol",
@@ -1784,7 +1986,15 @@
       "role": "support",
       "source_name": "科技",
       "role_name": "辅弼",
-      "identity": "网络入侵：病毒、断电与超频改写敌我攻防节奏。"
+      "identity": "网络入侵：病毒、断电与超频改写敌我攻防节奏。",
+      "basic_attack": {
+        "kind": "beam",
+        "range": 430,
+        "width": 12,
+        "cooldown": 0.6,
+        "magic": true,
+        "color": "#5affd8"
+      }
     },
     "sniper": {
       "id": "sniper",
@@ -1805,33 +2015,39 @@
         {
           "id": "snipe",
           "name": "狙击",
-          "type": "projectile",
+          "type": "snipe",
           "cd": 4.0,
           "mp": 8,
           "power": 2.4,
           "speed": 900,
           "damage_type": "physical",
           "color": "#ffe28a",
-          "desc": "远距精准射击，暴击伤害极高。",
+          "desc": "架枪蓄力，沿直线贯穿超远距离的敌人。",
           "icon": "skill_snipe",
           "vfx": "arrow",
-          "slot": 1
+          "slot": 1,
+          "range": 620,
+          "width": 10
         },
         {
           "id": "trap",
           "name": "陷阱",
-          "type": "aoe_zone",
+          "type": "deployable",
           "cd": 8.0,
           "mp": 12,
           "power": 1.8,
-          "radius": 70,
+          "radius": 78,
           "delay": 0.8,
           "damage_type": "physical",
           "color": "#a8c86a",
-          "desc": "布设陷阱，触发时造成范围伤害。",
+          "desc": "在脚下布设感应地雷，敌人靠近即引爆。",
           "icon": "skill_trap",
           "vfx": "explosion",
-          "slot": 2
+          "slot": 2,
+          "deploy": "mine",
+          "count": 1,
+          "offset": 60,
+          "duration": 18.0
         },
         {
           "id": "focus",
@@ -1851,37 +2067,44 @@
         {
           "id": "reaper_eye",
           "name": "死神之眼",
-          "type": "projectile",
+          "type": "snipe",
           "cd": 9.0,
           "mp": 18,
           "power": 3.2,
           "speed": 900,
           "damage_type": "physical",
           "color": "#ff9a5a",
-          "desc": "超远距离单发，命中即重创。",
+          "desc": "超远距离锁魂一枪，贯穿路径上所有敌人。",
           "vfx": "arrow",
           "icon": "skill_reaper_eye",
           "slot": 4,
           "advanced": true,
-          "requires": "sniper_mastery_0"
+          "requires": "sniper_mastery_0",
+          "range": 720,
+          "width": 14
         },
         {
           "id": "blast_trap",
           "name": "爆裂陷阱",
-          "type": "aoe_zone",
+          "type": "deployable",
           "cd": 12.0,
           "mp": 18,
           "power": 2.4,
-          "radius": 95,
+          "radius": 90,
           "delay": 0.4,
           "damage_type": "physical",
           "color": "#ffb45a",
-          "desc": "布下高爆陷阱，踏入即引爆。",
+          "desc": "一次布下两枚高爆地雷。",
           "vfx": "explosion",
           "icon": "skill_blast_trap",
           "slot": 5,
           "advanced": true,
-          "requires": "sniper_mastery_1"
+          "requires": "sniper_mastery_1",
+          "deploy": "mine",
+          "count": 2,
+          "offset": 50,
+          "spread": 60,
+          "duration": 16.0
         },
         {
           "id": "steady_aim",
@@ -1905,7 +2128,14 @@
       "role": "trickster",
       "source_name": "科技",
       "role_name": "诡道",
-      "identity": "潜行狙击：陷阱布场后以超远单发点杀关键目标。"
+      "identity": "潜行狙击：陷阱布场后以超远单发点杀关键目标。",
+      "basic_attack": {
+        "kind": "beam",
+        "range": 640,
+        "width": 9,
+        "cooldown": 0.95,
+        "color": "#ff9a5a"
+      }
     }
   }
 }

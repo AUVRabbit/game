@@ -36,6 +36,11 @@ var patrol_timer: float = 0.0
 var spawn_point: Vector2 = Vector2.ZERO
 var last_attacker: Node = null
 var flash_timer: float = 0.0
+var stun_left: float = 0.0
+var slow_left: float = 0.0
+var slow_factor: float = 1.0
+var mark_left: float = 0.0
+var mark_amp: float = 0.0
 
 func _ready() -> void:
 	add_to_group("enemies")
@@ -96,7 +101,21 @@ func _physics_process(delta: float) -> void:
 		attack_timer = maxf(0.0, attack_timer - delta)
 	if flash_timer > 0.0:
 		flash_timer = maxf(0.0, flash_timer - delta)
+	if stun_left > 0.0:
+		stun_left = maxf(0.0, stun_left - delta)
+	if slow_left > 0.0:
+		slow_left = maxf(0.0, slow_left - delta)
+	else:
+		slow_factor = 1.0
+	if mark_left > 0.0:
+		mark_left = maxf(0.0, mark_left - delta)
+	else:
+		mark_amp = 0.0
+	if flash_timer > 0.0 or stun_left > 0.0 or mark_left > 0.0:
 		queue_redraw()
+	if stun_left > 0.0:
+		velocity = Vector2.ZERO
+		return
 
 	var player := _find_player()
 	if player == null:
@@ -109,7 +128,7 @@ func _physics_process(delta: float) -> void:
 		_try_attack(player)
 	elif dist <= detect_range:
 		state = State.CHASE
-		velocity = (player.global_position - global_position).normalized() * move_speed
+		velocity = (player.global_position - global_position).normalized() * move_speed * slow_factor
 		move_and_slide()
 	else:
 		_do_patrol(delta)
@@ -131,7 +150,7 @@ func _do_patrol(delta: float) -> void:
 		patrol_target = spawn_point + Vector2(cos(angle), sin(angle)) * randf_range(28.0, 80.0)
 	var to_target := patrol_target - global_position
 	if to_target.length() > 6.0:
-		velocity = to_target.normalized() * move_speed * 0.45
+		velocity = to_target.normalized() * move_speed * 0.45 * slow_factor
 		move_and_slide()
 	else:
 		velocity = Vector2.ZERO
@@ -158,12 +177,28 @@ func take_damage(amount: int, is_magic: bool = false, source: Node = null) -> in
 		last_attacker = source
 	var def := magic_defense if is_magic else defense
 	var dealt := maxi(1, amount - def)
+	if mark_left > 0.0 and mark_amp > 0.0:
+		dealt = int(round(float(dealt) * (1.0 + mark_amp)))
 	hp = maxi(0, hp - dealt)
 	flash_timer = 0.12
 	queue_redraw()
 	if hp <= 0:
 		_die()
 	return dealt
+
+func apply_stun(duration: float) -> void:
+	stun_left = maxf(stun_left, duration)
+	queue_redraw()
+
+func apply_slow(factor: float, duration: float) -> void:
+	slow_factor = minf(slow_factor, clampf(factor, 0.1, 1.0))
+	slow_left = maxf(slow_left, duration)
+	queue_redraw()
+
+func apply_mark(duration: float, amp: float) -> void:
+	mark_amp = maxf(mark_amp, amp)
+	mark_left = maxf(mark_left, duration)
+	queue_redraw()
 
 func _die() -> void:
 	state = State.DEAD
@@ -226,6 +261,11 @@ func _draw() -> void:
 			var a := TAU * float(i) / float(sides)
 			points.append(Vector2(cos(a), sin(a) * 0.85) * body_radius)
 		draw_colored_polygon(points, fill)
+	# 状态指示：眩晕（黄环）/ 标记（红环）
+	if stun_left > 0.0:
+		draw_arc(Vector2.ZERO, body_radius + 9.0, 0.0, TAU, 22, Color(1.0, 0.85, 0.3, 0.9), 2.0)
+	if mark_left > 0.0:
+		draw_arc(Vector2.ZERO, body_radius + 5.0, 0.0, TAU, 22, Color(1.0, 0.3, 0.35, 0.95), 2.5)
 	# 血条
 	var bar_w := body_radius * 2.4
 	var bar_pos := Vector2(-bar_w * 0.5, -body_radius - 14.0)

@@ -179,8 +179,27 @@ func _unhandled_input(event: InputEvent) -> void:
 func try_attack() -> void:
 	if attack_cooldown > 0.0:
 		return
-	attack_cooldown = 0.42 / maxf(0.3, character_data.attack_speed)
+	var profile: Dictionary = character_data.get_basic_attack()
+	var kind := str(profile.get("kind", "melee"))
+	attack_cooldown = float(profile.get("cooldown", 0.42)) / maxf(0.3, character_data.get_attack_speed())
 	state = State.ATTACK
+	var is_magic := bool(profile.get("magic", false))
+	var base_stat: int = character_data.get_magic_attack() if is_magic else character_data.get_attack()
+	var damage: int = base_stat + randi_range(-2, 3)
+	var is_crit: bool = randf() < character_data.get_crit_rate()
+	if is_crit:
+		damage = int(round(damage * character_data.crit_damage))
+	# 远程/射线/抛掷类普攻交给技能执行器，近战保留贴身判定
+	if kind != "melee":
+		SkillExecutor.cast_basic(self, profile, damage, is_crit)
+		AudioManager.play_sfx("skill")
+		EventBus.attack_performed.emit(self, null)
+		await get_tree().create_timer(0.15).timeout
+		if state == State.ATTACK:
+			state = State.IDLE
+		return
+	var radius := float(profile.get("radius", ATTACK_RADIUS))
+	var knockback := float(profile.get("knockback", 0.0))
 	var origin := global_position
 	if attack_point:
 		origin = attack_point.global_position
@@ -188,22 +207,24 @@ func try_attack() -> void:
 	for enemy in get_tree().get_nodes_in_group("enemies"):
 		if not is_instance_valid(enemy) or not enemy.has_method("take_damage"):
 			continue
-		if origin.distance_to(enemy.global_position) > ATTACK_RADIUS:
+		if origin.distance_to(enemy.global_position) > radius:
 			continue
-		var damage: int = character_data.get_attack() + randi_range(-2, 3)
-		var is_crit: bool = randf() < character_data.get_crit_rate()
-		if is_crit:
-			damage = int(round(damage * character_data.crit_damage))
-		var dealt: int = enemy.take_damage(damage, false, self)
+		var dealt: int = enemy.take_damage(damage, is_magic, self)
 		DamageNumber.spawn(get_parent(), enemy.global_position + Vector2(0, -26), dealt, is_crit)
 		EventBus.attack_performed.emit(self, enemy)
+		if knockback > 0.0 and enemy is Node2D:
+			var push: Vector2 = (enemy.global_position - global_position).normalized()
+			if push.length() < 0.01:
+				push = facing
+			enemy.global_position += push * knockback
 		hit_any = true
 		var lifesteal: float = character_data.get_lifesteal()
 		if lifesteal > 0.0 and dealt > 0:
 			character_data.heal(int(round(float(dealt) * lifesteal)))
 	if hit_any:
 		AudioManager.play_sfx("hit")
-	EffectRing.spawn(get_parent(), origin, ATTACK_RADIUS, Color(1.0, 0.85, 0.4, 0.9))
+	var ring_color := Color.from_string(str(profile.get("color", "#ffd966")), Color(1.0, 0.85, 0.4, 0.9))
+	EffectRing.spawn(get_parent(), origin, radius, ring_color)
 	EventBus.attack_performed.emit(self, null)
 	await get_tree().create_timer(0.2).timeout
 	if state == State.ATTACK:

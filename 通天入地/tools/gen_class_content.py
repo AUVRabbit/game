@@ -65,6 +65,13 @@ MATRIX = {
 # 取包络 (160, 265) 作为 16 职业的共同预算带；新增职业必须落在带内。
 # 公式对生命/法力/双攻/双防/移速/暴击/闪避/攻速/暴伤加权，权重见下。
 POWER_BAND = (160.0, 265.0)
+# 技能原语白名单：与 scripts/combat/skill_executor.gd 的 cast() 分支一一对应
+SKILL_TYPES = {
+    "melee_aoe", "projectile", "heal", "buff", "shield", "chain", "aoe_zone",
+    "dash_strike", "snipe", "deployable", "summon", "blink_strike",
+    "root_zone", "heal_zone", "mark", "stun_wave", "pull_zone",
+}
+BASIC_KINDS = {"melee", "projectile", "beam", "lob"}
 ROLE_HP_MIN = {"assault": 75, "bulwark": 130, "support": 70, "trickster": 78}
 # 源流 -> 主属性取向：arcane 看魔法攻击，其余看物理攻击
 SOURCE_OFFENSE = {
@@ -436,6 +443,161 @@ EXTRA_SPEC_BY_CLASS = {
     ],
 }
 
+# ------------------------------------------------------------------ 普攻差异化（每职业一套 basic_attack）
+# kind: melee 近战 / projectile 弹丸 / beam 超远射线 / lob 抛掷
+# 近战普攻支持 radius、knockback；远程普攻支持 speed、range、pellets、spread、
+# pierce、splash_radius、fuse（lob 用）。所有字段由 PlayerController 读取。
+BASIC_ATTACK = {
+    "warrior": {"kind": "melee", "radius": 62, "cooldown": 0.45, "knockback": 6, "color": "#ff8a5a"},
+    "death_knight": {"kind": "melee", "radius": 66, "cooldown": 0.50, "knockback": 4, "color": "#e05070"},
+    "qi_adept": {"kind": "melee", "radius": 72, "cooldown": 0.42, "knockback": 12, "color": "#7ff0c0"},
+    "thief": {"kind": "melee", "radius": 52, "cooldown": 0.30, "knockback": 0, "color": "#ff6a8a"},
+    "cyborg": {"kind": "melee", "radius": 64, "cooldown": 0.50, "knockback": 10, "color": "#7fdcf0"},
+    "runeward": {"kind": "melee", "radius": 60, "cooldown": 0.46, "knockback": 8, "magic": True, "color": "#b6a8ff"},
+    "mage": {"kind": "projectile", "speed": 460, "range": 300, "cooldown": 0.60,
+             "splash_radius": 34, "magic": True, "color": "#b28dff"},
+    "priest": {"kind": "projectile", "speed": 430, "range": 300, "cooldown": 0.55,
+               "splash_radius": 30, "magic": True, "color": "#ffe9a8"},
+    "necromancer": {"kind": "projectile", "speed": 400, "range": 320, "cooldown": 0.55,
+                    "pierce": 1, "magic": True, "color": "#a06bff"},
+    "bomber": {"kind": "lob", "range": 250, "radius": 66, "fuse": 0.55, "cooldown": 0.75, "color": "#ffab4a"},
+    "mech_pilot": {"kind": "projectile", "speed": 500, "range": 360, "cooldown": 0.65,
+                   "splash_radius": 38, "color": "#ffc06a"},
+    "engineer": {"kind": "projectile", "speed": 520, "range": 340, "cooldown": 0.55, "color": "#ffd88f"},
+    "bounty_hunter": {"kind": "projectile", "speed": 620, "range": 340, "cooldown": 0.58,
+                      "pellets": 2, "spread": 0.06, "color": "#ffd76a"},
+    "archer": {"kind": "projectile", "speed": 680, "range": 400, "cooldown": 0.50,
+               "pierce": 1, "color": "#9dff8a"},
+    "hacker": {"kind": "beam", "range": 430, "width": 12, "cooldown": 0.60,
+               "magic": True, "color": "#5affd8"},
+    "sniper": {"kind": "beam", "range": 640, "width": 9, "cooldown": 0.95, "color": "#ff9a5a"},
+}
+
+# ------------------------------------------------------------------ 招牌技能覆盖
+# 只覆盖需要“机制化”的技能：把通用模板替换为 snipe / deployable / summon /
+# blink_strike / root_zone / heal_zone / mark / stun_wave 等原语。
+# 未列出的字段沿用原技能数据（冷却/法力/威力/图标保持不变）。
+SKILL_OVERRIDES = {
+    "warrior": {
+        "earth_shatter": {"type": "stun_wave", "radius": 110, "stun": 0.6, "knockback": 90,
+                          "desc": "纵身劈地，裂痕向四周扩散并震晕敌人。"},
+    },
+    "death_knight": {
+        "blood_fury": {"type": "snipe", "range": 260, "width": 22, "lifesteal": 0.4,
+                       "desc": "斩出穿透血刃，造成伤害并回复自身生命。"},
+    },
+    "qi_adept": {
+        "qi_burst": {"type": "stun_wave", "radius": 100, "stun": 0.5, "knockback": 80,
+                     "desc": "罡气外放成环，震退并定住近身之敌。"},
+        "qi_renew": {"type": "heal_zone", "radius": 120, "heal": 22, "duration": 5.0, "tick": 1.0,
+                     "desc": "气海成域，在领域内持续回复生命。"},
+    },
+    "thief": {
+        "backstab": {"type": "blink_strike", "range": 150, "radius": 60,
+                     "desc": "闪现至最近敌人身后，刺出致命一击。"},
+        "lethal_backstab": {"type": "blink_strike", "range": 190, "radius": 70,
+                            "desc": "瞬身至破绽处，一击洞穿要害。"},
+    },
+    "mage": {
+        "frost_nova": {"type": "root_zone", "radius": 110, "root": 1.6,
+                       "desc": "以自身为心炸开冰霜，冻结范围内的敌人。"},
+        "absolute_zero": {"type": "root_zone", "radius": 118, "root": 2.2,
+                          "desc": "极寒爆裂，冻结并灼伤近身之敌。"},
+    },
+    "runeward": {
+        "rune_burst": {"type": "stun_wave", "radius": 86, "stun": 0.6, "knockback": 60,
+                       "desc": "引爆贴身符文，震退并定住周围敌人。"},
+        "rune_prison": {"type": "root_zone", "radius": 110, "root": 2.0,
+                        "desc": "地面浮出符文阵，禁锢圈内敌人。"},
+    },
+    "priest": {
+        "sanctuary": {"type": "heal_zone", "radius": 120, "heal": 24, "duration": 5.0, "tick": 1.0,
+                      "desc": "降下圣光领域，持续回复自身生命。"},
+        "judgement": {"type": "stun_wave", "radius": 110, "stun": 0.8, "knockback": 50,
+                      "desc": "圣光柱自天而降，审判并定住周围罪业。"},
+    },
+    "necromancer": {
+        "corrupt_bolt": {"type": "projectile", "pierce": 1, "speed": 400,
+                         "desc": "射出腐蚀魂矢，穿透第一个敌人继续飞行。"},
+        "grave_field": {"type": "summon", "count": 2, "duration": 10.0, "speed": 115,
+                        "interval": 1.1, "attack_range": 40, "detect_range": 420,
+                        "desc": "从墓场唤出两只骷髅兵为你作战。"},
+        "drain": {"type": "snipe", "range": 300, "width": 14, "lifesteal": 0.35,
+                  "damage_type": "magic",
+                  "desc": "射出噬魂射线，造成伤害并回复生命。"},
+        "mass_grave": {"type": "summon", "count": 3, "duration": 14.0, "speed": 130,
+                       "interval": 1.0, "attack_range": 44, "detect_range": 460, "scale": 1.1,
+                       "desc": "万尸之地：召唤三只强化亡灵投入战场。"},
+    },
+    "bomber": {
+        "throw_bomb": {"type": "deployable", "deploy": "bomb", "count": 1, "offset": 70,
+                       "radius": 70, "fuse": 0.6, "desc": "抛出一枚定时炸弹，落地后引爆。"},
+        "blast_zone": {"type": "deployable", "deploy": "bomb", "count": 2, "offset": 60,
+                       "spread": 80, "radius": 64, "fuse": 0.7, "desc": "向前方排布两枚炸药。"},
+        "incendiary": {"type": "root_zone", "radius": 100, "root": 2.0,
+                       "desc": "倾泻燃烧弹，火海灼烧并迟滞近身之敌。"},
+        "cluster_bomb": {"type": "deployable", "deploy": "bomb", "count": 3, "offset": 60,
+                         "spread": 100, "radius": 76, "fuse": 0.5,
+                         "desc": "母弹分裂成三枚子弹炸药，覆盖更密。"},
+        "chain_blast": {"type": "deployable", "deploy": "bomb", "count": 4, "offset": 50,
+                        "spread": 150, "radius": 82, "fuse": 0.6,
+                        "desc": "预埋四枚炸药连锁起爆，范围最大。"},
+        "fire_barrage": {"type": "root_zone", "radius": 120, "root": 2.5,
+                         "desc": "倾泻燃烧弹，近身区域化为火海。"},
+    },
+    "mech_pilot": {
+        "cannon": {"type": "projectile", "splash_radius": 40,
+                   "desc": "机甲主炮轰击，命中后小范围爆裂。"},
+        "rail_cannon": {"type": "snipe", "range": 640, "width": 12,
+                        "desc": "机甲主炮蓄能发射，贯穿整条直线。"},
+    },
+    "engineer": {
+        "turret": {"type": "deployable", "deploy": "turret", "count": 1, "offset": 40,
+                   "radius": 70, "duration": 10.0, "interval": 0.8,
+                   "desc": "架起自动炮塔，持续扫射附近敌人。"},
+        "heavy_turret": {"type": "deployable", "deploy": "turret", "count": 1, "offset": 40,
+                         "radius": 90, "duration": 14.0, "interval": 0.6,
+                         "desc": "部署重型炮塔，火力覆盖更广。"},
+    },
+    "bounty_hunter": {
+        "mark": {"type": "mark", "radius": 340, "duration": 8.0, "amp": 0.25,
+                 "desc": "标记最近的猎物，使其受到的伤害提升。"},
+        "death_mark": {"type": "mark", "radius": 420, "duration": 10.0, "amp": 0.35,
+                       "desc": "锁定猎物，易伤大幅提升。"},
+        "wrist_shot": {"type": "stun_wave", "radius": 85, "stun": 0.6, "knockback": 70,
+                       "desc": "贴脸轰击，震退并打断敌人动作。"},
+    },
+    "archer": {
+        "piercing_shot": {"type": "projectile", "pierce": 2, "range": 380, "speed": 620,
+                          "desc": "蓄力贯射，箭矢可穿透多个敌人。"},
+        "armor_pierce": {"type": "projectile", "pierce": 3, "range": 420, "speed": 680,
+                         "desc": "破甲贯射，贯穿整条直线。"},
+    },
+    "cyborg": {
+        "seismic_slam": {"type": "stun_wave", "radius": 110, "stun": 0.7, "knockback": 100,
+                         "desc": "义体重踏地面，冲击波震晕周围敌人。"},
+    },
+    "hacker": {
+        "emp_pulse": {"type": "stun_wave", "radius": 120, "stun": 0.7, "knockback": 40,
+                      "desc": "释放电磁脉冲，瘫痪并震退周围敌人。"},
+        "blackout": {"type": "stun_wave", "radius": 130, "stun": 1.2, "knockback": 30,
+                     "desc": "全域断电：范围瘫痪敌人。"},
+    },
+    "sniper": {
+        "snipe": {"type": "snipe", "range": 620, "width": 10,
+                  "desc": "架枪蓄力，沿直线贯穿超远距离的敌人。"},
+        "trap": {"type": "deployable", "deploy": "mine", "count": 1, "offset": 60,
+                 "radius": 78, "duration": 18.0,
+                 "desc": "在脚下布设感应地雷，敌人靠近即引爆。"},
+        "blast_trap": {"type": "deployable", "deploy": "mine", "count": 2, "offset": 50,
+                       "spread": 60, "radius": 90, "duration": 16.0,
+                       "desc": "一次布下两枚高爆地雷。"},
+        "reaper_eye": {"type": "snipe", "range": 720, "width": 14,
+                       "desc": "超远距离锁魂一枪，贯穿路径上所有敌人。"},
+    },
+}
+
+
 
 def _read(name):
     with open(os.path.join(DATA, name + ".json"), encoding="utf-8") as f:
@@ -517,6 +679,14 @@ def build_classes():
                 item["requires"] = "%s_mastery_%d" % (cid, i)
                 adv.append(item)
             cdef["skills"] = base + adv
+        # 招牌技能覆盖：只替换需要机制化的字段，其余数值沿用原数据
+        overrides = SKILL_OVERRIDES.get(cid, {})
+        for s in cdef["skills"]:
+            ov = overrides.get(str(s.get("id", "")))
+            if ov:
+                s.update(copy.deepcopy(ov))
+        # 普攻差异化配置
+        cdef["basic_attack"] = copy.deepcopy(BASIC_ATTACK[cid])
         cdef["source"] = source
         cdef["role"] = role
         cdef["source_name"] = SOURCES[source]["name"]
@@ -652,6 +822,20 @@ def validate(classes, trees, specs):
         for s in skills:
             if not s.get("icon"):
                 errors.append("%s 技能 %s 缺少图标 id" % (cid, s["id"]))
+            if s.get("type") not in SKILL_TYPES:
+                errors.append("%s 技能 %s 类型 %s 不在白名单" % (cid, s["id"], s.get("type")))
+        ba = cdef.get("basic_attack", {})
+        kind = ba.get("kind")
+        if kind not in BASIC_KINDS:
+            errors.append("%s basic_attack.kind 非法：%s" % (cid, kind))
+        elif kind == "melee" and not ba.get("radius"):
+            errors.append("%s 近战普攻缺少 radius" % cid)
+        elif kind == "projectile" and (not ba.get("speed") or not ba.get("range")):
+            errors.append("%s 弹丸普攻缺少 speed/range" % cid)
+        elif kind == "beam" and (not ba.get("range") or not ba.get("width")):
+            errors.append("%s 射线普攻缺少 range/width" % cid)
+        elif kind == "lob" and (not ba.get("range") or not ba.get("radius")):
+            errors.append("%s 抛掷普攻缺少 range/radius" % cid)
         for i in range(3):
             base, adv = skills[i], skills[3 + i]
             if adv["cd"] < base["cd"]:
