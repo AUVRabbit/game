@@ -55,8 +55,9 @@ elif [ ! -f ".godot/global_script_class_cache.cfg" ]; then
 fi
 
 do_import() {
-    echo "[run.sh] 首次运行 · 预导入资源并生成 .godot 类缓存..."
-    "$GODOT_BIN" --headless --editor --path "$PROJECT_DIR" --quit-after 60 2>&1 | tail -3 || true
+    echo "[run.sh] 首次运行 · 预导入资源并生成 .godot 类缓存（首次可能耗时较长）..."
+    # 使用较长的帧数上限，确保所有贴图都生成 .ctex 导入产物，避免部分素材缺失
+    "$GODOT_BIN" --headless --editor --path "$PROJECT_DIR" --quit-after 600 2>&1 | tail -3 || true
     echo "[run.sh] 导入完成。"
 }
 

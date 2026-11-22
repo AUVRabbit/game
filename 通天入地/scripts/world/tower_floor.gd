@@ -220,12 +220,20 @@ func _reset_puzzle() -> void:
 	AudioManager.play_sfx("hurt")
 
 func _draw() -> void:
+	# 先用一块远超楼层的矩形地面铺底，保证相机在任意位置都不会露出空白背景
+	var ground_corners := PackedVector2Array([
+		Vector2(-2200.0, -1600.0), Vector2(2200.0, -1600.0),
+		Vector2(2200.0, 1600.0), Vector2(-2200.0, 1600.0)
+	])
+	draw_ground_texture(ground_corners, "ground_tower", 512.0)
 	var extent := 1100.0
 	var corners := PackedVector2Array([
 		Vector2(0, -extent * 0.5), Vector2(extent, 0),
 		Vector2(0, extent * 0.5), Vector2(-extent, 0)
 	])
-	draw_ground_texture(corners, "ground_tower", 512.0)
+	# 菱形纹路描边，保留塔层的几何感
+	var border := PackedVector2Array([corners[0], corners[1], corners[2], corners[3], corners[0]])
+	draw_polyline(border, Color(0.12, 0.08, 0.20, 0.45), 3.0)
 	for i in range(-6, 7):
 		var a := Vector2(i * 64.0, -i * 32.0 - 420.0)
 		draw_line(a, a + Vector2(420.0, 210.0), Color(1, 1, 1, 0.04), 1.0)

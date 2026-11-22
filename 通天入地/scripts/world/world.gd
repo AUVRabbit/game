@@ -31,7 +31,7 @@ func _ready() -> void:
 	_setup_punk_forge()
 	_setup_portals()
 	AudioManager.play_bgm("world")
-	EventBus.notify("WASD 移动 · 左键/空格攻击 · 1/2/3 技能 · Shift 冲刺 · E 交互/采集 · I 背包 · B 建造 · Q/P 换职业 · 改造台：-360,0")
+	EventBus.notify("WASD 移动 · 左键/空格攻击 · 1/2/3 技能 · E 交互/采集 · I 背包 · B 建造 · K 技能树")
 	queue_redraw()
 
 func _setup_camera() -> void:
@@ -134,13 +134,21 @@ func _setup_punk_forge() -> void:
 
 func _draw() -> void:
 	var bm := BuildManager
+	# 先用一块远超可行走范围的大地面铺底，保证相机在任意位置都不会露出空白背景
+	var ground_corners := PackedVector2Array([
+		Vector2(-2800.0, -2000.0), Vector2(2800.0, -2000.0),
+		Vector2(2800.0, 2000.0), Vector2(-2800.0, 2000.0)
+	])
+	draw_ground_texture(ground_corners, "ground_grass", 512.0)
 	var corners := PackedVector2Array([
 		bm.grid_to_world(Vector2i(-18, -18)),
 		bm.grid_to_world(Vector2i(18, -18)),
 		bm.grid_to_world(Vector2i(18, 18)),
 		bm.grid_to_world(Vector2i(-18, 18))
 	])
-	draw_ground_texture(corners, "ground_grass", 512.0)
+	# 菱形边界描边，提示可活动范围
+	var border := PackedVector2Array([corners[0], corners[1], corners[2], corners[3], corners[0]])
+	draw_polyline(border, Color(0.05, 0.09, 0.06, 0.45), 3.0)
 	var step := 3
 	for i in range(-18, 19, step):
 		var a := bm.grid_to_world(Vector2i(i, -18))

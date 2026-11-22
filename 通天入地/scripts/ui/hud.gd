@@ -23,6 +23,7 @@ var last_class_id: String = ""
 var quest_label: Label
 var rogue_label: Label
 var toast_label: Label
+var toast_panel: Panel
 var build_hint: Label
 var toast_tween: Tween = null
 var skill_tree_button: Button = null
@@ -212,25 +213,39 @@ func _build_side_panels() -> void:
 	root.add_child(build_hint)
 
 func _build_toast() -> void:
+	# Toast 固定在屏幕中上方，带半透明背板，避免与世界内浮动文字/左上角状态面板重叠
+	toast_panel = Panel.new()
+	toast_panel.position = Vector2(190, 232)
+	toast_panel.size = Vector2(580, 38)
+	toast_panel.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	var sb := StyleBoxFlat.new()
+	sb.bg_color = Color(0.04, 0.05, 0.09, 0.82)
+	sb.set_corner_radius_all(8)
+	sb.set_border_width_all(1)
+	sb.border_color = Color(0.55, 0.45, 0.85, 0.75)
+	toast_panel.add_theme_stylebox_override("panel", sb)
+	toast_panel.modulate = Color(1, 1, 1, 0)
+	root.add_child(toast_panel)
+
 	toast_label = Label.new()
-	toast_label.position = Vector2(230, 400)
-	toast_label.size = Vector2(500, 34)
+	toast_label.set_anchors_preset(Control.PRESET_FULL_RECT)
 	toast_label.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
-	toast_label.add_theme_font_size_override("font_size", 16)
+	toast_label.vertical_alignment = VERTICAL_ALIGNMENT_CENTER
+	toast_label.add_theme_font_size_override("font_size", 14)
 	toast_label.add_theme_color_override("font_color", Color(1.0, 0.95, 0.75))
-	toast_label.modulate = Color(1, 1, 1, 0)
-	root.add_child(toast_label)
+	toast_label.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	toast_panel.add_child(toast_label)
 
 func show_toast(text: String) -> void:
-	if toast_label == null:
+	if toast_panel == null:
 		return
 	toast_label.text = text
-	toast_label.modulate = Color(1, 1, 1, 1)
+	toast_panel.modulate = Color(1, 1, 1, 1)
 	if toast_tween and toast_tween.is_valid():
 		toast_tween.kill()
 	toast_tween = create_tween()
 	toast_tween.tween_interval(1.6)
-	toast_tween.tween_property(toast_label, "modulate:a", 0.0, 0.6)
+	toast_tween.tween_property(toast_panel, "modulate:a", 0.0, 0.6)
 
 func _on_gold_changed(new_amount: int, _delta: int) -> void:
 	if gold_label:
