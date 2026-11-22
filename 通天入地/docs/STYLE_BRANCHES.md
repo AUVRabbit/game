@@ -30,9 +30,9 @@
 
 ## 三、与现有系统的关系
 
-1. **技能树不改结构**：仍为 16 节点；R/F/G 三个进阶槽的解锁条件按“槽位”判定，不再绑定具体技能 id。
-2. **技能树 UI 显示当前流派技能名**：同一节点在三条流派下显示不同技能名，解锁状态共享。
-3. **专职（specialization）即流派载体**：玩家在角色界面切换流派，存档只记录 `style_id`，技能与普攻由数据推导。
+1. **8 个技能全部由流派数据决定**：1转选定流派后一次解锁 6 技能 + 3 专精 + 1 极致，不再逐级点技能。
+2. **技能树改为融合/成长树**：16 节点不再门控技能；每层 +1 操作栏格，并提供融合槽与属性被动，技能可两两融合。
+3. **流派即专职载体**：1转写 `style_id`；2转后本职业三条流派常驻，另存 `loadout` 与 `fusion_id`。
 4. **图标复用策略**：按“元素 × 形态”复用现有 96 张图标；每条流派仅招牌技能新增 1 张，新增图标控制在 48 张以内。
 5. **平衡基线**：同职业三条流派的 `power_score` 必须落在同一带宽内，避免“唯一解”。
 
@@ -566,52 +566,54 @@
 
 ---
 
-## 八、四阶进阶总纲（1转 → 4转）
+## 八、四阶进阶总纲（流派全精通 → 万流归宗 → 生命跃迁 → 超脱）
 
 ### 8.1 阶位定义与解锁
 
-| 阶位 | 解锁条件 | 玩法变化 | 存档字段 |
-| --- | --- | --- | --- |
-| 1转 · 基础职业 | 角色创建 | 职业基础 6 技能 | `class_id` |
-| 2转 · 流派 | Lv10，且点亮技能树前 3 个“初始”节点 | 3 选 1，整套替换普攻 + 6 技能 + 被动 | `style_id` |
-| 3转 · 专精 | Lv25，且已 2转、点满所属流派 3 个“专精被动”节点 | 流派内 3 选 1，+1 主动（槽 7）+1 被动 | `spec_id` |
-| 4转 · 终极形态 | Lv40，且已 3转、点亮技能树终极节点 | 唯一形态，+1 终极主动（槽 8）+1 被动 + 称号/外观 | `apex_id` |
+| 阶位 | 等级 | 名称 | 解锁条件 | 内容 |
+| --- | --- | --- | --- | --- |
+| 1转 | Lv10 | 流派全精通 | 完成职业试炼 | 选定 1 条流派并**全精通**：6 技能 + 专属普攻 + 流派被动 + 3 条专精 + 1 个流派极致 |
+| 2转 | Lv30 | 万流归宗 | 已 1转，且本职业 3 条流派的「流派极致」全部解锁 | **所有流派精通**：跨流派自由配招（18 选 6）+ 职业融合技 |
+| 3转 | Lv50 | 生命跃迁 | 已 2转，完成「生命试炼」 | **生命层次提升**：生命/法力上限突破，获得变身主动 + 跃迁被动 |
+| 4转 | Lv70 | 超脱 | 已 3转，击败「镜像·超脱」 | **脱离职业框架**：跨源流借技 1 个 + 超脱终极 + 超脱被动 + 称号/外观 |
 
-- **3转可重置**：营地“洗点”消耗金币，可重选 A/B/C；已投入的技能树节点保留。
-- **4转可随时重置**：消耗金币即可切换，称号与外观随之切换；重置冷却 10 分钟，避免战斗中途反复切换。
-- 未达阶位时，槽 7 / 槽 8 在 HUD 上灰显并提示解锁条件。
-- 三转、四转**不会**改变流派玩法轴，只在其上叠加一层“更专精的同一件事”。
+- 1转的“全精通”指**一次到位**：选定流派后直接获得该流派全部 6 技能、3 条专精、1 个流派极致，不再逐级点技能。
+- 2转的硬性门槛是“所有流派精通”：必须先把本职业 3 条流派的极致全部拿到，才允许跨流派配招与融合。
+- 3转不再属于任何流派，是**生命层次**（体质、灵魂、机体）的跃迁，本职业所有流派共享。
+- 4转**脱离职业框架**：可借用其他源流 1 个招牌技能，并解锁本职业超脱形态。
 
-### 8.2 技能槽与键位
+- 1转后可在营地逐条修习本职业其余流派（金币/材料）；三条流派的「流派极致」全部获得，才满足 2转 条件。2转后三条流派常驻，无需重选。
+- 3转生命形态可重置（稀有道具）；4转超脱可随时重置（金币，冷却 10 分钟）。
 
-| 槽位 | 键位 | 来源 | 出现时机 |
-| --- | --- | --- | --- |
-| 1 / 2 / 3 | `1` `2` `3` | 2转流派的 6 技能前 3 个 | 2转 |
-| 4 / 5 / 6 | `R` `F` `G` | 2转流派的 6 技能后 3 个 | 技能树解锁对应分支 |
-| 7 | `T` | 3转专精主动 | 3转 |
-| 8 | `Y` | 4转终极主动 | 4转 |
+### 8.2 操作栏与配招
 
-- 被动不占槽，自动生效。
-- HUD 技能栏从 6 格扩为 8 格，7/8 格在解锁后从灰显变为可用。
-- `project.godot` 新增输入动作 `skill_7` / `skill_8`；`validate_project.py` 的输入动作清单同步扩充。
+- 操作栏**基础 6 格**，键位 `1/2/3/R/F/G`。
+- 技能树每完成 1 层（4 节点），操作栏 **+1 格**，依次为 `T` / `Y` / `V` / `B`，最多 **10 格**。
+- **格位不绑定具体技能**：玩家从已解锁能力池中自行拖入——1转流派 6 技能、3 条专精、1 个极致、2转融合技、3转变身、4转终极与借技、以及融合技能。
+- **流派技能最多占 6 格**：1转时为选定流派的 6 个技能；2转后从本职业 18 个技能中任选 6 个。其余格位放专精 / 极致 / 融合 / 变身 / 超脱 / 借技 / 融合技能。
+- 同一能力不可重复放入多个格位；未解锁能力在面板中灰显。
+- 配招方案存入 `loadout`，营地内可随时调整；战斗中不可改。
+- 被动不占格，自动生效。
 
 ### 8.3 数值预算
 
 | 层级 | 参照基准 | 威力 | 冷却 | 法力 |
 | --- | --- | --- | --- | --- |
-| 3转主动 | 本流派槽 6 技能 | ×1.10~1.35 | ×1.20~1.50 | ×1.10~1.40 |
-| 4转终极主动 | 本流派槽 6 技能 | ×1.50~1.90 | ×1.60~2.20 | ×1.50~2.00 |
-| 3转被动 | 流派被动 | 单项 +10%~+25% | — | — |
-| 4转被动 | 3转被动 | 单项 +20%~+35% | — | — |
+| 1转 专精主动 | 本流派槽 6 技能 | ×1.10~1.35 | ×1.20~1.50 | ×1.10~1.40 |
+| 1转 流派极致 | 本流派槽 6 技能 | ×1.50~1.90 | ×1.60~2.20 | ×1.50~2.00 |
+| 2转 融合技 | 本职业最强槽 6 技能 | ×1.60~2.00 | ×1.80~2.40 | ×1.60~2.00 |
+| 3转 跃迁变身 | 强度≈槽 6 ×1.3 | 持续 12~18s | 冷却 70~90s | ×1.8~2.2 |
+| 4转 超脱终极 | 本职业融合技 ×1.25 | ×1.25~1.40 | 冷却 60~90s | ×2.0~2.5 |
 
 - 允许为手感突破 ±10%，由 `validate_project.py` 以“警告”而非“错误”报出。
 - 同类加成加算后统一封顶：燃烧 +80%、吸血 +100%、护盾 +80%、闪避 +80%、攻速 +150%、减伤 +50%。
-- 同一流派三条 3转 的 `power_score` 差值 ≤ 5%；4转 必须高于三条 3转，且不超过其 1.5 倍。
+- 同一流派三条专精的 `power_score` 差值 ≤ 5%；流派极致必须高于三条专精，且不超过其 1.5 倍。
+- 3转 生命层次提升：生命上限 +20%~+50%、法力上限 +10%~+40%（按职业定位分配）。
 
 ### 8.4 被动词表
 
 现有 4 种沿用：`burn` / `lifesteal` / `heal_bonus` / `shield_bonus`。
-新增 6 种（**需确认**）：
+新增 6 种（已确认）：
 
 | 键 | 效果 |
 | --- | --- |
@@ -628,22 +630,49 @@
 {
   "class_id": "mage",
   "style_id": "mage_fire",
-  "spec_id": "mage_fire_spec_a",
-  "apex_id": "mage_fire_apex"
+  "spec_id": "mage_fire_spec_b",
+  "apex_id": "mage_fire_apex",
+  "loadout": ["mage_fire_1", "mage_frost_2", "mage_arcane_5", "mage_fire_spec_b", "mage_fire_apex"],
+  "fusions": ["mage_fire_1__mage_frost_1"],
+  "fusion_id": "mage_fusion",
+  "ascension_id": "mage_ascension",
+  "transcend_id": "mage_transcend",
+  "borrowed_skill": "tech_chain_borrow"
 }
 ```
 
-- `STYLE_KITS[style_id]`：2转成果，含 `basic_attack` + `passive` + `skills[6]`。
-- `STYLE_SPECS[style_id][a|b|c]`：3转成果，含 `active`（1 个技能）+ `passive`。
-- `STYLE_APEX[style_id]`：4转成果，含 `title` + `active` + `passive` + `basic_attack_affix`。
-- 派生读取：`get_skill(1..6)` → `STYLE_KITS`；`get_skill(7)` → `STYLE_SPECS[spec_id].active`；`get_skill(8)` → `STYLE_APEX[style_id].active`。
-- 技能 id 规则：`{class}_{style}_t6` / `{class}_{style}_spec_a|b|c` / `{class}_{style}_apex`。
+- `STYLE_KITS[style_id]`：1转流派，含 `basic_attack` + `passive` + `skills[6]`。
+- `STYLE_SPECS[style_id][a|b|c]`：1转专精，含 `active` + `passive`。
+- `STYLE_APEX[style_id]`：1转流派极致，含 `title` + `active` + `passive` + `basic_attack_affix`。
+- `CLASS_FUSION[class_id]`：2转融合技，含 `active` + `passive`。
+- `CLASS_ASCENSION[class_id]`：3转生命跃迁，含 `active` + `passive` + `life_bonus`。
+- `CLASS_TRANSCEND[class_id]`：4转超脱，含 `title` + `ultimate` + `passive`。
+- `BORROW_POOL[source]`：4转跨源流借技池，4 选 1（不得借本源流）。
+- `fusions[]`：技能融合结果，元素为“主技能 id + 副技能 id”；与 2转的 `fusion_id`（职业融合技）不是同一概念。
+- 派生读取：`get_skill(1..10)` 按 `loadout` 对应格位返回；未配置的格位回退到流派 1..6 顺序。
+- 能力来源索引：1转流派技能 / 专精 / 极致 → `STYLE_*`；2转 → `CLASS_FUSION`；3转 → `CLASS_ASCENSION`；4转 → `CLASS_TRANSCEND` + `BORROW_POOL`；融合 → `fusions[]`。
+- 技能 id 规则：`{class}_{style}_{1..6}` / `{class}_{style}_spec_a|b|c` / `{class}_{style}_apex` / `{class}_fusion` / `{class}_ascension` / `{class}_transcend`。
+
+### 8.6 技能融合（技能树新职能）
+
+技能树 16 节点不再门控技能，而是提供**成长 + 融合**：
+
+- **成长**：每层（4 节点）完成 → 操作栏 +1 格（见 8.2）；其余节点提供属性与被动。
+- **融合**：每完成 2 层解锁 1 个融合槽，最多 **2 个融合槽**。
+- 融合 = **主技能 + 副技能**，占 1 格：
+  - 主技能保留原类型与形态；
+  - 副技能只贡献 **1 个词条**：元素（燃烧/冰冻/腐蚀/圣光）、控制（定身 0.5s / 击退 / 眩晕 0.3s）、位移（小幅突进）、召唤（1 只小怪），按副技能类型自动取；
+  - 数值：威力 = 主 ×1.15，冷却 = 主 ×1.25，法力 = 主 + 副 ×0.5；
+  - 限制：只能用本职业已解锁技能；终极 / 变身 / 超脱不可作副技能；同一技能只能参与一次融合；融合可撤销、不耗资源。
+- 融合技能 id：`{主 id}__{副 id}`；存档只存 id，加载后重建。
+- 示例：火花术 + 冰锥 = 冰火弹（火伤 + 减速）；烈焰喷发 + 冰霜新星 = 冰火领域（燃烧 + 定身）；亡者领域 + 腐毒弹 = 毒骸召唤（召唤 + 腐蚀）。
 
 ---
 
-## 九、三转专精与四转终极（逐流派）
+## 九、一转 · 流派全精通（逐流派）
 
-> 格式：`专精名`｜新增主动（类型 / 数值）｜新增被动。每条流派三个 3转 分支 + 一个 4转 终极。
+> 1转选定一条流派即获得其全部内容：6 技能 + 专属普攻 + 流派被动 + 3 条专精 + 1 个流派极致。
+> 格式：`专精名`｜新增主动（类型 / 数值）｜新增被动。每条流派三个专精分支 + 一个极致形态（含称号）。
 > 数值均为草案，实现时以 `gen_class_content.py` 为准。
 
 ### 9.1 法术系（以太 · 蓄势爆发）
@@ -654,19 +683,19 @@
 - 专精一「大咒术师」｜【灰烬领域】`aoe_zone` pw3.9 cd26 mp46｜半径200 delay0.7｜被动 `burn` 燃烧 +25%
 - 专精二「焰心行者」｜【烈焰突进】`dash_strike` pw3.5 cd15 mp30｜distance210 半径100｜被动 `fortify` 减伤 -15%
 - 专精三「引燃者」｜【火种链】`chain` pw3.4 cd18 mp38｜半径300 目标6｜被动 `execute` 对燃烧目标 +25%
-- 4转「焚天者」｜【天火焚城】`aoe_zone` pw5.2 cd32 mp54｜半径240 delay1.0 击退60｜被动 `burn` +40%｜普攻附带火痕
+- 极致「焚天者」｜【天火焚城】`aoe_zone` pw5.2 cd32 mp54｜半径240 delay1.0 击退60｜被动 `burn` +40%｜普攻附带火痕
 
 **流派 B：霜法师**
 - 专精一「极寒主宰」｜【千里冰封】`root_zone` pw3.0 cd24 mp42｜半径190 定身4.0s｜被动 `shield_bonus` +25%
 - 专精二「碎冰者」｜【冰爆术】`aoe_zone` pw3.7 cd20 mp38｜半径160 delay0.5｜被动 `execute` 对定身目标 +30%
 - 专精三「霜甲师」｜【霜甲领域】`shield` pw150 cd26 mp36｜持续10s，受击者减速30%｜被动 `shield_bonus` +30%
-- 4转「永冬女王」｜【永冬降临】`root_zone` pw4.4 cd30 mp52｜半径220 定身5.0s 附带 pw1.5 冰爆｜被动 `execute` +35%｜周围敌人持续减速
+- 极致「永冬女王」｜【永冬降临】`root_zone` pw4.4 cd30 mp52｜半径220 定身5.0s 附带 pw1.5 冰爆｜被动 `execute` +35%｜周围敌人持续减速
 
 **流派 C：秘法学者**
 - 专精一「大奥术师」｜【奥术洪峰】`snipe` pw3.4 cd16 mp30｜range460 width22｜被动 `haste` 攻速 +15%
 - 专精二「时序术士」｜【时间停滞】`buff` cd28 mp36｜攻速+60% 持续6s｜被动 `resonance` 每层 +4%，最多 5 层
 - 专精三「回响师」｜【奥术回响】`chain` pw3.2 cd14 mp26｜半径280 目标5｜被动 `resonance` 每层 +5%
-- 4转「奥术主宰」｜【万法归一】`projectile` pw4.0 cd22 mp44｜九连发 spread0.18 speed600｜被动 `haste` +30%｜施法后 1.5s 内冷却缩减 20%
+- 极致「奥术主宰」｜【万法归一】`projectile` pw4.0 cd22 mp44｜九连发 spread0.18 speed600｜被动 `haste` +30%｜施法后 1.5s 内冷却缩减 20%
 
 #### 咒铠师 [runeward]
 
@@ -674,19 +703,19 @@
 - 专精一「符阵宗师」｜【九宫符阵】`heal_zone` cd26 mp36｜半径170 每秒26 持续6s 同时获得 pw60 护盾｜被动 `shield_bonus` +30%
 - 专精二「反击符文师」｜【符能反噬】`stun_wave` pw3.6 cd18 mp32｜半径150 眩晕1.0s 击退160｜被动 `fortify` -18%
 - 专精三「铭文师」｜【铭文烙印】`mark` cd22 mp26｜半径360 易伤45% 持续10s｜被动 `fortify` -15%
-- 4转「符阵圣者」｜【万符天罗】`buff` cd32 mp48｜防御+40 持续12s 反弹 25% 近战伤害｜被动 `shield_bonus` +35%
+- 极致「符阵圣者」｜【万符天罗】`buff` cd32 mp48｜防御+40 持续12s 反弹 25% 近战伤害｜被动 `shield_bonus` +35%
 
 **流派 B：反噬者**
 - 专精一「震符大师」｜【天雷震符】`stun_wave` pw4.2 cd20 mp34｜半径170 眩晕1.2s 击退200｜被动 `fortify` -15%
 - 专精二「血符师」｜【血符爆发】`melee_aoe` pw4.0 cd14 mp26｜半径120 吸血30%｜被动 `lifesteal` +18%
 - 专精三「荆棘符师」｜【荆棘符甲】`buff` cd28 mp32｜反弹 35% 近战伤害 持续10s｜被动 `shield_bonus` +30%
-- 4转「万符之主」｜【万符归宗·极】`stun_wave` pw5.6 cd30 mp50｜半径210 眩晕1.5s 击退240｜被动 `fortify` -25%
+- 极致「万符之主」｜【万符归宗·极】`stun_wave` pw5.6 cd30 mp50｜半径210 眩晕1.5s 击退240｜被动 `fortify` -25%
 
 **流派 C：守誓者**
 - 专精一「圣誓骑士」｜【誓约之光】`heal_zone` cd24 mp40｜半径180 每秒34 持续8s｜被动 `heal_bonus` +30%
 - 专精二「铁壁守誓」｜【不朽誓约】`shield` pw180 cd30 mp42｜持续12s｜被动 `shield_bonus` +40%
 - 专精三「誓约斗士」｜【誓约反击】`melee_aoe` pw4.6 cd18 mp28｜半径150 吸血20%｜被动 `lifesteal` +18%
-- 4转「誓约之神」｜【永恒圣所】`heal_zone` + `shield` cd36 mp56｜半径200 每秒45 持续10s，同时获得 pw150 护盾｜被动 `heal_bonus` +40%
+- 极致「誓约之神」｜【永恒圣所】`heal_zone` + `shield` cd36 mp56｜半径200 每秒45 持续10s，同时获得 pw150 护盾｜被动 `heal_bonus` +40%
 
 #### 牧师 [priest]
 
@@ -694,19 +723,19 @@
 - 专精一「大主教」｜【圣言·愈】`heal` pw130 cd18 mp40｜立即大量回复｜被动 `heal_bonus` +30%
 - 专精二「光耀先知」｜【光耀审判】`snipe` pw3.4 cd20 mp36｜range420 width24 吸血20%｜被动 `execute` +25%
 - 专精三「圣歌者」｜【圣歌领域】`buff` cd28 mp34｜治疗加成+40% 攻击+20 持续10s｜被动 `heal_bonus` +30%
-- 4转「神谕使徒」｜【神谕·创世】`heal_zone` cd34 mp56｜半径200 每秒48 持续10s 并清除负面｜被动 `heal_bonus` +45%
+- 极致「神谕使徒」｜【神谕·创世】`heal_zone` cd34 mp56｜半径200 每秒48 持续10s 并清除负面｜被动 `heal_bonus` +45%
 
 **流派 B：圣殿骑士**
 - 专精一「圣裁骑士」｜【圣裁之剑】`snipe` pw3.8 cd20 mp34｜range360 width26 吸血25%｜被动 `execute` +20%
 - 专精二「圣盾守卫」｜【圣光壁垒】`shield` pw170 cd28 mp38｜持续10s｜被动 `fortify` -20%
 - 专精三「布道者」｜【布道圣言】`heal_zone` cd24 mp38｜半径170 每秒32 持续8s｜被动 `fortify` -15%
-- 4转「圣殿大团长」｜【神圣裁决·终】`snipe` pw5.4 cd30 mp52｜range460 width32 吸血30% 击退｜被动 `fortify` -25%
+- 极致「圣殿大团长」｜【神圣裁决·终】`snipe` pw5.4 cd30 mp52｜range460 width32 吸血30% 击退｜被动 `fortify` -25%
 
 **流派 C：苦修者**
 - 专精一「殉道者」｜【殉道圣痕】`heal` pw160 cd22 mp34｜立即大量回复｜被动 `lifesteal` +15%
 - 专精二「鞭刑者」｜【赎罪鞭笞】`melee_aoe` pw3.8 cd12 mp24｜半径130 吸血25%｜被动 `lifesteal` +20%
 - 专精三「戒律者」｜【戒律锁链】`root_zone` pw3.0 cd22 mp32｜半径160 定身2.5s｜被动 `execute` +25%
-- 4转「苦修圣徒」｜【以血证道】`heal` pw220 cd32 mp50｜回复后 8s 内攻击+30｜被动 `lifesteal` +30%
+- 极致「苦修圣徒」｜【以血证道】`heal` pw220 cd32 mp50｜回复后 8s 内攻击+30｜被动 `lifesteal` +30%
 
 #### 亡灵法师 [necromancer]
 
@@ -714,19 +743,19 @@
 - 专精一「大收割者」｜【灵魂收割】`snipe` pw4.0 cd22 mp38｜range480 width26 吸血85%｜被动 `lifesteal` +20%
 - 专精二「噬魂领主」｜【噬魂领域】`heal_zone` cd24 mp40｜半径160 每秒22 持续8s｜被动 `lifesteal` +18%
 - 专精三「亡魂猎手」｜【亡魂标记】`mark` cd22 mp26｜半径400 易伤50% 持续10s，自身吸血+20%｜被动 `lifesteal` +20%
-- 4转「死神化身」｜【死亡宣告】`snipe` pw6.0 cd34 mp56｜range560 width32 吸血100%｜被动 `lifesteal` +35%
+- 极致「死神化身」｜【死亡宣告】`snipe` pw6.0 cd34 mp56｜range560 width32 吸血100%｜被动 `lifesteal` +35%
 
 **流派 B：瘟疫术士**
 - 专精一「大瘟疫师」｜【疫病燎原】`aoe_zone` pw3.8 cd24 mp42｜半径190 delay0.6｜被动 `burn` +30%
 - 专精二「腐化先知」｜【腐化链】`chain` pw3.6 cd20 mp38｜半径320 目标8｜被动 `execute` +25%
 - 专精三「腐骨师」｜【腐骨地刺】`root_zone` pw3.2 cd22 mp34｜半径170 定身2.5s｜被动 `burn` +30%
-- 4转「瘟疫之王」｜【末世大疫】`aoe_zone` pw5.2 cd32 mp54｜半径230 delay0.8｜被动 `burn` +45%
+- 极致「瘟疫之王」｜【末世大疫】`aoe_zone` pw5.2 cd32 mp54｜半径230 delay0.8｜被动 `burn` +45%
 
 **流派 C：尸傀师**
 - 专精一「亡灵领主」｜【亡灵领主】`summon` pw3.4 cd26 mp46｜3只 持续18s 速度150 间隔0.8｜被动 `summon_bonus` +25%
 - 专精二「尸爆师」｜【尸爆】`aoe_zone` pw4.0 cd20 mp38｜半径170 delay0.4｜被动 `summon_bonus` +20%
 - 专精三「魂契师」｜【魂契护盾】`shield` pw140 cd24 mp34｜持续10s，同时强化全部召唤物｜被动 `summon_bonus` +25%
-- 4转「亡灵天灾」｜【天灾降临】`summon` pw4.6 cd34 mp58｜6只 持续20s 速度160 间隔0.7｜被动 `summon_bonus` +40%
+- 极致「亡灵天灾」｜【天灾降临】`summon` pw4.6 cd34 mp58｜6只 持续20s 速度160 间隔0.7｜被动 `summon_bonus` +40%
 
 ### 9.2 机械系（蒸汽 · 布置引爆）
 
@@ -736,19 +765,19 @@
 - 专精一「大爆破师」｜【聚能核爆】`deployable` bomb pw4.2 cd22 mp38｜2枚 半径150 fuse0.8｜被动 `trap_bonus` +25%
 - 专精二「要塞爆破」｜【定向爆破】`aoe_zone` pw4.4 cd20 mp36｜半径180 delay0.6 击退120｜被动 `fortify` -15%
 - 专精三「连锁师」｜【连锁引爆】`chain` pw4.0 cd20 mp34｜半径280 目标6｜被动 `trap_bonus` +25%
-- 4转「爆破之王」｜【终极审判】`deployable` bomb pw6.0 cd34 mp56｜4枚 散布120 半径170 fuse0.6｜被动 `trap_bonus` +40%
+- 极致「爆破之王」｜【终极审判】`deployable` bomb pw6.0 cd34 mp56｜4枚 散布120 半径170 fuse0.6｜被动 `trap_bonus` +40%
 
 **流派 B：纵火者**
 - 专精一「大纵火师」｜【火海燎原】`aoe_zone` pw3.8 cd24 mp40｜半径190 delay0.5｜被动 `burn` +30%
 - 专精二「燃烬行者」｜【燃烧冲刺】`dash_strike` pw3.6 cd18 mp32｜distance220 半径110｜被动 `burn` +25%
 - 专精三「烟幕师」｜【烟幕弹】`root_zone` pw2.6 cd20 mp28｜半径170 定身2.0s｜被动 `fortify` -15%
-- 4转「炎狱之主」｜【炎狱焚世】`root_zone` pw5.2 cd32 mp54｜半径220 定身3.5s｜被动 `burn` +45%
+- 极致「炎狱之主」｜【炎狱焚世】`root_zone` pw5.2 cd32 mp54｜半径220 定身3.5s｜被动 `burn` +45%
 
 **流派 C：铝热师**
 - 专精一「雷区大匠」｜【雷区矩阵】`deployable` mine pw3.6 cd26 mp44｜6枚 散布180 半径110 持续22s｜被动 `trap_bonus` +30%
 - 专精二「铝热专家」｜【铝热风暴】`aoe_zone` pw4.2 cd22 mp38｜半径170 delay0.5｜被动 `trap_bonus` +25%
 - 专精三「工兵」｜【工事炮台】`deployable` turret pw3.6 cd24 mp38｜持续18s 间隔0.6｜被动 `trap_bonus` +30%
-- 4转「焦土元帅」｜【焦土禁区】`deployable` mine pw4.8 cd34 mp58｜8枚 散布220 半径120 持续26s｜被动 `trap_bonus` +45%
+- 极致「焦土元帅」｜【焦土禁区】`deployable` mine pw4.8 cd34 mp58｜8枚 散布220 半径120 持续26s｜被动 `trap_bonus` +45%
 
 #### 机甲师 [mech_pilot]
 
@@ -756,19 +785,19 @@
 - 专精一「攻城机兵」｜【攻城炮】`snipe` pw4.4 cd22 mp34｜range760 width24｜被动 `fortify` -18%
 - 专精二「重装指挥官」｜【重装阵线】`buff` cd30 mp36｜防御+36 持续12s｜被动 `shield_bonus` +30%
 - 专精三「火箭手」｜【火箭齐射】`projectile` pw4.2 cd22 mp34｜六连发 spread0.18｜被动 `haste` +15%
-- 4转「战争机器」｜【轨道轰炸】`snipe` pw6.2 cd34 mp52｜range900 width30 击退｜被动 `fortify` -28%
+- 极致「战争机器」｜【轨道轰炸】`snipe` pw6.2 cd34 mp52｜range900 width30 击退｜被动 `fortify` -28%
 
 **流派 B：速射炮手**
 - 专精一「弹幕大师」｜【弹幕风暴】`projectile` pw3.4 cd18 mp30｜十连发 spread0.20｜被动 `haste` +20%
 - 专精二「火力管制官」｜【火力覆盖】`aoe_zone` pw3.8 cd22 mp36｜半径180 delay0.4｜被动 `haste` +15%
 - 专精三「穿甲射手」｜【穿甲弹幕】`snipe` pw4.4 cd20 mp32｜range620 width20｜被动 `execute` +25%
-- 4转「弹幕之王」｜【全弹幕发射】`projectile` pw4.8 cd30 mp50｜十四连发 spread0.24｜被动 `haste` +35%
+- 极致「弹幕之王」｜【全弹幕发射】`projectile` pw4.8 cd30 mp50｜十四连发 spread0.24｜被动 `haste` +35%
 
 **流派 C：要塞驾驶员**
 - 专精一「要塞统领」｜【要塞壁垒】`shield` pw200 cd30 mp40｜持续14s｜被动 `shield_bonus` +35%
 - 专精二「炮台指挥官」｜【齐射协议】`aoe_zone` pw4.0 cd24 mp38｜半径190 delay0.5｜被动 `fortify` -18%
 - 专精三「维修官」｜【维修无人机】`heal_zone` cd24 mp38｜半径170 每秒30 持续8s｜被动 `heal_bonus` +30%
-- 4转「移动要塞」｜【要塞形态】`buff` cd36 mp54｜防御+48 持续14s，普攻溅射翻倍｜被动 `shield_bonus` +45%
+- 极致「移动要塞」｜【要塞形态】`buff` cd36 mp54｜防御+48 持续14s，普攻溅射翻倍｜被动 `shield_bonus` +45%
 
 #### 工程师 [engineer]
 
@@ -776,19 +805,19 @@
 - 专精一「炮塔大师」｜【重型要塞炮台】`deployable` turret pw3.8 cd24 mp42｜持续26s 间隔0.4｜被动 `trap_bonus` +30%
 - 专精二「无人机工程师」｜【无人机编队】`summon` pw3.4 cd22 mp38｜3只 持续16s 速度190 间隔0.9｜被动 `summon_bonus` +25%
 - 专精三「地雷工程师」｜【地雷阵】`deployable` mine pw3.6 cd22 mp36｜4枚 散布140 半径100 持续20s｜被动 `trap_bonus` +30%
-- 4转「机械领主」｜【炮塔矩阵】`deployable` turret pw4.6 cd32 mp56｜3座 散布90 持续28s 间隔0.35｜被动 `trap_bonus` +45%
+- 极致「机械领主」｜【炮塔矩阵】`deployable` turret pw4.6 cd32 mp56｜3座 散布90 持续28s 间隔0.35｜被动 `trap_bonus` +45%
 
 **流派 B：后勤官**
 - 专精一「战地医官」｜【战地医院·极】`heal_zone` cd26 mp44｜半径190 每秒40 持续10s｜被动 `heal_bonus` +35%
 - 专精二「战术指挥官」｜【全军突击】`buff` cd30 mp40｜攻击+34 攻速+15% 持续12s｜被动 `heal_bonus` +30%
 - 专精三「护盾工程师」｜【护盾矩阵】`shield` pw160 cd26 mp34｜持续10s｜被动 `shield_bonus` +35%
-- 4转「后勤元帅」｜【战争后勤】`heal_zone` cd34 mp58｜半径220 每秒50 持续12s，全队攻击+25｜被动 `heal_bonus` +45%
+- 极致「后勤元帅」｜【战争后勤】`heal_zone` cd34 mp58｜半径220 每秒50 持续12s，全队攻击+25｜被动 `heal_bonus` +45%
 
 **流派 C：过载技师**
 - 专精一「超频大师」｜【极限超频】`buff` cd26 mp38｜攻速+80% 持续8s｜被动 `haste` +25%
 - 专精二「炮台超频者」｜【过载炮塔】`deployable` turret pw4.0 cd22 mp36｜2座 持续18s 间隔0.3｜被动 `trap_bonus` +30%
 - 专精三「蒸汽炮手」｜【蒸汽炮击】`projectile` pw3.8 cd16 mp28｜五连发 spread0.14｜被动 `haste` +25%
-- 4转「蒸汽狂人」｜【蒸汽永动】`buff` cd34 mp54｜攻速+110% 持续10s 并召唤 1 座速射炮塔｜被动 `haste` +40%
+- 极致「蒸汽狂人」｜【蒸汽永动】`buff` cd34 mp54｜攻速+110% 持续10s 并召唤 1 座速射炮塔｜被动 `haste` +40%
 
 #### 赏金猎人 [bounty_hunter]
 
@@ -796,19 +825,19 @@
 - 专精一「猎杀者」｜【猎杀清单】`mark` cd28 mp34｜半径520 易伤75% 持续14s｜被动 `execute` +30%
 - 专精二「双枪大师」｜【双枪连舞】`projectile` pw3.4 cd18 mp30｜八连发 spread0.14｜被动 `haste` +20%
 - 专精三「通缉专家」｜【悬赏通缉】`chain` pw3.6 cd18 mp32｜半径320 目标6｜被动 `execute` +25%
-- 4转「赏金之王」｜【悬赏处决】`snipe` pw6.0 cd32 mp52｜range520 width26，对标记目标必暴｜被动 `execute` +40%
+- 极致「赏金之王」｜【悬赏处决】`snipe` pw6.0 cd32 mp52｜range520 width26，对标记目标必暴｜被动 `execute` +40%
 
 **流派 B：追迹者**
 - 专精一「弹幕追迹者」｜【追猎弹幕】`chain` pw3.6 cd20 mp34｜半径340 目标8｜被动 `haste` +25%
 - 专精二「疾风猎人」｜【疾风突袭】`dash_strike` pw3.4 cd18 mp30｜distance240 半径90｜被动 `haste` +20%
 - 专精三「捕猎者」｜【捕兽夹】`root_zone` pw3.0 cd20 mp30｜半径150 定身2.5s｜被动 `trap_bonus` +25%
-- 4转「风暴猎人」｜【弹幕风暴·终】`projectile` pw4.6 cd30 mp50｜十二连发 spread0.22｜被动 `haste` +40%
+- 极致「风暴猎人」｜【弹幕风暴·终】`projectile` pw4.6 cd30 mp50｜十二连发 spread0.22｜被动 `haste` +40%
 
 **流派 C：赏金之王**
 - 专精一「点杀专家」｜【要害锁定】`buff` cd26 mp32｜暴击+55% 暴伤+50% 持续8s｜被动 `execute` +25%
 - 专精二「处刑人」｜【处刑射击】`snipe` pw4.6 cd22 mp36｜range460 width20 吸血20%｜被动 `execute` +30%
 - 专精三「连击之王」｜【双枪风暴】`projectile` pw3.8 cd16 mp28｜十连发 spread0.16｜被动 `haste` +25%
-- 4转「枪神」｜【一枪定生死】`snipe` pw6.6 cd34 mp54｜range560 width26 吸血25%｜被动 `execute` +45%
+- 极致「枪神」｜【一枪定生死】`snipe` pw6.6 cd34 mp54｜range560 width26 吸血25%｜被动 `execute` +45%
 
 ### 9.3 传武系（气血 · 贴身缠斗）
 
@@ -818,19 +847,19 @@
 - 专精一「血骑统领」｜【血河冲锋】`dash_strike` pw3.8 cd20 mp32｜distance240 半径95 吸血40%｜被动 `lifesteal` +20%
 - 专精二「死亡先锋」｜【死亡践踏】`stun_wave` pw3.8 cd18 mp30｜半径150 眩晕0.9s 击退120｜被动 `fortify` -15%
 - 专精三「血魄骑士」｜【血魄护盾】`shield` pw150 cd24 mp30｜持续10s，护盾期间吸血+15%｜被动 `lifesteal` +20%
-- 4转「血河之主」｜【血海无涯】`snipe` pw5.6 cd32 mp52｜range420 width34 吸血80%｜被动 `lifesteal` +35%
+- 极致「血河之主」｜【血海无涯】`snipe` pw5.6 cd32 mp52｜range420 width34 吸血80%｜被动 `lifesteal` +35%
 
 **流派 B：墓卫**
 - 专精一「墓土骑士」｜【墓土壁垒】`shield` pw190 cd28 mp38｜持续12s｜被动 `shield_bonus` +35%
 - 专精二「亡者督军」｜【亡者军势】`summon` pw3.6 cd24 mp40｜3只 持续16s 速度140 间隔1.0｜被动 `summon_bonus` +25%
 - 专精三「墓火骑士」｜【墓火燎原】`aoe_zone` pw4.2 cd20 mp34｜半径170 delay0.5｜被动 `burn` +30%
-- 4转「不朽墓卫」｜【不朽墓域】`buff` cd34 mp52｜防御+46 持续14s 反弹 20% 伤害｜被动 `fortify` -30%
+- 极致「不朽墓卫」｜【不朽墓域】`buff` cd34 mp52｜防御+46 持续14s 反弹 20% 伤害｜被动 `fortify` -30%
 
 **流派 C：血誓者**
 - 专精一「血誓骑士」｜【血誓契约】`buff` cd26 mp34｜攻击+30 吸血+20% 持续10s｜被动 `lifesteal` +20%
 - 专精二「血刃大师」｜【血刃风暴】`snipe` pw4.2 cd20 mp34｜range360 width28 吸血60%｜被动 `lifesteal` +25%
 - 专精三「献祭者」｜【生命献祭】`melee_aoe` pw4.4 cd16 mp24｜半径130 吸血30%｜被动 `fortify` -15%
-- 4转「血誓君王」｜【血海誓约】`snipe` pw6.0 cd32 mp52｜range440 width36 吸血85%｜被动 `lifesteal` +40%
+- 极致「血誓君王」｜【血海誓约】`snipe` pw6.0 cd32 mp52｜range440 width36 吸血85%｜被动 `lifesteal` +40%
 
 #### 战士 [warrior]
 
@@ -838,19 +867,19 @@
 - 专精一「大狂战」｜【狂战风暴】`melee_aoe` pw4.2 cd18 mp30｜半径170｜被动 `lifesteal` +18%
 - 专精二「不屈斗士」｜【不屈战吼】`buff` cd26 mp30｜攻击+38 防御+16 持续10s｜被动 `fortify` -15%
 - 专精三「嗜血者」｜【嗜血旋风】`melee_aoe` pw4.0 cd14 mp22｜半径150 吸血25%｜被动 `lifesteal` +20%
-- 4转「战神」｜【战神降临】`melee_aoe` pw6.2 cd30 mp50｜半径210 眩晕0.8s 击退120｜被动 `lifesteal` +30%
+- 极致「战神」｜【战神降临】`melee_aoe` pw6.2 cd30 mp50｜半径210 眩晕0.8s 击退120｜被动 `lifesteal` +30%
 
 **流派 B：剑圣**
 - 专精一「剑豪」｜【万剑归宗·极】`snipe` pw4.6 cd20 mp32｜range460 width30｜被动 `haste` +18%
 - 专精二「剑心通明」｜【剑心领域】`buff` cd26 mp34｜攻速+45% 暴击+25% 持续10s｜被动 `resonance` 每层 +5%，最多 5 层
 - 专精三「御剑者」｜【御剑术】`projectile` pw3.8 cd16 mp26｜五连发 spread0.12｜被动 `resonance` 每层 +5%
-- 4转「剑神」｜【一剑开天】`snipe` pw6.4 cd32 mp50｜range520 width36｜被动 `execute` +35%
+- 极致「剑神」｜【一剑开天】`snipe` pw6.4 cd32 mp50｜range520 width36｜被动 `execute` +35%
 
 **流派 C：破阵者**
 - 专精一「破阵先锋」｜【破阵冲锋】`dash_strike` pw4.0 cd18 mp30｜distance280 半径100｜被动 `fortify` -15%
 - 专精二「震岳武者」｜【震岳山河】`stun_wave` pw4.4 cd20 mp34｜半径180 眩晕1.0s 击退160｜被动 `fortify` -18%
 - 专精三「盾阵者」｜【盾阵壁垒】`shield` pw150 cd24 mp30｜持续10s｜被动 `fortify` -18%
-- 4转「山崩地裂」｜【山崩地裂】`dash_strike` pw5.8 cd30 mp50｜distance340 半径140 眩晕0.8s｜被动 `fortify` -25%
+- 极致「山崩地裂」｜【山崩地裂】`dash_strike` pw5.8 cd30 mp50｜distance340 半径140 眩晕0.8s｜被动 `fortify` -25%
 
 #### 气宗 [qi_adept]
 
@@ -858,19 +887,19 @@
 - 专精一「医仙」｜【生生不息·极】`heal_zone` cd24 mp42｜半径190 每秒40 持续8s｜被动 `heal_bonus` +35%
 - 专精二「气劲宗师」｜【气劲崩拳】`melee_aoe` pw3.8 cd16 mp26｜半径120｜被动 `resonance` 每层 +4%
 - 专精三「点穴师」｜【点穴】`stun_wave` pw3.4 cd18 mp28｜半径140 眩晕1.2s｜被动 `execute` +25%
-- 4转「医武圣手」｜【回春圣境】`heal_zone` cd32 mp56｜半径220 每秒52 持续10s 并清除负面｜被动 `heal_bonus` +45%
+- 极致「医武圣手」｜【回春圣境】`heal_zone` cd32 mp56｜半径220 每秒52 持续10s 并清除负面｜被动 `heal_bonus` +45%
 
 **流派 B：罡气宗师**
 - 专精一「罡气大师」｜【罡气天罡·极】`stun_wave` pw4.5 cd18 mp32｜半径170 眩晕1.2s 击退180｜被动 `fortify` -15%
 - 专精二「气墙守御」｜【罡气结界】`shield` pw160 cd26 mp34｜持续10s｜被动 `shield_bonus` +35%
 - 专精三「气劲射手」｜【罡气弹】`projectile` pw3.6 cd14 mp24｜五连发 spread0.12｜被动 `haste` +20%
-- 4转「天罡武神」｜【天罡破军】`stun_wave` pw5.8 cd30 mp50｜半径210 眩晕1.5s 击退220｜被动 `fortify` -25%
+- 极致「天罡武神」｜【天罡破军】`stun_wave` pw5.8 cd30 mp50｜半径210 眩晕1.5s 击退220｜被动 `fortify` -25%
 
 **流派 C：疾风武者**
 - 专精一「疾风宗师」｜【无影疾风·极】`melee_aoe` pw3.6 cd10 mp20｜半径140｜被动 `haste` +25%
 - 专精二「流云行者」｜【流云幻步】`buff` cd22 mp28｜移速+55% 闪避+35% 持续8s｜被动 `haste` +20%
 - 专精三「风刃师」｜【风刃连斩】`snipe` pw3.8 cd16 mp26｜range360 width18｜被动 `resonance` 每层 +5%
-- 4转「疾风武神」｜【无影无形】`melee_aoe` pw4.6 cd20 mp36｜半径170 六连击｜被动 `haste` +40%
+- 极致「疾风武神」｜【无影无形】`melee_aoe` pw4.6 cd20 mp36｜半径170 六连击｜被动 `haste` +40%
 
 #### 小偷 [thief]
 
@@ -878,19 +907,19 @@
 - 专精一「大刺客」｜【瞬杀·极】`blink_strike` pw4.6 cd14 mp24｜range320 半径110｜被动 `execute` +30%
 - 专精二「暗影行者」｜【暗影脱离】`blink_strike` pw3.2 cd12 mp20｜range280 半径80，落地闪避+40% 持续3s｜被动 `fortify` -12%
 - 专精三「投毒师」｜【淬毒飞刃】`projectile` pw3.6 cd14 mp22｜七连发 spread0.14｜被动 `burn` +30%
-- 4转「影王」｜【影杀·终结】`blink_strike` pw6.2 cd26 mp46｜range380 半径140 必暴｜被动 `execute` +45%
+- 极致「影王」｜【影杀·终结】`blink_strike` pw6.2 cd26 mp46｜range380 半径140 必暴｜被动 `execute` +45%
 
 **流派 B：影行者**
 - 专精一「幻影大师」｜【幻影分身】`summon` pw3.0 cd24 mp34｜2只 持续12s 速度220 间隔0.9｜被动 `haste` +20%
 - 专精二「烟幕专家」｜【烟幕领域】`buff` cd24 mp30｜闪避+70% 移速+30% 持续10s｜被动 `fortify` -18%
 - 专精三「暗影刺客」｜【暗影突袭】`blink_strike` pw4.4 cd16 mp26｜range300 半径100｜被动 `execute` +30%
-- 4转「无影之刃」｜【无影遁】`blink_strike` pw4.4 cd22 mp38｜range300 半径100，之后 5s 暴击+40%｜被动 `fortify` -25%
+- 极致「无影之刃」｜【无影遁】`blink_strike` pw4.4 cd22 mp38｜range300 半径100，之后 5s 暴击+40%｜被动 `fortify` -25%
 
 **流派 C：影舞者**
 - 专精一「毒王」｜【万毒噬心·极】`root_zone` pw4.0 cd22 mp34｜半径180 定身3.0s｜被动 `burn` +30%
 - 专精二「刃舞者」｜【毒刃风暴】`projectile` pw3.6 cd16 mp28｜九连发 spread0.18｜被动 `haste` +20%
 - 专精三「毒雾师」｜【毒雾领域】`aoe_zone` pw3.8 cd18 mp30｜半径170 delay0.4｜被动 `burn` +30%
-- 4转「毒影之王」｜【万毒天罗】`root_zone` pw5.4 cd30 mp50｜半径210 定身3.5s 并附带毒爆伤害｜被动 `burn` +45%
+- 极致「毒影之王」｜【万毒天罗】`root_zone` pw5.4 cd30 mp50｜半径210 定身3.5s 并附带毒爆伤害｜被动 `burn` +45%
 
 ### 9.4 科技系（算力 · 预判压制）
 
@@ -900,19 +929,19 @@
 - 专精一「神射宗师」｜【一箭穿心·极】`snipe` pw5.0 cd22 mp34｜range620 width20｜被动 `execute` +30%
 - 专精二「鹰眼游侠」｜【鹰眼领域】`buff` cd26 mp30｜暴击+45% 暴伤+60% 持续10s｜被动 `haste` +20%
 - 专精三「贯射者」｜【贯穿箭雨】`snipe` pw4.4 cd18 mp28｜range560 width18｜被动 `execute` +25%
-- 4转「箭神」｜【射日】`snipe` pw6.8 cd32 mp52｜range720 width26 必暴｜被动 `execute` +45%
+- 极致「箭神」｜【射日】`snipe` pw6.8 cd32 mp52｜range720 width26 必暴｜被动 `execute` +45%
 
 **流派 B：游侠**
 - 专精一「大游侠」｜【箭雨风暴·极】`aoe_zone` pw4.2 cd22 mp34｜半径190 delay0.5｜被动 `haste` +20%
 - 专精二「风行猎手」｜【风行突袭】`dash_strike` pw3.4 cd16 mp28｜distance220 半径90｜被动 `haste` +25%
 - 专精三「陷阱游侠」｜【束缚陷阱】`root_zone` pw3.2 cd20 mp28｜半径160 定身2.5s｜被动 `trap_bonus` +25%
-- 4转「风之猎手」｜【风暴箭雨】`aoe_zone` pw5.4 cd30 mp50｜半径230 delay0.6｜被动 `haste` +40%
+- 极致「风之猎手」｜【风暴箭雨】`aoe_zone` pw5.4 cd30 mp50｜半径230 delay0.6｜被动 `haste` +40%
 
 **流派 C：疾风猎手**
 - 专精一「速射大师」｜【箭幕·极】`projectile` pw3.6 cd16 mp28｜十连发 spread0.16｜被动 `haste` +30%
 - 专精二「风行者」｜【疾风连射】`buff` cd24 mp30｜攻速+60% 移速+20% 持续8s｜被动 `resonance` 每层 +4%
 - 专精三「鹰眼射手」｜【鹰眼点射】`snipe` pw4.0 cd16 mp26｜range600 width16 暴击+20%｜被动 `execute` +25%
-- 4转「千箭之王」｜【千箭齐发】`projectile` pw4.8 cd26 mp46｜十六连发 spread0.20｜被动 `haste` +45%
+- 极致「千箭之王」｜【千箭齐发】`projectile` pw4.8 cd26 mp46｜十六连发 spread0.20｜被动 `haste` +45%
 
 #### 义体卫士 [cyborg]
 
@@ -920,19 +949,19 @@
 - 专精一「磁轨战士」｜【磁轨风暴·极】`dash_strike` pw4.8 cd20 mp32｜distance360 半径130｜被动 `fortify` -15%
 - 专精二「震荡先锋」｜【震荡领域】`stun_wave` pw4.2 cd18 mp30｜半径170 眩晕1.0s 击退120｜被动 `fortify` -18%
 - 专精三「义体枪手」｜【义体机枪】`projectile` pw3.8 cd16 mp28｜六连发 spread0.14｜被动 `haste` +20%
-- 4转「磁轨天神」｜【磁轨天罚】`dash_strike` pw6.2 cd30 mp50｜distance420 半径160 眩晕1.2s｜被动 `fortify` -25%
+- 极致「磁轨天神」｜【磁轨天罚】`dash_strike` pw6.2 cd30 mp50｜distance420 半径160 眩晕1.2s｜被动 `fortify` -25%
 
 **流派 B：不动堡垒**
 - 专精一「铁壁统领」｜【神盾协议·极】`shield` pw220 cd28 mp40｜持续12s｜被动 `shield_bonus` +40%
 - 专精二「堡垒指挥官」｜【堡垒火力】`aoe_zone` pw4.0 cd22 mp34｜半径180 delay0.5｜被动 `fortify` -20%
 - 专精三「堡垒医官」｜【维修立场】`heal_zone` cd24 mp36｜半径170 每秒30 持续8s｜被动 `heal_bonus` +30%
-- 4转「不动要塞」｜【绝对壁垒】`buff` cd34 mp52｜防御+50 持续14s 反弹 25% 伤害｜被动 `shield_bonus` +50%
+- 极致「不动要塞」｜【绝对壁垒】`buff` cd34 mp52｜防御+50 持续14s 反弹 25% 伤害｜被动 `shield_bonus` +50%
 
 **流派 C：超频武人**
 - 专精一「超频拳王」｜【超频风暴·极】`melee_aoe` pw4.4 cd12 mp24｜半径170｜被动 `haste` +30%
 - 专精二「伺服武者」｜【伺服连打】`melee_aoe` pw3.8 cd8 mp18｜半径110 三段｜被动 `haste` +25%
 - 专精三「电磁拳手」｜【电磁震拳】`stun_wave` pw4.2 cd16 mp26｜半径150 眩晕0.8s 击退140｜被动 `haste` +25%
-- 4转「超频武神」｜【超频·无限】`melee_aoe` pw5.8 cd22 mp40｜半径200 眩晕0.6s｜被动 `haste` +50%
+- 极致「超频武神」｜【超频·无限】`melee_aoe` pw5.8 cd22 mp40｜半径200 眩晕0.6s｜被动 `haste` +50%
 
 #### 黑客 [hacker]
 
@@ -940,19 +969,19 @@
 - 专精一「大黑客」｜【零日链·极】`chain` pw4.6 cd22 mp40｜半径420 目标12｜被动 `resonance` 每层 +6%
 - 专精二「病毒之王」｜【病毒王冠】`chain` pw4.2 cd20 mp36｜半径380 目标10｜被动 `execute` +25%
 - 专精三「防火墙黑客」｜【数据护盾】`shield` pw150 cd24 mp32｜持续10s｜被动 `shield_bonus` +30%
-- 4转「零日之主」｜【零日审判】`chain` pw6.0 cd30 mp54｜半径500 目标14｜被动 `resonance` 每层 +8%
+- 极致「零日之主」｜【零日审判】`chain` pw6.0 cd30 mp54｜半径500 目标14｜被动 `resonance` 每层 +8%
 
 **流派 B：幽灵**
 - 专精一「断电大师」｜【黑域·极】`stun_wave` pw4.6 cd22 mp38｜半径200 眩晕2.2s 击退40｜被动 `fortify` -15%
 - 专精二「幽灵行者」｜【幽灵穿梭】`blink_strike` pw3.4 cd14 mp24｜range280 半径90｜被动 `fortify` -18%
 - 专精三「病毒幽灵」｜【病毒爆发】`aoe_zone` pw4.2 cd22 mp34｜半径180 delay0.4｜被动 `execute` +25%
-- 4转「黑域幽灵」｜【绝对断域】`stun_wave` pw6.0 cd30 mp52｜半径240 眩晕2.8s 击退30｜被动 `fortify` -25%
+- 极致「黑域幽灵」｜【绝对断域】`stun_wave` pw6.0 cd30 mp52｜半径240 眩晕2.8s 击退30｜被动 `fortify` -25%
 
 **流派 C：网络幽灵**
 - 专精一「超频黑客」｜【万物互联·极】`buff` cd26 mp36｜攻速+70% 攻击+28 持续10s｜被动 `haste` +30%
 - 专精二「防火墙大师」｜【绝对防火墙】`shield` pw170 cd24 mp32｜持续10s｜被动 `shield_bonus` +30%
 - 专精三「链式黑客」｜【链式入侵】`chain` pw3.8 cd18 mp30｜半径340 目标8｜被动 `resonance` 每层 +6%
-- 4转「网络之神」｜【全网超频】`buff` cd34 mp52｜攻速+100% 攻击+40 持续12s｜被动 `haste` +45%
+- 极致「网络之神」｜【全网超频】`buff` cd34 mp52｜攻速+100% 攻击+40 持续12s｜被动 `haste` +45%
 
 #### 狙击手 [sniper]
 
@@ -960,64 +989,156 @@
 - 专精一「大狙击手」｜【绝杀狙击·极】`snipe` pw5.4 cd22 mp32｜range980 width22｜被动 `execute` +30%
 - 专精二「幽灵射手」｜【潜行狙击】`buff` cd24 mp28｜暴击+50% 闪避+30% 持续8s｜被动 `haste` +15%
 - 专精三「爆破狙击」｜【爆裂弹】`aoe_zone` pw4.4 cd20 mp32｜半径170 delay0.4｜被动 `execute` +25%
-- 4转「神枪手」｜【天眼绝杀】`snipe` pw7.2 cd34 mp54｜range1100 width26 必暴｜被动 `execute` +50%
+- 极致「神枪手」｜【天眼绝杀】`snipe` pw7.2 cd34 mp54｜range1100 width26 必暴｜被动 `execute` +50%
 
 **流派 B：陷阱大师**
 - 专精一「大陷阱师」｜【死亡禁区·极】`deployable` mine pw4.4 cd26 mp44｜8枚 散布220 半径120 持续26s｜被动 `trap_bonus` +35%
 - 专精二「雷场指挥官」｜【雷场矩阵】`deployable` mine pw4.0 cd22 mp38｜6枚 散布180 半径110 持续22s｜被动 `trap_bonus` +30%
 - 专精三「诱杀者」｜【诱杀狙击】`snipe` pw4.8 cd20 mp30｜range860 width20｜被动 `trap_bonus` +30%
-- 4转「禁区之主」｜【死亡地平线】`deployable` mine pw5.4 cd34 mp56｜10枚 散布260 半径130 持续30s｜被动 `trap_bonus` +50%
+- 极致「禁区之主」｜【死亡地平线】`deployable` mine pw5.4 cd34 mp56｜10枚 散布260 半径130 持续30s｜被动 `trap_bonus` +50%
 
 **流派 C：潜伏者**
 - 专精一「暗杀大师」｜【暗杀·极】`snipe` pw5.0 cd20 mp30｜range900 width20｜被动 `execute` +30%
 - 专精二「潜行专家」｜【隐匿领域】`buff` cd24 mp28｜闪避+60% 暴击+35% 持续10s｜被动 `fortify` -15%
 - 专精三「毒狙」｜【毒弹狙击】`snipe` pw4.4 cd18 mp28｜range880 width18 附带持续毒伤｜被动 `burn` +30%
-- 4转「暗影死神」｜【死神之息】`snipe` pw6.8 cd32 mp50｜range1000 width24 吸血25%｜被动 `execute` +50%
+- 极致「暗影死神」｜【死神之息】`snipe` pw6.8 cd32 mp50｜range1000 width24 吸血25%｜被动 `execute` +50%
 
 ### 9.5 章节统计
 
 | 项目 | 数量 |
 | --- | --- |
 | 流派 | 48 |
-| 3转专精（每流派 3 条） | 144 |
-| 4转终极形态（每流派 1 个） | 48 |
-| 3转转职新增主动技能 | 144 |
-| 4转新增终极主动技能 | 48 |
-| 3转被动 | 144 |
-| 4转被动 | 48 |
-| 本轮新增技能总数 | 192 |
+| 流派技能（6 / 条） | 288 |
+| 专精（3 / 条） | 144 |
+| 流派极致（1 / 条，含称号） | 48 |
+| 一转可获得主动技能总量 | 480 |
 | 新增技能图标（复用为主，招牌各 1） | ≤ 48 |
 
 ---
 
-## 十、实现落点（确认后执行）
+## 十、二转 / 三转 / 四转（职业级）
 
-1. `tools/gen_class_content.py` 新增 `STYLE_KITS[class][style] = {basic_attack, passive, skills[6]}`，生成到 `data/specializations.json`。
-2. `CharacterData` 增加 `apply_style(style_id)`：合并 `basic_attack` 与 6 技能，供 `get_basic_attack()` / `get_skill(slot)` 读取。
-3. `PlayerController.try_skill` 改读 `character_data.get_skill(slot)`；`try_attack` 已读 `get_basic_attack()`。
-4. 技能树解锁逻辑改为按槽位（R/F/G）判定，UI 显示当前流派技能名。
-5. HUD 六格技能栏刷新时机增加“切换流派”事件。
-6. 存档只存 `style_id` / `spec_id` / `apex_id`，加载后重建有效技能。
-7. 图标按“元素 × 形态”复用；每条流派招牌技能新增 1 张，控制在 48 张内。
-8. 验收：`validate_project.py` 增加“每职业 3 套完整 6 技能、类型合法、进阶预算达标”校验；无头冒烟增加 3 流派切换后技能可施放断言。
+> 2转 起内容不再按流派拆分，而是按职业给 1 套；3转、4转 更是脱离流派的生命层次。
 
-### 10.1 三转 / 四转新增落点
+### 10.1 二转 · 万流归宗（16 融合技）
 
-9. `tools/gen_class_content.py` 新增两组契约：
+解锁硬性条件：本职业 3 条流派的「流派极致」全部获得。
+效果：1~6 槽改为跨流派自选（18 选 6），并解锁下表融合技（1 主动 + 1 被动）。
+
+| 职业 | 融合技 | 类型 / 数值 | 被动 |
+| --- | --- | --- | --- |
+| 法师 | 元素轮舞 | `aoe_zone` pw5.0 cd30 mp60｜半径220 delay0.6 火→冰→奥三段 | `resonance` 每层 +6% |
+| 咒铠师 | 符阵归一 | `buff` cd34 mp52｜护盾+50% 防御+30 反弹30% 持续12s | `shield_bonus` +40% |
+| 牧师 | 三位一体 | `heal_zone` cd32 mp56｜半径210 每秒50 持续10s，同时造成圣光伤害 | `heal_bonus` +40% |
+| 亡灵法师 | 生死轮回 | `summon` cd36 mp58｜5只 持续20s，每只死亡时爆炸 | `summon_bonus` +40% |
+| 炸弹专家 | 三重爆破 | `deployable` bomb cd34 mp54｜3枚（燃烧/破片/铝热）散布120 半径160 fuse0.6 | `trap_bonus` +40% |
+| 机甲师 | 要塞齐射 | `aoe_zone` pw5.2 cd32 mp52｜半径210 delay0.5 三段炮击 | `fortify` -25% |
+| 工程师 | 战争工事 | `deployable` turret cd36 mp56｜2座 持续26s 间隔0.35，附带治疗脉冲 | `trap_bonus` +40% |
+| 赏金猎人 | 猎杀交响 | `mark` cd30 mp40｜半径560 易伤70% 持续14s，标记目标受连锁伤害 | `execute` +40% |
+| 死亡骑士 | 血墓冲锋 | `dash_strike` pw5.4 cd28 mp46｜distance300 半径140 吸血50% | `lifesteal` +30% |
+| 战士 | 剑阵风暴 | `melee_aoe` pw5.6 cd28 mp46｜半径210 眩晕0.8s | `fortify` -25% |
+| 气宗 | 气海无量 | `heal_zone` cd32 mp54｜半径210 每秒46 持续10s，范围内敌人受气劲伤害 | `heal_bonus` +38% |
+| 小偷 | 毒影分身 | `summon` cd30 mp48｜3只 持续14s，攻击附带中毒 | `burn` +35% |
+| 弓箭手 | 万箭穿心 | `snipe` pw6.0 cd30 mp50｜range760 width26 穿透4 | `execute` +40% |
+| 义体卫士 | 磁轨壁垒 | `dash_strike` pw5.2 cd30 mp48｜distance340 半径150，落地获得 pw180 护盾 | `shield_bonus` +35% |
+| 黑客 | 全网瘫痪 | `chain` pw5.4 cd32 mp54｜半径460 目标12，命中眩晕0.8s | `execute` +40% |
+| 狙击手 | 死亡禁区 | `deployable` mine cd34 mp54｜8枚 散布240 半径120 持续26s，同时锁定最远目标 | `trap_bonus` +40% |
+
+### 10.2 三转 · 生命跃迁（16 变身）
+
+不再属于流派，是生命层次的整体提升：永久提高生命/法力上限，并获得 1 个变身主动 + 1 个跃迁被动。
+
+| 职业 | 变身 | 效果 | 被动 | 生命层提升 |
+| --- | --- | --- | --- | --- |
+| 法师 | 灵体化 | `buff` 法伤+45% 移速+20% 15s，免疫减速 | `resonance` +6% | HP+20% MP+40% |
+| 咒铠师 | 符骸 | `shield` pw260 cd75 mp60 持续15s，期间防御+40 | `fortify` -25% | HP+35% MP+20% |
+| 牧师 | 圣体 | `heal_zone` cd75 mp62｜半径220 每秒55 持续12s | `heal_bonus` +45% | HP+30% MP+30% |
+| 亡灵法师 | 巫妖化 | `buff` 吸血+40% 召唤物+50% 15s | `lifesteal` +35% | HP+25% MP+40% |
+| 炸弹专家 | 火元素体 | `aoe_zone` pw5.0 cd75 mp58｜半径200 delay0.3 持续燃烧 | `burn` +45% | HP+25% MP+25% |
+| 机甲师 | 机体超载 | `buff` 攻击+40 攻速+25% 受伤-20% 15s | `fortify` -25% | HP+45% MP+15% |
+| 工程师 | 机械融合 | `deployable` turret pw5.0 cd80 mp62｜2座 持续20s 间隔0.3 | `trap_bonus` +45% | HP+30% MP+25% |
+| 赏金猎人 | 猎人体质 | `buff` 暴击+40% 移速+30% 15s | `execute` +40% | HP+30% MP+20% |
+| 死亡骑士 | 不死之躯 | `buff` 吸血+35% 受伤-20% 15s，濒死免疫一次 | `lifesteal` +35% | HP+40% MP+20% |
+| 战士 | 战神体 | `buff` 攻击+45 防御+25 15s | `fortify` -25% | HP+45% MP+15% |
+| 气宗 | 先天真气 | `buff` 治疗+50% 攻速+35% 15s | `heal_bonus` +40% | HP+30% MP+35% |
+| 小偷 | 影体 | `blink_strike` pw5.6 cd70 mp56｜range320 半径140 必暴，之后闪避+50% 8s | `haste` +35% | HP+25% MP+25% |
+| 弓箭手 | 鹰神体 | `buff` 暴伤+80% 攻速+30% 15s | `execute` +40% | HP+30% MP+20% |
+| 义体卫士 | 全身义体化 | `shield` pw300 cd80 mp56 持续15s，期间受伤-25% | `shield_bonus` +45% | HP+50% MP+10% |
+| 黑客 | 数据生命 | `chain` pw5.2 cd75 mp62｜半径480 目标12，命中缩减自身冷却 | `resonance` +7% | HP+25% MP+40% |
+| 狙击手 | 鹰神之眼 | `snipe` pw6.4 cd72 mp56｜range900 width26 必暴 | `execute` +45% | HP+25% MP+25% |
+
+### 10.3 四转 · 超脱（16 终极 + 借技池）
+
+脱离职业框架：获得 1 个超脱终极 + 1 个超脱被动 + 称号/外观，并可从**其他源流**借 1 个招牌技能。
+
+| 职业 | 超脱称号 | 超脱终极 | 被动 |
+| --- | --- | --- | --- |
+| 法师 | 万象法师 | `aoe_zone` pw8.0 cd70 mp120｜半径280 delay0.8 三段元素 | `resonance` +8% |
+| 咒铠师 | 不朽符主 | `buff` cd80 mp110｜防御+60 反弹40% 持续16s | `fortify` -35% |
+| 牧师 | 创世圣者 | `heal_zone` cd80 mp120｜半径260 每秒70 持续12s 并复活一次 | `heal_bonus` +55% |
+| 亡灵法师 | 冥界之主 | `summon` cd90 mp120｜8只 持续24s | `summon_bonus` +55% |
+| 炸弹专家 | 终焉爆破 | `deployable` bomb cd80 mp110｜6枚 散布160 半径200 fuse0.5 | `trap_bonus` +55% |
+| 机甲师 | 天基要塞 | `snipe` pw9.0 cd80 mp110｜range1200 width40 | `fortify` -35% |
+| 工程师 | 机械神国 | `deployable` turret cd90 mp120｜4座 持续30s 间隔0.25 | `trap_bonus` +55% |
+| 赏金猎人 | 猎神 | `mark` cd70 mp90｜半径700 易伤90% 持续16s，低血目标直接处决 | `execute` +55% |
+| 死亡骑士 | 血海轮回 | `snipe` pw8.4 cd80 mp110｜range560 width40 吸血100% | `lifesteal` +50% |
+| 战士 | 剑之极 | `melee_aoe` pw9.0 cd70 mp100｜半径260 眩晕1.0s | `fortify` -35% |
+| 气宗 | 天人合一 | `heal_zone` cd80 mp115｜半径260 每秒64 持续12s 并造成气劲伤害 | `heal_bonus` +55% |
+| 小偷 | 无我 | `blink_strike` pw9.0 cd60 mp90｜range420 半径180 必暴 | `execute` +55% |
+| 弓箭手 | 射日者 | `snipe` pw9.4 cd75 mp100｜range1000 width30 必暴 | `execute` +55% |
+| 义体卫士 | 钢铁飞升 | `dash_strike` pw8.6 cd75 mp100｜distance480 半径200 眩晕1.2s | `shield_bonus` +55% |
+| 黑客 | 数字永生 | `chain` pw8.4 cd80 mp110｜半径600 目标20 | `resonance` +10% |
+| 狙击手 | 一击必杀 | `snipe` pw10.0 cd85 mp110｜range1400 width30 必暴 | `execute` +60% |
+
+**借技池（4 选 1，不得借本源流）**
+
+| 源流 | 借技 | 类型 / 数值 |
+| --- | --- | --- |
+| 法术 | 秘法射线 | `snipe` pw6.0 cd40 mp50｜range600 width24 |
+| 机械 | 爆破核心 | `deployable` bomb pw6.0 cd45 mp55｜2枚 半径160 fuse0.6 |
+| 传武 | 破空突进 | `dash_strike` pw6.0 cd35 mp40｜distance280 半径120 |
+| 科技 | 数据链 | `chain` pw6.0 cd40 mp50｜半径420 目标10 |
+
+### 10.4 统计
+
+| 项目 | 数量 |
+| --- | --- |
+| 二转融合技（1 主动 + 1 被动 / 职业） | 16 + 16 |
+| 三转变身（1 主动 + 1 被动 / 职业） | 16 + 16 |
+| 四转超脱（1 终极 + 1 被动 / 职业） | 16 + 16 |
+| 四转借技池 | 4 |
+| 二~四转新增条目合计 | 100 |
+
+---
+
+## 十一、实现落点（确认后执行）
+
+1. `tools/gen_class_content.py` 新增三组流派契约，生成到 `data/specializations.json`：
+   - `STYLE_KITS[style_id] = {basic_attack, passive, skills[6]}`；
    - `STYLE_SPECS[style_id][a|b|c] = {name, active, passive}`；
    - `STYLE_APEX[style_id] = {title, active, passive, basic_attack_affix}`。
-10. `CharacterData` 增加 `apply_spec(spec_id)` 与 `apply_apex(apex_id)`，`get_skill(7/8)` 分别读取二者。
-11. `PlayerController` 新增 `try_skill(7/8)` 分支；`project.godot` 增加 `skill_7`（`T`）/ `skill_8`（`Y`）输入动作。
-12. HUD 技能栏由 6 格扩为 8 格，7/8 格按解锁状态灰显；技能树 UI 增加“3转专精 / 4转终极”两个展示位。
-13. 被动系统新增 6 个键（`execute / fortify / haste / resonance / trap_bonus / summon_bonus`），在 `SkillExecutor` 与伤害管线统一结算，并做加算封顶。
-14. 存档迁移：旧存档缺失新字段时按 `spec_id = ""`、`apex_id = ""` 处理，不报错。
-15. 验收补充：`validate_project.py` 校验“48 流派 × 3 专精 + 48 终极”完整性、槽 7/8 类型合法、3转/4转预算区间；冒烟脚本覆盖 3转 A/B/C 与 4转技能各施放一次。
+2. 新增职业级契约：`CLASS_FUSION[16]`、`CLASS_ASCENSION[16]`、`CLASS_TRANSCEND[16]`、`BORROW_POOL[4]`。
+3. `CharacterData` 增加 `apply_style / apply_spec / apply_apex / apply_fusion / apply_ascension / apply_transcend`，并支持自由配招 `loadout`（最多 10 格）。
+4. `get_skill(1..10)` 按 8.5 的派生规则读取；`try_attack` 继续读 `get_basic_attack()`。
+5. `PlayerController.try_skill` 支持槽 1~10；`project.godot` 新增 `skill_7`~`skill_10`（`T` / `Y` / `V` / `B`）。
+6. HUD 技能栏由 6 格扩为 10 格（随技能树逐层解锁），提供自由配招面板；未解锁格位灰显。
+7. **技能树改为成长/融合树**：每层（4 节点）完成 → 操作栏 +1 格；每 2 层解锁 1 个融合槽（最多 2 个）；其余节点给属性/被动。
+8. 新增融合系统：`FusionService` 负责校验主/副技能、生成融合技能（主类型 + 副技能 1 词条）、撤销与存档；`SkillExecutor` 按主技能原语执行并叠加词条效果。
+9. 操作栏改为自由配招：`loadout` 保存最多 10 个能力 id，其中**流派技能最多 6 个**；拖拽面板只显示已解锁项，同一能力不可重复放入。
+10. 被动系统新增 6 个键（`execute / fortify / haste / resonance / trap_bonus / summon_bonus`），在 `SkillExecutor` 与伤害管线统一结算并加算封顶。
+11. 3转生命层提升写进 `CharacterData` 的上限计算（HP/MP 百分比），需与装备、药水加成统一结算顺序。
+12. 存档迁移：旧存档缺失新字段时按 `spec_id = ""`、`apex_id = ""`、`loadout = []`、`fusions = []` 处理，不报错。
+13. 修复 `scripts/combat/deployable.gd` 第 77 行类型推断错误（炸弹/炮塔冒烟失败）。
+14. 图标按“元素 × 形态”复用；每条流派招牌技能新增 1 张，控制在 48 张内；融合/跃迁/超脱优先复用。
+15. 验收：`validate_project.py` 校验“1转 480 技能 + 2转 16 融合 + 3转 16 变身 + 4转 16 超脱 + 4 借技”的完整性、类型合法、预算区间；冒烟覆盖自由配招、技能融合、1转流派切换、2转跨流派配招、3转变身、4转终极。
 
-## 十一、需要确认的问题
+## 十二、需要确认的问题
 
-1. 上述 48 条流派命名是否沿用现有专职名？如需改名，请给出新名单。
-2. 144 条三转专精与本轮新增的 48 个四转称号是否沿用？如需改名，请指出具体条目。
-3. 新增 6 种被动（`execute / fortify / haste / resonance / trap_bonus / summon_bonus`）已确认接受，是否还允许后续再扩充？
-4. 技能树 R/F/G 解锁改为“按槽位”是否接受？这会改变现有按技能 id 解锁的实现。
-5. 每条流派是否保留“招牌图标”新增，还是全部复用现有图标以压缩素材量？
+1. 48 条流派名、144 条专精名、48 个流派极致称号是否沿用现有命名？如需改名请指出条目。
+2. 2转「18 选 6」跨流派自由配招是否接受？还是限定每流派至少 1 个技能？
+3. 操作栏“基础 6 格、随技能树每层 +1 至 10 格、玩家自行配招”是否接受？
+4. 3转变身时长 12~18s、冷却 70~90s，以及生命上限 +20%~+50% 的提升幅度是否合适？
+5. 4转借技为“4 选 1、不得借本源流”，是否接受？
+6. 技能融合规则是否接受：主技能原形态、副技能只带 1 个词条、威力 ×1.15 / 冷却 ×1.25 / 法力 主+副×0.5、最多 2 个融合槽？
+7. 每条流派是否保留“招牌图标”新增，还是全部复用现有图标以压缩素材量？
 
