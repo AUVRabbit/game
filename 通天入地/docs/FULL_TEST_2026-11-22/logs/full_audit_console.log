@@ -1,0 +1,291 @@
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+OpenGL API 3.3.0 - Build 31.0.101.4577 - Compatibility - Using Device: Intel - Intel(R) RaptorLake-S Mobile Graphics Controller
+
+[DataManager] 数据加载完成：物品 25 / 职业 12 / 配方 15 / 任务 3 / 对话 3 / 朋克部件 20 / 技能树 12
+[GameManager] 通天入地 · 启动完成
+2026-11-21T17:56:36 | ========== FULL AUDIT START ==========
+2026-11-21T17:56:36 | Godot=4.7.2-stable (official)
+2026-11-21T17:56:36 | ACTION  进入主菜单，检查标题与 5 个按钮
+2026-11-21T17:56:37 | PASS  主菜单节点存在 | 
+2026-11-21T17:56:37 | PASS  主菜单按钮>=5 | buttons=7
+2026-11-21T17:56:37 | SHOT    screenshots/01_main_menu.jpg (1280x720)
+2026-11-21T17:56:37 | ACTION  打开主菜单设置面板
+2026-11-21T17:56:38 | SHOT    screenshots/02_settings.jpg (1280x720)
+2026-11-21T17:56:38 | PASS  设置面板可打开 | 
+2026-11-21T17:56:38 | ACTION  点击开始新游戏，进入主世界
+2026-11-21T17:56:39 | PASS  主世界场景加载 | res://scenes/world/main_world.tscn
+2026-11-21T17:56:39 | PASS  初始队伍 3 人 | 3
+2026-11-21T17:56:39 | PASS  初始金币 120 | 120
+2026-11-21T17:56:39 | PASS  初始背包材料 | 
+2026-11-21T17:56:39 | SHOT    screenshots/03_world_hud.jpg (1280x720)
+2026-11-21T17:56:39 | ACTION  通过职业祭坛逻辑将 12 职业全部加入队伍
+2026-11-21T17:56:40 | PASS  12 职业全部加入队伍 | party=12 roster=12
+2026-11-21T17:56:41 | PASS  12 职业立绘加载 | missing=[]
+2026-11-21T17:56:41 | ACTION  普攻 / 冲刺无敌 / 冷却 / 法力不足校验
+2026-11-21T17:56:42 | PASS  普攻造成伤害 | 500 -> 484
+2026-11-21T17:56:42 | PASS  冲刺进入冷却 | cd=0.90
+2026-11-21T17:56:42 | PASS  冲刺期间无敌 | 
+2026-11-21T17:56:42 | PASS  冲刺伤害吸收 | dealt=0
+2026-11-21T17:56:42 | PASS  非冲刺正常受伤 | dealt=18
+2026-11-21T17:56:42 | PASS  法力不足不施法 | 
+2026-11-21T17:56:42 | PASS  技能冷却阻止重复施放 | cd=3.00 mp=42
+2026-11-21T17:56:42 | ACTION  资源点采集
+2026-11-21T17:56:42 | OBSERVE 采集成功 wood 8 -> 11
+2026-11-21T17:56:42 | PASS  资源点采集入包 | 
+2026-11-21T17:56:42 | ACTION  合成铁锭
+2026-11-21T17:56:42 | PASS  合成 iron_ingot | 
+2026-11-21T17:56:42 | ACTION  商店购买与出售
+2026-11-21T17:56:42 | PASS  商店购买药水 | 
+2026-11-21T17:56:42 | PASS  商店出售物品 | 
+2026-11-21T17:56:42 | ACTION  装备与卸下武器
+2026-11-21T17:56:42 | PASS  武器装备生效 | item=weapon_sword_iron slot=weapon
+2026-11-21T17:56:42 | PASS  武器卸下回包 | 
+2026-11-21T17:56:42 | ACTION  建造模式：放置石砖并拆除返还
+2026-11-21T17:56:42 | PASS  放置建筑 | block=stone_block count=0->1
+2026-11-21T17:56:42 | SHOT    screenshots/13_build_mode.jpg (1280x720)
+2026-11-21T17:56:42 | PASS  拆除建筑并返还材料 | count=0 refund=stone 8->7
+2026-11-21T17:56:42 | ACTION  背包三页签
+2026-11-21T17:56:43 | PASS  背包打开暂停 | 
+2026-11-21T17:56:43 | SHOT    screenshots/08_inventory_bag.jpg (1280x720)
+2026-11-21T17:56:43 | SHOT    screenshots/09_inventory_craft.jpg (1280x720)
+2026-11-21T17:56:44 | SHOT    screenshots/10_inventory_shop.jpg (1280x720)
+2026-11-21T17:56:44 | PASS  背包关闭恢复 | 
+2026-11-21T17:56:44 | ACTION  技能树与职业专职页签
+2026-11-21T17:56:44 | PASS  技能树面板打开 | 
+2026-11-21T17:56:45 | SHOT    screenshots/06_skill_tree.jpg (1280x720)
+2026-11-21T17:56:45 | SHOT    screenshots/07_specialization.jpg (1280x720)
+2026-11-21T17:56:45 | ACTION  朋克改造台面板
+2026-11-21T17:56:46 | PASS  朋克面板打开 | 
+2026-11-21T17:56:46 | SHOT    screenshots/11_punk_panel.jpg (1280x720)
+2026-11-21T17:56:46 | ACTION  暂停菜单
+2026-11-21T17:56:47 | PASS  暂停菜单暂停游戏 | 
+2026-11-21T17:56:47 | SHOT    screenshots/12_pause_menu.jpg (1280x720)
+2026-11-21T17:56:47 | PASS  暂停恢复 | 
+2026-11-21T17:56:47 | ACTION  NPC 对话框
+2026-11-21T17:56:48 | SHOT    screenshots/14_dialogue.jpg (1280x720)
+2026-11-21T17:56:48 | PASS  对话框显示 | 
+2026-11-21T17:56:48 | ACTION  触屏控制布局
+2026-11-21T17:56:49 | SHOT    screenshots/15_touch_controls.jpg (1280x720)
+2026-11-21T17:56:49 | PASS  触屏控件存在 | 
+2026-11-21T17:56:49 | ACTION  相机缩放
+2026-11-21T17:56:49 | SHOT    screenshots/04_world_zoom.jpg (1280x720)
+2026-11-21T17:56:49 | PASS  相机缩放生效 | 
+2026-11-21T17:56:49 | ACTION  开始逐职业技能实测（12 职业 x 3 技能 = 36 项）
+2026-11-21T17:56:49 | PASS  warrior 技能数=3 | 3
+2026-11-21T17:56:49 | ACTION  施放技能 warrior[1] 旋风斩 / whirlwind (melee_aoe)
+2026-11-21T17:56:49 | OBSERVE 技能结果 OK melee_aoe; MP 50->42; CD=2.90; VFX=1; DummyHP 3000 -> 2973
+2026-11-21T17:56:49 | SHOT    skills/01_warrior_whirlwind.jpg (1280x720)
+2026-11-21T17:56:49 | PASS  技能 warrior-whirlwind | melee_aoe; MP 50->42; CD=2.90; VFX=1; DummyHP 3000 -> 2973
+2026-11-21T17:56:49 | ACTION  施放技能 warrior[2] 战吼 / war_cry (buff)
+2026-11-21T17:56:49 | OBSERVE 技能结果 OK buff; MP 50->40; CD=9.90; VFX=2; Buff[attack] found=true attack 15 -> 23
+2026-11-21T17:56:49 | SHOT    skills/02_warrior_war_cry.jpg (1280x720)
+2026-11-21T17:56:50 | PASS  技能 warrior-war_cry | buff; MP 50->40; CD=9.90; VFX=2; Buff[attack] found=true attack 15 -> 23
+2026-11-21T17:56:50 | ACTION  施放技能 warrior[3] 盾墙 / shield_wall (shield)
+2026-11-21T17:56:50 | OBSERVE 技能结果 OK shield; MP 50->38; CD=11.92; VFX=3; Shield 0 -> 45
+2026-11-21T17:56:50 | SHOT    skills/03_warrior_shield_wall.jpg (1280x720)
+2026-11-21T17:56:50 | PASS  技能 warrior-shield_wall | shield; MP 50->38; CD=11.92; VFX=3; Shield 0 -> 45
+2026-11-21T17:56:50 | PASS  archer 技能数=3 | 3
+2026-11-21T17:56:50 | ACTION  施放技能 archer[1] 穿透射击 / piercing_shot (projectile)
+2026-11-21T17:56:50 | OBSERVE 技能结果 OK projectile; MP 60->54; CD=1.90; VFX=3; DummyHP 3000 -> 2971
+2026-11-21T17:56:50 | SHOT    skills/04_archer_piercing_shot.jpg (1280x720)
+2026-11-21T17:56:50 | PASS  技能 archer-piercing_shot | projectile; MP 60->54; CD=1.90; VFX=3; DummyHP 3000 -> 2971
+2026-11-21T17:56:50 | ACTION  施放技能 archer[2] 箭雨 / arrow_rain (aoe_zone)
+2026-11-21T17:56:51 | OBSERVE 技能结果 OK aoe_zone; MP 60->45; CD=7.92; VFX=1; DummyHP 3000 -> 2978
+2026-11-21T17:56:51 | SHOT    skills/05_archer_arrow_rain.jpg (1280x720)
+2026-11-21T17:56:51 | PASS  技能 archer-arrow_rain | aoe_zone; MP 60->45; CD=7.92; VFX=1; DummyHP 3000 -> 2978
+2026-11-21T17:56:51 | ACTION  施放技能 archer[3] 鹰眼 / hawk_eye (buff)
+2026-11-21T17:56:51 | OBSERVE 技能结果 OK buff; MP 60->50; CD=11.90; VFX=1; Buff[crit_rate] found=true attack 18 -> 18
+2026-11-21T17:56:52 | SHOT    skills/06_archer_hawk_eye.jpg (1280x720)
+2026-11-21T17:56:52 | PASS  技能 archer-hawk_eye | buff; MP 60->50; CD=11.90; VFX=1; Buff[crit_rate] found=true attack 18 -> 18
+2026-11-21T17:56:52 | PASS  mage 技能数=3 | 3
+2026-11-21T17:56:52 | ACTION  施放技能 mage[1] 火球术 / fireball (projectile)
+2026-11-21T17:56:52 | OBSERVE 技能结果 OK projectile; MP 130->120; CD=1.50; VFX=2; DummyHP 3000 -> 2958
+2026-11-21T17:56:52 | SHOT    skills/07_mage_fireball.jpg (1280x720)
+2026-11-21T17:56:52 | PASS  技能 mage-fireball | projectile; MP 130->120; CD=1.50; VFX=2; DummyHP 3000 -> 2958
+2026-11-21T17:56:52 | ACTION  施放技能 mage[2] 冰霜新星 / frost_nova (melee_aoe)
+2026-11-21T17:56:52 | OBSERVE 技能结果 OK melee_aoe; MP 130->112; CD=5.92; VFX=1; DummyHP 3000 -> 2967
+2026-11-21T17:56:53 | SHOT    skills/08_mage_frost_nova.jpg (1280x720)
+2026-11-21T17:56:53 | PASS  技能 mage-frost_nova | melee_aoe; MP 130->112; CD=5.92; VFX=1; DummyHP 3000 -> 2967
+2026-11-21T17:56:53 | ACTION  施放技能 mage[3] 奥术护盾 / arcane_shield (shield)
+2026-11-21T17:56:53 | OBSERVE 技能结果 OK shield; MP 130->110; CD=11.88; VFX=2; Shield 0 -> 60
+2026-11-21T17:56:53 | SHOT    skills/09_mage_arcane_shield.jpg (1280x720)
+2026-11-21T17:56:53 | PASS  技能 mage-arcane_shield | shield; MP 130->110; CD=11.88; VFX=2; Shield 0 -> 60
+2026-11-21T17:56:53 | PASS  priest 技能数=3 | 3
+2026-11-21T17:56:53 | ACTION  施放技能 priest[1] 治疗术 / heal (heal)
+2026-11-21T17:56:53 | OBSERVE 技能结果 OK heal; MP 110->96; CD=3.90; VFX=3; HP 58 -> 88 (+30)
+2026-11-21T17:56:53 | SHOT    skills/10_priest_heal.jpg (1280x720)
+2026-11-21T17:56:53 | PASS  技能 priest-heal | heal; MP 110->96; CD=3.90; VFX=3; HP 58 -> 88 (+30)
+2026-11-21T17:56:53 | ACTION  施放技能 priest[2] 神圣新星 / holy_nova (melee_aoe)
+2026-11-21T17:56:53 | OBSERVE 技能结果 OK melee_aoe; MP 110->92; CD=6.90; VFX=2; DummyHP 3000 -> 2982
+2026-11-21T17:56:53 | SHOT    skills/11_priest_holy_nova.jpg (1280x720)
+2026-11-21T17:56:53 | PASS  技能 priest-holy_nova | melee_aoe; MP 110->92; CD=6.90; VFX=2; DummyHP 3000 -> 2982
+2026-11-21T17:56:53 | ACTION  施放技能 priest[3] 祝福 / blessing (buff)
+2026-11-21T17:56:53 | OBSERVE 技能结果 OK buff; MP 110->94; CD=13.90; VFX=3; Buff[defense] found=true attack 8 -> 8
+2026-11-21T17:56:53 | SHOT    skills/12_priest_blessing.jpg (1280x720)
+2026-11-21T17:56:53 | PASS  技能 priest-blessing | buff; MP 110->94; CD=13.90; VFX=3; Buff[defense] found=true attack 8 -> 8
+2026-11-21T17:56:53 | PASS  necromancer 技能数=3 | 3
+2026-11-21T17:56:53 | ACTION  施放技能 necromancer[1] 腐蚀箭 / corrupt_bolt (projectile)
+2026-11-21T17:56:54 | OBSERVE 技能结果 OK projectile; MP 120->102; CD=1.72; VFX=2; DummyHP 3000 -> 2966
+2026-11-21T17:56:54 | SHOT    skills/13_necromancer_corrupt_bolt.jpg (1280x720)
+2026-11-21T17:56:54 | PASS  技能 necromancer-corrupt_bolt | projectile; MP 120->102; CD=1.72; VFX=2; DummyHP 3000 -> 2966
+2026-11-21T17:56:54 | ACTION  施放技能 necromancer[2] 亡者领域 / grave_field (aoe_zone)
+2026-11-21T17:56:55 | OBSERVE 技能结果 OK aoe_zone; MP 120->96; CD=8.90; VFX=1; DummyHP 3000 -> 2968
+2026-11-21T17:56:55 | SHOT    skills/14_necromancer_grave_field.jpg (1280x720)
+2026-11-21T17:56:55 | PASS  技能 necromancer-grave_field | aoe_zone; MP 120->96; CD=8.90; VFX=1; DummyHP 3000 -> 2968
+2026-11-21T17:56:55 | ACTION  施放技能 necromancer[3] 汲取 / drain (heal)
+2026-11-21T17:56:55 | OBSERVE 技能结果 OK heal; MP 120->106; CD=7.90; VFX=1; HP 50 -> 80 (+30)
+2026-11-21T17:56:55 | SHOT    skills/15_necromancer_drain.jpg (1280x720)
+2026-11-21T17:56:55 | PASS  技能 necromancer-drain | heal; MP 120->106; CD=7.90; VFX=1; HP 50 -> 80 (+30)
+2026-11-21T17:56:55 | PASS  death_knight 技能数=3 | 3
+2026-11-21T17:56:55 | ACTION  施放技能 death_knight[1] 死亡冲锋 / death_charge (dash_strike)
+2026-11-21T17:56:55 | OBSERVE 技能结果 OK dash_strike; MP 70->60; CD=4.90; VFX=2; MoveX +148 DummyHP 3000 -> 2976
+2026-11-21T17:56:56 | SHOT    skills/16_death_knight_death_charge.jpg (1280x720)
+2026-11-21T17:56:56 | PASS  技能 death_knight-death_charge | dash_strike; MP 70->60; CD=4.90; VFX=2; MoveX +148 DummyHP 3000 -> 2976
+2026-11-21T17:56:56 | ACTION  施放技能 death_knight[2] 血斩 / blood_slash (melee_aoe)
+2026-11-21T17:56:56 | OBSERVE 技能结果 OK melee_aoe; MP 70->58; CD=3.92; VFX=2; DummyHP 3000 -> 2973
+2026-11-21T17:56:56 | SHOT    skills/17_death_knight_blood_slash.jpg (1280x720)
+2026-11-21T17:56:56 | PASS  技能 death_knight-blood_slash | melee_aoe; MP 70->58; CD=3.92; VFX=2; DummyHP 3000 -> 2973
+2026-11-21T17:56:56 | ACTION  施放技能 death_knight[3] 黑暗护盾 / dark_shield (shield)
+2026-11-21T17:56:56 | OBSERVE 技能结果 OK shield; MP 70->54; CD=13.92; VFX=3; Shield 0 -> 55
+2026-11-21T17:56:56 | SHOT    skills/18_death_knight_dark_shield.jpg (1280x720)
+2026-11-21T17:56:56 | PASS  技能 death_knight-dark_shield | shield; MP 70->54; CD=13.92; VFX=3; Shield 0 -> 55
+2026-11-21T17:56:56 | PASS  thief 技能数=3 | 3
+2026-11-21T17:56:56 | ACTION  施放技能 thief[1] 背刺 / backstab (melee_aoe)
+2026-11-21T17:56:56 | OBSERVE 技能结果 OK melee_aoe; MP 55->49; CD=2.30; VFX=2; DummyHP 3000 -> 2974
+2026-11-21T17:56:56 | SHOT    skills/19_thief_backstab.jpg (1280x720)
+2026-11-21T17:56:56 | PASS  技能 thief-backstab | melee_aoe; MP 55->49; CD=2.30; VFX=2; DummyHP 3000 -> 2974
+2026-11-21T17:56:56 | ACTION  施放技能 thief[2] 烟雾弹 / smoke_bomb (buff)
+2026-11-21T17:56:56 | OBSERVE 技能结果 OK buff; MP 55->45; CD=9.90; VFX=3; Buff[dodge_rate] found=true attack 13 -> 13
+2026-11-21T17:56:56 | SHOT    skills/20_thief_smoke_bomb.jpg (1280x720)
+2026-11-21T17:56:56 | PASS  技能 thief-smoke_bomb | buff; MP 55->45; CD=9.90; VFX=3; Buff[dodge_rate] found=true attack 13 -> 13
+2026-11-21T17:56:56 | ACTION  施放技能 thief[3] 毒刃 / poison_blade (projectile)
+2026-11-21T17:56:57 | OBSERVE 技能结果 OK projectile; MP 55->47; CD=2.92; VFX=3; DummyHP 3000 -> 2984
+2026-11-21T17:56:57 | SHOT    skills/21_thief_poison_blade.jpg (1280x720)
+2026-11-21T17:56:57 | PASS  技能 thief-poison_blade | projectile; MP 55->47; CD=2.92; VFX=3; DummyHP 3000 -> 2984
+2026-11-21T17:56:57 | PASS  sniper 技能数=3 | 3
+2026-11-21T17:56:57 | ACTION  施放技能 sniper[1] 狙击 / snipe (projectile)
+2026-11-21T17:56:58 | OBSERVE 技能结果 OK projectile; MP 50->42; CD=3.92; VFX=2; DummyHP 3000 -> 2940
+2026-11-21T17:56:58 | SHOT    skills/22_sniper_snipe.jpg (1280x720)
+2026-11-21T17:56:58 | PASS  技能 sniper-snipe | projectile; MP 50->42; CD=3.92; VFX=2; DummyHP 3000 -> 2940
+2026-11-21T17:56:58 | ACTION  施放技能 sniper[2] 陷阱 / trap (aoe_zone)
+2026-11-21T17:56:59 | OBSERVE 技能结果 OK aoe_zone; MP 50->38; CD=7.90; VFX=1; DummyHP 3000 -> 2955
+2026-11-21T17:56:59 | SHOT    skills/23_sniper_trap.jpg (1280x720)
+2026-11-21T17:56:59 | PASS  技能 sniper-trap | aoe_zone; MP 50->38; CD=7.90; VFX=1; DummyHP 3000 -> 2955
+2026-11-21T17:56:59 | ACTION  施放技能 sniper[3] 精准 / focus (buff)
+2026-11-21T17:56:59 | OBSERVE 技能结果 OK buff; MP 50->42; CD=11.92; VFX=1; Buff[crit_rate] found=true attack 25 -> 25
+2026-11-21T17:56:59 | SHOT    skills/24_sniper_focus.jpg (1280x720)
+2026-11-21T17:56:59 | PASS  技能 sniper-focus | buff; MP 50->42; CD=11.92; VFX=1; Buff[crit_rate] found=true attack 25 -> 25
+2026-11-21T17:56:59 | PASS  bomber 技能数=3 | 3
+2026-11-21T17:56:59 | ACTION  施放技能 bomber[1] 投掷炸弹 / throw_bomb (aoe_zone)
+2026-11-21T17:57:00 | OBSERVE 技能结果 OK aoe_zone; MP 70->60; CD=2.90; VFX=2; DummyHP 3000 -> 2970
+2026-11-21T17:57:00 | SHOT    skills/25_bomber_throw_bomb.jpg (1280x720)
+2026-11-21T17:57:00 | PASS  技能 bomber-throw_bomb | aoe_zone; MP 70->60; CD=2.90; VFX=2; DummyHP 3000 -> 2970
+2026-11-21T17:57:00 | ACTION  施放技能 bomber[2] 爆破领域 / blast_zone (aoe_zone)
+2026-11-21T17:57:02 | OBSERVE 技能结果 OK aoe_zone; MP 70->50; CD=8.90; VFX=1; DummyHP 3000 -> 2986
+2026-11-21T17:57:02 | SHOT    skills/26_bomber_blast_zone.jpg (1280x720)
+2026-11-21T17:57:02 | PASS  技能 bomber-blast_zone | aoe_zone; MP 70->50; CD=8.90; VFX=1; DummyHP 3000 -> 2986
+2026-11-21T17:57:02 | ACTION  施放技能 bomber[3] 燃烧弹 / incendiary (melee_aoe)
+2026-11-21T17:57:02 | OBSERVE 技能结果 OK melee_aoe; MP 70->56; CD=5.90; VFX=1; DummyHP 3000 -> 2988
+2026-11-21T17:57:02 | SHOT    skills/27_bomber_incendiary.jpg (1280x720)
+2026-11-21T17:57:02 | PASS  技能 bomber-incendiary | melee_aoe; MP 70->56; CD=5.90; VFX=1; DummyHP 3000 -> 2988
+2026-11-21T17:57:02 | PASS  hacker 技能数=3 | 3
+2026-11-21T17:57:02 | ACTION  施放技能 hacker[1] 病毒入侵 / virus (chain)
+2026-11-21T17:57:02 | OBSERVE 技能结果 OK chain; MP 135->121; CD=3.92; VFX=2; DummyHP 3000 -> 2977
+2026-11-21T17:57:02 | SHOT    skills/28_hacker_virus.jpg (1280x720)
+2026-11-21T17:57:02 | PASS  技能 hacker-virus | chain; MP 135->121; CD=3.92; VFX=2; DummyHP 3000 -> 2977
+2026-11-21T17:57:02 | ACTION  施放技能 hacker[2] EMP 脉冲 / emp_pulse (melee_aoe)
+2026-11-21T17:57:02 | OBSERVE 技能结果 OK melee_aoe; MP 135->117; CD=6.92; VFX=2; DummyHP 3000 -> 2975
+2026-11-21T17:57:02 | SHOT    skills/29_hacker_emp_pulse.jpg (1280x720)
+2026-11-21T17:57:03 | PASS  技能 hacker-emp_pulse | melee_aoe; MP 135->117; CD=6.92; VFX=2; DummyHP 3000 -> 2975
+2026-11-21T17:57:03 | ACTION  施放技能 hacker[3] 系统过载 / overclock (buff)
+2026-11-21T17:57:03 | OBSERVE 技能结果 OK buff; MP 135->121; CD=11.90; VFX=3; Buff[attack] found=true attack 6 -> 18
+2026-11-21T17:57:03 | SHOT    skills/30_hacker_overclock.jpg (1280x720)
+2026-11-21T17:57:03 | PASS  技能 hacker-overclock | buff; MP 135->121; CD=11.90; VFX=3; Buff[attack] found=true attack 6 -> 18
+2026-11-21T17:57:03 | PASS  mech_pilot 技能数=3 | 3
+2026-11-21T17:57:03 | ACTION  施放技能 mech_pilot[1] 重炮轰击 / cannon (projectile)
+2026-11-21T17:57:03 | OBSERVE 技能结果 OK projectile; MP 70->60; CD=2.90; VFX=2; DummyHP 3000 -> 2974
+2026-11-21T17:57:03 | SHOT    skills/31_mech_pilot_cannon.jpg (1280x720)
+2026-11-21T17:57:03 | PASS  技能 mech_pilot-cannon | projectile; MP 70->60; CD=2.90; VFX=2; DummyHP 3000 -> 2974
+2026-11-21T17:57:03 | ACTION  施放技能 mech_pilot[2] 装甲强化 / armor_up (shield)
+2026-11-21T17:57:03 | OBSERVE 技能结果 OK shield; MP 70->58; CD=11.90; VFX=2; Shield 0 -> 70
+2026-11-21T17:57:03 | SHOT    skills/32_mech_pilot_armor_up.jpg (1280x720)
+2026-11-21T17:57:03 | PASS  技能 mech_pilot-armor_up | shield; MP 70->58; CD=11.90; VFX=2; Shield 0 -> 70
+2026-11-21T17:57:03 | ACTION  施放技能 mech_pilot[3] 能量护盾 / energy_field (buff)
+2026-11-21T17:57:03 | OBSERVE 技能结果 OK buff; MP 70->56; CD=13.92; VFX=2; Buff[defense] found=true attack 13 -> 13
+2026-11-21T17:57:04 | SHOT    skills/33_mech_pilot_energy_field.jpg (1280x720)
+2026-11-21T17:57:04 | PASS  技能 mech_pilot-energy_field | buff; MP 70->56; CD=13.92; VFX=2; Buff[defense] found=true attack 13 -> 13
+2026-11-21T17:57:04 | PASS  bounty_hunter 技能数=3 | 3
+2026-11-21T17:57:04 | ACTION  施放技能 bounty_hunter[1] 连射 / rapid_fire (chain)
+2026-11-21T17:57:04 | OBSERVE 技能结果 OK chain; MP 70->60; CD=2.90; VFX=3; DummyHP 3000 -> 2983
+2026-11-21T17:57:04 | SHOT    skills/34_bounty_hunter_rapid_fire.jpg (1280x720)
+2026-11-21T17:57:04 | PASS  技能 bounty_hunter-rapid_fire | chain; MP 70->60; CD=2.90; VFX=3; DummyHP 3000 -> 2983
+2026-11-21T17:57:04 | ACTION  施放技能 bounty_hunter[2] 追踪标记 / mark (buff)
+2026-11-21T17:57:04 | OBSERVE 技能结果 OK buff; MP 70->62; CD=11.92; VFX=3; Buff[attack] found=true attack 17 -> 27
+2026-11-21T17:57:04 | SHOT    skills/35_bounty_hunter_mark.jpg (1280x720)
+2026-11-21T17:57:04 | PASS  技能 bounty_hunter-mark | buff; MP 70->62; CD=11.92; VFX=3; Buff[attack] found=true attack 17 -> 27
+2026-11-21T17:57:04 | ACTION  施放技能 bounty_hunter[3] 缴械 / disarm (melee_aoe)
+2026-11-21T17:57:04 | OBSERVE 技能结果 OK melee_aoe; MP 70->58; CD=4.92; VFX=3; DummyHP 3000 -> 2976
+2026-11-21T17:57:04 | SHOT    skills/36_bounty_hunter_disarm.jpg (1280x720)
+2026-11-21T17:57:04 | PASS  技能 bounty_hunter-disarm | melee_aoe; MP 70->58; CD=4.92; VFX=3; DummyHP 3000 -> 2976
+2026-11-21T17:57:04 | PASS  36 技能全部实测 | tested=36
+2026-11-21T17:57:04 | ACTION  技能树解锁、前置校验、威力与冷却加成
+2026-11-21T17:57:04 | PASS  技能树 9 节点 | 9
+2026-11-21T17:57:04 | PASS  解锁精通节点 | 
+2026-11-21T17:57:04 | PASS  前置节点未满足被拒 | 需先解锁前置节点
+2026-11-21T17:57:04 | PASS  技能威力加成 >1 | x1.25
+2026-11-21T17:57:04 | PASS  技能冷却缩减 <1 | x0.90
+2026-11-21T17:57:04 | ACTION  职业专职选择与互斥
+2026-11-21T17:57:04 | PASS  专职选择成功 | 
+2026-11-21T17:57:04 | PASS  专职属性生效 | crit=0.170
+2026-11-21T17:57:04 | PASS  专职名称生效 | 
+2026-11-21T17:57:04 | PASS  专职互斥拒绝第二次 | 
+2026-11-21T17:57:04 | ACTION  技能树重置返还技能点
+2026-11-21T17:57:04 | PASS  重置返还技能点 | points=2
+2026-11-21T17:57:04 | ACTION  朋克部件安装与卸下
+2026-11-21T17:57:04 | PASS  朋克部件库加载 | parts=8
+2026-11-21T17:57:04 | PASS  朋克部件安装 | 
+2026-11-21T17:57:04 | PASS  朋克主风格判定 tech | tech
+2026-11-21T17:57:04 | PASS  朋克暴击属性生效 | crit=0.262
+2026-11-21T17:57:04 | SHOT    screenshots/11b_punk_installed.jpg (1280x720)
+2026-11-21T17:57:04 | PASS  朋克部件卸下 | 
+2026-11-21T17:57:04 | ACTION  NPC 对话接取任务并击杀计数
+2026-11-21T17:57:04 | PASS  NPC 对话触发暂停 | 
+2026-11-21T17:57:05 | PASS  任务接取 q_slime_hunt | ["q_slime_hunt"]
+2026-11-21T17:57:05 | OBSERVE 任务追踪：
+2026-11-21T17:57:05 | ACTION  保存游戏并验证读档恢复
+[SaveManager] 存档成功 -> slot 0
+2026-11-21T17:57:06 | PASS  存档写入 | 
+[SaveManager] 读档成功 <- slot 0
+2026-11-21T17:57:08 | PASS  读档恢复金币 | 777
+2026-11-21T17:57:08 | PASS  读档恢复背包 | iron=36
+2026-11-21T17:57:08 | PASS  读档恢复建筑 | blocks=1
+2026-11-21T17:57:08 | ACTION  进入通天塔第 1 层
+2026-11-21T17:57:09 | PASS  塔层 1 场景 | 
+2026-11-21T17:57:09 | PASS  塔层 1 机关数量=2 | 2
+2026-11-21T17:57:09 | PASS  初始传送门锁定 | 
+2026-11-21T17:57:09 | PASS  Roguelike 启动 | 
+2026-11-21T17:57:09 | ACTION  限时机关超时重置
+2026-11-21T17:57:09 | PASS  机关 1 激活并启动倒计时 | 
+2026-11-21T17:57:09 | PASS  超时后机关重置 | 
+2026-11-21T17:57:09 | ACTION  激活全部机关开门
+2026-11-21T17:57:09 | PASS  机关全开后传送门启用 | 
+2026-11-21T17:57:09 | SHOT    screenshots/16_tower_floor.jpg (1280x720)
+2026-11-21T17:57:09 | ACTION  进入第 2 层验证法师限定机关
+2026-11-21T17:57:10 | PASS  塔层 2 加载 | 
+2026-11-21T17:57:10 | PASS  0 号机关要求法师 | mage
+2026-11-21T17:57:10 | PASS  非法师无法激活 | 
+2026-11-21T17:57:11 | PASS  法师可激活 | 
+2026-11-21T17:57:11 | ACTION  进入第 5 层验证 BOSS
+2026-11-21T17:57:12 | PASS  第 5 层生成 BOSS | 
+2026-11-21T17:57:12 | SHOT    screenshots/17_boss_floor.jpg (1280x720)
+2026-11-21T17:57:12 | ACTION  进入深渊 -1 层
+2026-11-21T17:57:13 | PASS  深渊层号 -1 | -1
+2026-11-21T17:57:13 | SHOT    screenshots/18_abyss_floor.jpg (1280x720)
+2026-11-21T17:57:13 | ACTION  Roguelike 每 3 层词条与死亡结算
+2026-11-21T17:57:13 | PASS  第 3 层获得词条 | modifiers=1
+2026-11-21T17:57:15 | PASS  死亡结束本轮 | best=3
+2026-11-21T17:57:15 | PASS  死亡后返回主菜单 | 
+2026-11-21T17:57:15 | ACTION  录制操作过程视频帧
+2026-11-21T17:57:24 | PASS  视频帧采集完成 | frames=69
+2026-11-21T17:57:24 | SUMMARY checks=120/120 skills=36/36 shots=54 frames=69
+2026-11-21T17:57:24 | ========== FULL AUDIT DONE ==========

@@ -1,0 +1,76 @@
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+[DataManager] 数据加载完成：物品 25 / 职业 12 / 配方 15 / 任务 3 / 对话 3 / 朋克部件 20 / 技能树 12
+[GameManager] 通天入地 · 启动完成
+PASS  场景=主世界 res://scenes/world/main_world.tscn
+PASS  队伍=3人 3
+PASS  出战角色有效 
+PASS  起始金币=120 120
+PASS  初始背包>=4格 stone=8
+PASS  普攻造成伤害 500 -> 486
+PASS  技能可释放 
+PASS  冲刺进入冷却 0.68333333333333
+清理测试敌人
+PASS  配方可查 iron_ingot
+PASS  合成成功 
+PASS  资源点采集 
+PASS  放置建筑 stone_block
+PASS  拆除建筑 
+PASS  打开背包暂停 
+PASS  关闭背包恢复 
+[SaveManager] 存档成功 -> slot 0
+PASS  存档写入 
+[SaveManager] 读档成功 <- slot 0
+PASS  读档恢复金币 120
+PASS  Q/P 切换职业 弓箭手
+PASS  NPC 对话打开 
+PASS  对话结束接取任务 ["q_slime_hunt"]
+PASS  职业祭坛解锁 3 -> 4
+PASS  切换到法师 mage
+PASS  弹道技能命中 459
+PASS  护盾生效 60
+PASS  回到弓箭手 archer
+PASS  朋克部件库加载 8 件
+PASS  安装朋克部件 tech_quantum_sensor
+PASS  主风格判定 tech
+PASS  朋克属性生效 crit_rate=0.192
+PASS  卸下朋克部件 
+PASS  主风格清除 neutral
+PASS  切换到机甲师 mech_pilot
+PASS  机甲师专属改造安装 
+PASS  风格匹配加成生效 defense=21
+PASS  存档前archer主风格=tech 
+[SaveManager] 存档成功 -> slot 0
+PASS  卸下后archer主风格=neutral 
+[SaveManager] 读档成功 <- slot 0
+PASS  读档恢复朋克数据 
+PASS  读档后朋克风格保留 tech
+PASS  技能图标素材加载 
+PASS  职业立绘素材加载 
+PASS  物品图标素材加载 
+PASS  特效素材加载 
+PASS  技能树数据加载 9
+PASS  初始技能点 1
+PASS  解锁技能树节点 
+PASS  前置节点校验 需先解锁前置节点
+PASS  技能树威力加成生效 x1.25
+PASS  技能树冷却缩减生效 x0.90
+PASS  职业专职选择 
+PASS  专职属性生效 crit=0.262
+PASS  专职显示名 神射手
+PASS  专职不可重复选择 
+PASS  技能树面板存在 
+PASS  技能树面板可打开 
+PASS  技能树面板可关闭 
+[SaveManager] 存档成功 -> slot 0
+PASS  技能树重置返还技能点 
+[SaveManager] 读档成功 <- slot 0
+PASS  读档恢复技能树 
+PASS  读档恢复专职 
+PASS  进入塔层1 res://scenes/world/tower_floor_1.tscn
+PASS  解谜机关数量 2
+PASS  全部机关开门 
+PASS  Roguelike 运行中 1
+PASS  进入塔层2 2
+PASS  进入深渊-1层 -1
+SMOKE_RESULT failures=0
