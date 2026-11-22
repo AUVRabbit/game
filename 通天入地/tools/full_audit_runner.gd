@@ -524,7 +524,7 @@ func _main() -> void:
 	_check("技能树 16 节点", nodes.size() == 16, str(nodes.size()))
 	var unlocked: bool = SkillManager.unlock_node("archer", "archer_mastery_0")
 	_check("解锁精通节点", unlocked and SkillManager.is_unlocked("archer", "archer_mastery_0"))
-	var gate: Dictionary = SkillManager.can_unlock("archer", "archer_active_0")
+	var gate: Dictionary = SkillManager.can_unlock("archer", "archer_active_1")
 	_check("前置节点未满足被拒", not bool(gate.get("ok", true)), str(gate.get("reason", "")))
 	var arch := await _activate("archer")
 	var power_mult: float = arch.character_data.get_skill_power_multiplier("piercing_shot")

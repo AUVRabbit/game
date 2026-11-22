@@ -1,0 +1,1627 @@
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+OpenGL API 3.3.0 - Build 31.0.101.4577 - Compatibility - Using Device: Intel - Intel(R) RaptorLake-S Mobile Graphics Controller
+
+[DataManager] 数据加载完成：物品 25 / 职业 16 / 配方 15 / 任务 3 / 对话 3 / 朋克部件 20 / 技能树 16
+[GameManager] 通天入地 · 启动完成
+2026-11-22T13:45:28 | ========== FULL AUDIT START ==========
+2026-11-22T13:45:28 | Godot=4.7.2-stable (official)
+2026-11-22T13:45:28 | ACTION  进入主菜单，检查标题与 5 个按钮
+2026-11-22T13:45:29 | PASS  主菜单节点存在 | 
+2026-11-22T13:45:29 | PASS  主菜单按钮>=5 | buttons=7
+2026-11-22T13:45:29 | SHOT    screenshots/01_main_menu.jpg (1280x720)
+2026-11-22T13:45:29 | ACTION  打开主菜单设置面板
+2026-11-22T13:45:30 | SHOT    screenshots/02_settings.jpg (1280x720)
+2026-11-22T13:45:30 | PASS  设置面板可打开 | 
+2026-11-22T13:45:30 | ACTION  点击开始新游戏，进入主世界
+ERROR: Unable to open file: res://.godot/imported/earth_shatter.png-686d30fa7a3c0d3f3fb383e760cc7bec.ctex.
+   at: _load_data (scene/resources/compressed_texture.cpp:45)
+   GDScript backtrace (most recent call first):
+       [0] texture (res://scripts/core/asset_library.gd:43)
+       [1] _process (res://scripts/ui/hud.gd:313)
+ERROR: Failed loading resource: res://.godot/imported/earth_shatter.png-686d30fa7a3c0d3f3fb383e760cc7bec.ctex.
+   at: _load (core/io/resource_loader.cpp:317)
+   GDScript backtrace (most recent call first):
+       [0] texture (res://scripts/core/asset_library.gd:43)
+       [1] _process (res://scripts/ui/hud.gd:313)
+ERROR: Failed loading resource: res://assets/icons/skill/earth_shatter.png.
+   at: _load (core/io/resource_loader.cpp:317)
+   GDScript backtrace (most recent call first):
+       [0] texture (res://scripts/core/asset_library.gd:43)
+       [1] _process (res://scripts/ui/hud.gd:313)
+ERROR: Unable to open file: res://.godot/imported/unyielding_will.png-f4147e951b3b401327919c1b76023787.ctex.
+   at: _load_data (scene/resources/compressed_texture.cpp:45)
+   GDScript backtrace (most recent call first):
+       [0] texture (res://scripts/core/asset_library.gd:43)
+       [1] _process (res://scripts/ui/hud.gd:313)
+ERROR: Failed loading resource: res://.godot/imported/unyielding_will.png-f4147e951b3b401327919c1b76023787.ctex.
+   at: _load (core/io/resource_loader.cpp:317)
+   GDScript backtrace (most recent call first):
+       [0] texture (res://scripts/core/asset_library.gd:43)
+       [1] _process (res://scripts/ui/hud.gd:313)
+ERROR: Failed loading resource: res://assets/icons/skill/unyielding_will.png.
+   at: _load (core/io/resource_loader.cpp:317)
+   GDScript backtrace (most recent call first):
+       [0] texture (res://scripts/core/asset_library.gd:43)
+       [1] _process (res://scripts/ui/hud.gd:313)
+ERROR: Unable to open file: res://.godot/imported/iron_bulwark.png-08eafa9c146b9f261cbddd51c60c2d7d.ctex.
+   at: _load_data (scene/resources/compressed_texture.cpp:45)
+   GDScript backtrace (most recent call first):
+       [0] texture (res://scripts/core/asset_library.gd:43)
+       [1] _process (res://scripts/ui/hud.gd:313)
+ERROR: Failed loading resource: res://.godot/imported/iron_bulwark.png-08eafa9c146b9f261cbddd51c60c2d7d.ctex.
+   at: _load (core/io/resource_loader.cpp:317)
+   GDScript backtrace (most recent call first):
+       [0] texture (res://scripts/core/asset_library.gd:43)
+       [1] _process (res://scripts/ui/hud.gd:313)
+ERROR: Failed loading resource: res://assets/icons/skill/iron_bulwark.png.
+   at: _load (core/io/resource_loader.cpp:317)
+   GDScript backtrace (most recent call first):
+       [0] texture (res://scripts/core/asset_library.gd:43)
+       [1] _process (res://scripts/ui/hud.gd:313)
+2026-11-22T13:45:32 | PASS  主世界场景加载 | res://scenes/world/main_world.tscn
+2026-11-22T13:45:32 | PASS  初始队伍 3 人 | 3
+2026-11-22T13:45:32 | PASS  初始金币 120 | 120
+2026-11-22T13:45:32 | PASS  初始背包材料 | 
+2026-11-22T13:45:32 | SHOT    screenshots/03_world_hud.jpg (1280x720)
+2026-11-22T13:45:32 | ACTION  通过职业祭坛逻辑将 16 职业全部加入队伍
+ERROR: Unable to open file: res://.godot/imported/player_runeward.png-fd4af7e6ceac5f0ad404d811ec5e0e35.ctex.
+   at: _load_data (scene/resources/compressed_texture.cpp:45)
+   GDScript backtrace (most recent call first):
+       [0] texture (res://scripts/core/asset_library.gd:43)
+       [1] _refresh_class_sprite (res://scripts/player/player_controller.gd:67)
+       [2] _apply_class_color (res://scripts/player/player_controller.gd:57)
+       [3] _ready (res://scripts/player/player_controller.gd:42)
+       [4] add_class_member (res://scripts/globals/game_manager.gd:250)
+       [5] _main (res://tools/char_skill_audit_runner.gd:279)
+       [6] _shot (res://tools/char_skill_audit_runner.gd:79)
+       [7] _capture (res://tools/char_skill_audit_runner.gd:70)
+ERROR: Failed loading resource: res://.godot/imported/player_runeward.png-fd4af7e6ceac5f0ad404d811ec5e0e35.ctex.
+   at: _load (core/io/resource_loader.cpp:317)
+   GDScript backtrace (most recent call first):
+       [0] texture (res://scripts/core/asset_library.gd:43)
+       [1] _refresh_class_sprite (res://scripts/player/player_controller.gd:67)
+       [2] _apply_class_color (res://scripts/player/player_controller.gd:57)
+       [3] _ready (res://scripts/player/player_controller.gd:42)
+       [4] add_class_member (res://scripts/globals/game_manager.gd:250)
+       [5] _main (res://tools/char_skill_audit_runner.gd:279)
+       [6] _shot (res://tools/char_skill_audit_runner.gd:79)
+       [7] _capture (res://tools/char_skill_audit_runner.gd:70)
+ERROR: Failed loading resource: res://assets/sprites/world/player_runeward.png.
+   at: _load (core/io/resource_loader.cpp:317)
+   GDScript backtrace (most recent call first):
+       [0] texture (res://scripts/core/asset_library.gd:43)
+       [1] _refresh_class_sprite (res://scripts/player/player_controller.gd:67)
+       [2] _apply_class_color (res://scripts/player/player_controller.gd:57)
+       [3] _ready (res://scripts/player/player_controller.gd:42)
+       [4] add_class_member (res://scripts/globals/game_manager.gd:250)
+       [5] _main (res://tools/char_skill_audit_runner.gd:279)
+       [6] _shot (res://tools/char_skill_audit_runner.gd:79)
+       [7] _capture (res://tools/char_skill_audit_runner.gd:70)
+ERROR: Unable to open file: res://.godot/imported/player_engineer.png-996b351e51e905cc895672eb7eeceb82.ctex.
+   at: _load_data (scene/resources/compressed_texture.cpp:45)
+   GDScript backtrace (most recent call first):
+       [0] texture (res://scripts/core/asset_library.gd:43)
+       [1] _refresh_class_sprite (res://scripts/player/player_controller.gd:67)
+       [2] _apply_class_color (res://scripts/player/player_controller.gd:57)
+       [3] _ready (res://scripts/player/player_controller.gd:42)
+       [4] add_class_member (res://scripts/globals/game_manager.gd:250)
+       [5] _main (res://tools/char_skill_audit_runner.gd:279)
+       [6] _shot (res://tools/char_skill_audit_runner.gd:79)
+       [7] _capture (res://tools/char_skill_audit_runner.gd:70)
+ERROR: Failed loading resource: res://.godot/imported/player_engineer.png-996b351e51e905cc895672eb7eeceb82.ctex.
+   at: _load (core/io/resource_loader.cpp:317)
+   GDScript backtrace (most recent call first):
+       [0] texture (res://scripts/core/asset_library.gd:43)
+       [1] _refresh_class_sprite (res://scripts/player/player_controller.gd:67)
+       [2] _apply_class_color (res://scripts/player/player_controller.gd:57)
+       [3] _ready (res://scripts/player/player_controller.gd:42)
+       [4] add_class_member (res://scripts/globals/game_manager.gd:250)
+       [5] _main (res://tools/char_skill_audit_runner.gd:279)
+       [6] _shot (res://tools/char_skill_audit_runner.gd:79)
+       [7] _capture (res://tools/char_skill_audit_runner.gd:70)
+ERROR: Failed loading resource: res://assets/sprites/world/player_engineer.png.
+   at: _load (core/io/resource_loader.cpp:317)
+   GDScript backtrace (most recent call first):
+       [0] texture (res://scripts/core/asset_library.gd:43)
+       [1] _refresh_class_sprite (res://scripts/player/player_controller.gd:67)
+       [2] _apply_class_color (res://scripts/player/player_controller.gd:57)
+       [3] _ready (res://scripts/player/player_controller.gd:42)
+       [4] add_class_member (res://scripts/globals/game_manager.gd:250)
+       [5] _main (res://tools/char_skill_audit_runner.gd:279)
+       [6] _shot (res://tools/char_skill_audit_runner.gd:79)
+       [7] _capture (res://tools/char_skill_audit_runner.gd:70)
+ERROR: Unable to open file: res://.godot/imported/player_qi_adept.png-554c21e8dc218d4ca5de071fda3af884.ctex.
+   at: _load_data (scene/resources/compressed_texture.cpp:45)
+   GDScript backtrace (most recent call first):
+       [0] texture (res://scripts/core/asset_library.gd:43)
+       [1] _refresh_class_sprite (res://scripts/player/player_controller.gd:67)
+       [2] _apply_class_color (res://scripts/player/player_controller.gd:57)
+       [3] _ready (res://scripts/player/player_controller.gd:42)
+       [4] add_class_member (res://scripts/globals/game_manager.gd:250)
+       [5] _main (res://tools/char_skill_audit_runner.gd:279)
+       [6] _shot (res://tools/char_skill_audit_runner.gd:79)
+       [7] _capture (res://tools/char_skill_audit_runner.gd:70)
+ERROR: Failed loading resource: res://.godot/imported/player_qi_adept.png-554c21e8dc218d4ca5de071fda3af884.ctex.
+   at: _load (core/io/resource_loader.cpp:317)
+   GDScript backtrace (most recent call first):
+       [0] texture (res://scripts/core/asset_library.gd:43)
+       [1] _refresh_class_sprite (res://scripts/player/player_controller.gd:67)
+       [2] _apply_class_color (res://scripts/player/player_controller.gd:57)
+       [3] _ready (res://scripts/player/player_controller.gd:42)
+       [4] add_class_member (res://scripts/globals/game_manager.gd:250)
+       [5] _main (res://tools/char_skill_audit_runner.gd:279)
+       [6] _shot (res://tools/char_skill_audit_runner.gd:79)
+       [7] _capture (res://tools/char_skill_audit_runner.gd:70)
+ERROR: Failed loading resource: res://assets/sprites/world/player_qi_adept.png.
+   at: _load (core/io/resource_loader.cpp:317)
+   GDScript backtrace (most recent call first):
+       [0] texture (res://scripts/core/asset_library.gd:43)
+       [1] _refresh_class_sprite (res://scripts/player/player_controller.gd:67)
+       [2] _apply_class_color (res://scripts/player/player_controller.gd:57)
+       [3] _ready (res://scripts/player/player_controller.gd:42)
+       [4] add_class_member (res://scripts/globals/game_manager.gd:250)
+       [5] _main (res://tools/char_skill_audit_runner.gd:279)
+       [6] _shot (res://tools/char_skill_audit_runner.gd:79)
+       [7] _capture (res://tools/char_skill_audit_runner.gd:70)
+ERROR: Unable to open file: res://.godot/imported/player_cyborg.png-4cbcc3f61be41a0d8384b59427e2f6a5.ctex.
+   at: _load_data (scene/resources/compressed_texture.cpp:45)
+   GDScript backtrace (most recent call first):
+       [0] texture (res://scripts/core/asset_library.gd:43)
+       [1] _refresh_class_sprite (res://scripts/player/player_controller.gd:67)
+       [2] _apply_class_color (res://scripts/player/player_controller.gd:57)
+       [3] _ready (res://scripts/player/player_controller.gd:42)
+       [4] add_class_member (res://scripts/globals/game_manager.gd:250)
+       [5] _main (res://tools/char_skill_audit_runner.gd:279)
+       [6] _shot (res://tools/char_skill_audit_runner.gd:79)
+       [7] _capture (res://tools/char_skill_audit_runner.gd:70)
+ERROR: Failed loading resource: res://.godot/imported/player_cyborg.png-4cbcc3f61be41a0d8384b59427e2f6a5.ctex.
+   at: _load (core/io/resource_loader.cpp:317)
+   GDScript backtrace (most recent call first):
+       [0] texture (res://scripts/core/asset_library.gd:43)
+       [1] _refresh_class_sprite (res://scripts/player/player_controller.gd:67)
+       [2] _apply_class_color (res://scripts/player/player_controller.gd:57)
+       [3] _ready (res://scripts/player/player_controller.gd:42)
+       [4] add_class_member (res://scripts/globals/game_manager.gd:250)
+       [5] _main (res://tools/char_skill_audit_runner.gd:279)
+       [6] _shot (res://tools/char_skill_audit_runner.gd:79)
+       [7] _capture (res://tools/char_skill_audit_runner.gd:70)
+ERROR: Failed loading resource: res://assets/sprites/world/player_cyborg.png.
+   at: _load (core/io/resource_loader.cpp:317)
+   GDScript backtrace (most recent call first):
+       [0] texture (res://scripts/core/asset_library.gd:43)
+       [1] _refresh_class_sprite (res://scripts/player/player_controller.gd:67)
+       [2] _apply_class_color (res://scripts/player/player_controller.gd:57)
+       [3] _ready (res://scripts/player/player_controller.gd:42)
+       [4] add_class_member (res://scripts/globals/game_manager.gd:250)
+       [5] _main (res://tools/char_skill_audit_runner.gd:279)
+       [6] _shot (res://tools/char_skill_audit_runner.gd:79)
+       [7] _capture (res://tools/char_skill_audit_runner.gd:70)
+2026-11-22T13:45:32 | PASS  16 职业全部加入队伍 | party=16 roster=16
+ERROR: Unable to open file: res://.godot/imported/meteor.png-dd9de6ad1e4d85f64853156398692409.ctex.
+   at: _load_data (scene/resources/compressed_texture.cpp:45)
+   GDScript backtrace (most recent call first):
+       [0] texture (res://scripts/core/asset_library.gd:43)
+       [1] _process (res://scripts/ui/hud.gd:313)
+ERROR: Failed loading resource: res://.godot/imported/meteor.png-dd9de6ad1e4d85f64853156398692409.ctex.
+   at: _load (core/io/resource_loader.cpp:317)
+   GDScript backtrace (most recent call first):
+       [0] texture (res://scripts/core/asset_library.gd:43)
+       [1] _process (res://scripts/ui/hud.gd:313)
+ERROR: Failed loading resource: res://assets/icons/skill/meteor.png.
+   at: _load (core/io/resource_loader.cpp:317)
+   GDScript backtrace (most recent call first):
+       [0] texture (res://scripts/core/asset_library.gd:43)
+       [1] _process (res://scripts/ui/hud.gd:313)
+ERROR: Unable to open file: res://.godot/imported/absolute_zero.png-25b56eaf3432dcdb20376091ccb65a63.ctex.
+   at: _load_data (scene/resources/compressed_texture.cpp:45)
+   GDScript backtrace (most recent call first):
+       [0] texture (res://scripts/core/asset_library.gd:43)
+       [1] _process (res://scripts/ui/hud.gd:313)
+ERROR: Failed loading resource: res://.godot/imported/absolute_zero.png-25b56eaf3432dcdb20376091ccb65a63.ctex.
+   at: _load (core/io/resource_loader.cpp:317)
+   GDScript backtrace (most recent call first):
+       [0] texture (res://scripts/core/asset_library.gd:43)
+       [1] _process (res://scripts/ui/hud.gd:313)
+ERROR: Failed loading resource: res://assets/icons/skill/absolute_zero.png.
+   at: _load (core/io/resource_loader.cpp:317)
+   GDScript backtrace (most recent call first):
+       [0] texture (res://scripts/core/asset_library.gd:43)
+       [1] _process (res://scripts/ui/hud.gd:313)
+ERROR: Unable to open file: res://.godot/imported/arcane_surge.png-a9c005524a8d4603eae6fc5957acfd90.ctex.
+   at: _load_data (scene/resources/compressed_texture.cpp:45)
+   GDScript backtrace (most recent call first):
+       [0] texture (res://scripts/core/asset_library.gd:43)
+       [1] _process (res://scripts/ui/hud.gd:313)
+ERROR: Failed loading resource: res://.godot/imported/arcane_surge.png-a9c005524a8d4603eae6fc5957acfd90.ctex.
+   at: _load (core/io/resource_loader.cpp:317)
+   GDScript backtrace (most recent call first):
+       [0] texture (res://scripts/core/asset_library.gd:43)
+       [1] _process (res://scripts/ui/hud.gd:313)
+ERROR: Failed loading resource: res://assets/icons/skill/arcane_surge.png.
+   at: _load (core/io/resource_loader.cpp:317)
+   GDScript backtrace (most recent call first):
+       [0] texture (res://scripts/core/asset_library.gd:43)
+       [1] _process (res://scripts/ui/hud.gd:313)
+ERROR: Unable to open file: res://.godot/imported/runeward.png-3f4bac5e0d62b0fdd5606855477e80ec.ctex.
+   at: _load_data (scene/resources/compressed_texture.cpp:45)
+   GDScript backtrace (most recent call first):
+       [0] texture (res://scripts/core/asset_library.gd:43)
+       [1] _process (res://scripts/ui/hud.gd:290)
+ERROR: Failed loading resource: res://.godot/imported/runeward.png-3f4bac5e0d62b0fdd5606855477e80ec.ctex.
+   at: _load (core/io/resource_loader.cpp:317)
+   GDScript backtrace (most recent call first):
+       [0] texture (res://scripts/core/asset_library.gd:43)
+       [1] _process (res://scripts/ui/hud.gd:290)
+ERROR: Failed loading resource: res://assets/portraits/runeward.png.
+   at: _load (core/io/resource_loader.cpp:317)
+   GDScript backtrace (most recent call first):
+       [0] texture (res://scripts/core/asset_library.gd:43)
+       [1] _process (res://scripts/ui/hud.gd:290)
+ERROR: Unable to open file: res://.godot/imported/rune_shield.png-8d8e966ffef19d6a0bccda7d2fc39e69.ctex.
+   at: _load_data (scene/resources/compressed_texture.cpp:45)
+   GDScript backtrace (most recent call first):
+       [0] texture (res://scripts/core/asset_library.gd:43)
+       [1] _process (res://scripts/ui/hud.gd:313)
+ERROR: Failed loading resource: res://.godot/imported/rune_shield.png-8d8e966ffef19d6a0bccda7d2fc39e69.ctex.
+   at: _load (core/io/resource_loader.cpp:317)
+   GDScript backtrace (most recent call first):
+       [0] texture (res://scripts/core/asset_library.gd:43)
+       [1] _process (res://scripts/ui/hud.gd:313)
+ERROR: Failed loading resource: res://assets/icons/skill/rune_shield.png.
+   at: _load (core/io/resource_loader.cpp:317)
+   GDScript backtrace (most recent call first):
+       [0] texture (res://scripts/core/asset_library.gd:43)
+       [1] _process (res://scripts/ui/hud.gd:313)
+ERROR: Unable to open file: res://.godot/imported/rune_burst.png-32e1b368d5948998970071c3bcd05f76.ctex.
+   at: _load_data (scene/resources/compressed_texture.cpp:45)
+   GDScript backtrace (most recent call first):
+       [0] texture (res://scripts/core/asset_library.gd:43)
+       [1] _process (res://scripts/ui/hud.gd:313)
+ERROR: Failed loading resource: res://.godot/imported/rune_burst.png-32e1b368d5948998970071c3bcd05f76.ctex.
+   at: _load (core/io/resource_loader.cpp:317)
+   GDScript backtrace (most recent call first):
+       [0] texture (res://scripts/core/asset_library.gd:43)
+       [1] _process (res://scripts/ui/hud.gd:313)
+ERROR: Failed loading resource: res://assets/icons/skill/rune_burst.png.
+   at: _load (core/io/resource_loader.cpp:317)
+   GDScript backtrace (most recent call first):
+       [0] texture (res://scripts/core/asset_library.gd:43)
+       [1] _process (res://scripts/ui/hud.gd:313)
+ERROR: Unable to open file: res://.godot/imported/rune_aura.png-688fa8b087b3409262a63b968e594f56.ctex.
+   at: _load_data (scene/resources/compressed_texture.cpp:45)
+   GDScript backtrace (most recent call first):
+       [0] texture (res://scripts/core/asset_library.gd:43)
+       [1] _process (res://scripts/ui/hud.gd:313)
+ERROR: Failed loading resource: res://.godot/imported/rune_aura.png-688fa8b087b3409262a63b968e594f56.ctex.
+   at: _load (core/io/resource_loader.cpp:317)
+   GDScript backtrace (most recent call first):
+       [0] texture (res://scripts/core/asset_library.gd:43)
+       [1] _process (res://scripts/ui/hud.gd:313)
+ERROR: Failed loading resource: res://assets/icons/skill/rune_aura.png.
+   at: _load (core/io/resource_loader.cpp:317)
+   GDScript backtrace (most recent call first):
+       [0] texture (res://scripts/core/asset_library.gd:43)
+       [1] _process (res://scripts/ui/hud.gd:313)
+ERROR: Unable to open file: res://.godot/imported/rune_reflect.png-f4259563329518930a33478dba9059c5.ctex.
+   at: _load_data (scene/resources/compressed_texture.cpp:45)
+   GDScript backtrace (most recent call first):
+       [0] texture (res://scripts/core/asset_library.gd:43)
+       [1] _process (res://scripts/ui/hud.gd:313)
+ERROR: Failed loading resource: res://.godot/imported/rune_reflect.png-f4259563329518930a33478dba9059c5.ctex.
+   at: _load (core/io/resource_loader.cpp:317)
+   GDScript backtrace (most recent call first):
+       [0] texture (res://scripts/core/asset_library.gd:43)
+       [1] _process (res://scripts/ui/hud.gd:313)
+ERROR: Failed loading resource: res://assets/icons/skill/rune_reflect.png.
+   at: _load (core/io/resource_loader.cpp:317)
+   GDScript backtrace (most recent call first):
+       [0] texture (res://scripts/core/asset_library.gd:43)
+       [1] _process (res://scripts/ui/hud.gd:313)
+ERROR: Unable to open file: res://.godot/imported/rune_prison.png-e15e9ac723763c70c4dce75536f3cf5a.ctex.
+   at: _load_data (scene/resources/compressed_texture.cpp:45)
+   GDScript backtrace (most recent call first):
+       [0] texture (res://scripts/core/asset_library.gd:43)
+       [1] _process (res://scripts/ui/hud.gd:313)
+ERROR: Failed loading resource: res://.godot/imported/rune_prison.png-e15e9ac723763c70c4dce75536f3cf5a.ctex.
+   at: _load (core/io/resource_loader.cpp:317)
+   GDScript backtrace (most recent call first):
+       [0] texture (res://scripts/core/asset_library.gd:43)
+       [1] _process (res://scripts/ui/hud.gd:313)
+ERROR: Failed loading resource: res://assets/icons/skill/rune_prison.png.
+   at: _load (core/io/resource_loader.cpp:317)
+   GDScript backtrace (most recent call first):
+       [0] texture (res://scripts/core/asset_library.gd:43)
+       [1] _process (res://scripts/ui/hud.gd:313)
+ERROR: Unable to open file: res://.godot/imported/aegis_circle.png-e35ed1dbc07e54659d7dcb69a9ca9492.ctex.
+   at: _load_data (scene/resources/compressed_texture.cpp:45)
+   GDScript backtrace (most recent call first):
+       [0] texture (res://scripts/core/asset_library.gd:43)
+       [1] _process (res://scripts/ui/hud.gd:313)
+ERROR: Failed loading resource: res://.godot/imported/aegis_circle.png-e35ed1dbc07e54659d7dcb69a9ca9492.ctex.
+   at: _load (core/io/resource_loader.cpp:317)
+   GDScript backtrace (most recent call first):
+       [0] texture (res://scripts/core/asset_library.gd:43)
+       [1] _process (res://scripts/ui/hud.gd:313)
+ERROR: Failed loading resource: res://assets/icons/skill/aegis_circle.png.
+   at: _load (core/io/resource_loader.cpp:317)
+   GDScript backtrace (most recent call first):
+       [0] texture (res://scripts/core/asset_library.gd:43)
+       [1] _process (res://scripts/ui/hud.gd:313)
+ERROR: Unable to open file: res://.godot/imported/sanctuary.png-6cc0c77e9e0ca23be32759ba64af4fc2.ctex.
+   at: _load_data (scene/resources/compressed_texture.cpp:45)
+   GDScript backtrace (most recent call first):
+       [0] texture (res://scripts/core/asset_library.gd:43)
+       [1] _process (res://scripts/ui/hud.gd:313)
+ERROR: Failed loading resource: res://.godot/imported/sanctuary.png-6cc0c77e9e0ca23be32759ba64af4fc2.ctex.
+   at: _load (core/io/resource_loader.cpp:317)
+   GDScript backtrace (most recent call first):
+       [0] texture (res://scripts/core/asset_library.gd:43)
+       [1] _process (res://scripts/ui/hud.gd:313)
+ERROR: Failed loading resource: res://assets/icons/skill/sanctuary.png.
+   at: _load (core/io/resource_loader.cpp:317)
+   GDScript backtrace (most recent call first):
+       [0] texture (res://scripts/core/asset_library.gd:43)
+       [1] _process (res://scripts/ui/hud.gd:313)
+ERROR: Unable to open file: res://.godot/imported/judgement.png-354677ae343e6a2afa1d53b26ddd8884.ctex.
+   at: _load_data (scene/resources/compressed_texture.cpp:45)
+   GDScript backtrace (most recent call first):
+       [0] texture (res://scripts/core/asset_library.gd:43)
+       [1] _process (res://scripts/ui/hud.gd:313)
+ERROR: Failed loading resource: res://.godot/imported/judgement.png-354677ae343e6a2afa1d53b26ddd8884.ctex.
+   at: _load (core/io/resource_loader.cpp:317)
+   GDScript backtrace (most recent call first):
+       [0] texture (res://scripts/core/asset_library.gd:43)
+       [1] _process (res://scripts/ui/hud.gd:313)
+ERROR: Failed loading resource: res://assets/icons/skill/judgement.png.
+   at: _load (core/io/resource_loader.cpp:317)
+   GDScript backtrace (most recent call first):
+       [0] texture (res://scripts/core/asset_library.gd:43)
+       [1] _process (res://scripts/ui/hud.gd:313)
+ERROR: Unable to open file: res://.godot/imported/holy_covenant.png-d7fa9b64e8abf8318b06d30ef375c829.ctex.
+   at: _load_data (scene/resources/compressed_texture.cpp:45)
+   GDScript backtrace (most recent call first):
+       [0] texture (res://scripts/core/asset_library.gd:43)
+       [1] _process (res://scripts/ui/hud.gd:313)
+ERROR: Failed loading resource: res://.godot/imported/holy_covenant.png-d7fa9b64e8abf8318b06d30ef375c829.ctex.
+   at: _load (core/io/resource_loader.cpp:317)
+   GDScript backtrace (most recent call first):
+       [0] texture (res://scripts/core/asset_library.gd:43)
+       [1] _process (res://scripts/ui/hud.gd:313)
+ERROR: Failed loading resource: res://assets/icons/skill/holy_covenant.png.
+   at: _load (core/io/resource_loader.cpp:317)
+   GDScript backtrace (most recent call first):
+       [0] texture (res://scripts/core/asset_library.gd:43)
+       [1] _process (res://scripts/ui/hud.gd:313)
+ERROR: Unable to open file: res://.godot/imported/soul_barrage.png-a5140d4e21c0045b43ee7510b7ee8d73.ctex.
+   at: _load_data (scene/resources/compressed_texture.cpp:45)
+   GDScript backtrace (most recent call first):
+       [0] texture (res://scripts/core/asset_library.gd:43)
+       [1] _process (res://scripts/ui/hud.gd:313)
+ERROR: Failed loading resource: res://.godot/imported/soul_barrage.png-a5140d4e21c0045b43ee7510b7ee8d73.ctex.
+   at: _load (core/io/resource_loader.cpp:317)
+   GDScript backtrace (most recent call first):
+       [0] texture (res://scripts/core/asset_library.gd:43)
+       [1] _process (res://scripts/ui/hud.gd:313)
+ERROR: Failed loading resource: res://assets/icons/skill/soul_barrage.png.
+   at: _load (core/io/resource_loader.cpp:317)
+   GDScript backtrace (most recent call first):
+       [0] texture (res://scripts/core/asset_library.gd:43)
+       [1] _process (res://scripts/ui/hud.gd:313)
+ERROR: Unable to open file: res://.godot/imported/mass_grave.png-ab4b373943b0ffaa941faf76bd62c344.ctex.
+   at: _load_data (scene/resources/compressed_texture.cpp:45)
+   GDScript backtrace (most recent call first):
+       [0] texture (res://scripts/core/asset_library.gd:43)
+       [1] _process (res://scripts/ui/hud.gd:313)
+ERROR: Failed loading resource: res://.godot/imported/mass_grave.png-ab4b373943b0ffaa941faf76bd62c344.ctex.
+   at: _load (core/io/resource_loader.cpp:317)
+   GDScript backtrace (most recent call first):
+       [0] texture (res://scripts/core/asset_library.gd:43)
+       [1] _process (res://scripts/ui/hud.gd:313)
+ERROR: Failed loading resource: res://assets/icons/skill/mass_grave.png.
+   at: _load (core/io/resource_loader.cpp:317)
+   GDScript backtrace (most recent call first):
+       [0] texture (res://scripts/core/asset_library.gd:43)
+       [1] _process (res://scripts/ui/hud.gd:313)
+ERROR: Unable to open file: res://.godot/imported/soul_feast.png-aaaebe59a59a15eb0422a36aeebef2bb.ctex.
+   at: _load_data (scene/resources/compressed_texture.cpp:45)
+   GDScript backtrace (most recent call first):
+       [0] texture (res://scripts/core/asset_library.gd:43)
+       [1] _process (res://scripts/ui/hud.gd:313)
+ERROR: Failed loading resource: res://.godot/imported/soul_feast.png-aaaebe59a59a15eb0422a36aeebef2bb.ctex.
+   at: _load (core/io/resource_loader.cpp:317)
+   GDScript backtrace (most recent call first):
+       [0] texture (res://scripts/core/asset_library.gd:43)
+       [1] _process (res://scripts/ui/hud.gd:313)
+ERROR: Failed loading resource: res://assets/icons/skill/soul_feast.png.
+   at: _load (core/io/resource_loader.cpp:317)
+   GDScript backtrace (most recent call first):
+       [0] texture (res://scripts/core/asset_library.gd:43)
+       [1] _process (res://scripts/ui/hud.gd:313)
+ERROR: Unable to open file: res://.godot/imported/cluster_bomb.png-2c5b0453f1a2478517c4a0eb4e93684a.ctex.
+   at: _load_data (scene/resources/compressed_texture.cpp:45)
+   GDScript backtrace (most recent call first):
+       [0] texture (res://scripts/core/asset_library.gd:43)
+       [1] _process (res://scripts/ui/hud.gd:313)
+ERROR: Failed loading resource: res://.godot/imported/cluster_bomb.png-2c5b0453f1a2478517c4a0eb4e93684a.ctex.
+   at: _load (core/io/resource_loader.cpp:317)
+   GDScript backtrace (most recent call first):
+       [0] texture (res://scripts/core/asset_library.gd:43)
+       [1] _process (res://scripts/ui/hud.gd:313)
+ERROR: Failed loading resource: res://assets/icons/skill/cluster_bomb.png.
+   at: _load (core/io/resource_loader.cpp:317)
+   GDScript backtrace (most recent call first):
+       [0] texture (res://scripts/core/asset_library.gd:43)
+       [1] _process (res://scripts/ui/hud.gd:313)
+ERROR: Unable to open file: res://.godot/imported/chain_blast.png-c4519e3d2e0d60d5d350df7b05732cce.ctex.
+   at: _load_data (scene/resources/compressed_texture.cpp:45)
+   GDScript backtrace (most recent call first):
+       [0] texture (res://scripts/core/asset_library.gd:43)
+       [1] _process (res://scripts/ui/hud.gd:313)
+ERROR: Failed loading resource: res://.godot/imported/chain_blast.png-c4519e3d2e0d60d5d350df7b05732cce.ctex.
+   at: _load (core/io/resource_loader.cpp:317)
+   GDScript backtrace (most recent call first):
+       [0] texture (res://scripts/core/asset_library.gd:43)
+       [1] _process (res://scripts/ui/hud.gd:313)
+ERROR: Failed loading resource: res://assets/icons/skill/chain_blast.png.
+   at: _load (core/io/resource_loader.cpp:317)
+   GDScript backtrace (most recent call first):
+       [0] texture (res://scripts/core/asset_library.gd:43)
+       [1] _process (res://scripts/ui/hud.gd:313)
+ERROR: Unable to open file: res://.godot/imported/fire_barrage.png-5ce13923550e605af9b06f77d7a3d49e.ctex.
+   at: _load_data (scene/resources/compressed_texture.cpp:45)
+   GDScript backtrace (most recent call first):
+       [0] texture (res://scripts/core/asset_library.gd:43)
+       [1] _process (res://scripts/ui/hud.gd:313)
+ERROR: Failed loading resource: res://.godot/imported/fire_barrage.png-5ce13923550e605af9b06f77d7a3d49e.ctex.
+   at: _load (core/io/resource_loader.cpp:317)
+   GDScript backtrace (most recent call first):
+       [0] texture (res://scripts/core/asset_library.gd:43)
+       [1] _process (res://scripts/ui/hud.gd:313)
+ERROR: Failed loading resource: res://assets/icons/skill/fire_barrage.png.
+   at: _load (core/io/resource_loader.cpp:317)
+   GDScript backtrace (most recent call first):
+       [0] texture (res://scripts/core/asset_library.gd:43)
+       [1] _process (res://scripts/ui/hud.gd:313)
+ERROR: Unable to open file: res://.godot/imported/rail_cannon.png-882b46dcd034eb5a47c48fde47b7486c.ctex.
+   at: _load_data (scene/resources/compressed_texture.cpp:45)
+   GDScript backtrace (most recent call first):
+       [0] texture (res://scripts/core/asset_library.gd:43)
+       [1] _process (res://scripts/ui/hud.gd:313)
+ERROR: Failed loading resource: res://.godot/imported/rail_cannon.png-882b46dcd034eb5a47c48fde47b7486c.ctex.
+   at: _load (core/io/resource_loader.cpp:317)
+   GDScript backtrace (most recent call first):
+       [0] texture (res://scripts/core/asset_library.gd:43)
+       [1] _process (res://scripts/ui/hud.gd:313)
+ERROR: Failed loading resource: res://assets/icons/skill/rail_cannon.png.
+   at: _load (core/io/resource_loader.cpp:317)
+   GDScript backtrace (most recent call first):
+       [0] texture (res://scripts/core/asset_library.gd:43)
+       [1] _process (res://scripts/ui/hud.gd:313)
+ERROR: Unable to open file: res://.godot/imported/composite_armor.png-45d00d96940a860cc28d1d4994e1c9cc.ctex.
+   at: _load_data (scene/resources/compressed_texture.cpp:45)
+   GDScript backtrace (most recent call first):
+       [0] texture (res://scripts/core/asset_library.gd:43)
+       [1] _process (res://scripts/ui/hud.gd:313)
+ERROR: Failed loading resource: res://.godot/imported/composite_armor.png-45d00d96940a860cc28d1d4994e1c9cc.ctex.
+   at: _load (core/io/resource_loader.cpp:317)
+   GDScript backtrace (most recent call first):
+       [0] texture (res://scripts/core/asset_library.gd:43)
+       [1] _process (res://scripts/ui/hud.gd:313)
+ERROR: Failed loading resource: res://assets/icons/skill/composite_armor.png.
+   at: _load (core/io/resource_loader.cpp:317)
+   GDScript backtrace (most recent call first):
+       [0] texture (res://scripts/core/asset_library.gd:43)
+       [1] _process (res://scripts/ui/hud.gd:313)
+ERROR: Unable to open file: res://.godot/imported/force_field.png-ace680773f749316d924dd23892572c5.ctex.
+   at: _load_data (scene/resources/compressed_texture.cpp:45)
+   GDScript backtrace (most recent call first):
+       [0] texture (res://scripts/core/asset_library.gd:43)
+       [1] _process (res://scripts/ui/hud.gd:313)
+ERROR: Failed loading resource: res://.godot/imported/force_field.png-ace680773f749316d924dd23892572c5.ctex.
+   at: _load (core/io/resource_loader.cpp:317)
+   GDScript backtrace (most recent call first):
+       [0] texture (res://scripts/core/asset_library.gd:43)
+       [1] _process (res://scripts/ui/hud.gd:313)
+ERROR: Failed loading resource: res://assets/icons/skill/force_field.png.
+   at: _load (core/io/resource_loader.cpp:317)
+   GDScript backtrace (most recent call first):
+       [0] texture (res://scripts/core/asset_library.gd:43)
+       [1] _process (res://scripts/ui/hud.gd:313)
+ERROR: Unable to open file: res://.godot/imported/engineer.png-3c8268697e1f6862f007f4f95c77d41e.ctex.
+   at: _load_data (scene/resources/compressed_texture.cpp:45)
+   GDScript backtrace (most recent call first):
+       [0] texture (res://scripts/core/asset_library.gd:43)
+       [1] _process (res://scripts/ui/hud.gd:290)
+ERROR: Failed loading resource: res://.godot/imported/engineer.png-3c8268697e1f6862f007f4f95c77d41e.ctex.
+   at: _load (core/io/resource_loader.cpp:317)
+   GDScript backtrace (most recent call first):
+       [0] texture (res://scripts/core/asset_library.gd:43)
+       [1] _process (res://scripts/ui/hud.gd:290)
+ERROR: Failed loading resource: res://assets/portraits/engineer.png.
+   at: _load (core/io/resource_loader.cpp:317)
+   GDScript backtrace (most recent call first):
+       [0] texture (res://scripts/core/asset_library.gd:43)
+       [1] _process (res://scripts/ui/hud.gd:290)
+ERROR: Unable to open file: res://.godot/imported/turret.png-580c8eb3cc8ee0394e72f4732a2bb6df.ctex.
+   at: _load_data (scene/resources/compressed_texture.cpp:45)
+   GDScript backtrace (most recent call first):
+       [0] texture (res://scripts/core/asset_library.gd:43)
+       [1] _process (res://scripts/ui/hud.gd:313)
+ERROR: Failed loading resource: res://.godot/imported/turret.png-580c8eb3cc8ee0394e72f4732a2bb6df.ctex.
+   at: _load (core/io/resource_loader.cpp:317)
+   GDScript backtrace (most recent call first):
+       [0] texture (res://scripts/core/asset_library.gd:43)
+       [1] _process (res://scripts/ui/hud.gd:313)
+ERROR: Failed loading resource: res://assets/icons/skill/turret.png.
+   at: _load (core/io/resource_loader.cpp:317)
+   GDScript backtrace (most recent call first):
+       [0] texture (res://scripts/core/asset_library.gd:43)
+       [1] _process (res://scripts/ui/hud.gd:313)
+ERROR: Unable to open file: res://.godot/imported/repair.png-a679d53bc8b7d8c0f5c407a093dc8078.ctex.
+   at: _load_data (scene/resources/compressed_texture.cpp:45)
+   GDScript backtrace (most recent call first):
+       [0] texture (res://scripts/core/asset_library.gd:43)
+       [1] _process (res://scripts/ui/hud.gd:313)
+ERROR: Failed loading resource: res://.godot/imported/repair.png-a679d53bc8b7d8c0f5c407a093dc8078.ctex.
+   at: _load (core/io/resource_loader.cpp:317)
+   GDScript backtrace (most recent call first):
+       [0] texture (res://scripts/core/asset_library.gd:43)
+       [1] _process (res://scripts/ui/hud.gd:313)
+ERROR: Failed loading resource: res://assets/icons/skill/repair.png.
+   at: _load (core/io/resource_loader.cpp:317)
+   GDScript backtrace (most recent call first):
+       [0] texture (res://scripts/core/asset_library.gd:43)
+       [1] _process (res://scripts/ui/hud.gd:313)
+ERROR: Unable to open file: res://.godot/imported/supply.png-188c3ac307ca9169c217d9c42e451d01.ctex.
+   at: _load_data (scene/resources/compressed_texture.cpp:45)
+   GDScript backtrace (most recent call first):
+       [0] texture (res://scripts/core/asset_library.gd:43)
+       [1] _process (res://scripts/ui/hud.gd:313)
+ERROR: Failed loading resource: res://.godot/imported/supply.png-188c3ac307ca9169c217d9c42e451d01.ctex.
+   at: _load (core/io/resource_loader.cpp:317)
+   GDScript backtrace (most recent call first):
+       [0] texture (res://scripts/core/asset_library.gd:43)
+       [1] _process (res://scripts/ui/hud.gd:313)
+ERROR: Failed loading resource: res://assets/icons/skill/supply.png.
+   at: _load (core/io/resource_loader.cpp:317)
+   GDScript backtrace (most recent call first):
+       [0] texture (res://scripts/core/asset_library.gd:43)
+       [1] _process (res://scripts/ui/hud.gd:313)
+ERROR: Unable to open file: res://.godot/imported/heavy_turret.png-a4617324f3ebb9c4a6b0105c7b31c8a0.ctex.
+   at: _load_data (scene/resources/compressed_texture.cpp:45)
+   GDScript backtrace (most recent call first):
+       [0] texture (res://scripts/core/asset_library.gd:43)
+       [1] _process (res://scripts/ui/hud.gd:313)
+ERROR: Failed loading resource: res://.godot/imported/heavy_turret.png-a4617324f3ebb9c4a6b0105c7b31c8a0.ctex.
+   at: _load (core/io/resource_loader.cpp:317)
+   GDScript backtrace (most recent call first):
+       [0] texture (res://scripts/core/asset_library.gd:43)
+       [1] _process (res://scripts/ui/hud.gd:313)
+ERROR: Failed loading resource: res://assets/icons/skill/heavy_turret.png.
+   at: _load (core/io/resource_loader.cpp:317)
+   GDScript backtrace (most recent call first):
+       [0] texture (res://scripts/core/asset_library.gd:43)
+       [1] _process (res://scripts/ui/hud.gd:313)
+ERROR: Unable to open file: res://.godot/imported/field_repair.png-b12fc6e9fa79fb4632cc01f9bac89694.ctex.
+   at: _load_data (scene/resources/compressed_texture.cpp:45)
+   GDScript backtrace (most recent call first):
+       [0] texture (res://scripts/core/asset_library.gd:43)
+       [1] _process (res://scripts/ui/hud.gd:313)
+ERROR: Failed loading resource: res://.godot/imported/field_repair.png-b12fc6e9fa79fb4632cc01f9bac89694.ctex.
+   at: _load (core/io/resource_loader.cpp:317)
+   GDScript backtrace (most recent call first):
+       [0] texture (res://scripts/core/asset_library.gd:43)
+       [1] _process (res://scripts/ui/hud.gd:313)
+ERROR: Failed loading resource: res://assets/icons/skill/field_repair.png.
+   at: _load (core/io/resource_loader.cpp:317)
+   GDScript backtrace (most recent call first):
+       [0] texture (res://scripts/core/asset_library.gd:43)
+       [1] _process (res://scripts/ui/hud.gd:313)
+ERROR: Unable to open file: res://.godot/imported/overdrive.png-8f58e05aa52f079674f8c6adf4996b09.ctex.
+   at: _load_data (scene/resources/compressed_texture.cpp:45)
+   GDScript backtrace (most recent call first):
+       [0] texture (res://scripts/core/asset_library.gd:43)
+       [1] _process (res://scripts/ui/hud.gd:313)
+ERROR: Failed loading resource: res://.godot/imported/overdrive.png-8f58e05aa52f079674f8c6adf4996b09.ctex.
+   at: _load (core/io/resource_loader.cpp:317)
+   GDScript backtrace (most recent call first):
+       [0] texture (res://scripts/core/asset_library.gd:43)
+       [1] _process (res://scripts/ui/hud.gd:313)
+ERROR: Failed loading resource: res://assets/icons/skill/overdrive.png.
+   at: _load (core/io/resource_loader.cpp:317)
+   GDScript backtrace (most recent call first):
+       [0] texture (res://scripts/core/asset_library.gd:43)
+       [1] _process (res://scripts/ui/hud.gd:313)
+ERROR: Unable to open file: res://.godot/imported/suppression_fire.png-0ada069f4d7dd81da3fef95f03eb03a4.ctex.
+   at: _load_data (scene/resources/compressed_texture.cpp:45)
+   GDScript backtrace (most recent call first):
+       [0] texture (res://scripts/core/asset_library.gd:43)
+       [1] _process (res://scripts/ui/hud.gd:313)
+ERROR: Failed loading resource: res://.godot/imported/suppression_fire.png-0ada069f4d7dd81da3fef95f03eb03a4.ctex.
+   at: _load (core/io/resource_loader.cpp:317)
+   GDScript backtrace (most recent call first):
+       [0] texture (res://scripts/core/asset_library.gd:43)
+       [1] _process (res://scripts/ui/hud.gd:313)
+ERROR: Failed loading resource: res://assets/icons/skill/suppression_fire.png.
+   at: _load (core/io/resource_loader.cpp:317)
+   GDScript backtrace (most recent call first):
+       [0] texture (res://scripts/core/asset_library.gd:43)
+       [1] _process (res://scripts/ui/hud.gd:313)
+ERROR: Unable to open file: res://.godot/imported/death_mark.png-cf24117c91f657e87b88894ce9a0c017.ctex.
+   at: _load_data (scene/resources/compressed_texture.cpp:45)
+   GDScript backtrace (most recent call first):
+       [0] texture (res://scripts/core/asset_library.gd:43)
+       [1] _process (res://scripts/ui/hud.gd:313)
+ERROR: Failed loading resource: res://.godot/imported/death_mark.png-cf24117c91f657e87b88894ce9a0c017.ctex.
+   at: _load (core/io/resource_loader.cpp:317)
+   GDScript backtrace (most recent call first):
+       [0] texture (res://scripts/core/asset_library.gd:43)
+       [1] _process (res://scripts/ui/hud.gd:313)
+ERROR: Failed loading resource: res://assets/icons/skill/death_mark.png.
+   at: _load (core/io/resource_loader.cpp:317)
+   GDScript backtrace (most recent call first):
+       [0] texture (res://scripts/core/asset_library.gd:43)
+       [1] _process (res://scripts/ui/hud.gd:313)
+ERROR: Unable to open file: res://.godot/imported/wrist_shot.png-2cb34c91fd4950fc9caf7fa5b88fadc5.ctex.
+   at: _load_data (scene/resources/compressed_texture.cpp:45)
+   GDScript backtrace (most recent call first):
+       [0] texture (res://scripts/core/asset_library.gd:43)
+       [1] _process (res://scripts/ui/hud.gd:313)
+ERROR: Failed loading resource: res://.godot/imported/wrist_shot.png-2cb34c91fd4950fc9caf7fa5b88fadc5.ctex.
+   at: _load (core/io/resource_loader.cpp:317)
+   GDScript backtrace (most recent call first):
+       [0] texture (res://scripts/core/asset_library.gd:43)
+       [1] _process (res://scripts/ui/hud.gd:313)
+ERROR: Failed loading resource: res://assets/icons/skill/wrist_shot.png.
+   at: _load (core/io/resource_loader.cpp:317)
+   GDScript backtrace (most recent call first):
+       [0] texture (res://scripts/core/asset_library.gd:43)
+       [1] _process (res://scripts/ui/hud.gd:313)
+ERROR: Unable to open file: res://.godot/imported/grave_charge.png-7dff1ef9115a8edff3f084a7e44ca1ab.ctex.
+   at: _load_data (scene/resources/compressed_texture.cpp:45)
+   GDScript backtrace (most recent call first):
+       [0] texture (res://scripts/core/asset_library.gd:43)
+       [1] _process (res://scripts/ui/hud.gd:313)
+ERROR: Failed loading resource: res://.godot/imported/grave_charge.png-7dff1ef9115a8edff3f084a7e44ca1ab.ctex.
+   at: _load (core/io/resource_loader.cpp:317)
+   GDScript backtrace (most recent call first):
+       [0] texture (res://scripts/core/asset_library.gd:43)
+       [1] _process (res://scripts/ui/hud.gd:313)
+ERROR: Failed loading resource: res://assets/icons/skill/grave_charge.png.
+   at: _load (core/io/resource_loader.cpp:317)
+   GDScript backtrace (most recent call first):
+       [0] texture (res://scripts/core/asset_library.gd:43)
+       [1] _process (res://scripts/ui/hud.gd:313)
+ERROR: Unable to open file: res://.godot/imported/blood_fury.png-acee95974fcae5fd663cabfdc418e575.ctex.
+   at: _load_data (scene/resources/compressed_texture.cpp:45)
+   GDScript backtrace (most recent call first):
+       [0] texture (res://scripts/core/asset_library.gd:43)
+       [1] _process (res://scripts/ui/hud.gd:313)
+ERROR: Failed loading resource: res://.godot/imported/blood_fury.png-acee95974fcae5fd663cabfdc418e575.ctex.
+   at: _load (core/io/resource_loader.cpp:317)
+   GDScript backtrace (most recent call first):
+       [0] texture (res://scripts/core/asset_library.gd:43)
+       [1] _process (res://scripts/ui/hud.gd:313)
+ERROR: Failed loading resource: res://assets/icons/skill/blood_fury.png.
+   at: _load (core/io/resource_loader.cpp:317)
+   GDScript backtrace (most recent call first):
+       [0] texture (res://scripts/core/asset_library.gd:43)
+       [1] _process (res://scripts/ui/hud.gd:313)
+ERROR: Unable to open file: res://.godot/imported/shadow_bulwark.png-ac291d4c6992253b598644a5dbc7299b.ctex.
+   at: _load_data (scene/resources/compressed_texture.cpp:45)
+   GDScript backtrace (most recent call first):
+       [0] texture (res://scripts/core/asset_library.gd:43)
+       [1] _process (res://scripts/ui/hud.gd:313)
+ERROR: Failed loading resource: res://.godot/imported/shadow_bulwark.png-ac291d4c6992253b598644a5dbc7299b.ctex.
+   at: _load (core/io/resource_loader.cpp:317)
+   GDScript backtrace (most recent call first):
+       [0] texture (res://scripts/core/asset_library.gd:43)
+       [1] _process (res://scripts/ui/hud.gd:313)
+ERROR: Failed loading resource: res://assets/icons/skill/shadow_bulwark.png.
+   at: _load (core/io/resource_loader.cpp:317)
+   GDScript backtrace (most recent call first):
+       [0] texture (res://scripts/core/asset_library.gd:43)
+       [1] _process (res://scripts/ui/hud.gd:313)
+ERROR: Unable to open file: res://.godot/imported/qi_adept.png-80c098f0197c54eadc1b5963fe142b22.ctex.
+   at: _load_data (scene/resources/compressed_texture.cpp:45)
+   GDScript backtrace (most recent call first):
+       [0] texture (res://scripts/core/asset_library.gd:43)
+       [1] _process (res://scripts/ui/hud.gd:290)
+ERROR: Failed loading resource: res://.godot/imported/qi_adept.png-80c098f0197c54eadc1b5963fe142b22.ctex.
+   at: _load (core/io/resource_loader.cpp:317)
+   GDScript backtrace (most recent call first):
+       [0] texture (res://scripts/core/asset_library.gd:43)
+       [1] _process (res://scripts/ui/hud.gd:290)
+ERROR: Failed loading resource: res://assets/portraits/qi_adept.png.
+   at: _load (core/io/resource_loader.cpp:317)
+   GDScript backtrace (most recent call first):
+       [0] texture (res://scripts/core/asset_library.gd:43)
+       [1] _process (res://scripts/ui/hud.gd:290)
+ERROR: Unable to open file: res://.godot/imported/qi_palm.png-a59da90607129d2693fbad05d7d27338.ctex.
+   at: _load_data (scene/resources/compressed_texture.cpp:45)
+   GDScript backtrace (most recent call first):
+       [0] texture (res://scripts/core/asset_library.gd:43)
+       [1] _process (res://scripts/ui/hud.gd:313)
+ERROR: Failed loading resource: res://.godot/imported/qi_palm.png-a59da90607129d2693fbad05d7d27338.ctex.
+   at: _load (core/io/resource_loader.cpp:317)
+   GDScript backtrace (most recent call first):
+       [0] texture (res://scripts/core/asset_library.gd:43)
+       [1] _process (res://scripts/ui/hud.gd:313)
+ERROR: Failed loading resource: res://assets/icons/skill/qi_palm.png.
+   at: _load (core/io/resource_loader.cpp:317)
+   GDScript backtrace (most recent call first):
+       [0] texture (res://scripts/core/asset_library.gd:43)
+       [1] _process (res://scripts/ui/hud.gd:313)
+ERROR: Unable to open file: res://.godot/imported/qi_heal.png-14aa0e532d9aff07431c22e4f87ba1ce.ctex.
+   at: _load_data (scene/resources/compressed_texture.cpp:45)
+   GDScript backtrace (most recent call first):
+       [0] texture (res://scripts/core/asset_library.gd:43)
+       [1] _process (res://scripts/ui/hud.gd:313)
+ERROR: Failed loading resource: res://.godot/imported/qi_heal.png-14aa0e532d9aff07431c22e4f87ba1ce.ctex.
+   at: _load (core/io/resource_loader.cpp:317)
+   GDScript backtrace (most recent call first):
+       [0] texture (res://scripts/core/asset_library.gd:43)
+       [1] _process (res://scripts/ui/hud.gd:313)
+ERROR: Failed loading resource: res://assets/icons/skill/qi_heal.png.
+   at: _load (core/io/resource_loader.cpp:317)
+   GDScript backtrace (most recent call first):
+       [0] texture (res://scripts/core/asset_library.gd:43)
+       [1] _process (res://scripts/ui/hud.gd:313)
+ERROR: Unable to open file: res://.godot/imported/qi_flow.png-fc175873e263ea3f0d69e4e2ce71f4c8.ctex.
+   at: _load_data (scene/resources/compressed_texture.cpp:45)
+   GDScript backtrace (most recent call first):
+       [0] texture (res://scripts/core/asset_library.gd:43)
+       [1] _process (res://scripts/ui/hud.gd:313)
+ERROR: Failed loading resource: res://.godot/imported/qi_flow.png-fc175873e263ea3f0d69e4e2ce71f4c8.ctex.
+   at: _load (core/io/resource_loader.cpp:317)
+   GDScript backtrace (most recent call first):
+       [0] texture (res://scripts/core/asset_library.gd:43)
+       [1] _process (res://scripts/ui/hud.gd:313)
+ERROR: Failed loading resource: res://assets/icons/skill/qi_flow.png.
+   at: _load (core/io/resource_loader.cpp:317)
+   GDScript backtrace (most recent call first):
+       [0] texture (res://scripts/core/asset_library.gd:43)
+       [1] _process (res://scripts/ui/hud.gd:313)
+ERROR: Unable to open file: res://.godot/imported/qi_burst.png-108f4bbd2d2e928adc92e26159de14fd.ctex.
+   at: _load_data (scene/resources/compressed_texture.cpp:45)
+   GDScript backtrace (most recent call first):
+       [0] texture (res://scripts/core/asset_library.gd:43)
+       [1] _process (res://scripts/ui/hud.gd:313)
+ERROR: Failed loading resource: res://.godot/imported/qi_burst.png-108f4bbd2d2e928adc92e26159de14fd.ctex.
+   at: _load (core/io/resource_loader.cpp:317)
+   GDScript backtrace (most recent call first):
+       [0] texture (res://scripts/core/asset_library.gd:43)
+       [1] _process (res://scripts/ui/hud.gd:313)
+ERROR: Failed loading resource: res://assets/icons/skill/qi_burst.png.
+   at: _load (core/io/resource_loader.cpp:317)
+   GDScript backtrace (most recent call first):
+       [0] texture (res://scripts/core/asset_library.gd:43)
+       [1] _process (res://scripts/ui/hud.gd:313)
+ERROR: Unable to open file: res://.godot/imported/qi_renew.png-d66da806c6727c82def18849e4d32ada.ctex.
+   at: _load_data (scene/resources/compressed_texture.cpp:45)
+   GDScript backtrace (most recent call first):
+       [0] texture (res://scripts/core/asset_library.gd:43)
+       [1] _process (res://scripts/ui/hud.gd:313)
+ERROR: Failed loading resource: res://.godot/imported/qi_renew.png-d66da806c6727c82def18849e4d32ada.ctex.
+   at: _load (core/io/resource_loader.cpp:317)
+   GDScript backtrace (most recent call first):
+       [0] texture (res://scripts/core/asset_library.gd:43)
+       [1] _process (res://scripts/ui/hud.gd:313)
+ERROR: Failed loading resource: res://assets/icons/skill/qi_renew.png.
+   at: _load (core/io/resource_loader.cpp:317)
+   GDScript backtrace (most recent call first):
+       [0] texture (res://scripts/core/asset_library.gd:43)
+       [1] _process (res://scripts/ui/hud.gd:313)
+ERROR: Unable to open file: res://.godot/imported/qi_guard.png-4c21c9bae1f3dd9b1249a252ec15e6a9.ctex.
+   at: _load_data (scene/resources/compressed_texture.cpp:45)
+   GDScript backtrace (most recent call first):
+       [0] texture (res://scripts/core/asset_library.gd:43)
+       [1] _process (res://scripts/ui/hud.gd:313)
+ERROR: Failed loading resource: res://.godot/imported/qi_guard.png-4c21c9bae1f3dd9b1249a252ec15e6a9.ctex.
+   at: _load (core/io/resource_loader.cpp:317)
+   GDScript backtrace (most recent call first):
+       [0] texture (res://scripts/core/asset_library.gd:43)
+       [1] _process (res://scripts/ui/hud.gd:313)
+ERROR: Failed loading resource: res://assets/icons/skill/qi_guard.png.
+   at: _load (core/io/resource_loader.cpp:317)
+   GDScript backtrace (most recent call first):
+       [0] texture (res://scripts/core/asset_library.gd:43)
+       [1] _process (res://scripts/ui/hud.gd:313)
+ERROR: Unable to open file: res://.godot/imported/lethal_backstab.png-7aba4974666733144d5b6abb369041bf.ctex.
+   at: _load_data (scene/resources/compressed_texture.cpp:45)
+   GDScript backtrace (most recent call first):
+       [0] texture (res://scripts/core/asset_library.gd:43)
+       [1] _process (res://scripts/ui/hud.gd:313)
+ERROR: Failed loading resource: res://.godot/imported/lethal_backstab.png-7aba4974666733144d5b6abb369041bf.ctex.
+   at: _load (core/io/resource_loader.cpp:317)
+   GDScript backtrace (most recent call first):
+       [0] texture (res://scripts/core/asset_library.gd:43)
+       [1] _process (res://scripts/ui/hud.gd:313)
+ERROR: Failed loading resource: res://assets/icons/skill/lethal_backstab.png.
+   at: _load (core/io/resource_loader.cpp:317)
+   GDScript backtrace (most recent call first):
+       [0] texture (res://scripts/core/asset_library.gd:43)
+       [1] _process (res://scripts/ui/hud.gd:313)
+ERROR: Unable to open file: res://.godot/imported/veil_step.png-f3cd91a48335037031a48e1008de9d24.ctex.
+   at: _load_data (scene/resources/compressed_texture.cpp:45)
+   GDScript backtrace (most recent call first):
+       [0] texture (res://scripts/core/asset_library.gd:43)
+       [1] _process (res://scripts/ui/hud.gd:313)
+ERROR: Failed loading resource: res://.godot/imported/veil_step.png-f3cd91a48335037031a48e1008de9d24.ctex.
+   at: _load (core/io/resource_loader.cpp:317)
+   GDScript backtrace (most recent call first):
+       [0] texture (res://scripts/core/asset_library.gd:43)
+       [1] _process (res://scripts/ui/hud.gd:313)
+ERROR: Failed loading resource: res://assets/icons/skill/veil_step.png.
+   at: _load (core/io/resource_loader.cpp:317)
+   GDScript backtrace (most recent call first):
+       [0] texture (res://scripts/core/asset_library.gd:43)
+       [1] _process (res://scripts/ui/hud.gd:313)
+ERROR: Unable to open file: res://.godot/imported/venom_burst.png-83e17c90de870370722841085e65c46d.ctex.
+   at: _load_data (scene/resources/compressed_texture.cpp:45)
+   GDScript backtrace (most recent call first):
+       [0] texture (res://scripts/core/asset_library.gd:43)
+       [1] _process (res://scripts/ui/hud.gd:313)
+ERROR: Failed loading resource: res://.godot/imported/venom_burst.png-83e17c90de870370722841085e65c46d.ctex.
+   at: _load (core/io/resource_loader.cpp:317)
+   GDScript backtrace (most recent call first):
+       [0] texture (res://scripts/core/asset_library.gd:43)
+       [1] _process (res://scripts/ui/hud.gd:313)
+ERROR: Failed loading resource: res://assets/icons/skill/venom_burst.png.
+   at: _load (core/io/resource_loader.cpp:317)
+   GDScript backtrace (most recent call first):
+       [0] texture (res://scripts/core/asset_library.gd:43)
+       [1] _process (res://scripts/ui/hud.gd:313)
+ERROR: Unable to open file: res://.godot/imported/armor_pierce.png-8d561905a8e97ebbd46d2704392d2a1a.ctex.
+   at: _load_data (scene/resources/compressed_texture.cpp:45)
+   GDScript backtrace (most recent call first):
+       [0] texture (res://scripts/core/asset_library.gd:43)
+       [1] _process (res://scripts/ui/hud.gd:313)
+ERROR: Failed loading resource: res://.godot/imported/armor_pierce.png-8d561905a8e97ebbd46d2704392d2a1a.ctex.
+   at: _load (core/io/resource_loader.cpp:317)
+   GDScript backtrace (most recent call first):
+       [0] texture (res://scripts/core/asset_library.gd:43)
+       [1] _process (res://scripts/ui/hud.gd:313)
+ERROR: Failed loading resource: res://assets/icons/skill/armor_pierce.png.
+   at: _load (core/io/resource_loader.cpp:317)
+   GDScript backtrace (most recent call first):
+       [0] texture (res://scripts/core/asset_library.gd:43)
+       [1] _process (res://scripts/ui/hud.gd:313)
+ERROR: Unable to open file: res://.godot/imported/arrow_storm.png-5df43c4097fc19b3cddf4dab902e0fc5.ctex.
+   at: _load_data (scene/resources/compressed_texture.cpp:45)
+   GDScript backtrace (most recent call first):
+       [0] texture (res://scripts/core/asset_library.gd:43)
+       [1] _process (res://scripts/ui/hud.gd:313)
+ERROR: Failed loading resource: res://.godot/imported/arrow_storm.png-5df43c4097fc19b3cddf4dab902e0fc5.ctex.
+   at: _load (core/io/resource_loader.cpp:317)
+   GDScript backtrace (most recent call first):
+       [0] texture (res://scripts/core/asset_library.gd:43)
+       [1] _process (res://scripts/ui/hud.gd:313)
+ERROR: Failed loading resource: res://assets/icons/skill/arrow_storm.png.
+   at: _load (core/io/resource_loader.cpp:317)
+   GDScript backtrace (most recent call first):
+       [0] texture (res://scripts/core/asset_library.gd:43)
+       [1] _process (res://scripts/ui/hud.gd:313)
+ERROR: Unable to open file: res://.godot/imported/eagle_focus.png-f4bea929aa1857bc93f4646606c939cd.ctex.
+   at: _load_data (scene/resources/compressed_texture.cpp:45)
+   GDScript backtrace (most recent call first):
+       [0] texture (res://scripts/core/asset_library.gd:43)
+       [1] _process (res://scripts/ui/hud.gd:313)
+ERROR: Failed loading resource: res://.godot/imported/eagle_focus.png-f4bea929aa1857bc93f4646606c939cd.ctex.
+   at: _load (core/io/resource_loader.cpp:317)
+   GDScript backtrace (most recent call first):
+       [0] texture (res://scripts/core/asset_library.gd:43)
+       [1] _process (res://scripts/ui/hud.gd:313)
+ERROR: Failed loading resource: res://assets/icons/skill/eagle_focus.png.
+   at: _load (core/io/resource_loader.cpp:317)
+   GDScript backtrace (most recent call first):
+       [0] texture (res://scripts/core/asset_library.gd:43)
+       [1] _process (res://scripts/ui/hud.gd:313)
+ERROR: Unable to open file: res://.godot/imported/cyborg.png-c21987edccd56988c46f62dec41e8c5f.ctex.
+   at: _load_data (scene/resources/compressed_texture.cpp:45)
+   GDScript backtrace (most recent call first):
+       [0] texture (res://scripts/core/asset_library.gd:43)
+       [1] _process (res://scripts/ui/hud.gd:290)
+ERROR: Failed loading resource: res://.godot/imported/cyborg.png-c21987edccd56988c46f62dec41e8c5f.ctex.
+   at: _load (core/io/resource_loader.cpp:317)
+   GDScript backtrace (most recent call first):
+       [0] texture (res://scripts/core/asset_library.gd:43)
+       [1] _process (res://scripts/ui/hud.gd:290)
+ERROR: Failed loading resource: res://assets/portraits/cyborg.png.
+   at: _load (core/io/resource_loader.cpp:317)
+   GDScript backtrace (most recent call first):
+       [0] texture (res://scripts/core/asset_library.gd:43)
+       [1] _process (res://scripts/ui/hud.gd:290)
+ERROR: Unable to open file: res://.godot/imported/hydraulic_punch.png-1805be42e7f0b29fb6a9a37e0211862a.ctex.
+   at: _load_data (scene/resources/compressed_texture.cpp:45)
+   GDScript backtrace (most recent call first):
+       [0] texture (res://scripts/core/asset_library.gd:43)
+       [1] _process (res://scripts/ui/hud.gd:313)
+ERROR: Failed loading resource: res://.godot/imported/hydraulic_punch.png-1805be42e7f0b29fb6a9a37e0211862a.ctex.
+   at: _load (core/io/resource_loader.cpp:317)
+   GDScript backtrace (most recent call first):
+       [0] texture (res://scripts/core/asset_library.gd:43)
+       [1] _process (res://scripts/ui/hud.gd:313)
+ERROR: Failed loading resource: res://assets/icons/skill/hydraulic_punch.png.
+   at: _load (core/io/resource_loader.cpp:317)
+   GDScript backtrace (most recent call first):
+       [0] texture (res://scripts/core/asset_library.gd:43)
+       [1] _process (res://scripts/ui/hud.gd:313)
+ERROR: Unable to open file: res://.godot/imported/energy_wall.png-ed589deb94980191407b3d7ae129f601.ctex.
+   at: _load_data (scene/resources/compressed_texture.cpp:45)
+   GDScript backtrace (most recent call first):
+       [0] texture (res://scripts/core/asset_library.gd:43)
+       [1] _process (res://scripts/ui/hud.gd:313)
+ERROR: Failed loading resource: res://.godot/imported/energy_wall.png-ed589deb94980191407b3d7ae129f601.ctex.
+   at: _load (core/io/resource_loader.cpp:317)
+   GDScript backtrace (most recent call first):
+       [0] texture (res://scripts/core/asset_library.gd:43)
+       [1] _process (res://scripts/ui/hud.gd:313)
+ERROR: Failed loading resource: res://assets/icons/skill/energy_wall.png.
+   at: _load (core/io/resource_loader.cpp:317)
+   GDScript backtrace (most recent call first):
+       [0] texture (res://scripts/core/asset_library.gd:43)
+       [1] _process (res://scripts/ui/hud.gd:313)
+ERROR: Unable to open file: res://.godot/imported/servo_charge.png-50f330fb3536fb4aefd1e55bf0ed8ff5.ctex.
+   at: _load_data (scene/resources/compressed_texture.cpp:45)
+   GDScript backtrace (most recent call first):
+       [0] texture (res://scripts/core/asset_library.gd:43)
+       [1] _process (res://scripts/ui/hud.gd:313)
+ERROR: Failed loading resource: res://.godot/imported/servo_charge.png-50f330fb3536fb4aefd1e55bf0ed8ff5.ctex.
+   at: _load (core/io/resource_loader.cpp:317)
+   GDScript backtrace (most recent call first):
+       [0] texture (res://scripts/core/asset_library.gd:43)
+       [1] _process (res://scripts/ui/hud.gd:313)
+ERROR: Failed loading resource: res://assets/icons/skill/servo_charge.png.
+   at: _load (core/io/resource_loader.cpp:317)
+   GDScript backtrace (most recent call first):
+       [0] texture (res://scripts/core/asset_library.gd:43)
+       [1] _process (res://scripts/ui/hud.gd:313)
+ERROR: Unable to open file: res://.godot/imported/seismic_slam.png-3a478f23af628e900cdc8c54ee2661ed.ctex.
+   at: _load_data (scene/resources/compressed_texture.cpp:45)
+   GDScript backtrace (most recent call first):
+       [0] texture (res://scripts/core/asset_library.gd:43)
+       [1] _process (res://scripts/ui/hud.gd:313)
+ERROR: Failed loading resource: res://.godot/imported/seismic_slam.png-3a478f23af628e900cdc8c54ee2661ed.ctex.
+   at: _load (core/io/resource_loader.cpp:317)
+   GDScript backtrace (most recent call first):
+       [0] texture (res://scripts/core/asset_library.gd:43)
+       [1] _process (res://scripts/ui/hud.gd:313)
+ERROR: Failed loading resource: res://assets/icons/skill/seismic_slam.png.
+   at: _load (core/io/resource_loader.cpp:317)
+   GDScript backtrace (most recent call first):
+       [0] texture (res://scripts/core/asset_library.gd:43)
+       [1] _process (res://scripts/ui/hud.gd:313)
+ERROR: Unable to open file: res://.godot/imported/aegis_protocol.png-838e86c91f892de409902798f5aa23f6.ctex.
+   at: _load_data (scene/resources/compressed_texture.cpp:45)
+   GDScript backtrace (most recent call first):
+       [0] texture (res://scripts/core/asset_library.gd:43)
+       [1] _process (res://scripts/ui/hud.gd:313)
+ERROR: Failed loading resource: res://.godot/imported/aegis_protocol.png-838e86c91f892de409902798f5aa23f6.ctex.
+   at: _load (core/io/resource_loader.cpp:317)
+   GDScript backtrace (most recent call first):
+       [0] texture (res://scripts/core/asset_library.gd:43)
+       [1] _process (res://scripts/ui/hud.gd:313)
+ERROR: Failed loading resource: res://assets/icons/skill/aegis_protocol.png.
+   at: _load (core/io/resource_loader.cpp:317)
+   GDScript backtrace (most recent call first):
+       [0] texture (res://scripts/core/asset_library.gd:43)
+       [1] _process (res://scripts/ui/hud.gd:313)
+ERROR: Unable to open file: res://.godot/imported/rail_dash.png-0f91c176d52a4b67acc9d664f96c2383.ctex.
+   at: _load_data (scene/resources/compressed_texture.cpp:45)
+   GDScript backtrace (most recent call first):
+       [0] texture (res://scripts/core/asset_library.gd:43)
+       [1] _process (res://scripts/ui/hud.gd:313)
+ERROR: Failed loading resource: res://.godot/imported/rail_dash.png-0f91c176d52a4b67acc9d664f96c2383.ctex.
+   at: _load (core/io/resource_loader.cpp:317)
+   GDScript backtrace (most recent call first):
+       [0] texture (res://scripts/core/asset_library.gd:43)
+       [1] _process (res://scripts/ui/hud.gd:313)
+ERROR: Failed loading resource: res://assets/icons/skill/rail_dash.png.
+   at: _load (core/io/resource_loader.cpp:317)
+   GDScript backtrace (most recent call first):
+       [0] texture (res://scripts/core/asset_library.gd:43)
+       [1] _process (res://scripts/ui/hud.gd:313)
+ERROR: Unable to open file: res://.godot/imported/worm_virus.png-3672e883172fbdf9f2571bfd73880a34.ctex.
+   at: _load_data (scene/resources/compressed_texture.cpp:45)
+   GDScript backtrace (most recent call first):
+       [0] texture (res://scripts/core/asset_library.gd:43)
+       [1] _process (res://scripts/ui/hud.gd:313)
+ERROR: Failed loading resource: res://.godot/imported/worm_virus.png-3672e883172fbdf9f2571bfd73880a34.ctex.
+   at: _load (core/io/resource_loader.cpp:317)
+   GDScript backtrace (most recent call first):
+       [0] texture (res://scripts/core/asset_library.gd:43)
+       [1] _process (res://scripts/ui/hud.gd:313)
+ERROR: Failed loading resource: res://assets/icons/skill/worm_virus.png.
+   at: _load (core/io/resource_loader.cpp:317)
+   GDScript backtrace (most recent call first):
+       [0] texture (res://scripts/core/asset_library.gd:43)
+       [1] _process (res://scripts/ui/hud.gd:313)
+ERROR: Unable to open file: res://.godot/imported/blackout.png-407a4df62b6f51ec3eec7cf65bf774c6.ctex.
+   at: _load_data (scene/resources/compressed_texture.cpp:45)
+   GDScript backtrace (most recent call first):
+       [0] texture (res://scripts/core/asset_library.gd:43)
+       [1] _process (res://scripts/ui/hud.gd:313)
+ERROR: Failed loading resource: res://.godot/imported/blackout.png-407a4df62b6f51ec3eec7cf65bf774c6.ctex.
+   at: _load (core/io/resource_loader.cpp:317)
+   GDScript backtrace (most recent call first):
+       [0] texture (res://scripts/core/asset_library.gd:43)
+       [1] _process (res://scripts/ui/hud.gd:313)
+ERROR: Failed loading resource: res://assets/icons/skill/blackout.png.
+   at: _load (core/io/resource_loader.cpp:317)
+   GDScript backtrace (most recent call first):
+       [0] texture (res://scripts/core/asset_library.gd:43)
+       [1] _process (res://scripts/ui/hud.gd:313)
+ERROR: Unable to open file: res://.godot/imported/overdrive_protocol.png-0a53fffe3a278d09687223ba2a95c69f.ctex.
+   at: _load_data (scene/resources/compressed_texture.cpp:45)
+   GDScript backtrace (most recent call first):
+       [0] texture (res://scripts/core/asset_library.gd:43)
+       [1] _process (res://scripts/ui/hud.gd:313)
+ERROR: Failed loading resource: res://.godot/imported/overdrive_protocol.png-0a53fffe3a278d09687223ba2a95c69f.ctex.
+   at: _load (core/io/resource_loader.cpp:317)
+   GDScript backtrace (most recent call first):
+       [0] texture (res://scripts/core/asset_library.gd:43)
+       [1] _process (res://scripts/ui/hud.gd:313)
+ERROR: Failed loading resource: res://assets/icons/skill/overdrive_protocol.png.
+   at: _load (core/io/resource_loader.cpp:317)
+   GDScript backtrace (most recent call first):
+       [0] texture (res://scripts/core/asset_library.gd:43)
+       [1] _process (res://scripts/ui/hud.gd:313)
+ERROR: Unable to open file: res://.godot/imported/reaper_eye.png-00d66e5c786f820fa966cc77fd4a225c.ctex.
+   at: _load_data (scene/resources/compressed_texture.cpp:45)
+   GDScript backtrace (most recent call first):
+       [0] texture (res://scripts/core/asset_library.gd:43)
+       [1] _process (res://scripts/ui/hud.gd:313)
+ERROR: Failed loading resource: res://.godot/imported/reaper_eye.png-00d66e5c786f820fa966cc77fd4a225c.ctex.
+   at: _load (core/io/resource_loader.cpp:317)
+   GDScript backtrace (most recent call first):
+       [0] texture (res://scripts/core/asset_library.gd:43)
+       [1] _process (res://scripts/ui/hud.gd:313)
+ERROR: Failed loading resource: res://assets/icons/skill/reaper_eye.png.
+   at: _load (core/io/resource_loader.cpp:317)
+   GDScript backtrace (most recent call first):
+       [0] texture (res://scripts/core/asset_library.gd:43)
+       [1] _process (res://scripts/ui/hud.gd:313)
+ERROR: Unable to open file: res://.godot/imported/blast_trap.png-3c476c50978bd3060ddc7bc88183f783.ctex.
+   at: _load_data (scene/resources/compressed_texture.cpp:45)
+   GDScript backtrace (most recent call first):
+       [0] texture (res://scripts/core/asset_library.gd:43)
+       [1] _process (res://scripts/ui/hud.gd:313)
+ERROR: Failed loading resource: res://.godot/imported/blast_trap.png-3c476c50978bd3060ddc7bc88183f783.ctex.
+   at: _load (core/io/resource_loader.cpp:317)
+   GDScript backtrace (most recent call first):
+       [0] texture (res://scripts/core/asset_library.gd:43)
+       [1] _process (res://scripts/ui/hud.gd:313)
+ERROR: Failed loading resource: res://assets/icons/skill/blast_trap.png.
+   at: _load (core/io/resource_loader.cpp:317)
+   GDScript backtrace (most recent call first):
+       [0] texture (res://scripts/core/asset_library.gd:43)
+       [1] _process (res://scripts/ui/hud.gd:313)
+ERROR: Unable to open file: res://.godot/imported/steady_aim.png-64bd3706438856e5cf845b26542deec2.ctex.
+   at: _load_data (scene/resources/compressed_texture.cpp:45)
+   GDScript backtrace (most recent call first):
+       [0] texture (res://scripts/core/asset_library.gd:43)
+       [1] _process (res://scripts/ui/hud.gd:313)
+ERROR: Failed loading resource: res://.godot/imported/steady_aim.png-64bd3706438856e5cf845b26542deec2.ctex.
+   at: _load (core/io/resource_loader.cpp:317)
+   GDScript backtrace (most recent call first):
+       [0] texture (res://scripts/core/asset_library.gd:43)
+       [1] _process (res://scripts/ui/hud.gd:313)
+ERROR: Failed loading resource: res://assets/icons/skill/steady_aim.png.
+   at: _load (core/io/resource_loader.cpp:317)
+   GDScript backtrace (most recent call first):
+       [0] texture (res://scripts/core/asset_library.gd:43)
+       [1] _process (res://scripts/ui/hud.gd:313)
+2026-11-22T13:45:34 | FAIL  16 职业立绘加载 | missing=["runeward", "engineer", "qi_adept", "cyborg"]
+2026-11-22T13:45:34 | ACTION  普攻 / 冲刺无敌 / 冷却 / 法力不足校验
+2026-11-22T13:45:34 | PASS  普攻造成伤害 | 500 -> 482
+2026-11-22T13:45:34 | PASS  冲刺进入冷却 | cd=0.90
+2026-11-22T13:45:34 | PASS  冲刺期间无敌 | 
+2026-11-22T13:45:34 | PASS  冲刺伤害吸收 | dealt=0
+2026-11-22T13:45:35 | PASS  非冲刺正常受伤 | dealt=18
+2026-11-22T13:45:35 | PASS  法力不足不施法 | 
+2026-11-22T13:45:35 | PASS  技能冷却阻止重复施放 | cd=3.00 mp=42
+2026-11-22T13:45:35 | ACTION  资源点采集
+2026-11-22T13:45:35 | OBSERVE 采集成功 wood 8 -> 11
+2026-11-22T13:45:35 | PASS  资源点采集入包 | 
+2026-11-22T13:45:35 | ACTION  合成铁锭
+2026-11-22T13:45:35 | PASS  合成 iron_ingot | 
+2026-11-22T13:45:35 | ACTION  商店购买与出售
+2026-11-22T13:45:35 | PASS  商店购买药水 | 
+2026-11-22T13:45:35 | PASS  商店出售物品 | 
+2026-11-22T13:45:35 | ACTION  装备与卸下武器
+2026-11-22T13:45:35 | PASS  武器装备生效 | item=weapon_sword_iron slot=weapon
+2026-11-22T13:45:35 | PASS  武器卸下回包 | 
+2026-11-22T13:45:35 | ACTION  建造模式：放置石砖并拆除返还
+2026-11-22T13:45:35 | PASS  放置建筑 | block=stone_block count=0->1
+2026-11-22T13:45:35 | SHOT    screenshots/13_build_mode.jpg (1280x720)
+2026-11-22T13:45:35 | PASS  拆除建筑并返还材料 | count=0 refund=stone 8->7
+2026-11-22T13:45:35 | ACTION  背包三页签
+2026-11-22T13:45:36 | PASS  背包打开暂停 | 
+2026-11-22T13:45:36 | SHOT    screenshots/08_inventory_bag.jpg (1280x720)
+2026-11-22T13:45:36 | SHOT    screenshots/09_inventory_craft.jpg (1280x720)
+2026-11-22T13:45:36 | SHOT    screenshots/10_inventory_shop.jpg (1280x720)
+2026-11-22T13:45:37 | PASS  背包关闭恢复 | 
+2026-11-22T13:45:37 | ACTION  技能树与职业专职页签
+2026-11-22T13:45:37 | PASS  技能树面板打开 | 
+2026-11-22T13:45:37 | SHOT    screenshots/06_skill_tree.jpg (1280x720)
+2026-11-22T13:45:38 | SHOT    screenshots/07_specialization.jpg (1280x720)
+2026-11-22T13:45:38 | ACTION  朋克改造台面板
+2026-11-22T13:45:39 | PASS  朋克面板打开 | 
+2026-11-22T13:45:39 | SHOT    screenshots/11_punk_panel.jpg (1280x720)
+2026-11-22T13:45:39 | ACTION  暂停菜单
+2026-11-22T13:45:40 | PASS  暂停菜单暂停游戏 | 
+2026-11-22T13:45:40 | SHOT    screenshots/12_pause_menu.jpg (1280x720)
+2026-11-22T13:45:40 | PASS  暂停恢复 | 
+2026-11-22T13:45:40 | ACTION  NPC 对话框
+2026-11-22T13:45:41 | SHOT    screenshots/14_dialogue.jpg (1280x720)
+2026-11-22T13:45:41 | PASS  对话框显示 | 
+2026-11-22T13:45:41 | ACTION  触屏控制布局
+2026-11-22T13:45:41 | SHOT    screenshots/15_touch_controls.jpg (1280x720)
+2026-11-22T13:45:41 | PASS  触屏控件存在 | 
+2026-11-22T13:45:41 | ACTION  相机缩放
+2026-11-22T13:45:42 | SHOT    screenshots/04_world_zoom.jpg (1280x720)
+2026-11-22T13:45:42 | PASS  相机缩放生效 | 
+2026-11-22T13:45:42 | ACTION  开始逐职业技能实测（16 职业 x 6 技能 = 96 项）
+2026-11-22T13:45:42 | PASS  mage 技能数=6 | 6
+2026-11-22T13:45:42 | ACTION  施放技能 mage[1] 火球术 / fireball (projectile)
+2026-11-22T13:45:43 | OBSERVE 技能结果 OK projectile; MP 130->120; CD=1.36; VFX=1; DummyHP 3000 -> 2948
+2026-11-22T13:45:43 | SHOT    skills/01_mage_fireball.jpg (1280x720)
+2026-11-22T13:45:43 | PASS  技能 mage-fireball | projectile; MP 130->120; CD=1.36; VFX=1; DummyHP 3000 -> 2948
+2026-11-22T13:45:43 | ACTION  施放技能 mage[2] 冰霜新星 / frost_nova (melee_aoe)
+2026-11-22T13:45:43 | OBSERVE 技能结果 OK melee_aoe; MP 130->112; CD=5.32; VFX=1; DummyHP 3000 -> 2959
+2026-11-22T13:45:43 | SHOT    skills/02_mage_frost_nova.jpg (1280x720)
+2026-11-22T13:45:43 | PASS  技能 mage-frost_nova | melee_aoe; MP 130->112; CD=5.32; VFX=1; DummyHP 3000 -> 2959
+2026-11-22T13:45:43 | ACTION  施放技能 mage[3] 奥术护盾 / arcane_shield (shield)
+2026-11-22T13:45:43 | OBSERVE 技能结果 OK shield; MP 130->110; CD=10.70; VFX=2; Shield 0 -> 60
+2026-11-22T13:45:43 | SHOT    skills/03_mage_arcane_shield.jpg (1280x720)
+2026-11-22T13:45:43 | PASS  技能 mage-arcane_shield | shield; MP 130->110; CD=10.70; VFX=2; Shield 0 -> 60
+2026-11-22T13:45:43 | ACTION  施放技能 mage[4] 陨星术 / meteor (aoe_zone)
+2026-11-22T13:45:44 | OBSERVE 技能结果 OK aoe_zone; MP 130->102; CD=12.90; VFX=3; DummyHP 3000 -> 2938
+2026-11-22T13:45:44 | SHOT    skills/04_mage_meteor.jpg (1280x720)
+2026-11-22T13:45:44 | PASS  技能 mage-meteor | aoe_zone; MP 130->102; CD=12.90; VFX=3; DummyHP 3000 -> 2938
+2026-11-22T13:45:44 | ACTION  施放技能 mage[5] 绝对零度 / absolute_zero (melee_aoe)
+2026-11-22T13:45:44 | OBSERVE 技能结果 OK melee_aoe; MP 130->108; CD=9.90; VFX=1; DummyHP 3000 -> 2954
+2026-11-22T13:45:45 | SHOT    skills/05_mage_absolute_zero.jpg (1280x720)
+2026-11-22T13:45:45 | PASS  技能 mage-absolute_zero | melee_aoe; MP 130->108; CD=9.90; VFX=1; DummyHP 3000 -> 2954
+2026-11-22T13:45:45 | ACTION  施放技能 mage[6] 奥术洪流 / arcane_surge (shield)
+2026-11-22T13:45:45 | OBSERVE 技能结果 OK shield; MP 130->106; CD=17.90; VFX=2; Shield 0 -> 95
+2026-11-22T13:45:45 | SHOT    skills/06_mage_arcane_surge.jpg (1280x720)
+2026-11-22T13:45:45 | PASS  技能 mage-arcane_surge | shield; MP 130->106; CD=17.90; VFX=2; Shield 0 -> 95
+2026-11-22T13:45:45 | PASS  runeward 技能数=6 | 6
+2026-11-22T13:45:45 | ACTION  施放技能 runeward[1] 符盾 / rune_shield (shield)
+2026-11-22T13:45:45 | OBSERVE 技能结果 OK shield; MP 110->94; CD=10.72; VFX=3; Shield 0 -> 60
+2026-11-22T13:45:45 | SHOT    skills/07_runeward_rune_shield.jpg (1280x720)
+2026-11-22T13:45:45 | PASS  技能 runeward-rune_shield | shield; MP 110->94; CD=10.72; VFX=3; Shield 0 -> 60
+2026-11-22T13:45:45 | ACTION  施放技能 runeward[2] 符爆 / rune_burst (melee_aoe)
+2026-11-22T13:45:45 | OBSERVE 技能结果 OK melee_aoe; MP 110->98; CD=4.40; VFX=2; DummyHP 3000 -> 2977
+2026-11-22T13:45:45 | SHOT    skills/08_runeward_rune_burst.jpg (1280x720)
+2026-11-22T13:45:45 | PASS  技能 runeward-rune_burst | melee_aoe; MP 110->98; CD=4.40; VFX=2; DummyHP 3000 -> 2977
+2026-11-22T13:45:45 | ACTION  施放技能 runeward[3] 咒护 / rune_aura (buff)
+2026-11-22T13:45:45 | OBSERVE 技能结果 OK buff; MP 110->96; CD=12.52; VFX=3; Buff[defense] found=true attack 7 -> 7
+2026-11-22T13:45:45 | SHOT    skills/09_runeward_rune_aura.jpg (1280x720)
+2026-11-22T13:45:45 | PASS  技能 runeward-rune_aura | buff; MP 110->96; CD=12.52; VFX=3; Buff[defense] found=true attack 7 -> 7
+2026-11-22T13:45:45 | ACTION  施放技能 runeward[4] 反噬符文 / rune_reflect (shield)
+2026-11-22T13:45:45 | OBSERVE 技能结果 OK shield; MP 110->88; CD=17.90; VFX=4; Shield 0 -> 90
+2026-11-22T13:45:45 | SHOT    skills/10_runeward_rune_reflect.jpg (1280x720)
+2026-11-22T13:45:45 | PASS  技能 runeward-rune_reflect | shield; MP 110->88; CD=17.90; VFX=4; Shield 0 -> 90
+2026-11-22T13:45:45 | ACTION  施放技能 runeward[5] 符文禁锢 / rune_prison (aoe_zone)
+2026-11-22T13:45:46 | OBSERVE 技能结果 OK aoe_zone; MP 110->90; CD=10.92; VFX=4; DummyHP 3000 -> 2975
+2026-11-22T13:45:46 | SHOT    skills/11_runeward_rune_prison.jpg (1280x720)
+2026-11-22T13:45:46 | PASS  技能 runeward-rune_prison | aoe_zone; MP 110->90; CD=10.92; VFX=4; DummyHP 3000 -> 2975
+2026-11-22T13:45:46 | ACTION  施放技能 runeward[6] 符阵壁垒 / aegis_circle (buff)
+2026-11-22T13:45:46 | OBSERVE 技能结果 OK buff; MP 110->86; CD=19.92; VFX=1; Buff[defense] found=true attack 7 -> 7
+2026-11-22T13:45:46 | SHOT    skills/12_runeward_aegis_circle.jpg (1280x720)
+2026-11-22T13:45:46 | PASS  技能 runeward-aegis_circle | buff; MP 110->86; CD=19.92; VFX=1; Buff[defense] found=true attack 7 -> 7
+2026-11-22T13:45:46 | PASS  priest 技能数=6 | 6
+2026-11-22T13:45:46 | ACTION  施放技能 priest[1] 治疗术 / heal (heal)
+2026-11-22T13:45:46 | OBSERVE 技能结果 OK heal; MP 110->96; CD=3.52; VFX=2; HP 58 -> 88 (+30)
+2026-11-22T13:45:46 | SHOT    skills/13_priest_heal.jpg (1280x720)
+2026-11-22T13:45:46 | PASS  技能 priest-heal | heal; MP 110->96; CD=3.52; VFX=2; HP 58 -> 88 (+30)
+2026-11-22T13:45:47 | ACTION  施放技能 priest[2] 神圣新星 / holy_nova (melee_aoe)
+2026-11-22T13:45:47 | OBSERVE 技能结果 OK melee_aoe; MP 110->92; CD=6.20; VFX=2; DummyHP 3000 -> 2977
+2026-11-22T13:45:47 | SHOT    skills/14_priest_holy_nova.jpg (1280x720)
+2026-11-22T13:45:47 | PASS  技能 priest-holy_nova | melee_aoe; MP 110->92; CD=6.20; VFX=2; DummyHP 3000 -> 2977
+2026-11-22T13:45:47 | ACTION  施放技能 priest[3] 祝福 / blessing (buff)
+2026-11-22T13:45:47 | OBSERVE 技能结果 OK buff; MP 110->94; CD=12.50; VFX=3; Buff[defense] found=true attack 8 -> 8
+2026-11-22T13:45:47 | SHOT    skills/15_priest_blessing.jpg (1280x720)
+2026-11-22T13:45:47 | PASS  技能 priest-blessing | buff; MP 110->94; CD=12.50; VFX=3; Buff[defense] found=true attack 8 -> 8
+2026-11-22T13:45:47 | ACTION  施放技能 priest[4] 圣愈光辉 / sanctuary (heal)
+2026-11-22T13:45:47 | OBSERVE 技能结果 OK heal; MP 110->78; CD=13.90; VFX=4; HP 58 -> 88 (+30)
+2026-11-22T13:45:47 | SHOT    skills/16_priest_sanctuary.jpg (1280x720)
+2026-11-22T13:45:47 | PASS  技能 priest-sanctuary | heal; MP 110->78; CD=13.90; VFX=4; HP 58 -> 88 (+30)
+2026-11-22T13:45:47 | ACTION  施放技能 priest[5] 审判之光 / judgement (melee_aoe)
+2026-11-22T13:45:47 | OBSERVE 技能结果 OK melee_aoe; MP 110->86; CD=10.90; VFX=4; DummyHP 3000 -> 2972
+2026-11-22T13:45:47 | SHOT    skills/17_priest_judgement.jpg (1280x720)
+2026-11-22T13:45:47 | PASS  技能 priest-judgement | melee_aoe; MP 110->86; CD=10.90; VFX=4; DummyHP 3000 -> 2972
+2026-11-22T13:45:47 | ACTION  施放技能 priest[6] 神圣盟约 / holy_covenant (buff)
+2026-11-22T13:45:47 | OBSERVE 技能结果 OK buff; MP 110->88; CD=19.92; VFX=5; Buff[defense] found=true attack 8 -> 8
+2026-11-22T13:45:47 | SHOT    skills/18_priest_holy_covenant.jpg (1280x720)
+2026-11-22T13:45:47 | PASS  技能 priest-holy_covenant | buff; MP 110->88; CD=19.92; VFX=5; Buff[defense] found=true attack 8 -> 8
+2026-11-22T13:45:47 | PASS  necromancer 技能数=6 | 6
+2026-11-22T13:45:47 | ACTION  施放技能 necromancer[1] 腐蚀箭 / corrupt_bolt (projectile)
+2026-11-22T13:45:48 | OBSERVE 技能结果 OK projectile; MP 120->102; CD=1.52; VFX=2; DummyHP 3000 -> 2957
+2026-11-22T13:45:48 | SHOT    skills/19_necromancer_corrupt_bolt.jpg (1280x720)
+2026-11-22T13:45:48 | PASS  技能 necromancer-corrupt_bolt | projectile; MP 120->102; CD=1.52; VFX=2; DummyHP 3000 -> 2957
+2026-11-22T13:45:48 | ACTION  施放技能 necromancer[2] 亡者领域 / grave_field (aoe_zone)
+2026-11-22T13:45:49 | OBSERVE 技能结果 OK aoe_zone; MP 120->96; CD=8.02; VFX=1; DummyHP 3000 -> 2960
+2026-11-22T13:45:49 | SHOT    skills/20_necromancer_grave_field.jpg (1280x720)
+2026-11-22T13:45:49 | PASS  技能 necromancer-grave_field | aoe_zone; MP 120->96; CD=8.02; VFX=1; DummyHP 3000 -> 2960
+2026-11-22T13:45:49 | ACTION  施放技能 necromancer[3] 汲取 / drain (heal)
+2026-11-22T13:45:49 | OBSERVE 技能结果 OK heal; MP 120->106; CD=7.08; VFX=1; HP 50 -> 80 (+30)
+2026-11-22T13:45:49 | SHOT    skills/21_necromancer_drain.jpg (1280x720)
+2026-11-22T13:45:49 | PASS  技能 necromancer-drain | heal; MP 120->106; CD=7.08; VFX=1; HP 50 -> 80 (+30)
+2026-11-22T13:45:49 | ACTION  施放技能 necromancer[4] 腐魂连矢 / soul_barrage (chain)
+2026-11-22T13:45:49 | OBSERVE 技能结果 OK chain; MP 120->98; CD=8.92; VFX=2; DummyHP 3000 -> 2972
+2026-11-22T13:45:49 | SHOT    skills/22_necromancer_soul_barrage.jpg (1280x720)
+2026-11-22T13:45:49 | PASS  技能 necromancer-soul_barrage | chain; MP 120->98; CD=8.92; VFX=2; DummyHP 3000 -> 2972
+2026-11-22T13:45:49 | ACTION  施放技能 necromancer[5] 万尸之地 / mass_grave (aoe_zone)
+2026-11-22T13:45:50 | OBSERVE 技能结果 OK aoe_zone; MP 120->94; CD=14.90; VFX=2; DummyHP 3000 -> 2960
+2026-11-22T13:45:51 | SHOT    skills/23_necromancer_mass_grave.jpg (1280x720)
+2026-11-22T13:45:51 | PASS  技能 necromancer-mass_grave | aoe_zone; MP 120->94; CD=14.90; VFX=2; DummyHP 3000 -> 2960
+2026-11-22T13:45:51 | ACTION  施放技能 necromancer[6] 噬魂盛宴 / soul_feast (heal)
+2026-11-22T13:45:51 | OBSERVE 技能结果 OK heal; MP 120->96; CD=13.90; VFX=1; HP 50 -> 80 (+30)
+2026-11-22T13:45:51 | SHOT    skills/24_necromancer_soul_feast.jpg (1280x720)
+2026-11-22T13:45:51 | PASS  技能 necromancer-soul_feast | heal; MP 120->96; CD=13.90; VFX=1; HP 50 -> 80 (+30)
+2026-11-22T13:45:51 | PASS  bomber 技能数=6 | 6
+2026-11-22T13:45:51 | ACTION  施放技能 bomber[1] 投掷炸弹 / throw_bomb (aoe_zone)
+2026-11-22T13:45:52 | OBSERVE 技能结果 OK aoe_zone; MP 70->60; CD=2.60; VFX=2; DummyHP 3000 -> 2962
+2026-11-22T13:45:52 | SHOT    skills/25_bomber_throw_bomb.jpg (1280x720)
+2026-11-22T13:45:52 | PASS  技能 bomber-throw_bomb | aoe_zone; MP 70->60; CD=2.60; VFX=2; DummyHP 3000 -> 2962
+2026-11-22T13:45:52 | ACTION  施放技能 bomber[2] 爆破领域 / blast_zone (aoe_zone)
+2026-11-22T13:45:53 | OBSERVE 技能结果 OK aoe_zone; MP 70->50; CD=8.00; VFX=1; DummyHP 3000 -> 2983
+2026-11-22T13:45:53 | SHOT    skills/26_bomber_blast_zone.jpg (1280x720)
+2026-11-22T13:45:53 | PASS  技能 bomber-blast_zone | aoe_zone; MP 70->50; CD=8.00; VFX=1; DummyHP 3000 -> 2983
+2026-11-22T13:45:53 | ACTION  施放技能 bomber[3] 燃烧弹 / incendiary (melee_aoe)
+2026-11-22T13:45:53 | OBSERVE 技能结果 OK melee_aoe; MP 70->56; CD=5.32; VFX=1; DummyHP 3000 -> 2985
+2026-11-22T13:45:53 | SHOT    skills/27_bomber_incendiary.jpg (1280x720)
+2026-11-22T13:45:53 | PASS  技能 bomber-incendiary | melee_aoe; MP 70->56; CD=5.32; VFX=1; DummyHP 3000 -> 2985
+2026-11-22T13:45:53 | ACTION  施放技能 bomber[4] 集束炸弹 / cluster_bomb (aoe_zone)
+2026-11-22T13:45:54 | OBSERVE 技能结果 OK aoe_zone; MP 70->50; CD=8.92; VFX=2; DummyHP 3000 -> 2958
+2026-11-22T13:45:54 | SHOT    skills/28_bomber_cluster_bomb.jpg (1280x720)
+2026-11-22T13:45:54 | PASS  技能 bomber-cluster_bomb | aoe_zone; MP 70->50; CD=8.92; VFX=2; DummyHP 3000 -> 2958
+2026-11-22T13:45:54 | ACTION  施放技能 bomber[5] 连环爆破 / chain_blast (aoe_zone)
+2026-11-22T13:45:55 | OBSERVE 技能结果 OK aoe_zone; MP 70->44; CD=13.90; VFX=1; DummyHP 3000 -> 2965
+2026-11-22T13:45:55 | SHOT    skills/29_bomber_chain_blast.jpg (1280x720)
+2026-11-22T13:45:55 | PASS  技能 bomber-chain_blast | aoe_zone; MP 70->44; CD=13.90; VFX=1; DummyHP 3000 -> 2965
+2026-11-22T13:45:55 | ACTION  施放技能 bomber[6] 燃烧弹幕 / fire_barrage (melee_aoe)
+2026-11-22T13:45:56 | OBSERVE 技能结果 OK melee_aoe; MP 70->52; CD=8.92; VFX=1; DummyHP 3000 -> 2983
+2026-11-22T13:45:56 | SHOT    skills/30_bomber_fire_barrage.jpg (1280x720)
+2026-11-22T13:45:56 | PASS  技能 bomber-fire_barrage | melee_aoe; MP 70->52; CD=8.92; VFX=1; DummyHP 3000 -> 2983
+2026-11-22T13:45:56 | PASS  mech_pilot 技能数=6 | 6
+2026-11-22T13:45:56 | ACTION  施放技能 mech_pilot[1] 重炮轰击 / cannon (projectile)
+2026-11-22T13:45:56 | OBSERVE 技能结果 OK projectile; MP 70->60; CD=2.60; VFX=2; DummyHP 3000 -> 2967
+2026-11-22T13:45:56 | SHOT    skills/31_mech_pilot_cannon.jpg (1280x720)
+2026-11-22T13:45:56 | PASS  技能 mech_pilot-cannon | projectile; MP 70->60; CD=2.60; VFX=2; DummyHP 3000 -> 2967
+2026-11-22T13:45:56 | ACTION  施放技能 mech_pilot[2] 装甲强化 / armor_up (shield)
+2026-11-22T13:45:56 | OBSERVE 技能结果 OK shield; MP 70->58; CD=10.72; VFX=2; Shield 0 -> 70
+2026-11-22T13:45:57 | SHOT    skills/32_mech_pilot_armor_up.jpg (1280x720)
+2026-11-22T13:45:57 | PASS  技能 mech_pilot-armor_up | shield; MP 70->58; CD=10.72; VFX=2; Shield 0 -> 70
+2026-11-22T13:45:57 | ACTION  施放技能 mech_pilot[3] 能量护盾 / energy_field (buff)
+2026-11-22T13:45:57 | OBSERVE 技能结果 OK buff; MP 70->56; CD=12.50; VFX=2; Buff[defense] found=true attack 13 -> 13
+2026-11-22T13:45:57 | SHOT    skills/33_mech_pilot_energy_field.jpg (1280x720)
+2026-11-22T13:45:57 | PASS  技能 mech_pilot-energy_field | buff; MP 70->56; CD=12.50; VFX=2; Buff[defense] found=true attack 13 -> 13
+2026-11-22T13:45:57 | ACTION  施放技能 mech_pilot[4] 轨道炮 / rail_cannon (projectile)
+2026-11-22T13:45:57 | OBSERVE 技能结果 OK projectile; MP 70->52; CD=8.92; VFX=3; DummyHP 3000 -> 2966
+2026-11-22T13:45:57 | SHOT    skills/34_mech_pilot_rail_cannon.jpg (1280x720)
+2026-11-22T13:45:57 | PASS  技能 mech_pilot-rail_cannon | projectile; MP 70->52; CD=8.92; VFX=3; DummyHP 3000 -> 2966
+2026-11-22T13:45:57 | ACTION  施放技能 mech_pilot[5] 复合装甲 / composite_armor (shield)
+2026-11-22T13:45:57 | OBSERVE 技能结果 OK shield; MP 70->48; CD=19.90; VFX=1; Shield 0 -> 110
+2026-11-22T13:45:57 | SHOT    skills/35_mech_pilot_composite_armor.jpg (1280x720)
+2026-11-22T13:45:57 | PASS  技能 mech_pilot-composite_armor | shield; MP 70->48; CD=19.90; VFX=1; Shield 0 -> 110
+2026-11-22T13:45:57 | ACTION  施放技能 mech_pilot[6] 力场护罩 / force_field (buff)
+2026-11-22T13:45:57 | OBSERVE 技能结果 OK buff; MP 70->50; CD=19.92; VFX=2; Buff[defense] found=true attack 13 -> 13
+2026-11-22T13:45:58 | SHOT    skills/36_mech_pilot_force_field.jpg (1280x720)
+2026-11-22T13:45:58 | PASS  技能 mech_pilot-force_field | buff; MP 70->50; CD=19.92; VFX=2; Buff[defense] found=true attack 13 -> 13
+2026-11-22T13:45:58 | PASS  engineer 技能数=6 | 6
+2026-11-22T13:45:58 | ACTION  施放技能 engineer[1] 炮塔部署 / turret (aoe_zone)
+2026-11-22T13:45:59 | OBSERVE 技能结果 OK aoe_zone; MP 115->99; CD=6.20; VFX=2; DummyHP 3000 -> 2982
+2026-11-22T13:45:59 | SHOT    skills/37_engineer_turret.jpg (1280x720)
+2026-11-22T13:45:59 | PASS  技能 engineer-turret | aoe_zone; MP 115->99; CD=6.20; VFX=2; DummyHP 3000 -> 2982
+2026-11-22T13:45:59 | ACTION  施放技能 engineer[2] 应急修理 / repair (heal)
+2026-11-22T13:45:59 | OBSERVE 技能结果 OK heal; MP 115->97; CD=7.98; VFX=1; HP 75 -> 105 (+30)
+2026-11-22T13:45:59 | SHOT    skills/38_engineer_repair.jpg (1280x720)
+2026-11-22T13:45:59 | PASS  技能 engineer-repair | heal; MP 115->97; CD=7.98; VFX=1; HP 75 -> 105 (+30)
+2026-11-22T13:45:59 | ACTION  施放技能 engineer[3] 战术补给 / supply (buff)
+2026-11-22T13:45:59 | OBSERVE 技能结果 OK buff; MP 115->103; CD=10.72; VFX=2; Buff[attack] found=true attack 9 -> 17
+2026-11-22T13:45:59 | SHOT    skills/39_engineer_supply.jpg (1280x720)
+2026-11-22T13:45:59 | PASS  技能 engineer-supply | buff; MP 115->103; CD=10.72; VFX=2; Buff[attack] found=true attack 9 -> 17
+2026-11-22T13:45:59 | ACTION  施放技能 engineer[4] 重型炮塔 / heavy_turret (aoe_zone)
+2026-11-22T13:46:01 | OBSERVE 技能结果 OK aoe_zone; MP 115->91; CD=10.92; VFX=3; DummyHP 3000 -> 2980
+2026-11-22T13:46:01 | SHOT    skills/40_engineer_heavy_turret.jpg (1280x720)
+2026-11-22T13:46:01 | PASS  技能 engineer-heavy_turret | aoe_zone; MP 115->91; CD=10.92; VFX=3; DummyHP 3000 -> 2980
+2026-11-22T13:46:01 | ACTION  施放技能 engineer[5] 战地整备 / field_repair (heal)
+2026-11-22T13:46:01 | OBSERVE 技能结果 OK heal; MP 115->85; CD=13.90; VFX=1; HP 75 -> 105 (+30)
+2026-11-22T13:46:01 | SHOT    skills/41_engineer_field_repair.jpg (1280x720)
+2026-11-22T13:46:01 | PASS  技能 engineer-field_repair | heal; MP 115->85; CD=13.90; VFX=1; HP 75 -> 105 (+30)
+2026-11-22T13:46:01 | ACTION  施放技能 engineer[6] 超载协议 / overdrive (buff)
+2026-11-22T13:46:01 | OBSERVE 技能结果 OK buff; MP 115->95; CD=15.90; VFX=2; Buff[attack_speed] found=true attack 9 -> 9
+2026-11-22T13:46:01 | SHOT    skills/42_engineer_overdrive.jpg (1280x720)
+2026-11-22T13:46:01 | PASS  技能 engineer-overdrive | buff; MP 115->95; CD=15.90; VFX=2; Buff[attack_speed] found=true attack 9 -> 9
+2026-11-22T13:46:01 | PASS  bounty_hunter 技能数=6 | 6
+2026-11-22T13:46:01 | ACTION  施放技能 bounty_hunter[1] 连射 / rapid_fire (chain)
+2026-11-22T13:46:01 | OBSERVE 技能结果 OK chain; MP 70->60; CD=2.60; VFX=2; DummyHP 3000 -> 2979
+2026-11-22T13:46:01 | SHOT    skills/43_bounty_hunter_rapid_fire.jpg (1280x720)
+2026-11-22T13:46:01 | PASS  技能 bounty_hunter-rapid_fire | chain; MP 70->60; CD=2.60; VFX=2; DummyHP 3000 -> 2979
+2026-11-22T13:46:01 | ACTION  施放技能 bounty_hunter[2] 追踪标记 / mark (buff)
+2026-11-22T13:46:01 | OBSERVE 技能结果 OK buff; MP 70->62; CD=10.72; VFX=3; Buff[attack] found=true attack 17 -> 27
+2026-11-22T13:46:01 | SHOT    skills/44_bounty_hunter_mark.jpg (1280x720)
+2026-11-22T13:46:01 | PASS  技能 bounty_hunter-mark | buff; MP 70->62; CD=10.72; VFX=3; Buff[attack] found=true attack 17 -> 27
+2026-11-22T13:46:01 | ACTION  施放技能 bounty_hunter[3] 缴械 / disarm (melee_aoe)
+2026-11-22T13:46:01 | OBSERVE 技能结果 OK melee_aoe; MP 70->58; CD=4.42; VFX=3; DummyHP 3000 -> 2970
+2026-11-22T13:46:01 | SHOT    skills/45_bounty_hunter_disarm.jpg (1280x720)
+2026-11-22T13:46:01 | PASS  技能 bounty_hunter-disarm | melee_aoe; MP 70->58; CD=4.42; VFX=3; DummyHP 3000 -> 2970
+2026-11-22T13:46:01 | ACTION  施放技能 bounty_hunter[4] 弹幕压制 / suppression_fire (chain)
+2026-11-22T13:46:02 | OBSERVE 技能结果 OK chain; MP 70->52; CD=7.90; VFX=2; DummyHP 3000 -> 2973
+2026-11-22T13:46:02 | SHOT    skills/46_bounty_hunter_suppression_fire.jpg (1280x720)
+2026-11-22T13:46:02 | PASS  技能 bounty_hunter-suppression_fire | chain; MP 70->52; CD=7.90; VFX=2; DummyHP 3000 -> 2973
+2026-11-22T13:46:02 | ACTION  施放技能 bounty_hunter[5] 死神标记 / death_mark (buff)
+2026-11-22T13:46:02 | OBSERVE 技能结果 OK buff; MP 70->56; CD=15.90; VFX=3; Buff[attack] found=true attack 17 -> 33
+2026-11-22T13:46:02 | SHOT    skills/47_bounty_hunter_death_mark.jpg (1280x720)
+2026-11-22T13:46:02 | PASS  技能 bounty_hunter-death_mark | buff; MP 70->56; CD=15.90; VFX=3; Buff[attack] found=true attack 17 -> 33
+2026-11-22T13:46:02 | ACTION  施放技能 bounty_hunter[6] 断腕射击 / wrist_shot (melee_aoe)
+2026-11-22T13:46:02 | OBSERVE 技能结果 OK melee_aoe; MP 70->54; CD=7.90; VFX=3; DummyHP 3000 -> 2963
+2026-11-22T13:46:02 | SHOT    skills/48_bounty_hunter_wrist_shot.jpg (1280x720)
+2026-11-22T13:46:02 | PASS  技能 bounty_hunter-wrist_shot | melee_aoe; MP 70->54; CD=7.90; VFX=3; DummyHP 3000 -> 2963
+2026-11-22T13:46:02 | PASS  death_knight 技能数=6 | 6
+2026-11-22T13:46:02 | ACTION  施放技能 death_knight[1] 死亡冲锋 / death_charge (dash_strike)
+2026-11-22T13:46:02 | OBSERVE 技能结果 OK dash_strike; MP 70->60; CD=4.42; VFX=2; MoveX +148 DummyHP 3000 -> 2970
+2026-11-22T13:46:02 | SHOT    skills/49_death_knight_death_charge.jpg (1280x720)
+2026-11-22T13:46:02 | PASS  技能 death_knight-death_charge | dash_strike; MP 70->60; CD=4.42; VFX=2; MoveX +148 DummyHP 3000 -> 2970
+2026-11-22T13:46:02 | ACTION  施放技能 death_knight[2] 血斩 / blood_slash (melee_aoe)
+2026-11-22T13:46:02 | OBSERVE 技能结果 OK melee_aoe; MP 70->58; CD=3.52; VFX=2; DummyHP 3000 -> 2966
+2026-11-22T13:46:03 | SHOT    skills/50_death_knight_blood_slash.jpg (1280x720)
+2026-11-22T13:46:03 | PASS  技能 death_knight-blood_slash | melee_aoe; MP 70->58; CD=3.52; VFX=2; DummyHP 3000 -> 2966
+2026-11-22T13:46:03 | ACTION  施放技能 death_knight[3] 黑暗护盾 / dark_shield (shield)
+2026-11-22T13:46:03 | OBSERVE 技能结果 OK shield; MP 70->54; CD=12.48; VFX=3; Shield 0 -> 55
+2026-11-22T13:46:03 | SHOT    skills/51_death_knight_dark_shield.jpg (1280x720)
+2026-11-22T13:46:03 | PASS  技能 death_knight-dark_shield | shield; MP 70->54; CD=12.48; VFX=3; Shield 0 -> 55
+2026-11-22T13:46:03 | ACTION  施放技能 death_knight[4] 亡者冲锋 / grave_charge (dash_strike)
+2026-11-22T13:46:03 | OBSERVE 技能结果 OK dash_strike; MP 70->54; CD=8.90; VFX=3; MoveX +188 DummyHP 3000 -> 2965
+2026-11-22T13:46:03 | SHOT    skills/52_death_knight_grave_charge.jpg (1280x720)
+2026-11-22T13:46:03 | PASS  技能 death_knight-grave_charge | dash_strike; MP 70->54; CD=8.90; VFX=3; MoveX +188 DummyHP 3000 -> 2965
+2026-11-22T13:46:03 | ACTION  施放技能 death_knight[5] 血怒斩 / blood_fury (melee_aoe)
+2026-11-22T13:46:03 | OBSERVE 技能结果 OK melee_aoe; MP 70->52; CD=7.92; VFX=2; DummyHP 3000 -> 2962
+2026-11-22T13:46:03 | SHOT    skills/53_death_knight_blood_fury.jpg (1280x720)
+2026-11-22T13:46:03 | PASS  技能 death_knight-blood_fury | melee_aoe; MP 70->52; CD=7.92; VFX=2; DummyHP 3000 -> 2962
+2026-11-22T13:46:03 | ACTION  施放技能 death_knight[6] 暗影壁垒 / shadow_bulwark (shield)
+2026-11-22T13:46:03 | OBSERVE 技能结果 OK shield; MP 70->50; CD=17.90; VFX=3; Shield 0 -> 80
+2026-11-22T13:46:03 | SHOT    skills/54_death_knight_shadow_bulwark.jpg (1280x720)
+2026-11-22T13:46:03 | PASS  技能 death_knight-shadow_bulwark | shield; MP 70->50; CD=17.90; VFX=3; Shield 0 -> 80
+2026-11-22T13:46:03 | PASS  warrior 技能数=6 | 6
+2026-11-22T13:46:03 | ACTION  施放技能 warrior[1] 旋风斩 / whirlwind (melee_aoe)
+2026-11-22T13:46:03 | OBSERVE 技能结果 OK melee_aoe; MP 50->42; CD=2.60; VFX=2; DummyHP 3000 -> 2966
+2026-11-22T13:46:04 | SHOT    skills/55_warrior_whirlwind.jpg (1280x720)
+2026-11-22T13:46:04 | PASS  技能 warrior-whirlwind | melee_aoe; MP 50->42; CD=2.60; VFX=2; DummyHP 3000 -> 2966
+2026-11-22T13:46:04 | ACTION  施放技能 warrior[2] 战吼 / war_cry (buff)
+2026-11-22T13:46:04 | OBSERVE 技能结果 OK buff; MP 50->40; CD=8.92; VFX=3; Buff[attack] found=true attack 15 -> 23
+2026-11-22T13:46:04 | SHOT    skills/56_warrior_war_cry.jpg (1280x720)
+2026-11-22T13:46:04 | PASS  技能 warrior-war_cry | buff; MP 50->40; CD=8.92; VFX=3; Buff[attack] found=true attack 15 -> 23
+2026-11-22T13:46:04 | ACTION  施放技能 warrior[3] 盾墙 / shield_wall (shield)
+2026-11-22T13:46:04 | OBSERVE 技能结果 OK shield; MP 50->38; CD=10.68; VFX=3; Shield 0 -> 45
+2026-11-22T13:46:04 | SHOT    skills/57_warrior_shield_wall.jpg (1280x720)
+2026-11-22T13:46:04 | PASS  技能 warrior-shield_wall | shield; MP 50->38; CD=10.68; VFX=3; Shield 0 -> 45
+2026-11-22T13:46:04 | ACTION  施放技能 warrior[4] 裂地斩 / earth_shatter (melee_aoe)
+2026-11-22T13:46:04 | OBSERVE 技能结果 OK melee_aoe; MP 50->32; CD=8.90; VFX=4; DummyHP 3000 -> 2965
+2026-11-22T13:46:04 | SHOT    skills/58_warrior_earth_shatter.jpg (1280x720)
+2026-11-22T13:46:04 | PASS  技能 warrior-earth_shatter | melee_aoe; MP 50->32; CD=8.90; VFX=4; DummyHP 3000 -> 2965
+2026-11-22T13:46:04 | ACTION  施放技能 warrior[5] 不屈战意 / unyielding_will (buff)
+2026-11-22T13:46:04 | OBSERVE 技能结果 OK buff; MP 50->34; CD=17.92; VFX=5; Buff[attack] found=true attack 15 -> 29
+2026-11-22T13:46:04 | SHOT    skills/59_warrior_unyielding_will.jpg (1280x720)
+2026-11-22T13:46:04 | PASS  技能 warrior-unyielding_will | buff; MP 50->34; CD=17.92; VFX=5; Buff[attack] found=true attack 15 -> 29
+2026-11-22T13:46:04 | ACTION  施放技能 warrior[6] 钢铁壁垒 / iron_bulwark (shield)
+2026-11-22T13:46:04 | OBSERVE 技能结果 OK shield; MP 50->30; CD=17.90; VFX=4; Shield 0 -> 85
+2026-11-22T13:46:04 | SHOT    skills/60_warrior_iron_bulwark.jpg (1280x720)
+2026-11-22T13:46:04 | PASS  技能 warrior-iron_bulwark | shield; MP 50->30; CD=17.90; VFX=4; Shield 0 -> 85
+2026-11-22T13:46:04 | PASS  qi_adept 技能数=6 | 6
+2026-11-22T13:46:04 | ACTION  施放技能 qi_adept[1] 气劲掌 / qi_palm (melee_aoe)
+2026-11-22T13:46:04 | OBSERVE 技能结果 OK melee_aoe; MP 100->91; CD=3.07; VFX=2; DummyHP 3000 -> 2981
+2026-11-22T13:46:05 | SHOT    skills/61_qi_adept_qi_palm.jpg (1280x720)
+2026-11-22T13:46:05 | PASS  技能 qi_adept-qi_palm | melee_aoe; MP 100->91; CD=3.07; VFX=2; DummyHP 3000 -> 2981
+2026-11-22T13:46:05 | ACTION  施放技能 qi_adept[2] 内息术 / qi_heal (heal)
+2026-11-22T13:46:05 | OBSERVE 技能结果 OK heal; MP 100->82; CD=7.08; VFX=3; HP 78 -> 108 (+30)
+2026-11-22T13:46:05 | SHOT    skills/62_qi_adept_qi_heal.jpg (1280x720)
+2026-11-22T13:46:05 | PASS  技能 qi_adept-qi_heal | heal; MP 100->82; CD=7.08; VFX=3; HP 78 -> 108 (+30)
+2026-11-22T13:46:05 | ACTION  施放技能 qi_adept[3] 气脉流转 / qi_flow (buff)
+2026-11-22T13:46:05 | OBSERVE 技能结果 OK buff; MP 100->88; CD=10.70; VFX=3; Buff[attack_speed] found=true attack 10 -> 10
+2026-11-22T13:46:05 | SHOT    skills/63_qi_adept_qi_flow.jpg (1280x720)
+2026-11-22T13:46:05 | PASS  技能 qi_adept-qi_flow | buff; MP 100->88; CD=10.70; VFX=3; Buff[attack_speed] found=true attack 10 -> 10
+2026-11-22T13:46:05 | ACTION  施放技能 qi_adept[4] 罡气爆 / qi_burst (melee_aoe)
+2026-11-22T13:46:05 | OBSERVE 技能结果 OK melee_aoe; MP 100->84; CD=6.92; VFX=4; DummyHP 3000 -> 2978
+2026-11-22T13:46:05 | SHOT    skills/64_qi_adept_qi_burst.jpg (1280x720)
+2026-11-22T13:46:05 | PASS  技能 qi_adept-qi_burst | melee_aoe; MP 100->84; CD=6.92; VFX=4; DummyHP 3000 -> 2978
+2026-11-22T13:46:05 | ACTION  施放技能 qi_adept[5] 生生不息 / qi_renew (heal)
+2026-11-22T13:46:05 | OBSERVE 技能结果 OK heal; MP 100->70; CD=11.88; VFX=4; HP 78 -> 108 (+30)
+2026-11-22T13:46:05 | SHOT    skills/65_qi_adept_qi_renew.jpg (1280x720)
+2026-11-22T13:46:05 | PASS  技能 qi_adept-qi_renew | heal; MP 100->70; CD=11.88; VFX=4; HP 78 -> 108 (+30)
+2026-11-22T13:46:05 | ACTION  施放技能 qi_adept[6] 罡气护体 / qi_guard (shield)
+2026-11-22T13:46:05 | OBSERVE 技能结果 OK shield; MP 100->82; CD=15.92; VFX=4; Shield 0 -> 75
+2026-11-22T13:46:05 | SHOT    skills/66_qi_adept_qi_guard.jpg (1280x720)
+2026-11-22T13:46:05 | PASS  技能 qi_adept-qi_guard | shield; MP 100->82; CD=15.92; VFX=4; Shield 0 -> 75
+2026-11-22T13:46:05 | PASS  thief 技能数=6 | 6
+2026-11-22T13:46:05 | ACTION  施放技能 thief[1] 背刺 / backstab (melee_aoe)
+2026-11-22T13:46:05 | OBSERVE 技能结果 OK melee_aoe; MP 55->49; CD=2.08; VFX=2; DummyHP 3000 -> 2967
+2026-11-22T13:46:05 | SHOT    skills/67_thief_backstab.jpg (1280x720)
+2026-11-22T13:46:05 | PASS  技能 thief-backstab | melee_aoe; MP 55->49; CD=2.08; VFX=2; DummyHP 3000 -> 2967
+2026-11-22T13:46:05 | ACTION  施放技能 thief[2] 烟雾弹 / smoke_bomb (buff)
+2026-11-22T13:46:05 | OBSERVE 技能结果 OK buff; MP 55->45; CD=8.88; VFX=3; Buff[dodge_rate] found=true attack 13 -> 13
+2026-11-22T13:46:06 | SHOT    skills/68_thief_smoke_bomb.jpg (1280x720)
+2026-11-22T13:46:06 | PASS  技能 thief-smoke_bomb | buff; MP 55->45; CD=8.88; VFX=3; Buff[dodge_rate] found=true attack 13 -> 13
+2026-11-22T13:46:06 | ACTION  施放技能 thief[3] 毒刃 / poison_blade (projectile)
+2026-11-22T13:46:06 | OBSERVE 技能结果 OK projectile; MP 55->47; CD=2.60; VFX=4; DummyHP 3000 -> 2980
+2026-11-22T13:46:06 | SHOT    skills/69_thief_poison_blade.jpg (1280x720)
+2026-11-22T13:46:06 | PASS  技能 thief-poison_blade | projectile; MP 55->47; CD=2.60; VFX=4; DummyHP 3000 -> 2980
+2026-11-22T13:46:06 | ACTION  施放技能 thief[4] 致命背刺 / lethal_backstab (melee_aoe)
+2026-11-22T13:46:06 | OBSERVE 技能结果 OK melee_aoe; MP 55->41; CD=5.92; VFX=1; DummyHP 3000 -> 2964
+2026-11-22T13:46:06 | SHOT    skills/70_thief_lethal_backstab.jpg (1280x720)
+2026-11-22T13:46:06 | PASS  技能 thief-lethal_backstab | melee_aoe; MP 55->41; CD=5.92; VFX=1; DummyHP 3000 -> 2964
+2026-11-22T13:46:06 | ACTION  施放技能 thief[5] 烟幕遁形 / veil_step (buff)
+2026-11-22T13:46:06 | OBSERVE 技能结果 OK buff; MP 55->41; CD=15.90; VFX=2; Buff[dodge_rate] found=true attack 13 -> 13
+2026-11-22T13:46:07 | SHOT    skills/71_thief_veil_step.jpg (1280x720)
+2026-11-22T13:46:07 | PASS  技能 thief-veil_step | buff; MP 55->41; CD=15.90; VFX=2; Buff[dodge_rate] found=true attack 13 -> 13
+2026-11-22T13:46:07 | ACTION  施放技能 thief[6] 剧毒爆发 / venom_burst (projectile)
+2026-11-22T13:46:07 | OBSERVE 技能结果 OK projectile; MP 55->39; CD=6.92; VFX=3; DummyHP 3000 -> 2993
+2026-11-22T13:46:07 | SHOT    skills/72_thief_venom_burst.jpg (1280x720)
+2026-11-22T13:46:07 | PASS  技能 thief-venom_burst | projectile; MP 55->39; CD=6.92; VFX=3; DummyHP 3000 -> 2993
+2026-11-22T13:46:07 | PASS  archer 技能数=6 | 6
+2026-11-22T13:46:07 | ACTION  施放技能 archer[1] 穿透射击 / piercing_shot (projectile)
+2026-11-22T13:46:08 | OBSERVE 技能结果 OK projectile; MP 60->54; CD=1.70; VFX=2; DummyHP 3000 -> 2964
+2026-11-22T13:46:08 | SHOT    skills/73_archer_piercing_shot.jpg (1280x720)
+2026-11-22T13:46:08 | PASS  技能 archer-piercing_shot | projectile; MP 60->54; CD=1.70; VFX=2; DummyHP 3000 -> 2964
+2026-11-22T13:46:08 | ACTION  施放技能 archer[2] 箭雨 / arrow_rain (aoe_zone)
+2026-11-22T13:46:09 | OBSERVE 技能结果 OK aoe_zone; MP 60->45; CD=7.12; VFX=1; DummyHP 3000 -> 2973
+2026-11-22T13:46:09 | SHOT    skills/74_archer_arrow_rain.jpg (1280x720)
+2026-11-22T13:46:09 | PASS  技能 archer-arrow_rain | aoe_zone; MP 60->45; CD=7.12; VFX=1; DummyHP 3000 -> 2973
+2026-11-22T13:46:09 | ACTION  施放技能 archer[3] 鹰眼 / hawk_eye (buff)
+2026-11-22T13:46:09 | OBSERVE 技能结果 OK buff; MP 60->50; CD=10.70; VFX=1; Buff[crit_rate] found=true attack 18 -> 18
+2026-11-22T13:46:09 | SHOT    skills/75_archer_hawk_eye.jpg (1280x720)
+2026-11-22T13:46:09 | PASS  技能 archer-hawk_eye | buff; MP 60->50; CD=10.70; VFX=1; Buff[crit_rate] found=true attack 18 -> 18
+2026-11-22T13:46:09 | ACTION  施放技能 archer[4] 破甲贯射 / armor_pierce (projectile)
+2026-11-22T13:46:10 | OBSERVE 技能结果 OK projectile; MP 60->48; CD=5.90; VFX=3; DummyHP 3000 -> 2955
+2026-11-22T13:46:10 | SHOT    skills/76_archer_armor_pierce.jpg (1280x720)
+2026-11-22T13:46:10 | PASS  技能 archer-armor_pierce | projectile; MP 60->48; CD=5.90; VFX=3; DummyHP 3000 -> 2955
+2026-11-22T13:46:10 | ACTION  施放技能 archer[5] 万箭齐发 / arrow_storm (aoe_zone)
+2026-11-22T13:46:11 | OBSERVE 技能结果 OK aoe_zone; MP 60->38; CD=11.92; VFX=1; DummyHP 3000 -> 2964
+2026-11-22T13:46:11 | SHOT    skills/77_archer_arrow_storm.jpg (1280x720)
+2026-11-22T13:46:11 | PASS  技能 archer-arrow_storm | aoe_zone; MP 60->38; CD=11.92; VFX=1; DummyHP 3000 -> 2964
+2026-11-22T13:46:11 | ACTION  施放技能 archer[6] 鹰眼聚焦 / eagle_focus (buff)
+2026-11-22T13:46:11 | OBSERVE 技能结果 OK buff; MP 60->48; CD=13.90; VFX=1; Buff[crit_rate] found=true attack 18 -> 18
+2026-11-22T13:46:11 | SHOT    skills/78_archer_eagle_focus.jpg (1280x720)
+2026-11-22T13:46:11 | PASS  技能 archer-eagle_focus | buff; MP 60->48; CD=13.90; VFX=1; Buff[crit_rate] found=true attack 18 -> 18
+2026-11-22T13:46:11 | PASS  cyborg 技能数=6 | 6
+2026-11-22T13:46:11 | ACTION  施放技能 cyborg[1] 液压重拳 / hydraulic_punch (melee_aoe)
+2026-11-22T13:46:11 | OBSERVE 技能结果 OK melee_aoe; MP 80->70; CD=3.52; VFX=2; DummyHP 3000 -> 2968
+2026-11-22T13:46:11 | SHOT    skills/79_cyborg_hydraulic_punch.jpg (1280x720)
+2026-11-22T13:46:11 | PASS  技能 cyborg-hydraulic_punch | melee_aoe; MP 80->70; CD=3.52; VFX=2; DummyHP 3000 -> 2968
+2026-11-22T13:46:11 | ACTION  施放技能 cyborg[2] 能量壁垒 / energy_wall (shield)
+2026-11-22T13:46:11 | OBSERVE 技能结果 OK shield; MP 80->64; CD=11.60; VFX=3; Shield 0 -> 70
+2026-11-22T13:46:11 | SHOT    skills/80_cyborg_energy_wall.jpg (1280x720)
+2026-11-22T13:46:11 | PASS  技能 cyborg-energy_wall | shield; MP 80->64; CD=11.60; VFX=3; Shield 0 -> 70
+2026-11-22T13:46:11 | ACTION  施放技能 cyborg[3] 伺服突进 / servo_charge (dash_strike)
+2026-11-22T13:46:11 | OBSERVE 技能结果 OK dash_strike; MP 80->68; CD=5.32; VFX=3; MoveX +163 DummyHP 3000 -> 2970
+2026-11-22T13:46:12 | SHOT    skills/81_cyborg_servo_charge.jpg (1280x720)
+2026-11-22T13:46:12 | PASS  技能 cyborg-servo_charge | dash_strike; MP 80->68; CD=5.32; VFX=3; MoveX +163 DummyHP 3000 -> 2970
+2026-11-22T13:46:12 | ACTION  施放技能 cyborg[4] 震荡践踏 / seismic_slam (melee_aoe)
+2026-11-22T13:46:12 | OBSERVE 技能结果 OK melee_aoe; MP 80->62; CD=8.90; VFX=2; DummyHP 3000 -> 2962
+2026-11-22T13:46:12 | SHOT    skills/82_cyborg_seismic_slam.jpg (1280x720)
+2026-11-22T13:46:12 | PASS  技能 cyborg-seismic_slam | melee_aoe; MP 80->62; CD=8.90; VFX=2; DummyHP 3000 -> 2962
+2026-11-22T13:46:12 | ACTION  施放技能 cyborg[5] 神盾协议 / aegis_protocol (shield)
+2026-11-22T13:46:12 | OBSERVE 技能结果 OK shield; MP 80->56; CD=17.90; VFX=3; Shield 0 -> 105
+2026-11-22T13:46:12 | SHOT    skills/83_cyborg_aegis_protocol.jpg (1280x720)
+2026-11-22T13:46:12 | PASS  技能 cyborg-aegis_protocol | shield; MP 80->56; CD=17.90; VFX=3; Shield 0 -> 105
+2026-11-22T13:46:12 | ACTION  施放技能 cyborg[6] 磁轨突袭 / rail_dash (dash_strike)
+2026-11-22T13:46:12 | OBSERVE 技能结果 OK dash_strike; MP 80->60; CD=9.90; VFX=3; MoveX +208 DummyHP 3000 -> 2961
+2026-11-22T13:46:12 | SHOT    skills/84_cyborg_rail_dash.jpg (1280x720)
+2026-11-22T13:46:12 | PASS  技能 cyborg-rail_dash | dash_strike; MP 80->60; CD=9.90; VFX=3; MoveX +208 DummyHP 3000 -> 2961
+2026-11-22T13:46:12 | PASS  hacker 技能数=6 | 6
+2026-11-22T13:46:12 | ACTION  施放技能 hacker[1] 病毒入侵 / virus (chain)
+2026-11-22T13:46:12 | OBSERVE 技能结果 OK chain; MP 135->121; CD=3.50; VFX=2; DummyHP 3000 -> 2971
+2026-11-22T13:46:12 | SHOT    skills/85_hacker_virus.jpg (1280x720)
+2026-11-22T13:46:12 | PASS  技能 hacker-virus | chain; MP 135->121; CD=3.50; VFX=2; DummyHP 3000 -> 2971
+2026-11-22T13:46:13 | ACTION  施放技能 hacker[2] EMP 脉冲 / emp_pulse (melee_aoe)
+2026-11-22T13:46:13 | OBSERVE 技能结果 OK melee_aoe; MP 135->117; CD=6.20; VFX=2; DummyHP 3000 -> 2968
+2026-11-22T13:46:13 | SHOT    skills/86_hacker_emp_pulse.jpg (1280x720)
+2026-11-22T13:46:13 | PASS  技能 hacker-emp_pulse | melee_aoe; MP 135->117; CD=6.20; VFX=2; DummyHP 3000 -> 2968
+2026-11-22T13:46:13 | ACTION  施放技能 hacker[3] 系统过载 / overclock (buff)
+2026-11-22T13:46:13 | OBSERVE 技能结果 OK buff; MP 135->121; CD=10.72; VFX=3; Buff[attack] found=true attack 6 -> 18
+2026-11-22T13:46:13 | SHOT    skills/87_hacker_overclock.jpg (1280x720)
+2026-11-22T13:46:13 | PASS  技能 hacker-overclock | buff; MP 135->121; CD=10.72; VFX=3; Buff[attack] found=true attack 6 -> 18
+2026-11-22T13:46:13 | ACTION  施放技能 hacker[4] 蠕虫病毒 / worm_virus (chain)
+2026-11-22T13:46:13 | OBSERVE 技能结果 OK chain; MP 135->113; CD=9.90; VFX=3; DummyHP 3000 -> 2968
+2026-11-22T13:46:13 | SHOT    skills/88_hacker_worm_virus.jpg (1280x720)
+2026-11-22T13:46:13 | PASS  技能 hacker-worm_virus | chain; MP 135->113; CD=9.90; VFX=3; DummyHP 3000 -> 2968
+2026-11-22T13:46:13 | ACTION  施放技能 hacker[5] 全域断电 / blackout (melee_aoe)
+2026-11-22T13:46:13 | OBSERVE 技能结果 OK melee_aoe; MP 135->113; CD=11.90; VFX=2; DummyHP 3000 -> 2966
+2026-11-22T13:46:13 | SHOT    skills/89_hacker_blackout.jpg (1280x720)
+2026-11-22T13:46:13 | PASS  技能 hacker-blackout | melee_aoe; MP 135->113; CD=11.90; VFX=2; DummyHP 3000 -> 2966
+2026-11-22T13:46:13 | ACTION  施放技能 hacker[6] 超频协议 / overdrive_protocol (buff)
+2026-11-22T13:46:13 | OBSERVE 技能结果 OK buff; MP 135->113; CD=17.92; VFX=3; Buff[attack] found=true attack 6 -> 26
+2026-11-22T13:46:13 | SHOT    skills/90_hacker_overdrive_protocol.jpg (1280x720)
+2026-11-22T13:46:13 | PASS  技能 hacker-overdrive_protocol | buff; MP 135->113; CD=17.92; VFX=3; Buff[attack] found=true attack 6 -> 26
+2026-11-22T13:46:13 | PASS  sniper 技能数=6 | 6
+2026-11-22T13:46:13 | ACTION  施放技能 sniper[1] 狙击 / snipe (projectile)
+2026-11-22T13:46:14 | OBSERVE 技能结果 OK projectile; MP 50->42; CD=3.50; VFX=3; DummyHP 3000 -> 2925
+2026-11-22T13:46:14 | SHOT    skills/91_sniper_snipe.jpg (1280x720)
+2026-11-22T13:46:14 | PASS  技能 sniper-snipe | projectile; MP 50->42; CD=3.50; VFX=3; DummyHP 3000 -> 2925
+2026-11-22T13:46:14 | ACTION  施放技能 sniper[2] 陷阱 / trap (aoe_zone)
+2026-11-22T13:46:15 | OBSERVE 技能结果 OK aoe_zone; MP 50->38; CD=7.12; VFX=1; DummyHP 3000 -> 2944
+2026-11-22T13:46:15 | SHOT    skills/92_sniper_trap.jpg (1280x720)
+2026-11-22T13:46:15 | PASS  技能 sniper-trap | aoe_zone; MP 50->38; CD=7.12; VFX=1; DummyHP 3000 -> 2944
+2026-11-22T13:46:15 | ACTION  施放技能 sniper[3] 精准 / focus (buff)
+2026-11-22T13:46:15 | OBSERVE 技能结果 OK buff; MP 50->42; CD=10.70; VFX=1; Buff[crit_rate] found=true attack 25 -> 25
+2026-11-22T13:46:16 | SHOT    skills/93_sniper_focus.jpg (1280x720)
+2026-11-22T13:46:16 | PASS  技能 sniper-focus | buff; MP 50->42; CD=10.70; VFX=1; Buff[crit_rate] found=true attack 25 -> 25
+2026-11-22T13:46:16 | ACTION  施放技能 sniper[4] 死神之眼 / reaper_eye (projectile)
+2026-11-22T13:46:16 | OBSERVE 技能结果 OK projectile; MP 50->32; CD=8.90; VFX=3; DummyHP 3000 -> 2920
+2026-11-22T13:46:16 | SHOT    skills/94_sniper_reaper_eye.jpg (1280x720)
+2026-11-22T13:46:16 | PASS  技能 sniper-reaper_eye | projectile; MP 50->32; CD=8.90; VFX=3; DummyHP 3000 -> 2920
+2026-11-22T13:46:16 | ACTION  施放技能 sniper[5] 爆裂陷阱 / blast_trap (aoe_zone)
+2026-11-22T13:46:17 | OBSERVE 技能结果 OK aoe_zone; MP 50->32; CD=11.92; VFX=1; DummyHP 3000 -> 2940
+2026-11-22T13:46:17 | SHOT    skills/95_sniper_blast_trap.jpg (1280x720)
+2026-11-22T13:46:17 | PASS  技能 sniper-blast_trap | aoe_zone; MP 50->32; CD=11.92; VFX=1; DummyHP 3000 -> 2940
+2026-11-22T13:46:17 | ACTION  施放技能 sniper[6] 屏息专注 / steady_aim (buff)
+2026-11-22T13:46:17 | OBSERVE 技能结果 OK buff; MP 50->37; CD=15.92; VFX=1; Buff[crit_rate] found=true attack 25 -> 25
+2026-11-22T13:46:17 | SHOT    skills/96_sniper_steady_aim.jpg (1280x720)
+2026-11-22T13:46:17 | PASS  技能 sniper-steady_aim | buff; MP 50->37; CD=15.92; VFX=1; Buff[crit_rate] found=true attack 25 -> 25
+2026-11-22T13:46:17 | PASS  96 技能全部实测 | tested=96
+2026-11-22T13:46:17 | ACTION  技能树解锁、前置校验、威力与冷却加成
+2026-11-22T13:46:17 | PASS  技能树 16 节点 | 16
+2026-11-22T13:46:17 | PASS  解锁精通节点 | 
+2026-11-22T13:46:17 | FAIL  前置节点未满足被拒 | 
+2026-11-22T13:46:17 | PASS  技能威力加成 >1 | x1.25
+2026-11-22T13:46:17 | PASS  技能冷却缩减 <1 | x0.90
+2026-11-22T13:46:17 | ACTION  职业专职选择与互斥
+2026-11-22T13:46:17 | PASS  专职选择成功 | 
+2026-11-22T13:46:17 | PASS  专职属性生效 | crit=0.320
+2026-11-22T13:46:17 | PASS  专职名称生效 | 
+2026-11-22T13:46:17 | PASS  专职互斥拒绝第二次 | 
+2026-11-22T13:46:17 | ACTION  技能树重置返还技能点
+2026-11-22T13:46:17 | PASS  重置返还技能点 | points=100
+2026-11-22T13:46:17 | ACTION  朋克部件安装与卸下
+2026-11-22T13:46:17 | PASS  朋克部件库加载 | parts=8
+2026-11-22T13:46:17 | PASS  朋克部件安装 | 
+2026-11-22T13:46:17 | PASS  朋克主风格判定 tech | tech
+2026-11-22T13:46:17 | PASS  朋克暴击属性生效 | crit=0.412
+2026-11-22T13:46:17 | SHOT    screenshots/11b_punk_installed.jpg (1280x720)
+2026-11-22T13:46:17 | PASS  朋克部件卸下 | 
+2026-11-22T13:46:17 | ACTION  NPC 对话接取任务并击杀计数
+2026-11-22T13:46:17 | PASS  NPC 对话触发暂停 | 
+2026-11-22T13:46:18 | PASS  任务接取 q_slime_hunt | ["q_slime_hunt"]
+2026-11-22T13:46:18 | OBSERVE 任务追踪：
+2026-11-22T13:46:18 | ACTION  保存游戏并验证读档恢复
+[SaveManager] 存档成功 -> slot 0
+2026-11-22T13:46:19 | PASS  存档写入 | 
+[SaveManager] 读档成功 <- slot 0
+2026-11-22T13:46:21 | PASS  读档恢复金币 | 777
+2026-11-22T13:46:21 | PASS  读档恢复背包 | iron=36
+2026-11-22T13:46:21 | PASS  读档恢复建筑 | blocks=1
+2026-11-22T13:46:21 | ACTION  进入通天塔第 1 层
+2026-11-22T13:46:22 | PASS  塔层 1 场景 | 
+2026-11-22T13:46:22 | PASS  塔层 1 机关数量=2 | 2
+2026-11-22T13:46:22 | PASS  初始传送门锁定 | 
+2026-11-22T13:46:22 | PASS  Roguelike 启动 | 
+2026-11-22T13:46:22 | ACTION  限时机关超时重置
+2026-11-22T13:46:22 | PASS  机关 1 激活并启动倒计时 | 
+2026-11-22T13:46:22 | PASS  超时后机关重置 | 
+2026-11-22T13:46:22 | ACTION  激活全部机关开门
+2026-11-22T13:46:22 | PASS  机关全开后传送门启用 | 
+2026-11-22T13:46:22 | SHOT    screenshots/16_tower_floor.jpg (1280x720)
+2026-11-22T13:46:22 | ACTION  进入第 2 层验证法师限定机关
+2026-11-22T13:46:23 | PASS  塔层 2 加载 | 
+2026-11-22T13:46:23 | PASS  0 号机关要求法师 | mage
+2026-11-22T13:46:23 | PASS  非法师无法激活 | 
+2026-11-22T13:46:24 | PASS  法师可激活 | 
+2026-11-22T13:46:24 | ACTION  进入第 5 层验证 BOSS
+2026-11-22T13:46:25 | PASS  第 5 层生成 BOSS | 
+2026-11-22T13:46:25 | SHOT    screenshots/17_boss_floor.jpg (1280x720)
+2026-11-22T13:46:25 | ACTION  进入深渊 -1 层
+2026-11-22T13:46:26 | PASS  深渊层号 -1 | -1
+2026-11-22T13:46:26 | SHOT    screenshots/18_abyss_floor.jpg (1280x720)
+2026-11-22T13:46:26 | ACTION  Roguelike 每 3 层词条与死亡结算
+2026-11-22T13:46:26 | PASS  第 3 层获得词条 | modifiers=1
+2026-11-22T13:46:28 | PASS  死亡结束本轮 | best=3
+2026-11-22T13:46:28 | PASS  死亡后返回主菜单 | 
+2026-11-22T13:46:28 | ACTION  录制操作过程视频帧
+2026-11-22T13:46:37 | PASS  视频帧采集完成 | frames=69
+2026-11-22T13:46:37 | SUMMARY checks=182/184 skills=96/96 shots=114 frames=69
+2026-11-22T13:46:37 | ========== FULL AUDIT DONE ==========
