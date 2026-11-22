@@ -64,6 +64,10 @@ func _build_action_buttons() -> void:
 	_add_action_button("交互", "interact", Vector2(862, 300), Vector2(60, 44))
 	_add_action_button("背包", "open_inventory", Vector2(642, 400), Vector2(64, 40))
 	_add_action_button("建造", "open_build", Vector2(642, 350), Vector2(64, 40))
+	# 进阶技能（需技能树解锁）
+	_add_action_button("R", "skill_4", Vector2(642, 302), Vector2(44, 36))
+	_add_action_button("F", "skill_5", Vector2(690, 302), Vector2(44, 36))
+	_add_action_button("G", "skill_6", Vector2(738, 302), Vector2(44, 36))
 
 func _add_action_button(text: String, action: String, pos: Vector2, size: Vector2) -> void:
 	var button := Button.new()
@@ -110,6 +114,15 @@ func _trigger(action: String) -> void:
 		"skill_3":
 			if player and player.has_method("try_skill"):
 				player.try_skill(2)
+		"skill_4":
+			if player and player.has_method("try_skill"):
+				player.try_skill(3)
+		"skill_5":
+			if player and player.has_method("try_skill"):
+				player.try_skill(4)
+		"skill_6":
+			if player and player.has_method("try_skill"):
+				player.try_skill(5)
 		"dash":
 			if player and player.has_method("try_dash"):
 				player.try_dash()

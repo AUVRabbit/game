@@ -6,7 +6,13 @@
 extends CanvasLayer
 class_name SkillTreePanel
 
-const TIER_NAMES := { 0: "初始", 1: "精通", 2: "天赋", 3: "终极" }
+const TIER_NAMES := { 0: "初始", 1: "精通", 2: "进阶", 3: "天赋", 4: "专精", 5: "终极" }
+const TIER_COUNT := 6
+const KIND_NAMES := {
+	"anchor": "初始主动", "mastery": "技能精通", "active": "进阶主动",
+	"passive": "分支天赋", "keystone": "分支专精", "capstone": "终极奥义"
+}
+const SLOT_KEYS := ["1", "2", "3", "R", "F", "G"]
 const STAT_NAMES := {
 	"attack": "攻击", "defense": "防御", "magic_attack": "法强", "magic_defense": "法防",
 	"max_hp": "生命上限", "max_mp": "魔力上限", "move_speed": "移速", "attack_speed": "攻速",
@@ -14,12 +20,12 @@ const STAT_NAMES := {
 	"all_stats_bonus": "全属性"
 }
 const PERCENT_STATS := ["move_speed", "attack_speed", "crit_rate", "crit_damage", "dodge_rate", "all_stats_bonus"]
-const TIER_COL_W := 112
-const TIER_COL_GAP := 18
+const TIER_COL_W := 82
+const TIER_COL_GAP := 8
 const NODE_ROW_H := 96
 const NODE_ROW_GAP := 12
 const TIER_HEADER_H := 20
-const TREE_W := 4 * TIER_COL_W + 3 * TIER_COL_GAP
+const TREE_W := 6 * TIER_COL_W + 5 * TIER_COL_GAP
 const TREE_H := TIER_HEADER_H + 3 * NODE_ROW_H + 2 * NODE_ROW_GAP
 
 var root: Control
@@ -169,7 +175,7 @@ func _build_ui() -> void:
 	tier_header.add_theme_constant_override("separation", TIER_COL_GAP)
 	tier_header.custom_minimum_size = Vector2(TREE_W, TIER_HEADER_H)
 	tree_col.add_child(tier_header)
-	for tier in 4:
+	for tier in TIER_COUNT:
 		var tier_label := Label.new()
 		tier_label.text = str(TIER_NAMES.get(tier, "天赋"))
 		tier_label.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
@@ -180,7 +186,7 @@ func _build_ui() -> void:
 		tier_header.add_child(tier_label)
 
 	grid = GridContainer.new()
-	grid.columns = 4
+	grid.columns = TIER_COUNT
 	grid.add_theme_constant_override("h_separation", TIER_COL_GAP)
 	grid.add_theme_constant_override("v_separation", NODE_ROW_GAP)
 	grid.custom_minimum_size = Vector2(TREE_W, 3 * NODE_ROW_H + 2 * NODE_ROW_GAP)
@@ -324,9 +330,9 @@ func _rebuild_tree(class_id: String) -> void:
 	node_buttons.clear()
 	node_edges.clear()
 	var nodes: Array = DataManager.get_skill_tree_nodes(class_id)
-	# 布局：列 = 层级（0 初始 → 3 终极），行 = 分支位置
+	# 布局：列 = 层级（0 初始 → 5 终极），行 = 分支位置
 	for row in 3:
-		for tier in 4:
+		for tier in TIER_COUNT:
 			var node: Dictionary = {}
 			for n in nodes:
 				if int(n.get("tier", -1)) == tier and int(n.get("col", -1)) == row:
@@ -436,13 +442,19 @@ func _select_node(class_id: String, node_id: String) -> void:
 	detail_icon.texture = AssetLibrary.texture(str(node.get("icon", "")))
 	detail_name.text = str(node.get("name", ""))
 	var tier := int(node.get("tier", 0))
-	var meta := "层级：%s · 消耗 %d 点" % [str(TIER_NAMES.get(tier, "天赋")), int(node.get("cost", 0))]
+	var kind := str(node.get("kind", ""))
+	var meta := "层级：%s · 类型：%s · 消耗 %d 点" % [
+		str(TIER_NAMES.get(tier, "天赋")), str(KIND_NAMES.get(kind, "节点")), int(node.get("cost", 0))]
 	var passive: Dictionary = node.get("passive", {})
 	if not passive.is_empty():
 		meta += "\n被动：%s" % _format_stats(passive)
 	var skill_id := str(node.get("skill_id", ""))
 	if skill_id != "":
 		meta += "\n关联技能：%s" % _skill_name(class_id, skill_id)
+	if kind == "active" and skill_id != "":
+		var slot := _skill_slot(class_id, skill_id)
+		if slot > 0 and slot <= SLOT_KEYS.size():
+			meta += "\n解锁后可在技能栏按 [%s] 施放" % SLOT_KEYS[slot - 1]
 	detail_meta.text = meta
 	detail_desc.text = str(node.get("desc", ""))
 	_play_effect(skill_id)
@@ -626,6 +638,13 @@ func _find_skill(skill_id: String) -> Dictionary:
 		if str(s.get("id", "")) == skill_id:
 			return s
 	return {}
+
+func _skill_slot(class_id: String, skill_id: String) -> int:
+	var def: Dictionary = DataManager.get_class_data(class_id)
+	for s in def.get("skills", []):
+		if str(s.get("id", "")) == skill_id:
+			return int(s.get("slot", 0))
+	return 0
 
 func _skill_name(class_id: String, skill_id: String) -> String:
 	var def: Dictionary = DataManager.get_class_data(class_id)

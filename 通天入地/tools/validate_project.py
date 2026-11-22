@@ -64,7 +64,8 @@ def check_project():
 
     input_actions = set(re.findall(r'^(\w+)=\{', text, re.M))
     for action in ["move_left", "move_right", "move_up", "move_down", "attack",
-                   "skill_1", "skill_2", "skill_3", "dash", "interact",
+                   "skill_1", "skill_2", "skill_3", "skill_4", "skill_5", "skill_6",
+                   "dash", "interact",
                    "character_switch_next", "character_switch_prev",
                    "open_inventory", "open_build", "pause"]:
         if action not in input_actions:
@@ -171,10 +172,25 @@ def check_tscn():
 
 
 # ---------------------------------------------------------------- 数据表
+SKILL_TYPES = ["melee_aoe", "projectile", "heal", "buff", "shield",
+               "chain", "aoe_zone", "dash_strike"]
+
+
+def asset_path(icon):
+    if icon.startswith("skill_"):
+        return os.path.join(ROOT, "assets", "icons", "skill", icon[6:] + ".png")
+    if icon.startswith("passive_"):
+        return os.path.join(ROOT, "assets", "icons", "passive", icon[8:] + ".png")
+    if icon.startswith("portrait_"):
+        return os.path.join(ROOT, "assets", "portraits", icon[9:] + ".png")
+    return None
+
+
 def check_data():
     data_dir = os.path.join(ROOT, "data")
     tables = {}
-    for name in ["items", "classes", "recipes", "quests", "dialogue"]:
+    for name in ["items", "classes", "recipes", "quests", "dialogue",
+                 "skill_trees", "specializations"]:
         path = os.path.join(data_dir, name + ".json")
         if not os.path.isfile(path):
             err("缺少数据文件 data/%s.json" % name)
@@ -188,20 +204,77 @@ def check_data():
     classes = tables.get("classes", {}).get("classes", {})
     recipes = tables.get("recipes", {}).get("recipes", [])
     quests = tables.get("quests", {}).get("quests", {})
+    trees = tables.get("skill_trees", {}).get("trees", {})
+    specs = tables.get("specializations", {}).get("specializations", {})
 
-    if len(classes) != 12:
-        err("职业数量应为 12，实际 %d" % len(classes))
+    if len(classes) != 16:
+        err("职业数量应为 16，实际 %d" % len(classes))
+
     for cid, cdef in classes.items():
-        if len(cdef.get("skills", [])) < 3:
-            err("职业 %s 技能少于 3 个" % cid)
-        for skill in cdef.get("skills", []):
+        skills = cdef.get("skills", [])
+        if len(skills) != 6:
+            err("职业 %s 技能应为 6 个，实际 %d" % (cid, len(skills)))
+        slots = sorted(int(s.get("slot", 0)) for s in skills)
+        if slots != [1, 2, 3, 4, 5, 6]:
+            err("职业 %s 技能槽号应为 1..6，实际 %s" % (cid, slots))
+        node_ids = {str(n.get("id", "")) for n in trees.get(cid, {}).get("nodes", [])}
+        for skill in skills:
             t = skill.get("type", "")
-            if t not in ["melee_aoe", "projectile", "heal", "buff", "shield",
-                         "chain", "aoe_zone", "dash_strike"]:
+            if t not in SKILL_TYPES:
                 err("职业 %s 技能 %s 使用了未实现的类型 %s" % (cid, skill.get("name"), t))
+            if not skill.get("desc"):
+                err("职业 %s 技能 %s 缺少机制描述" % (cid, skill.get("name")))
+            req = skill.get("requires", "")
+            if req:
+                if str(req) not in node_ids:
+                    err("职业 %s 进阶技能 %s 的前置节点不存在：%s" % (cid, skill.get("id"), req))
+                if not skill.get("advanced"):
+                    err("职业 %s 技能 %s 有前置却未标记 advanced" % (cid, skill.get("id")))
+            icon = str(skill.get("icon", ""))
+            p = asset_path(icon)
+            if p and not os.path.isfile(p):
+                err("职业 %s 技能 %s 缺少图标素材：%s" % (cid, skill.get("id"), icon))
+        for key in ["source", "role", "source_name", "role_name", "identity"]:
+            if not cdef.get(key):
+                err("职业 %s 缺少设计字段 %s" % (cid, key))
         color = cdef.get("color", "#000000")
         if not re.match(r"^#[0-9a-fA-F]{6}$", color):
             err("职业 %s 颜色格式错误：%s" % (cid, color))
+
+    if len(trees) != 16:
+        err("技能树应为 16 套，实际 %d" % len(trees))
+    for cid in classes:
+        nodes = trees.get(cid, {}).get("nodes", [])
+        if len(nodes) != 16:
+            err("职业 %s 技能树节点应为 16，实际 %d" % (cid, len(nodes)))
+        ids = {str(n.get("id", "")) for n in nodes}
+        active = 0
+        for node in nodes:
+            for req in node.get("requires", []):
+                if str(req) not in ids:
+                    err("职业 %s 节点 %s 的前置不存在：%s" % (cid, node.get("id"), req))
+            if str(node.get("kind", "")) == "active":
+                active += 1
+            p = asset_path(str(node.get("icon", "")))
+            if p and not os.path.isfile(p):
+                err("职业 %s 技能树节点 %s 缺少图标素材：%s" % (cid, node.get("id"), node.get("icon")))
+        if active != 3:
+            err("职业 %s 进阶主动节点应为 3，实际 %d" % (cid, active))
+        tiers = {int(n.get("tier", -1)) for n in nodes}
+        if tiers != {0, 1, 2, 3, 4, 5}:
+            err("职业 %s 技能树层级应覆盖 0..5，实际 %s" % (cid, sorted(tiers)))
+        if not any(str(n.get("kind", "")) == "capstone" for n in nodes):
+            err("职业 %s 技能树缺少终极节点" % cid)
+
+    if len(specs) != 16:
+        err("专职数据应为 16 个职业，实际 %d" % len(specs))
+    for cid in classes:
+        entry = specs.get(cid, [])
+        if len(entry) != 3:
+            err("职业 %s 专职应为 3 条，实际 %d" % (cid, len(entry)))
+        sids = [str(s.get("id", "")) for s in entry]
+        if len(sids) != len(set(sids)):
+            err("职业 %s 专职 id 重复：%s" % (cid, sids))
 
     for rid, rdef in [(r.get("id"), r) for r in recipes]:
         if rdef.get("output") not in items:

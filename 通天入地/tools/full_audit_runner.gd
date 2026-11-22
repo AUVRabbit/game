@@ -271,13 +271,14 @@ func _main() -> void:
 	_check("初始背包材料", GameManager.inventory.count_item("stone") == 8 and GameManager.inventory.count_item("healing_potion") == 2)
 	await _shot("screenshots/03_world_hud.jpg")
 
-	# ---------- 3. 12 职业队伍 ----------
-	_action("通过职业祭坛逻辑将 12 职业全部加入队伍")
+	# ---------- 3. 16 职业队伍 ----------
+	var class_total: int = DataManager.get_all_class_ids().size()
+	_action("通过职业祭坛逻辑将 %d 职业全部加入队伍" % class_total)
 	for cid in DataManager.get_all_class_ids():
 		if not GameManager.roster.has(str(cid)):
 			GameManager.add_class_member(str(cid))
 	await _wait(0.3)
-	_check("12 职业全部加入队伍", GameManager.party.size() == 12 and GameManager.roster.size() == 12, "party=%d roster=%d" % [GameManager.party.size(), GameManager.roster.size()])
+	_check("%d 职业全部加入队伍" % class_total, GameManager.party.size() == class_total and GameManager.roster.size() == class_total, "party=%d roster=%d" % [GameManager.party.size(), GameManager.roster.size()])
 	var portrait_missing: Array = []
 	for cid in DataManager.get_all_class_ids():
 		var pl := await _activate(str(cid))
@@ -286,7 +287,7 @@ func _main() -> void:
 			spr = pl.get_node_or_null("Visual/ClassSprite")
 		if spr == null:
 			portrait_missing.append(str(cid))
-	_check("12 职业立绘加载", portrait_missing.is_empty(), "missing=" + str(portrait_missing))
+	_check("%d 职业立绘加载" % class_total, portrait_missing.is_empty(), "missing=" + str(portrait_missing))
 
 	# ---------- 4. 战斗基础 ----------
 	_action("普攻 / 冲刺无敌 / 冷却 / 法力不足校验")
@@ -299,7 +300,7 @@ func _main() -> void:
 	_check("普攻造成伤害", is_instance_valid(dummy) and dummy.hp < hp0, "%d -> %d" % [hp0, dummy.hp if is_instance_valid(dummy) else -1])
 	if is_instance_valid(dummy):
 		dummy.free()
-	warrior.skill_cooldowns = [0.0, 0.0, 0.0]
+	warrior.skill_cooldowns = [0.0, 0.0, 0.0, 0.0, 0.0, 0.0]
 	warrior.try_dash()
 	_check("冲刺进入冷却", warrior.dash_cd > 0.0, "cd=%.2f" % warrior.dash_cd)
 	_check("冲刺期间无敌", warrior.is_invulnerable())
@@ -487,34 +488,43 @@ func _main() -> void:
 		_check("相机缩放生效", false)
 
 	# ---------- 8. 逐技能实测 ----------
-	_action("开始逐职业技能实测（12 职业 x 3 技能 = 36 项）")
+	var skill_total: int = class_total * 6
+	_action("开始逐职业技能实测（%d 职业 x 6 技能 = %d 项）" % [class_total, skill_total])
 	_clear_enemies(true)
 	var skill_index := 0
 	for cid in DataManager.get_all_class_ids():
-		var pl := await _activate(str(cid))
+		var cid_str := str(cid)
+		# 测试环境直接解锁进阶前置，确保 6 个技能槽都可实测
+		SkillManager.ensure_class(cid_str)
+		SkillManager.points[cid_str] = 99
+		for node in DataManager.get_skill_tree_nodes(cid_str):
+			if str(node.get("kind", "")) in ["mastery", "active"]:
+				if not SkillManager.is_unlocked(cid_str, str(node.get("id", ""))):
+					SkillManager.unlock_node(cid_str, str(node.get("id", "")))
+		var pl := await _activate(cid_str)
 		if pl == null:
-			_check("技能测试角色 %s" % str(cid), false, "player missing")
+			_check("技能测试角色 %s" % cid_str, false, "player missing")
 			continue
 		var skills: Array = pl.character_data.skills
-		_check("%s 技能数=3" % str(cid), skills.size() == 3, str(skills.size()))
+		_check("%s 技能数=6" % cid_str, skills.size() == 6, str(skills.size()))
 		for slot in skills.size():
 			var skill: Dictionary = skills[slot]
 			var result: Dictionary = await _test_skill(pl, slot, skill)
 			skill_results.append(result)
 			skill_index += 1
-			await _shot("skills/%02d_%s_%s.jpg" % [skill_index, str(cid), str(skill.get("id", "skill"))])
-			_check("技能 %s-%s" % [str(cid), str(skill.get("id", ""))], bool(result.get("ok", false)), str(result.get("detail", "")))
-	_check("36 技能全部实测", skill_results.size() == 36, "tested=%d" % skill_results.size())
+			await _shot("skills/%02d_%s_%s.jpg" % [skill_index, cid_str, str(skill.get("id", "skill"))])
+			_check("技能 %s-%s" % [cid_str, str(skill.get("id", ""))], bool(result.get("ok", false)), str(result.get("detail", "")))
+	_check("%d 技能全部实测" % skill_total, skill_results.size() == skill_total, "tested=%d" % skill_results.size())
 
 	# ---------- 9. 成长：技能树 / 专职 / 朋克 ----------
 	_action("技能树解锁、前置校验、威力与冷却加成")
 	SkillManager.reset_tree("archer")
 	var pts0: int = SkillManager.get_points("archer")
 	var nodes: Array = DataManager.get_skill_tree_nodes("archer")
-	_check("技能树 9 节点", nodes.size() == 9, str(nodes.size()))
+	_check("技能树 16 节点", nodes.size() == 16, str(nodes.size()))
 	var unlocked: bool = SkillManager.unlock_node("archer", "archer_mastery_0")
 	_check("解锁精通节点", unlocked and SkillManager.is_unlocked("archer", "archer_mastery_0"))
-	var gate: Dictionary = SkillManager.can_unlock("archer", "archer_passive_a")
+	var gate: Dictionary = SkillManager.can_unlock("archer", "archer_active_0")
 	_check("前置节点未满足被拒", not bool(gate.get("ok", true)), str(gate.get("reason", "")))
 	var arch := await _activate("archer")
 	var power_mult: float = arch.character_data.get_skill_power_multiplier("piercing_shot")

@@ -27,7 +27,7 @@ var attack_cooldown: float = 0.0
 var dash_cd: float = 0.0
 var dash_timer: float = 0.0
 var dash_dir: Vector2 = Vector2.DOWN
-var skill_cooldowns: Array = [0.0, 0.0, 0.0]
+var skill_cooldowns: Array = [0.0, 0.0, 0.0, 0.0, 0.0, 0.0]
 var spawn_point: Vector2 = Vector2.ZERO
 
 func _ready() -> void:
@@ -164,7 +164,7 @@ func _unhandled_input(event: InputEvent) -> void:
 	elif event.is_action_pressed("interact"):
 		try_interact()
 	else:
-		for i in 3:
+		for i in 6:
 			if event.is_action_pressed("skill_%d" % (i + 1)):
 				try_skill(i)
 				return
@@ -217,6 +217,9 @@ func try_skill(slot: int) -> void:
 	if character_data.hp <= 0:
 		return
 	var skill: Dictionary = character_data.skills[slot]
+	if not _skill_unlocked(skill):
+		EventBus.notify("【%s】尚未解锁：请在技能树点亮前置节点" % str(skill.get("name", "")))
+		return
 	if SkillExecutor.cast(self, skill):
 		state = State.CAST
 		if slot < skill_cooldowns.size():
@@ -225,6 +228,23 @@ func try_skill(slot: int) -> void:
 		await get_tree().create_timer(0.15).timeout
 		if state == State.CAST:
 			state = State.IDLE
+
+# 进阶主动技能需先在技能树点亮对应的精通节点
+func _skill_unlocked(skill: Dictionary) -> bool:
+	var req = skill.get("requires", "")
+	if req == null:
+		return true
+	if req is String and str(req).is_empty():
+		return true
+	if SkillManager == null or character_data == null:
+		return true
+	var class_id := str(character_data.class_id)
+	if req is Array:
+		for r in req:
+			if not SkillManager.is_unlocked(class_id, str(r)):
+				return false
+		return true
+	return SkillManager.is_unlocked(class_id, str(req))
 
 func try_dash() -> void:
 	if dash_cd > 0.0 or dash_timer > 0.0:

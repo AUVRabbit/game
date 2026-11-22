@@ -1,1975 +1,4595 @@
 {
- "version": "1.0.0",
- "points_per_level": 1,
- "starting_points": 1,
- "trees": {
-  "warrior": {
-   "name": "战士之道",
-   "nodes": [
-    {
-     "id": "warrior_anchor_0",
-     "name": "旋风斩",
-     "tier": 0,
-     "col": 0,
-     "kind": "anchor",
-     "skill_id": "whirlwind",
-     "cost": 0,
-     "requires": [],
-     "icon": "skill_whirlwind",
-     "desc": "职业初始主动技能（初始技能）",
-     "passive": {},
-     "skill_bonus": {}
+  "version": "2.0.0",
+  "points_per_level": 1,
+  "starting_points": 1,
+  "trees": {
+    "mage": {
+      "name": "法师之道",
+      "nodes": [
+        {
+          "id": "mage_anchor_0",
+          "name": "火球术",
+          "tier": 0,
+          "col": 0,
+          "kind": "anchor",
+          "skill_id": "fireball",
+          "cost": 0,
+          "requires": [],
+          "icon": "skill_fireball",
+          "desc": "职业初始主动技能（技能槽 1）",
+          "passive": {},
+          "skill_bonus": {}
+        },
+        {
+          "id": "mage_anchor_1",
+          "name": "冰霜新星",
+          "tier": 0,
+          "col": 1,
+          "kind": "anchor",
+          "skill_id": "frost_nova",
+          "cost": 0,
+          "requires": [],
+          "icon": "skill_frost_nova",
+          "desc": "职业初始主动技能（技能槽 2）",
+          "passive": {},
+          "skill_bonus": {}
+        },
+        {
+          "id": "mage_anchor_2",
+          "name": "奥术护盾",
+          "tier": 0,
+          "col": 2,
+          "kind": "anchor",
+          "skill_id": "arcane_shield",
+          "cost": 0,
+          "requires": [],
+          "icon": "skill_arcane_shield",
+          "desc": "职业初始主动技能（技能槽 3）",
+          "passive": {},
+          "skill_bonus": {}
+        },
+        {
+          "id": "mage_mastery_0",
+          "name": "火球术精通",
+          "tier": 1,
+          "col": 0,
+          "kind": "mastery",
+          "skill_id": "fireball",
+          "cost": 1,
+          "requires": [
+            "mage_anchor_0"
+          ],
+          "icon": "skill_fireball",
+          "desc": "强化【火球术】：技能威力 +25%，冷却 -10%。",
+          "passive": {},
+          "skill_bonus": {
+            "power": 0.25,
+            "cooldown": 0.1
+          }
+        },
+        {
+          "id": "mage_mastery_1",
+          "name": "冰霜新星精通",
+          "tier": 1,
+          "col": 1,
+          "kind": "mastery",
+          "skill_id": "frost_nova",
+          "cost": 1,
+          "requires": [
+            "mage_anchor_1"
+          ],
+          "icon": "skill_frost_nova",
+          "desc": "强化【冰霜新星】：技能威力 +25%，冷却 -10%。",
+          "passive": {},
+          "skill_bonus": {
+            "power": 0.25,
+            "cooldown": 0.1
+          }
+        },
+        {
+          "id": "mage_mastery_2",
+          "name": "奥术护盾精通",
+          "tier": 1,
+          "col": 2,
+          "kind": "mastery",
+          "skill_id": "arcane_shield",
+          "cost": 1,
+          "requires": [
+            "mage_anchor_2"
+          ],
+          "icon": "skill_arcane_shield",
+          "desc": "强化【奥术护盾】：技能威力 +25%，冷却 -10%。",
+          "passive": {},
+          "skill_bonus": {
+            "power": 0.25,
+            "cooldown": 0.1
+          }
+        },
+        {
+          "id": "mage_active_0",
+          "name": "陨星术",
+          "tier": 2,
+          "col": 0,
+          "kind": "active",
+          "skill_id": "meteor",
+          "cost": 2,
+          "requires": [
+            "mage_mastery_0"
+          ],
+          "icon": "skill_meteor",
+          "desc": "解锁进阶主动技能【陨星术】（技能槽 R）。",
+          "passive": {},
+          "skill_bonus": {}
+        },
+        {
+          "id": "mage_active_1",
+          "name": "绝对零度",
+          "tier": 2,
+          "col": 1,
+          "kind": "active",
+          "skill_id": "absolute_zero",
+          "cost": 2,
+          "requires": [
+            "mage_mastery_1"
+          ],
+          "icon": "skill_absolute_zero",
+          "desc": "解锁进阶主动技能【绝对零度】（技能槽 F）。",
+          "passive": {},
+          "skill_bonus": {}
+        },
+        {
+          "id": "mage_active_2",
+          "name": "奥术洪流",
+          "tier": 2,
+          "col": 2,
+          "kind": "active",
+          "skill_id": "arcane_surge",
+          "cost": 2,
+          "requires": [
+            "mage_mastery_2"
+          ],
+          "icon": "skill_arcane_surge",
+          "desc": "解锁进阶主动技能【奥术洪流】（技能槽 G）。",
+          "passive": {},
+          "skill_bonus": {}
+        },
+        {
+          "id": "mage_passive_0",
+          "name": "锋锐",
+          "tier": 3,
+          "col": 0,
+          "kind": "passive",
+          "skill_id": "",
+          "cost": 1,
+          "requires": [
+            "mage_mastery_0"
+          ],
+          "icon": "passive_stat_attack",
+          "desc": "分支天赋：攻击 +5，暴击率 +3%。",
+          "passive": {
+            "attack": 5,
+            "crit_rate": 0.03
+          },
+          "skill_bonus": {}
+        },
+        {
+          "id": "mage_passive_1",
+          "name": "致命",
+          "tier": 3,
+          "col": 1,
+          "kind": "passive",
+          "skill_id": "",
+          "cost": 1,
+          "requires": [
+            "mage_mastery_1"
+          ],
+          "icon": "passive_stat_crit",
+          "desc": "分支天赋：暴击伤害 +15%。",
+          "passive": {
+            "crit_damage": 0.15
+          },
+          "skill_bonus": {}
+        },
+        {
+          "id": "mage_passive_2",
+          "name": "疾风",
+          "tier": 3,
+          "col": 2,
+          "kind": "passive",
+          "skill_id": "",
+          "cost": 1,
+          "requires": [
+            "mage_mastery_2"
+          ],
+          "icon": "passive_stat_speed",
+          "desc": "分支天赋：攻速 +6%，移速 +4%。",
+          "passive": {
+            "attack_speed": 0.06,
+            "move_speed": 0.04
+          },
+          "skill_bonus": {}
+        },
+        {
+          "id": "mage_keystone_0",
+          "name": "破军之势",
+          "tier": 4,
+          "col": 0,
+          "kind": "keystone",
+          "skill_id": "",
+          "cost": 2,
+          "requires": [
+            "mage_passive_0"
+          ],
+          "icon": "passive_stat_attack",
+          "desc": "分支专精：攻击 +10，暴击率 +5%。",
+          "passive": {
+            "attack": 10,
+            "crit_rate": 0.05
+          },
+          "skill_bonus": {}
+        },
+        {
+          "id": "mage_keystone_1",
+          "name": "暴虐",
+          "tier": 4,
+          "col": 1,
+          "kind": "keystone",
+          "skill_id": "",
+          "cost": 2,
+          "requires": [
+            "mage_passive_1"
+          ],
+          "icon": "passive_stat_crit",
+          "desc": "分支专精：暴击伤害 +25%，暴击率 +4%。",
+          "passive": {
+            "crit_damage": 0.25,
+            "crit_rate": 0.04
+          },
+          "skill_bonus": {}
+        },
+        {
+          "id": "mage_keystone_2",
+          "name": "迅影",
+          "tier": 4,
+          "col": 2,
+          "kind": "keystone",
+          "skill_id": "",
+          "cost": 2,
+          "requires": [
+            "mage_passive_2"
+          ],
+          "icon": "passive_stat_speed",
+          "desc": "分支专精：攻速 +12%，移速 +8%。",
+          "passive": {
+            "attack_speed": 0.12,
+            "move_speed": 0.08
+          },
+          "skill_bonus": {}
+        },
+        {
+          "id": "mage_capstone",
+          "name": "元素君主",
+          "tier": 5,
+          "col": 1,
+          "kind": "capstone",
+          "skill_id": "",
+          "cost": 3,
+          "requires": [
+            "mage_keystone_0",
+            "mage_keystone_1",
+            "mage_keystone_2"
+          ],
+          "icon": "passive_stat_capstone",
+          "desc": "终极奥义：三条分支全部专精后方可点亮。全属性 +7%，暴击伤害 +20%",
+          "passive": {
+            "all_stats_bonus": 0.07,
+            "crit_damage": 0.2
+          },
+          "skill_bonus": {}
+        }
+      ]
     },
-    {
-     "id": "warrior_anchor_1",
-     "name": "战吼",
-     "tier": 0,
-     "col": 1,
-     "kind": "anchor",
-     "skill_id": "war_cry",
-     "cost": 0,
-     "requires": [],
-     "icon": "skill_war_cry",
-     "desc": "职业初始主动技能（初始技能）",
-     "passive": {},
-     "skill_bonus": {}
+    "runeward": {
+      "name": "咒铠之典",
+      "nodes": [
+        {
+          "id": "runeward_anchor_0",
+          "name": "符盾",
+          "tier": 0,
+          "col": 0,
+          "kind": "anchor",
+          "skill_id": "rune_shield",
+          "cost": 0,
+          "requires": [],
+          "icon": "skill_rune_shield",
+          "desc": "职业初始主动技能（技能槽 1）",
+          "passive": {},
+          "skill_bonus": {}
+        },
+        {
+          "id": "runeward_anchor_1",
+          "name": "符爆",
+          "tier": 0,
+          "col": 1,
+          "kind": "anchor",
+          "skill_id": "rune_burst",
+          "cost": 0,
+          "requires": [],
+          "icon": "skill_rune_burst",
+          "desc": "职业初始主动技能（技能槽 2）",
+          "passive": {},
+          "skill_bonus": {}
+        },
+        {
+          "id": "runeward_anchor_2",
+          "name": "咒护",
+          "tier": 0,
+          "col": 2,
+          "kind": "anchor",
+          "skill_id": "rune_aura",
+          "cost": 0,
+          "requires": [],
+          "icon": "skill_rune_aura",
+          "desc": "职业初始主动技能（技能槽 3）",
+          "passive": {},
+          "skill_bonus": {}
+        },
+        {
+          "id": "runeward_mastery_0",
+          "name": "符盾精通",
+          "tier": 1,
+          "col": 0,
+          "kind": "mastery",
+          "skill_id": "rune_shield",
+          "cost": 1,
+          "requires": [
+            "runeward_anchor_0"
+          ],
+          "icon": "skill_rune_shield",
+          "desc": "强化【符盾】：技能威力 +25%，冷却 -10%。",
+          "passive": {},
+          "skill_bonus": {
+            "power": 0.25,
+            "cooldown": 0.1
+          }
+        },
+        {
+          "id": "runeward_mastery_1",
+          "name": "符爆精通",
+          "tier": 1,
+          "col": 1,
+          "kind": "mastery",
+          "skill_id": "rune_burst",
+          "cost": 1,
+          "requires": [
+            "runeward_anchor_1"
+          ],
+          "icon": "skill_rune_burst",
+          "desc": "强化【符爆】：技能威力 +25%，冷却 -10%。",
+          "passive": {},
+          "skill_bonus": {
+            "power": 0.25,
+            "cooldown": 0.1
+          }
+        },
+        {
+          "id": "runeward_mastery_2",
+          "name": "咒护精通",
+          "tier": 1,
+          "col": 2,
+          "kind": "mastery",
+          "skill_id": "rune_aura",
+          "cost": 1,
+          "requires": [
+            "runeward_anchor_2"
+          ],
+          "icon": "skill_rune_aura",
+          "desc": "强化【咒护】：技能威力 +25%，冷却 -10%。",
+          "passive": {},
+          "skill_bonus": {
+            "power": 0.25,
+            "cooldown": 0.1
+          }
+        },
+        {
+          "id": "runeward_active_0",
+          "name": "反噬符文",
+          "tier": 2,
+          "col": 0,
+          "kind": "active",
+          "skill_id": "rune_reflect",
+          "cost": 2,
+          "requires": [
+            "runeward_mastery_0"
+          ],
+          "icon": "skill_rune_reflect",
+          "desc": "解锁进阶主动技能【反噬符文】（技能槽 R）。",
+          "passive": {},
+          "skill_bonus": {}
+        },
+        {
+          "id": "runeward_active_1",
+          "name": "符文禁锢",
+          "tier": 2,
+          "col": 1,
+          "kind": "active",
+          "skill_id": "rune_prison",
+          "cost": 2,
+          "requires": [
+            "runeward_mastery_1"
+          ],
+          "icon": "skill_rune_prison",
+          "desc": "解锁进阶主动技能【符文禁锢】（技能槽 F）。",
+          "passive": {},
+          "skill_bonus": {}
+        },
+        {
+          "id": "runeward_active_2",
+          "name": "符阵壁垒",
+          "tier": 2,
+          "col": 2,
+          "kind": "active",
+          "skill_id": "aegis_circle",
+          "cost": 2,
+          "requires": [
+            "runeward_mastery_2"
+          ],
+          "icon": "skill_aegis_circle",
+          "desc": "解锁进阶主动技能【符阵壁垒】（技能槽 G）。",
+          "passive": {},
+          "skill_bonus": {}
+        },
+        {
+          "id": "runeward_passive_0",
+          "name": "坚甲",
+          "tier": 3,
+          "col": 0,
+          "kind": "passive",
+          "skill_id": "",
+          "cost": 1,
+          "requires": [
+            "runeward_mastery_0"
+          ],
+          "icon": "passive_stat_defense",
+          "desc": "分支天赋：防御 +4，生命 +20。",
+          "passive": {
+            "defense": 4,
+            "max_hp": 20
+          },
+          "skill_bonus": {}
+        },
+        {
+          "id": "runeward_passive_1",
+          "name": "厚壁",
+          "tier": 3,
+          "col": 1,
+          "kind": "passive",
+          "skill_id": "",
+          "cost": 1,
+          "requires": [
+            "runeward_mastery_1"
+          ],
+          "icon": "passive_stat_defense",
+          "desc": "分支天赋：生命 +35，法防 +3。",
+          "passive": {
+            "max_hp": 35,
+            "magic_defense": 3
+          },
+          "skill_bonus": {}
+        },
+        {
+          "id": "runeward_passive_2",
+          "name": "御法",
+          "tier": 3,
+          "col": 2,
+          "kind": "passive",
+          "skill_id": "",
+          "cost": 1,
+          "requires": [
+            "runeward_mastery_2"
+          ],
+          "icon": "passive_stat_defense",
+          "desc": "分支天赋：防御 +3，法防 +4。",
+          "passive": {
+            "defense": 3,
+            "magic_defense": 4
+          },
+          "skill_bonus": {}
+        },
+        {
+          "id": "runeward_keystone_0",
+          "name": "不动如山",
+          "tier": 4,
+          "col": 0,
+          "kind": "keystone",
+          "skill_id": "",
+          "cost": 2,
+          "requires": [
+            "runeward_passive_0"
+          ],
+          "icon": "passive_stat_defense",
+          "desc": "分支专精：防御 +8，生命 +45。",
+          "passive": {
+            "defense": 8,
+            "max_hp": 45
+          },
+          "skill_bonus": {}
+        },
+        {
+          "id": "runeward_keystone_1",
+          "name": "磐石",
+          "tier": 4,
+          "col": 1,
+          "kind": "keystone",
+          "skill_id": "",
+          "cost": 2,
+          "requires": [
+            "runeward_passive_1"
+          ],
+          "icon": "passive_stat_defense",
+          "desc": "分支专精：生命 +70，防御 +5。",
+          "passive": {
+            "max_hp": 70,
+            "defense": 5
+          },
+          "skill_bonus": {}
+        },
+        {
+          "id": "runeward_keystone_2",
+          "name": "护心",
+          "tier": 4,
+          "col": 2,
+          "kind": "keystone",
+          "skill_id": "",
+          "cost": 2,
+          "requires": [
+            "runeward_passive_2"
+          ],
+          "icon": "passive_stat_defense",
+          "desc": "分支专精：法防 +9，生命 +40。",
+          "passive": {
+            "magic_defense": 9,
+            "max_hp": 40
+          },
+          "skill_bonus": {}
+        },
+        {
+          "id": "runeward_capstone",
+          "name": "万符归宗",
+          "tier": 5,
+          "col": 1,
+          "kind": "capstone",
+          "skill_id": "",
+          "cost": 3,
+          "requires": [
+            "runeward_keystone_0",
+            "runeward_keystone_1",
+            "runeward_keystone_2"
+          ],
+          "icon": "passive_stat_capstone",
+          "desc": "终极奥义：三条分支全部专精后方可点亮。全属性 +7%，生命 +60",
+          "passive": {
+            "all_stats_bonus": 0.07,
+            "max_hp": 60
+          },
+          "skill_bonus": {}
+        }
+      ]
     },
-    {
-     "id": "warrior_anchor_2",
-     "name": "盾墙",
-     "tier": 0,
-     "col": 2,
-     "kind": "anchor",
-     "skill_id": "shield_wall",
-     "cost": 0,
-     "requires": [],
-     "icon": "skill_shield_wall",
-     "desc": "职业初始主动技能（初始技能）",
-     "passive": {},
-     "skill_bonus": {}
+    "priest": {
+      "name": "牧师之道",
+      "nodes": [
+        {
+          "id": "priest_anchor_0",
+          "name": "治疗术",
+          "tier": 0,
+          "col": 0,
+          "kind": "anchor",
+          "skill_id": "heal",
+          "cost": 0,
+          "requires": [],
+          "icon": "skill_heal",
+          "desc": "职业初始主动技能（技能槽 1）",
+          "passive": {},
+          "skill_bonus": {}
+        },
+        {
+          "id": "priest_anchor_1",
+          "name": "神圣新星",
+          "tier": 0,
+          "col": 1,
+          "kind": "anchor",
+          "skill_id": "holy_nova",
+          "cost": 0,
+          "requires": [],
+          "icon": "skill_holy_nova",
+          "desc": "职业初始主动技能（技能槽 2）",
+          "passive": {},
+          "skill_bonus": {}
+        },
+        {
+          "id": "priest_anchor_2",
+          "name": "祝福",
+          "tier": 0,
+          "col": 2,
+          "kind": "anchor",
+          "skill_id": "blessing",
+          "cost": 0,
+          "requires": [],
+          "icon": "skill_blessing",
+          "desc": "职业初始主动技能（技能槽 3）",
+          "passive": {},
+          "skill_bonus": {}
+        },
+        {
+          "id": "priest_mastery_0",
+          "name": "治疗术精通",
+          "tier": 1,
+          "col": 0,
+          "kind": "mastery",
+          "skill_id": "heal",
+          "cost": 1,
+          "requires": [
+            "priest_anchor_0"
+          ],
+          "icon": "skill_heal",
+          "desc": "强化【治疗术】：技能威力 +25%，冷却 -10%。",
+          "passive": {},
+          "skill_bonus": {
+            "power": 0.25,
+            "cooldown": 0.1
+          }
+        },
+        {
+          "id": "priest_mastery_1",
+          "name": "神圣新星精通",
+          "tier": 1,
+          "col": 1,
+          "kind": "mastery",
+          "skill_id": "holy_nova",
+          "cost": 1,
+          "requires": [
+            "priest_anchor_1"
+          ],
+          "icon": "skill_holy_nova",
+          "desc": "强化【神圣新星】：技能威力 +25%，冷却 -10%。",
+          "passive": {},
+          "skill_bonus": {
+            "power": 0.25,
+            "cooldown": 0.1
+          }
+        },
+        {
+          "id": "priest_mastery_2",
+          "name": "祝福精通",
+          "tier": 1,
+          "col": 2,
+          "kind": "mastery",
+          "skill_id": "blessing",
+          "cost": 1,
+          "requires": [
+            "priest_anchor_2"
+          ],
+          "icon": "skill_blessing",
+          "desc": "强化【祝福】：技能威力 +25%，冷却 -10%。",
+          "passive": {},
+          "skill_bonus": {
+            "power": 0.25,
+            "cooldown": 0.1
+          }
+        },
+        {
+          "id": "priest_active_0",
+          "name": "圣愈光辉",
+          "tier": 2,
+          "col": 0,
+          "kind": "active",
+          "skill_id": "sanctuary",
+          "cost": 2,
+          "requires": [
+            "priest_mastery_0"
+          ],
+          "icon": "skill_sanctuary",
+          "desc": "解锁进阶主动技能【圣愈光辉】（技能槽 R）。",
+          "passive": {},
+          "skill_bonus": {}
+        },
+        {
+          "id": "priest_active_1",
+          "name": "审判之光",
+          "tier": 2,
+          "col": 1,
+          "kind": "active",
+          "skill_id": "judgement",
+          "cost": 2,
+          "requires": [
+            "priest_mastery_1"
+          ],
+          "icon": "skill_judgement",
+          "desc": "解锁进阶主动技能【审判之光】（技能槽 F）。",
+          "passive": {},
+          "skill_bonus": {}
+        },
+        {
+          "id": "priest_active_2",
+          "name": "神圣盟约",
+          "tier": 2,
+          "col": 2,
+          "kind": "active",
+          "skill_id": "holy_covenant",
+          "cost": 2,
+          "requires": [
+            "priest_mastery_2"
+          ],
+          "icon": "skill_holy_covenant",
+          "desc": "解锁进阶主动技能【神圣盟约】（技能槽 G）。",
+          "passive": {},
+          "skill_bonus": {}
+        },
+        {
+          "id": "priest_passive_0",
+          "name": "灵泉",
+          "tier": 3,
+          "col": 0,
+          "kind": "passive",
+          "skill_id": "",
+          "cost": 1,
+          "requires": [
+            "priest_mastery_0"
+          ],
+          "icon": "passive_stat_attack",
+          "desc": "分支天赋：法力 +20，法强 +4。",
+          "passive": {
+            "max_mp": 20,
+            "magic_attack": 4
+          },
+          "skill_bonus": {}
+        },
+        {
+          "id": "priest_passive_1",
+          "name": "共鸣",
+          "tier": 3,
+          "col": 1,
+          "kind": "passive",
+          "skill_id": "",
+          "cost": 1,
+          "requires": [
+            "priest_mastery_1"
+          ],
+          "icon": "passive_stat_attack",
+          "desc": "分支天赋：法强 +5，法防 +3。",
+          "passive": {
+            "magic_attack": 5,
+            "magic_defense": 3
+          },
+          "skill_bonus": {}
+        },
+        {
+          "id": "priest_passive_2",
+          "name": "静心",
+          "tier": 3,
+          "col": 2,
+          "kind": "passive",
+          "skill_id": "",
+          "cost": 1,
+          "requires": [
+            "priest_mastery_2"
+          ],
+          "icon": "passive_stat_defense",
+          "desc": "分支天赋：法力 +15，防御 +3。",
+          "passive": {
+            "max_mp": 15,
+            "defense": 3
+          },
+          "skill_bonus": {}
+        },
+        {
+          "id": "priest_keystone_0",
+          "name": "天命",
+          "tier": 4,
+          "col": 0,
+          "kind": "keystone",
+          "skill_id": "",
+          "cost": 2,
+          "requires": [
+            "priest_passive_0"
+          ],
+          "icon": "passive_stat_attack",
+          "desc": "分支专精：法力 +40，法强 +8。",
+          "passive": {
+            "max_mp": 40,
+            "magic_attack": 8
+          },
+          "skill_bonus": {}
+        },
+        {
+          "id": "priest_keystone_1",
+          "name": "协奏",
+          "tier": 4,
+          "col": 1,
+          "kind": "keystone",
+          "skill_id": "",
+          "cost": 2,
+          "requires": [
+            "priest_passive_1"
+          ],
+          "icon": "passive_stat_attack",
+          "desc": "分支专精：法强 +9，暴击率 +4%。",
+          "passive": {
+            "magic_attack": 9,
+            "crit_rate": 0.04
+          },
+          "skill_bonus": {}
+        },
+        {
+          "id": "priest_keystone_2",
+          "name": "澄明",
+          "tier": 4,
+          "col": 2,
+          "kind": "keystone",
+          "skill_id": "",
+          "cost": 2,
+          "requires": [
+            "priest_passive_2"
+          ],
+          "icon": "passive_stat_defense",
+          "desc": "分支专精：法力 +30，法防 +6。",
+          "passive": {
+            "max_mp": 30,
+            "magic_defense": 6
+          },
+          "skill_bonus": {}
+        },
+        {
+          "id": "priest_capstone",
+          "name": "圣光化身",
+          "tier": 5,
+          "col": 1,
+          "kind": "capstone",
+          "skill_id": "",
+          "cost": 3,
+          "requires": [
+            "priest_keystone_0",
+            "priest_keystone_1",
+            "priest_keystone_2"
+          ],
+          "icon": "passive_stat_capstone",
+          "desc": "终极奥义：三条分支全部专精后方可点亮。全属性 +7%，法力 +50",
+          "passive": {
+            "all_stats_bonus": 0.07,
+            "max_mp": 50
+          },
+          "skill_bonus": {}
+        }
+      ]
     },
-    {
-     "id": "warrior_mastery_0",
-     "name": "旋风斩精通",
-     "tier": 1,
-     "col": 0,
-     "kind": "mastery",
-     "skill_id": "whirlwind",
-     "cost": 1,
-     "requires": [
-      "warrior_anchor_0"
-     ],
-     "icon": "skill_whirlwind",
-     "desc": "强化【旋风斩】：技能威力 +25%，冷却 -10%。",
-     "passive": {},
-     "skill_bonus": {
-      "power": 0.25,
-      "cooldown": 0.1
-     }
+    "necromancer": {
+      "name": "亡灵法师之道",
+      "nodes": [
+        {
+          "id": "necromancer_anchor_0",
+          "name": "腐蚀箭",
+          "tier": 0,
+          "col": 0,
+          "kind": "anchor",
+          "skill_id": "corrupt_bolt",
+          "cost": 0,
+          "requires": [],
+          "icon": "skill_corrupt_bolt",
+          "desc": "职业初始主动技能（技能槽 1）",
+          "passive": {},
+          "skill_bonus": {}
+        },
+        {
+          "id": "necromancer_anchor_1",
+          "name": "亡者领域",
+          "tier": 0,
+          "col": 1,
+          "kind": "anchor",
+          "skill_id": "grave_field",
+          "cost": 0,
+          "requires": [],
+          "icon": "skill_grave_field",
+          "desc": "职业初始主动技能（技能槽 2）",
+          "passive": {},
+          "skill_bonus": {}
+        },
+        {
+          "id": "necromancer_anchor_2",
+          "name": "汲取",
+          "tier": 0,
+          "col": 2,
+          "kind": "anchor",
+          "skill_id": "drain",
+          "cost": 0,
+          "requires": [],
+          "icon": "skill_drain",
+          "desc": "职业初始主动技能（技能槽 3）",
+          "passive": {},
+          "skill_bonus": {}
+        },
+        {
+          "id": "necromancer_mastery_0",
+          "name": "腐蚀箭精通",
+          "tier": 1,
+          "col": 0,
+          "kind": "mastery",
+          "skill_id": "corrupt_bolt",
+          "cost": 1,
+          "requires": [
+            "necromancer_anchor_0"
+          ],
+          "icon": "skill_corrupt_bolt",
+          "desc": "强化【腐蚀箭】：技能威力 +25%，冷却 -10%。",
+          "passive": {},
+          "skill_bonus": {
+            "power": 0.25,
+            "cooldown": 0.1
+          }
+        },
+        {
+          "id": "necromancer_mastery_1",
+          "name": "亡者领域精通",
+          "tier": 1,
+          "col": 1,
+          "kind": "mastery",
+          "skill_id": "grave_field",
+          "cost": 1,
+          "requires": [
+            "necromancer_anchor_1"
+          ],
+          "icon": "skill_grave_field",
+          "desc": "强化【亡者领域】：技能威力 +25%，冷却 -10%。",
+          "passive": {},
+          "skill_bonus": {
+            "power": 0.25,
+            "cooldown": 0.1
+          }
+        },
+        {
+          "id": "necromancer_mastery_2",
+          "name": "汲取精通",
+          "tier": 1,
+          "col": 2,
+          "kind": "mastery",
+          "skill_id": "drain",
+          "cost": 1,
+          "requires": [
+            "necromancer_anchor_2"
+          ],
+          "icon": "skill_drain",
+          "desc": "强化【汲取】：技能威力 +25%，冷却 -10%。",
+          "passive": {},
+          "skill_bonus": {
+            "power": 0.25,
+            "cooldown": 0.1
+          }
+        },
+        {
+          "id": "necromancer_active_0",
+          "name": "腐魂连矢",
+          "tier": 2,
+          "col": 0,
+          "kind": "active",
+          "skill_id": "soul_barrage",
+          "cost": 2,
+          "requires": [
+            "necromancer_mastery_0"
+          ],
+          "icon": "skill_soul_barrage",
+          "desc": "解锁进阶主动技能【腐魂连矢】（技能槽 R）。",
+          "passive": {},
+          "skill_bonus": {}
+        },
+        {
+          "id": "necromancer_active_1",
+          "name": "万尸之地",
+          "tier": 2,
+          "col": 1,
+          "kind": "active",
+          "skill_id": "mass_grave",
+          "cost": 2,
+          "requires": [
+            "necromancer_mastery_1"
+          ],
+          "icon": "skill_mass_grave",
+          "desc": "解锁进阶主动技能【万尸之地】（技能槽 F）。",
+          "passive": {},
+          "skill_bonus": {}
+        },
+        {
+          "id": "necromancer_active_2",
+          "name": "噬魂盛宴",
+          "tier": 2,
+          "col": 2,
+          "kind": "active",
+          "skill_id": "soul_feast",
+          "cost": 2,
+          "requires": [
+            "necromancer_mastery_2"
+          ],
+          "icon": "skill_soul_feast",
+          "desc": "解锁进阶主动技能【噬魂盛宴】（技能槽 G）。",
+          "passive": {},
+          "skill_bonus": {}
+        },
+        {
+          "id": "necromancer_passive_0",
+          "name": "敏锐",
+          "tier": 3,
+          "col": 0,
+          "kind": "passive",
+          "skill_id": "",
+          "cost": 1,
+          "requires": [
+            "necromancer_mastery_0"
+          ],
+          "icon": "passive_stat_attack",
+          "desc": "分支天赋：暴击率 +4%，攻击 +3。",
+          "passive": {
+            "crit_rate": 0.04,
+            "attack": 3
+          },
+          "skill_bonus": {}
+        },
+        {
+          "id": "necromancer_passive_1",
+          "name": "游影",
+          "tier": 3,
+          "col": 1,
+          "kind": "passive",
+          "skill_id": "",
+          "cost": 1,
+          "requires": [
+            "necromancer_mastery_1"
+          ],
+          "icon": "passive_stat_speed",
+          "desc": "分支天赋：移速 +6%，闪避 +3%。",
+          "passive": {
+            "move_speed": 0.06,
+            "dodge_rate": 0.03
+          },
+          "skill_bonus": {}
+        },
+        {
+          "id": "necromancer_passive_2",
+          "name": "毒牙",
+          "tier": 3,
+          "col": 2,
+          "kind": "passive",
+          "skill_id": "",
+          "cost": 1,
+          "requires": [
+            "necromancer_mastery_2"
+          ],
+          "icon": "passive_stat_attack",
+          "desc": "分支天赋：攻击 +4，攻速 +5%。",
+          "passive": {
+            "attack": 4,
+            "attack_speed": 0.05
+          },
+          "skill_bonus": {}
+        },
+        {
+          "id": "necromancer_keystone_0",
+          "name": "鬼魅",
+          "tier": 4,
+          "col": 0,
+          "kind": "keystone",
+          "skill_id": "",
+          "cost": 2,
+          "requires": [
+            "necromancer_passive_0"
+          ],
+          "icon": "passive_stat_crit",
+          "desc": "分支专精：暴击率 +7%，暴击伤害 +18%。",
+          "passive": {
+            "crit_rate": 0.07,
+            "crit_damage": 0.18
+          },
+          "skill_bonus": {}
+        },
+        {
+          "id": "necromancer_keystone_1",
+          "name": "缜密",
+          "tier": 4,
+          "col": 1,
+          "kind": "keystone",
+          "skill_id": "",
+          "cost": 2,
+          "requires": [
+            "necromancer_passive_1"
+          ],
+          "icon": "passive_stat_speed",
+          "desc": "分支专精：移速 +10%，闪避 +6%。",
+          "passive": {
+            "move_speed": 0.1,
+            "dodge_rate": 0.06
+          },
+          "skill_bonus": {}
+        },
+        {
+          "id": "necromancer_keystone_2",
+          "name": "猎手",
+          "tier": 4,
+          "col": 2,
+          "kind": "keystone",
+          "skill_id": "",
+          "cost": 2,
+          "requires": [
+            "necromancer_passive_2"
+          ],
+          "icon": "passive_stat_attack",
+          "desc": "分支专精：攻击 +8，攻速 +10%。",
+          "passive": {
+            "attack": 8,
+            "attack_speed": 0.1
+          },
+          "skill_bonus": {}
+        },
+        {
+          "id": "necromancer_capstone",
+          "name": "亡者之主",
+          "tier": 5,
+          "col": 1,
+          "kind": "capstone",
+          "skill_id": "",
+          "cost": 3,
+          "requires": [
+            "necromancer_keystone_0",
+            "necromancer_keystone_1",
+            "necromancer_keystone_2"
+          ],
+          "icon": "passive_stat_capstone",
+          "desc": "终极奥义：三条分支全部专精后方可点亮。全属性 +7%，暴击率 +5%",
+          "passive": {
+            "all_stats_bonus": 0.07,
+            "crit_rate": 0.05
+          },
+          "skill_bonus": {}
+        }
+      ]
     },
-    {
-     "id": "warrior_mastery_1",
-     "name": "战吼精通",
-     "tier": 1,
-     "col": 1,
-     "kind": "mastery",
-     "skill_id": "war_cry",
-     "cost": 1,
-     "requires": [
-      "warrior_anchor_1"
-     ],
-     "icon": "skill_war_cry",
-     "desc": "强化【战吼】：技能威力 +25%，冷却 -10%。",
-     "passive": {},
-     "skill_bonus": {
-      "power": 0.25,
-      "cooldown": 0.1
-     }
+    "bomber": {
+      "name": "炸弹专家之道",
+      "nodes": [
+        {
+          "id": "bomber_anchor_0",
+          "name": "投掷炸弹",
+          "tier": 0,
+          "col": 0,
+          "kind": "anchor",
+          "skill_id": "throw_bomb",
+          "cost": 0,
+          "requires": [],
+          "icon": "skill_throw_bomb",
+          "desc": "职业初始主动技能（技能槽 1）",
+          "passive": {},
+          "skill_bonus": {}
+        },
+        {
+          "id": "bomber_anchor_1",
+          "name": "爆破领域",
+          "tier": 0,
+          "col": 1,
+          "kind": "anchor",
+          "skill_id": "blast_zone",
+          "cost": 0,
+          "requires": [],
+          "icon": "skill_blast_zone",
+          "desc": "职业初始主动技能（技能槽 2）",
+          "passive": {},
+          "skill_bonus": {}
+        },
+        {
+          "id": "bomber_anchor_2",
+          "name": "燃烧弹",
+          "tier": 0,
+          "col": 2,
+          "kind": "anchor",
+          "skill_id": "incendiary",
+          "cost": 0,
+          "requires": [],
+          "icon": "skill_incendiary",
+          "desc": "职业初始主动技能（技能槽 3）",
+          "passive": {},
+          "skill_bonus": {}
+        },
+        {
+          "id": "bomber_mastery_0",
+          "name": "投掷炸弹精通",
+          "tier": 1,
+          "col": 0,
+          "kind": "mastery",
+          "skill_id": "throw_bomb",
+          "cost": 1,
+          "requires": [
+            "bomber_anchor_0"
+          ],
+          "icon": "skill_throw_bomb",
+          "desc": "强化【投掷炸弹】：技能威力 +25%，冷却 -10%。",
+          "passive": {},
+          "skill_bonus": {
+            "power": 0.25,
+            "cooldown": 0.1
+          }
+        },
+        {
+          "id": "bomber_mastery_1",
+          "name": "爆破领域精通",
+          "tier": 1,
+          "col": 1,
+          "kind": "mastery",
+          "skill_id": "blast_zone",
+          "cost": 1,
+          "requires": [
+            "bomber_anchor_1"
+          ],
+          "icon": "skill_blast_zone",
+          "desc": "强化【爆破领域】：技能威力 +25%，冷却 -10%。",
+          "passive": {},
+          "skill_bonus": {
+            "power": 0.25,
+            "cooldown": 0.1
+          }
+        },
+        {
+          "id": "bomber_mastery_2",
+          "name": "燃烧弹精通",
+          "tier": 1,
+          "col": 2,
+          "kind": "mastery",
+          "skill_id": "incendiary",
+          "cost": 1,
+          "requires": [
+            "bomber_anchor_2"
+          ],
+          "icon": "skill_incendiary",
+          "desc": "强化【燃烧弹】：技能威力 +25%，冷却 -10%。",
+          "passive": {},
+          "skill_bonus": {
+            "power": 0.25,
+            "cooldown": 0.1
+          }
+        },
+        {
+          "id": "bomber_active_0",
+          "name": "集束炸弹",
+          "tier": 2,
+          "col": 0,
+          "kind": "active",
+          "skill_id": "cluster_bomb",
+          "cost": 2,
+          "requires": [
+            "bomber_mastery_0"
+          ],
+          "icon": "skill_cluster_bomb",
+          "desc": "解锁进阶主动技能【集束炸弹】（技能槽 R）。",
+          "passive": {},
+          "skill_bonus": {}
+        },
+        {
+          "id": "bomber_active_1",
+          "name": "连环爆破",
+          "tier": 2,
+          "col": 1,
+          "kind": "active",
+          "skill_id": "chain_blast",
+          "cost": 2,
+          "requires": [
+            "bomber_mastery_1"
+          ],
+          "icon": "skill_chain_blast",
+          "desc": "解锁进阶主动技能【连环爆破】（技能槽 F）。",
+          "passive": {},
+          "skill_bonus": {}
+        },
+        {
+          "id": "bomber_active_2",
+          "name": "燃烧弹幕",
+          "tier": 2,
+          "col": 2,
+          "kind": "active",
+          "skill_id": "fire_barrage",
+          "cost": 2,
+          "requires": [
+            "bomber_mastery_2"
+          ],
+          "icon": "skill_fire_barrage",
+          "desc": "解锁进阶主动技能【燃烧弹幕】（技能槽 G）。",
+          "passive": {},
+          "skill_bonus": {}
+        },
+        {
+          "id": "bomber_passive_0",
+          "name": "锋锐",
+          "tier": 3,
+          "col": 0,
+          "kind": "passive",
+          "skill_id": "",
+          "cost": 1,
+          "requires": [
+            "bomber_mastery_0"
+          ],
+          "icon": "passive_stat_attack",
+          "desc": "分支天赋：攻击 +5，暴击率 +3%。",
+          "passive": {
+            "attack": 5,
+            "crit_rate": 0.03
+          },
+          "skill_bonus": {}
+        },
+        {
+          "id": "bomber_passive_1",
+          "name": "致命",
+          "tier": 3,
+          "col": 1,
+          "kind": "passive",
+          "skill_id": "",
+          "cost": 1,
+          "requires": [
+            "bomber_mastery_1"
+          ],
+          "icon": "passive_stat_crit",
+          "desc": "分支天赋：暴击伤害 +15%。",
+          "passive": {
+            "crit_damage": 0.15
+          },
+          "skill_bonus": {}
+        },
+        {
+          "id": "bomber_passive_2",
+          "name": "疾风",
+          "tier": 3,
+          "col": 2,
+          "kind": "passive",
+          "skill_id": "",
+          "cost": 1,
+          "requires": [
+            "bomber_mastery_2"
+          ],
+          "icon": "passive_stat_speed",
+          "desc": "分支天赋：攻速 +6%，移速 +4%。",
+          "passive": {
+            "attack_speed": 0.06,
+            "move_speed": 0.04
+          },
+          "skill_bonus": {}
+        },
+        {
+          "id": "bomber_keystone_0",
+          "name": "破军之势",
+          "tier": 4,
+          "col": 0,
+          "kind": "keystone",
+          "skill_id": "",
+          "cost": 2,
+          "requires": [
+            "bomber_passive_0"
+          ],
+          "icon": "passive_stat_attack",
+          "desc": "分支专精：攻击 +10，暴击率 +5%。",
+          "passive": {
+            "attack": 10,
+            "crit_rate": 0.05
+          },
+          "skill_bonus": {}
+        },
+        {
+          "id": "bomber_keystone_1",
+          "name": "暴虐",
+          "tier": 4,
+          "col": 1,
+          "kind": "keystone",
+          "skill_id": "",
+          "cost": 2,
+          "requires": [
+            "bomber_passive_1"
+          ],
+          "icon": "passive_stat_crit",
+          "desc": "分支专精：暴击伤害 +25%，暴击率 +4%。",
+          "passive": {
+            "crit_damage": 0.25,
+            "crit_rate": 0.04
+          },
+          "skill_bonus": {}
+        },
+        {
+          "id": "bomber_keystone_2",
+          "name": "迅影",
+          "tier": 4,
+          "col": 2,
+          "kind": "keystone",
+          "skill_id": "",
+          "cost": 2,
+          "requires": [
+            "bomber_passive_2"
+          ],
+          "icon": "passive_stat_speed",
+          "desc": "分支专精：攻速 +12%，移速 +8%。",
+          "passive": {
+            "attack_speed": 0.12,
+            "move_speed": 0.08
+          },
+          "skill_bonus": {}
+        },
+        {
+          "id": "bomber_capstone",
+          "name": "焦土政策",
+          "tier": 5,
+          "col": 1,
+          "kind": "capstone",
+          "skill_id": "",
+          "cost": 3,
+          "requires": [
+            "bomber_keystone_0",
+            "bomber_keystone_1",
+            "bomber_keystone_2"
+          ],
+          "icon": "passive_stat_capstone",
+          "desc": "终极奥义：三条分支全部专精后方可点亮。全属性 +7%，暴击伤害 +20%",
+          "passive": {
+            "all_stats_bonus": 0.07,
+            "crit_damage": 0.2
+          },
+          "skill_bonus": {}
+        }
+      ]
     },
-    {
-     "id": "warrior_mastery_2",
-     "name": "盾墙精通",
-     "tier": 1,
-     "col": 2,
-     "kind": "mastery",
-     "skill_id": "shield_wall",
-     "cost": 1,
-     "requires": [
-      "warrior_anchor_2"
-     ],
-     "icon": "skill_shield_wall",
-     "desc": "强化【盾墙】：技能威力 +25%，冷却 -10%。",
-     "passive": {},
-     "skill_bonus": {
-      "power": 0.25,
-      "cooldown": 0.1
-     }
+    "mech_pilot": {
+      "name": "机甲师之道",
+      "nodes": [
+        {
+          "id": "mech_pilot_anchor_0",
+          "name": "重炮轰击",
+          "tier": 0,
+          "col": 0,
+          "kind": "anchor",
+          "skill_id": "cannon",
+          "cost": 0,
+          "requires": [],
+          "icon": "skill_cannon",
+          "desc": "职业初始主动技能（技能槽 1）",
+          "passive": {},
+          "skill_bonus": {}
+        },
+        {
+          "id": "mech_pilot_anchor_1",
+          "name": "装甲强化",
+          "tier": 0,
+          "col": 1,
+          "kind": "anchor",
+          "skill_id": "armor_up",
+          "cost": 0,
+          "requires": [],
+          "icon": "skill_armor_up",
+          "desc": "职业初始主动技能（技能槽 2）",
+          "passive": {},
+          "skill_bonus": {}
+        },
+        {
+          "id": "mech_pilot_anchor_2",
+          "name": "能量护盾",
+          "tier": 0,
+          "col": 2,
+          "kind": "anchor",
+          "skill_id": "energy_field",
+          "cost": 0,
+          "requires": [],
+          "icon": "skill_energy_field",
+          "desc": "职业初始主动技能（技能槽 3）",
+          "passive": {},
+          "skill_bonus": {}
+        },
+        {
+          "id": "mech_pilot_mastery_0",
+          "name": "重炮轰击精通",
+          "tier": 1,
+          "col": 0,
+          "kind": "mastery",
+          "skill_id": "cannon",
+          "cost": 1,
+          "requires": [
+            "mech_pilot_anchor_0"
+          ],
+          "icon": "skill_cannon",
+          "desc": "强化【重炮轰击】：技能威力 +25%，冷却 -10%。",
+          "passive": {},
+          "skill_bonus": {
+            "power": 0.25,
+            "cooldown": 0.1
+          }
+        },
+        {
+          "id": "mech_pilot_mastery_1",
+          "name": "装甲强化精通",
+          "tier": 1,
+          "col": 1,
+          "kind": "mastery",
+          "skill_id": "armor_up",
+          "cost": 1,
+          "requires": [
+            "mech_pilot_anchor_1"
+          ],
+          "icon": "skill_armor_up",
+          "desc": "强化【装甲强化】：技能威力 +25%，冷却 -10%。",
+          "passive": {},
+          "skill_bonus": {
+            "power": 0.25,
+            "cooldown": 0.1
+          }
+        },
+        {
+          "id": "mech_pilot_mastery_2",
+          "name": "能量护盾精通",
+          "tier": 1,
+          "col": 2,
+          "kind": "mastery",
+          "skill_id": "energy_field",
+          "cost": 1,
+          "requires": [
+            "mech_pilot_anchor_2"
+          ],
+          "icon": "skill_energy_field",
+          "desc": "强化【能量护盾】：技能威力 +25%，冷却 -10%。",
+          "passive": {},
+          "skill_bonus": {
+            "power": 0.25,
+            "cooldown": 0.1
+          }
+        },
+        {
+          "id": "mech_pilot_active_0",
+          "name": "轨道炮",
+          "tier": 2,
+          "col": 0,
+          "kind": "active",
+          "skill_id": "rail_cannon",
+          "cost": 2,
+          "requires": [
+            "mech_pilot_mastery_0"
+          ],
+          "icon": "skill_rail_cannon",
+          "desc": "解锁进阶主动技能【轨道炮】（技能槽 R）。",
+          "passive": {},
+          "skill_bonus": {}
+        },
+        {
+          "id": "mech_pilot_active_1",
+          "name": "复合装甲",
+          "tier": 2,
+          "col": 1,
+          "kind": "active",
+          "skill_id": "composite_armor",
+          "cost": 2,
+          "requires": [
+            "mech_pilot_mastery_1"
+          ],
+          "icon": "skill_composite_armor",
+          "desc": "解锁进阶主动技能【复合装甲】（技能槽 F）。",
+          "passive": {},
+          "skill_bonus": {}
+        },
+        {
+          "id": "mech_pilot_active_2",
+          "name": "力场护罩",
+          "tier": 2,
+          "col": 2,
+          "kind": "active",
+          "skill_id": "force_field",
+          "cost": 2,
+          "requires": [
+            "mech_pilot_mastery_2"
+          ],
+          "icon": "skill_force_field",
+          "desc": "解锁进阶主动技能【力场护罩】（技能槽 G）。",
+          "passive": {},
+          "skill_bonus": {}
+        },
+        {
+          "id": "mech_pilot_passive_0",
+          "name": "坚甲",
+          "tier": 3,
+          "col": 0,
+          "kind": "passive",
+          "skill_id": "",
+          "cost": 1,
+          "requires": [
+            "mech_pilot_mastery_0"
+          ],
+          "icon": "passive_stat_defense",
+          "desc": "分支天赋：防御 +4，生命 +20。",
+          "passive": {
+            "defense": 4,
+            "max_hp": 20
+          },
+          "skill_bonus": {}
+        },
+        {
+          "id": "mech_pilot_passive_1",
+          "name": "厚壁",
+          "tier": 3,
+          "col": 1,
+          "kind": "passive",
+          "skill_id": "",
+          "cost": 1,
+          "requires": [
+            "mech_pilot_mastery_1"
+          ],
+          "icon": "passive_stat_defense",
+          "desc": "分支天赋：生命 +35，法防 +3。",
+          "passive": {
+            "max_hp": 35,
+            "magic_defense": 3
+          },
+          "skill_bonus": {}
+        },
+        {
+          "id": "mech_pilot_passive_2",
+          "name": "御法",
+          "tier": 3,
+          "col": 2,
+          "kind": "passive",
+          "skill_id": "",
+          "cost": 1,
+          "requires": [
+            "mech_pilot_mastery_2"
+          ],
+          "icon": "passive_stat_defense",
+          "desc": "分支天赋：防御 +3，法防 +4。",
+          "passive": {
+            "defense": 3,
+            "magic_defense": 4
+          },
+          "skill_bonus": {}
+        },
+        {
+          "id": "mech_pilot_keystone_0",
+          "name": "不动如山",
+          "tier": 4,
+          "col": 0,
+          "kind": "keystone",
+          "skill_id": "",
+          "cost": 2,
+          "requires": [
+            "mech_pilot_passive_0"
+          ],
+          "icon": "passive_stat_defense",
+          "desc": "分支专精：防御 +8，生命 +45。",
+          "passive": {
+            "defense": 8,
+            "max_hp": 45
+          },
+          "skill_bonus": {}
+        },
+        {
+          "id": "mech_pilot_keystone_1",
+          "name": "磐石",
+          "tier": 4,
+          "col": 1,
+          "kind": "keystone",
+          "skill_id": "",
+          "cost": 2,
+          "requires": [
+            "mech_pilot_passive_1"
+          ],
+          "icon": "passive_stat_defense",
+          "desc": "分支专精：生命 +70，防御 +5。",
+          "passive": {
+            "max_hp": 70,
+            "defense": 5
+          },
+          "skill_bonus": {}
+        },
+        {
+          "id": "mech_pilot_keystone_2",
+          "name": "护心",
+          "tier": 4,
+          "col": 2,
+          "kind": "keystone",
+          "skill_id": "",
+          "cost": 2,
+          "requires": [
+            "mech_pilot_passive_2"
+          ],
+          "icon": "passive_stat_defense",
+          "desc": "分支专精：法防 +9，生命 +40。",
+          "passive": {
+            "magic_defense": 9,
+            "max_hp": 40
+          },
+          "skill_bonus": {}
+        },
+        {
+          "id": "mech_pilot_capstone",
+          "name": "移动要塞",
+          "tier": 5,
+          "col": 1,
+          "kind": "capstone",
+          "skill_id": "",
+          "cost": 3,
+          "requires": [
+            "mech_pilot_keystone_0",
+            "mech_pilot_keystone_1",
+            "mech_pilot_keystone_2"
+          ],
+          "icon": "passive_stat_capstone",
+          "desc": "终极奥义：三条分支全部专精后方可点亮。全属性 +7%，生命 +60",
+          "passive": {
+            "all_stats_bonus": 0.07,
+            "max_hp": 60
+          },
+          "skill_bonus": {}
+        }
+      ]
     },
-    {
-     "id": "warrior_passive_a",
-     "name": "破军",
-     "tier": 2,
-     "col": 0,
-     "kind": "passive",
-     "skill_id": "",
-     "cost": 2,
-     "requires": [
-      "warrior_mastery_0",
-      "warrior_mastery_1"
-     ],
-     "icon": "passive_stat_attack",
-     "desc": "攻击 +6，暴击率 +3%",
-     "passive": {
-      "attack": 6,
-      "crit_rate": 0.03
-     },
-     "skill_bonus": {}
+    "engineer": {
+      "name": "蒸汽工程学",
+      "nodes": [
+        {
+          "id": "engineer_anchor_0",
+          "name": "炮塔部署",
+          "tier": 0,
+          "col": 0,
+          "kind": "anchor",
+          "skill_id": "turret",
+          "cost": 0,
+          "requires": [],
+          "icon": "skill_turret",
+          "desc": "职业初始主动技能（技能槽 1）",
+          "passive": {},
+          "skill_bonus": {}
+        },
+        {
+          "id": "engineer_anchor_1",
+          "name": "应急修理",
+          "tier": 0,
+          "col": 1,
+          "kind": "anchor",
+          "skill_id": "repair",
+          "cost": 0,
+          "requires": [],
+          "icon": "skill_repair",
+          "desc": "职业初始主动技能（技能槽 2）",
+          "passive": {},
+          "skill_bonus": {}
+        },
+        {
+          "id": "engineer_anchor_2",
+          "name": "战术补给",
+          "tier": 0,
+          "col": 2,
+          "kind": "anchor",
+          "skill_id": "supply",
+          "cost": 0,
+          "requires": [],
+          "icon": "skill_supply",
+          "desc": "职业初始主动技能（技能槽 3）",
+          "passive": {},
+          "skill_bonus": {}
+        },
+        {
+          "id": "engineer_mastery_0",
+          "name": "炮塔部署精通",
+          "tier": 1,
+          "col": 0,
+          "kind": "mastery",
+          "skill_id": "turret",
+          "cost": 1,
+          "requires": [
+            "engineer_anchor_0"
+          ],
+          "icon": "skill_turret",
+          "desc": "强化【炮塔部署】：技能威力 +25%，冷却 -10%。",
+          "passive": {},
+          "skill_bonus": {
+            "power": 0.25,
+            "cooldown": 0.1
+          }
+        },
+        {
+          "id": "engineer_mastery_1",
+          "name": "应急修理精通",
+          "tier": 1,
+          "col": 1,
+          "kind": "mastery",
+          "skill_id": "repair",
+          "cost": 1,
+          "requires": [
+            "engineer_anchor_1"
+          ],
+          "icon": "skill_repair",
+          "desc": "强化【应急修理】：技能威力 +25%，冷却 -10%。",
+          "passive": {},
+          "skill_bonus": {
+            "power": 0.25,
+            "cooldown": 0.1
+          }
+        },
+        {
+          "id": "engineer_mastery_2",
+          "name": "战术补给精通",
+          "tier": 1,
+          "col": 2,
+          "kind": "mastery",
+          "skill_id": "supply",
+          "cost": 1,
+          "requires": [
+            "engineer_anchor_2"
+          ],
+          "icon": "skill_supply",
+          "desc": "强化【战术补给】：技能威力 +25%，冷却 -10%。",
+          "passive": {},
+          "skill_bonus": {
+            "power": 0.25,
+            "cooldown": 0.1
+          }
+        },
+        {
+          "id": "engineer_active_0",
+          "name": "重型炮塔",
+          "tier": 2,
+          "col": 0,
+          "kind": "active",
+          "skill_id": "heavy_turret",
+          "cost": 2,
+          "requires": [
+            "engineer_mastery_0"
+          ],
+          "icon": "skill_heavy_turret",
+          "desc": "解锁进阶主动技能【重型炮塔】（技能槽 R）。",
+          "passive": {},
+          "skill_bonus": {}
+        },
+        {
+          "id": "engineer_active_1",
+          "name": "战地整备",
+          "tier": 2,
+          "col": 1,
+          "kind": "active",
+          "skill_id": "field_repair",
+          "cost": 2,
+          "requires": [
+            "engineer_mastery_1"
+          ],
+          "icon": "skill_field_repair",
+          "desc": "解锁进阶主动技能【战地整备】（技能槽 F）。",
+          "passive": {},
+          "skill_bonus": {}
+        },
+        {
+          "id": "engineer_active_2",
+          "name": "超载协议",
+          "tier": 2,
+          "col": 2,
+          "kind": "active",
+          "skill_id": "overdrive",
+          "cost": 2,
+          "requires": [
+            "engineer_mastery_2"
+          ],
+          "icon": "skill_overdrive",
+          "desc": "解锁进阶主动技能【超载协议】（技能槽 G）。",
+          "passive": {},
+          "skill_bonus": {}
+        },
+        {
+          "id": "engineer_passive_0",
+          "name": "灵泉",
+          "tier": 3,
+          "col": 0,
+          "kind": "passive",
+          "skill_id": "",
+          "cost": 1,
+          "requires": [
+            "engineer_mastery_0"
+          ],
+          "icon": "passive_stat_attack",
+          "desc": "分支天赋：法力 +20，法强 +4。",
+          "passive": {
+            "max_mp": 20,
+            "magic_attack": 4
+          },
+          "skill_bonus": {}
+        },
+        {
+          "id": "engineer_passive_1",
+          "name": "共鸣",
+          "tier": 3,
+          "col": 1,
+          "kind": "passive",
+          "skill_id": "",
+          "cost": 1,
+          "requires": [
+            "engineer_mastery_1"
+          ],
+          "icon": "passive_stat_attack",
+          "desc": "分支天赋：法强 +5，法防 +3。",
+          "passive": {
+            "magic_attack": 5,
+            "magic_defense": 3
+          },
+          "skill_bonus": {}
+        },
+        {
+          "id": "engineer_passive_2",
+          "name": "静心",
+          "tier": 3,
+          "col": 2,
+          "kind": "passive",
+          "skill_id": "",
+          "cost": 1,
+          "requires": [
+            "engineer_mastery_2"
+          ],
+          "icon": "passive_stat_defense",
+          "desc": "分支天赋：法力 +15，防御 +3。",
+          "passive": {
+            "max_mp": 15,
+            "defense": 3
+          },
+          "skill_bonus": {}
+        },
+        {
+          "id": "engineer_keystone_0",
+          "name": "天命",
+          "tier": 4,
+          "col": 0,
+          "kind": "keystone",
+          "skill_id": "",
+          "cost": 2,
+          "requires": [
+            "engineer_passive_0"
+          ],
+          "icon": "passive_stat_attack",
+          "desc": "分支专精：法力 +40，法强 +8。",
+          "passive": {
+            "max_mp": 40,
+            "magic_attack": 8
+          },
+          "skill_bonus": {}
+        },
+        {
+          "id": "engineer_keystone_1",
+          "name": "协奏",
+          "tier": 4,
+          "col": 1,
+          "kind": "keystone",
+          "skill_id": "",
+          "cost": 2,
+          "requires": [
+            "engineer_passive_1"
+          ],
+          "icon": "passive_stat_attack",
+          "desc": "分支专精：法强 +9，暴击率 +4%。",
+          "passive": {
+            "magic_attack": 9,
+            "crit_rate": 0.04
+          },
+          "skill_bonus": {}
+        },
+        {
+          "id": "engineer_keystone_2",
+          "name": "澄明",
+          "tier": 4,
+          "col": 2,
+          "kind": "keystone",
+          "skill_id": "",
+          "cost": 2,
+          "requires": [
+            "engineer_passive_2"
+          ],
+          "icon": "passive_stat_defense",
+          "desc": "分支专精：法力 +30，法防 +6。",
+          "passive": {
+            "max_mp": 30,
+            "magic_defense": 6
+          },
+          "skill_bonus": {}
+        },
+        {
+          "id": "engineer_capstone",
+          "name": "万能工匠",
+          "tier": 5,
+          "col": 1,
+          "kind": "capstone",
+          "skill_id": "",
+          "cost": 3,
+          "requires": [
+            "engineer_keystone_0",
+            "engineer_keystone_1",
+            "engineer_keystone_2"
+          ],
+          "icon": "passive_stat_capstone",
+          "desc": "终极奥义：三条分支全部专精后方可点亮。全属性 +7%，法力 +50",
+          "passive": {
+            "all_stats_bonus": 0.07,
+            "max_mp": 50
+          },
+          "skill_bonus": {}
+        }
+      ]
     },
-    {
-     "id": "warrior_passive_b",
-     "name": "铁壁",
-     "tier": 2,
-     "col": 2,
-     "kind": "passive",
-     "skill_id": "",
-     "cost": 2,
-     "requires": [
-      "warrior_mastery_1",
-      "warrior_mastery_2"
-     ],
-     "icon": "passive_stat_defense",
-     "desc": "防御 +5，生命上限 +25",
-     "passive": {
-      "defense": 5,
-      "max_hp": 25
-     },
-     "skill_bonus": {}
+    "bounty_hunter": {
+      "name": "赏金猎人之道",
+      "nodes": [
+        {
+          "id": "bounty_hunter_anchor_0",
+          "name": "连射",
+          "tier": 0,
+          "col": 0,
+          "kind": "anchor",
+          "skill_id": "rapid_fire",
+          "cost": 0,
+          "requires": [],
+          "icon": "skill_rapid_fire",
+          "desc": "职业初始主动技能（技能槽 1）",
+          "passive": {},
+          "skill_bonus": {}
+        },
+        {
+          "id": "bounty_hunter_anchor_1",
+          "name": "追踪标记",
+          "tier": 0,
+          "col": 1,
+          "kind": "anchor",
+          "skill_id": "mark",
+          "cost": 0,
+          "requires": [],
+          "icon": "skill_mark",
+          "desc": "职业初始主动技能（技能槽 2）",
+          "passive": {},
+          "skill_bonus": {}
+        },
+        {
+          "id": "bounty_hunter_anchor_2",
+          "name": "缴械",
+          "tier": 0,
+          "col": 2,
+          "kind": "anchor",
+          "skill_id": "disarm",
+          "cost": 0,
+          "requires": [],
+          "icon": "skill_disarm",
+          "desc": "职业初始主动技能（技能槽 3）",
+          "passive": {},
+          "skill_bonus": {}
+        },
+        {
+          "id": "bounty_hunter_mastery_0",
+          "name": "连射精通",
+          "tier": 1,
+          "col": 0,
+          "kind": "mastery",
+          "skill_id": "rapid_fire",
+          "cost": 1,
+          "requires": [
+            "bounty_hunter_anchor_0"
+          ],
+          "icon": "skill_rapid_fire",
+          "desc": "强化【连射】：技能威力 +25%，冷却 -10%。",
+          "passive": {},
+          "skill_bonus": {
+            "power": 0.25,
+            "cooldown": 0.1
+          }
+        },
+        {
+          "id": "bounty_hunter_mastery_1",
+          "name": "追踪标记精通",
+          "tier": 1,
+          "col": 1,
+          "kind": "mastery",
+          "skill_id": "mark",
+          "cost": 1,
+          "requires": [
+            "bounty_hunter_anchor_1"
+          ],
+          "icon": "skill_mark",
+          "desc": "强化【追踪标记】：技能威力 +25%，冷却 -10%。",
+          "passive": {},
+          "skill_bonus": {
+            "power": 0.25,
+            "cooldown": 0.1
+          }
+        },
+        {
+          "id": "bounty_hunter_mastery_2",
+          "name": "缴械精通",
+          "tier": 1,
+          "col": 2,
+          "kind": "mastery",
+          "skill_id": "disarm",
+          "cost": 1,
+          "requires": [
+            "bounty_hunter_anchor_2"
+          ],
+          "icon": "skill_disarm",
+          "desc": "强化【缴械】：技能威力 +25%，冷却 -10%。",
+          "passive": {},
+          "skill_bonus": {
+            "power": 0.25,
+            "cooldown": 0.1
+          }
+        },
+        {
+          "id": "bounty_hunter_active_0",
+          "name": "弹幕压制",
+          "tier": 2,
+          "col": 0,
+          "kind": "active",
+          "skill_id": "suppression_fire",
+          "cost": 2,
+          "requires": [
+            "bounty_hunter_mastery_0"
+          ],
+          "icon": "skill_suppression_fire",
+          "desc": "解锁进阶主动技能【弹幕压制】（技能槽 R）。",
+          "passive": {},
+          "skill_bonus": {}
+        },
+        {
+          "id": "bounty_hunter_active_1",
+          "name": "死神标记",
+          "tier": 2,
+          "col": 1,
+          "kind": "active",
+          "skill_id": "death_mark",
+          "cost": 2,
+          "requires": [
+            "bounty_hunter_mastery_1"
+          ],
+          "icon": "skill_death_mark",
+          "desc": "解锁进阶主动技能【死神标记】（技能槽 F）。",
+          "passive": {},
+          "skill_bonus": {}
+        },
+        {
+          "id": "bounty_hunter_active_2",
+          "name": "断腕射击",
+          "tier": 2,
+          "col": 2,
+          "kind": "active",
+          "skill_id": "wrist_shot",
+          "cost": 2,
+          "requires": [
+            "bounty_hunter_mastery_2"
+          ],
+          "icon": "skill_wrist_shot",
+          "desc": "解锁进阶主动技能【断腕射击】（技能槽 G）。",
+          "passive": {},
+          "skill_bonus": {}
+        },
+        {
+          "id": "bounty_hunter_passive_0",
+          "name": "敏锐",
+          "tier": 3,
+          "col": 0,
+          "kind": "passive",
+          "skill_id": "",
+          "cost": 1,
+          "requires": [
+            "bounty_hunter_mastery_0"
+          ],
+          "icon": "passive_stat_attack",
+          "desc": "分支天赋：暴击率 +4%，攻击 +3。",
+          "passive": {
+            "crit_rate": 0.04,
+            "attack": 3
+          },
+          "skill_bonus": {}
+        },
+        {
+          "id": "bounty_hunter_passive_1",
+          "name": "游影",
+          "tier": 3,
+          "col": 1,
+          "kind": "passive",
+          "skill_id": "",
+          "cost": 1,
+          "requires": [
+            "bounty_hunter_mastery_1"
+          ],
+          "icon": "passive_stat_speed",
+          "desc": "分支天赋：移速 +6%，闪避 +3%。",
+          "passive": {
+            "move_speed": 0.06,
+            "dodge_rate": 0.03
+          },
+          "skill_bonus": {}
+        },
+        {
+          "id": "bounty_hunter_passive_2",
+          "name": "毒牙",
+          "tier": 3,
+          "col": 2,
+          "kind": "passive",
+          "skill_id": "",
+          "cost": 1,
+          "requires": [
+            "bounty_hunter_mastery_2"
+          ],
+          "icon": "passive_stat_attack",
+          "desc": "分支天赋：攻击 +4，攻速 +5%。",
+          "passive": {
+            "attack": 4,
+            "attack_speed": 0.05
+          },
+          "skill_bonus": {}
+        },
+        {
+          "id": "bounty_hunter_keystone_0",
+          "name": "鬼魅",
+          "tier": 4,
+          "col": 0,
+          "kind": "keystone",
+          "skill_id": "",
+          "cost": 2,
+          "requires": [
+            "bounty_hunter_passive_0"
+          ],
+          "icon": "passive_stat_crit",
+          "desc": "分支专精：暴击率 +7%，暴击伤害 +18%。",
+          "passive": {
+            "crit_rate": 0.07,
+            "crit_damage": 0.18
+          },
+          "skill_bonus": {}
+        },
+        {
+          "id": "bounty_hunter_keystone_1",
+          "name": "缜密",
+          "tier": 4,
+          "col": 1,
+          "kind": "keystone",
+          "skill_id": "",
+          "cost": 2,
+          "requires": [
+            "bounty_hunter_passive_1"
+          ],
+          "icon": "passive_stat_speed",
+          "desc": "分支专精：移速 +10%，闪避 +6%。",
+          "passive": {
+            "move_speed": 0.1,
+            "dodge_rate": 0.06
+          },
+          "skill_bonus": {}
+        },
+        {
+          "id": "bounty_hunter_keystone_2",
+          "name": "猎手",
+          "tier": 4,
+          "col": 2,
+          "kind": "keystone",
+          "skill_id": "",
+          "cost": 2,
+          "requires": [
+            "bounty_hunter_passive_2"
+          ],
+          "icon": "passive_stat_attack",
+          "desc": "分支专精：攻击 +8，攻速 +10%。",
+          "passive": {
+            "attack": 8,
+            "attack_speed": 0.1
+          },
+          "skill_bonus": {}
+        },
+        {
+          "id": "bounty_hunter_capstone",
+          "name": "黄金律令",
+          "tier": 5,
+          "col": 1,
+          "kind": "capstone",
+          "skill_id": "",
+          "cost": 3,
+          "requires": [
+            "bounty_hunter_keystone_0",
+            "bounty_hunter_keystone_1",
+            "bounty_hunter_keystone_2"
+          ],
+          "icon": "passive_stat_capstone",
+          "desc": "终极奥义：三条分支全部专精后方可点亮。全属性 +7%，暴击率 +5%",
+          "passive": {
+            "all_stats_bonus": 0.07,
+            "crit_rate": 0.05
+          },
+          "skill_bonus": {}
+        }
+      ]
     },
-    {
-     "id": "warrior_capstone",
-     "name": "战神降临",
-     "tier": 3,
-     "col": 1,
-     "kind": "capstone",
-     "skill_id": "",
-     "cost": 3,
-     "requires": [
-      "warrior_passive_a",
-      "warrior_passive_b"
-     ],
-     "icon": "passive_stat_capstone",
-     "desc": "全属性 +6%，攻速 +10%",
-     "passive": {
-      "all_stats_bonus": 0.06,
-      "attack_speed": 0.1
-     },
-     "skill_bonus": {}
+    "death_knight": {
+      "name": "死亡骑士之道",
+      "nodes": [
+        {
+          "id": "death_knight_anchor_0",
+          "name": "死亡冲锋",
+          "tier": 0,
+          "col": 0,
+          "kind": "anchor",
+          "skill_id": "death_charge",
+          "cost": 0,
+          "requires": [],
+          "icon": "skill_death_charge",
+          "desc": "职业初始主动技能（技能槽 1）",
+          "passive": {},
+          "skill_bonus": {}
+        },
+        {
+          "id": "death_knight_anchor_1",
+          "name": "血斩",
+          "tier": 0,
+          "col": 1,
+          "kind": "anchor",
+          "skill_id": "blood_slash",
+          "cost": 0,
+          "requires": [],
+          "icon": "skill_blood_slash",
+          "desc": "职业初始主动技能（技能槽 2）",
+          "passive": {},
+          "skill_bonus": {}
+        },
+        {
+          "id": "death_knight_anchor_2",
+          "name": "黑暗护盾",
+          "tier": 0,
+          "col": 2,
+          "kind": "anchor",
+          "skill_id": "dark_shield",
+          "cost": 0,
+          "requires": [],
+          "icon": "skill_dark_shield",
+          "desc": "职业初始主动技能（技能槽 3）",
+          "passive": {},
+          "skill_bonus": {}
+        },
+        {
+          "id": "death_knight_mastery_0",
+          "name": "死亡冲锋精通",
+          "tier": 1,
+          "col": 0,
+          "kind": "mastery",
+          "skill_id": "death_charge",
+          "cost": 1,
+          "requires": [
+            "death_knight_anchor_0"
+          ],
+          "icon": "skill_death_charge",
+          "desc": "强化【死亡冲锋】：技能威力 +25%，冷却 -10%。",
+          "passive": {},
+          "skill_bonus": {
+            "power": 0.25,
+            "cooldown": 0.1
+          }
+        },
+        {
+          "id": "death_knight_mastery_1",
+          "name": "血斩精通",
+          "tier": 1,
+          "col": 1,
+          "kind": "mastery",
+          "skill_id": "blood_slash",
+          "cost": 1,
+          "requires": [
+            "death_knight_anchor_1"
+          ],
+          "icon": "skill_blood_slash",
+          "desc": "强化【血斩】：技能威力 +25%，冷却 -10%。",
+          "passive": {},
+          "skill_bonus": {
+            "power": 0.25,
+            "cooldown": 0.1
+          }
+        },
+        {
+          "id": "death_knight_mastery_2",
+          "name": "黑暗护盾精通",
+          "tier": 1,
+          "col": 2,
+          "kind": "mastery",
+          "skill_id": "dark_shield",
+          "cost": 1,
+          "requires": [
+            "death_knight_anchor_2"
+          ],
+          "icon": "skill_dark_shield",
+          "desc": "强化【黑暗护盾】：技能威力 +25%，冷却 -10%。",
+          "passive": {},
+          "skill_bonus": {
+            "power": 0.25,
+            "cooldown": 0.1
+          }
+        },
+        {
+          "id": "death_knight_active_0",
+          "name": "亡者冲锋",
+          "tier": 2,
+          "col": 0,
+          "kind": "active",
+          "skill_id": "grave_charge",
+          "cost": 2,
+          "requires": [
+            "death_knight_mastery_0"
+          ],
+          "icon": "skill_grave_charge",
+          "desc": "解锁进阶主动技能【亡者冲锋】（技能槽 R）。",
+          "passive": {},
+          "skill_bonus": {}
+        },
+        {
+          "id": "death_knight_active_1",
+          "name": "血怒斩",
+          "tier": 2,
+          "col": 1,
+          "kind": "active",
+          "skill_id": "blood_fury",
+          "cost": 2,
+          "requires": [
+            "death_knight_mastery_1"
+          ],
+          "icon": "skill_blood_fury",
+          "desc": "解锁进阶主动技能【血怒斩】（技能槽 F）。",
+          "passive": {},
+          "skill_bonus": {}
+        },
+        {
+          "id": "death_knight_active_2",
+          "name": "暗影壁垒",
+          "tier": 2,
+          "col": 2,
+          "kind": "active",
+          "skill_id": "shadow_bulwark",
+          "cost": 2,
+          "requires": [
+            "death_knight_mastery_2"
+          ],
+          "icon": "skill_shadow_bulwark",
+          "desc": "解锁进阶主动技能【暗影壁垒】（技能槽 G）。",
+          "passive": {},
+          "skill_bonus": {}
+        },
+        {
+          "id": "death_knight_passive_0",
+          "name": "锋锐",
+          "tier": 3,
+          "col": 0,
+          "kind": "passive",
+          "skill_id": "",
+          "cost": 1,
+          "requires": [
+            "death_knight_mastery_0"
+          ],
+          "icon": "passive_stat_attack",
+          "desc": "分支天赋：攻击 +5，暴击率 +3%。",
+          "passive": {
+            "attack": 5,
+            "crit_rate": 0.03
+          },
+          "skill_bonus": {}
+        },
+        {
+          "id": "death_knight_passive_1",
+          "name": "致命",
+          "tier": 3,
+          "col": 1,
+          "kind": "passive",
+          "skill_id": "",
+          "cost": 1,
+          "requires": [
+            "death_knight_mastery_1"
+          ],
+          "icon": "passive_stat_crit",
+          "desc": "分支天赋：暴击伤害 +15%。",
+          "passive": {
+            "crit_damage": 0.15
+          },
+          "skill_bonus": {}
+        },
+        {
+          "id": "death_knight_passive_2",
+          "name": "疾风",
+          "tier": 3,
+          "col": 2,
+          "kind": "passive",
+          "skill_id": "",
+          "cost": 1,
+          "requires": [
+            "death_knight_mastery_2"
+          ],
+          "icon": "passive_stat_speed",
+          "desc": "分支天赋：攻速 +6%，移速 +4%。",
+          "passive": {
+            "attack_speed": 0.06,
+            "move_speed": 0.04
+          },
+          "skill_bonus": {}
+        },
+        {
+          "id": "death_knight_keystone_0",
+          "name": "破军之势",
+          "tier": 4,
+          "col": 0,
+          "kind": "keystone",
+          "skill_id": "",
+          "cost": 2,
+          "requires": [
+            "death_knight_passive_0"
+          ],
+          "icon": "passive_stat_attack",
+          "desc": "分支专精：攻击 +10，暴击率 +5%。",
+          "passive": {
+            "attack": 10,
+            "crit_rate": 0.05
+          },
+          "skill_bonus": {}
+        },
+        {
+          "id": "death_knight_keystone_1",
+          "name": "暴虐",
+          "tier": 4,
+          "col": 1,
+          "kind": "keystone",
+          "skill_id": "",
+          "cost": 2,
+          "requires": [
+            "death_knight_passive_1"
+          ],
+          "icon": "passive_stat_crit",
+          "desc": "分支专精：暴击伤害 +25%，暴击率 +4%。",
+          "passive": {
+            "crit_damage": 0.25,
+            "crit_rate": 0.04
+          },
+          "skill_bonus": {}
+        },
+        {
+          "id": "death_knight_keystone_2",
+          "name": "迅影",
+          "tier": 4,
+          "col": 2,
+          "kind": "keystone",
+          "skill_id": "",
+          "cost": 2,
+          "requires": [
+            "death_knight_passive_2"
+          ],
+          "icon": "passive_stat_speed",
+          "desc": "分支专精：攻速 +12%，移速 +8%。",
+          "passive": {
+            "attack_speed": 0.12,
+            "move_speed": 0.08
+          },
+          "skill_bonus": {}
+        },
+        {
+          "id": "death_knight_capstone",
+          "name": "血海君王",
+          "tier": 5,
+          "col": 1,
+          "kind": "capstone",
+          "skill_id": "",
+          "cost": 3,
+          "requires": [
+            "death_knight_keystone_0",
+            "death_knight_keystone_1",
+            "death_knight_keystone_2"
+          ],
+          "icon": "passive_stat_capstone",
+          "desc": "终极奥义：三条分支全部专精后方可点亮。全属性 +7%，暴击伤害 +20%",
+          "passive": {
+            "all_stats_bonus": 0.07,
+            "crit_damage": 0.2
+          },
+          "skill_bonus": {}
+        }
+      ]
+    },
+    "warrior": {
+      "name": "战士之道",
+      "nodes": [
+        {
+          "id": "warrior_anchor_0",
+          "name": "旋风斩",
+          "tier": 0,
+          "col": 0,
+          "kind": "anchor",
+          "skill_id": "whirlwind",
+          "cost": 0,
+          "requires": [],
+          "icon": "skill_whirlwind",
+          "desc": "职业初始主动技能（技能槽 1）",
+          "passive": {},
+          "skill_bonus": {}
+        },
+        {
+          "id": "warrior_anchor_1",
+          "name": "战吼",
+          "tier": 0,
+          "col": 1,
+          "kind": "anchor",
+          "skill_id": "war_cry",
+          "cost": 0,
+          "requires": [],
+          "icon": "skill_war_cry",
+          "desc": "职业初始主动技能（技能槽 2）",
+          "passive": {},
+          "skill_bonus": {}
+        },
+        {
+          "id": "warrior_anchor_2",
+          "name": "盾墙",
+          "tier": 0,
+          "col": 2,
+          "kind": "anchor",
+          "skill_id": "shield_wall",
+          "cost": 0,
+          "requires": [],
+          "icon": "skill_shield_wall",
+          "desc": "职业初始主动技能（技能槽 3）",
+          "passive": {},
+          "skill_bonus": {}
+        },
+        {
+          "id": "warrior_mastery_0",
+          "name": "旋风斩精通",
+          "tier": 1,
+          "col": 0,
+          "kind": "mastery",
+          "skill_id": "whirlwind",
+          "cost": 1,
+          "requires": [
+            "warrior_anchor_0"
+          ],
+          "icon": "skill_whirlwind",
+          "desc": "强化【旋风斩】：技能威力 +25%，冷却 -10%。",
+          "passive": {},
+          "skill_bonus": {
+            "power": 0.25,
+            "cooldown": 0.1
+          }
+        },
+        {
+          "id": "warrior_mastery_1",
+          "name": "战吼精通",
+          "tier": 1,
+          "col": 1,
+          "kind": "mastery",
+          "skill_id": "war_cry",
+          "cost": 1,
+          "requires": [
+            "warrior_anchor_1"
+          ],
+          "icon": "skill_war_cry",
+          "desc": "强化【战吼】：技能威力 +25%，冷却 -10%。",
+          "passive": {},
+          "skill_bonus": {
+            "power": 0.25,
+            "cooldown": 0.1
+          }
+        },
+        {
+          "id": "warrior_mastery_2",
+          "name": "盾墙精通",
+          "tier": 1,
+          "col": 2,
+          "kind": "mastery",
+          "skill_id": "shield_wall",
+          "cost": 1,
+          "requires": [
+            "warrior_anchor_2"
+          ],
+          "icon": "skill_shield_wall",
+          "desc": "强化【盾墙】：技能威力 +25%，冷却 -10%。",
+          "passive": {},
+          "skill_bonus": {
+            "power": 0.25,
+            "cooldown": 0.1
+          }
+        },
+        {
+          "id": "warrior_active_0",
+          "name": "裂地斩",
+          "tier": 2,
+          "col": 0,
+          "kind": "active",
+          "skill_id": "earth_shatter",
+          "cost": 2,
+          "requires": [
+            "warrior_mastery_0"
+          ],
+          "icon": "skill_earth_shatter",
+          "desc": "解锁进阶主动技能【裂地斩】（技能槽 R）。",
+          "passive": {},
+          "skill_bonus": {}
+        },
+        {
+          "id": "warrior_active_1",
+          "name": "不屈战意",
+          "tier": 2,
+          "col": 1,
+          "kind": "active",
+          "skill_id": "unyielding_will",
+          "cost": 2,
+          "requires": [
+            "warrior_mastery_1"
+          ],
+          "icon": "skill_unyielding_will",
+          "desc": "解锁进阶主动技能【不屈战意】（技能槽 F）。",
+          "passive": {},
+          "skill_bonus": {}
+        },
+        {
+          "id": "warrior_active_2",
+          "name": "钢铁壁垒",
+          "tier": 2,
+          "col": 2,
+          "kind": "active",
+          "skill_id": "iron_bulwark",
+          "cost": 2,
+          "requires": [
+            "warrior_mastery_2"
+          ],
+          "icon": "skill_iron_bulwark",
+          "desc": "解锁进阶主动技能【钢铁壁垒】（技能槽 G）。",
+          "passive": {},
+          "skill_bonus": {}
+        },
+        {
+          "id": "warrior_passive_0",
+          "name": "坚甲",
+          "tier": 3,
+          "col": 0,
+          "kind": "passive",
+          "skill_id": "",
+          "cost": 1,
+          "requires": [
+            "warrior_mastery_0"
+          ],
+          "icon": "passive_stat_defense",
+          "desc": "分支天赋：防御 +4，生命 +20。",
+          "passive": {
+            "defense": 4,
+            "max_hp": 20
+          },
+          "skill_bonus": {}
+        },
+        {
+          "id": "warrior_passive_1",
+          "name": "厚壁",
+          "tier": 3,
+          "col": 1,
+          "kind": "passive",
+          "skill_id": "",
+          "cost": 1,
+          "requires": [
+            "warrior_mastery_1"
+          ],
+          "icon": "passive_stat_defense",
+          "desc": "分支天赋：生命 +35，法防 +3。",
+          "passive": {
+            "max_hp": 35,
+            "magic_defense": 3
+          },
+          "skill_bonus": {}
+        },
+        {
+          "id": "warrior_passive_2",
+          "name": "御法",
+          "tier": 3,
+          "col": 2,
+          "kind": "passive",
+          "skill_id": "",
+          "cost": 1,
+          "requires": [
+            "warrior_mastery_2"
+          ],
+          "icon": "passive_stat_defense",
+          "desc": "分支天赋：防御 +3，法防 +4。",
+          "passive": {
+            "defense": 3,
+            "magic_defense": 4
+          },
+          "skill_bonus": {}
+        },
+        {
+          "id": "warrior_keystone_0",
+          "name": "不动如山",
+          "tier": 4,
+          "col": 0,
+          "kind": "keystone",
+          "skill_id": "",
+          "cost": 2,
+          "requires": [
+            "warrior_passive_0"
+          ],
+          "icon": "passive_stat_defense",
+          "desc": "分支专精：防御 +8，生命 +45。",
+          "passive": {
+            "defense": 8,
+            "max_hp": 45
+          },
+          "skill_bonus": {}
+        },
+        {
+          "id": "warrior_keystone_1",
+          "name": "磐石",
+          "tier": 4,
+          "col": 1,
+          "kind": "keystone",
+          "skill_id": "",
+          "cost": 2,
+          "requires": [
+            "warrior_passive_1"
+          ],
+          "icon": "passive_stat_defense",
+          "desc": "分支专精：生命 +70，防御 +5。",
+          "passive": {
+            "max_hp": 70,
+            "defense": 5
+          },
+          "skill_bonus": {}
+        },
+        {
+          "id": "warrior_keystone_2",
+          "name": "护心",
+          "tier": 4,
+          "col": 2,
+          "kind": "keystone",
+          "skill_id": "",
+          "cost": 2,
+          "requires": [
+            "warrior_passive_2"
+          ],
+          "icon": "passive_stat_defense",
+          "desc": "分支专精：法防 +9，生命 +40。",
+          "passive": {
+            "magic_defense": 9,
+            "max_hp": 40
+          },
+          "skill_bonus": {}
+        },
+        {
+          "id": "warrior_capstone",
+          "name": "战神降临",
+          "tier": 5,
+          "col": 1,
+          "kind": "capstone",
+          "skill_id": "",
+          "cost": 3,
+          "requires": [
+            "warrior_keystone_0",
+            "warrior_keystone_1",
+            "warrior_keystone_2"
+          ],
+          "icon": "passive_stat_capstone",
+          "desc": "终极奥义：三条分支全部专精后方可点亮。全属性 +7%，生命 +60",
+          "passive": {
+            "all_stats_bonus": 0.07,
+            "max_hp": 60
+          },
+          "skill_bonus": {}
+        }
+      ]
+    },
+    "qi_adept": {
+      "name": "气海心法",
+      "nodes": [
+        {
+          "id": "qi_adept_anchor_0",
+          "name": "气劲掌",
+          "tier": 0,
+          "col": 0,
+          "kind": "anchor",
+          "skill_id": "qi_palm",
+          "cost": 0,
+          "requires": [],
+          "icon": "skill_qi_palm",
+          "desc": "职业初始主动技能（技能槽 1）",
+          "passive": {},
+          "skill_bonus": {}
+        },
+        {
+          "id": "qi_adept_anchor_1",
+          "name": "内息术",
+          "tier": 0,
+          "col": 1,
+          "kind": "anchor",
+          "skill_id": "qi_heal",
+          "cost": 0,
+          "requires": [],
+          "icon": "skill_qi_heal",
+          "desc": "职业初始主动技能（技能槽 2）",
+          "passive": {},
+          "skill_bonus": {}
+        },
+        {
+          "id": "qi_adept_anchor_2",
+          "name": "气脉流转",
+          "tier": 0,
+          "col": 2,
+          "kind": "anchor",
+          "skill_id": "qi_flow",
+          "cost": 0,
+          "requires": [],
+          "icon": "skill_qi_flow",
+          "desc": "职业初始主动技能（技能槽 3）",
+          "passive": {},
+          "skill_bonus": {}
+        },
+        {
+          "id": "qi_adept_mastery_0",
+          "name": "气劲掌精通",
+          "tier": 1,
+          "col": 0,
+          "kind": "mastery",
+          "skill_id": "qi_palm",
+          "cost": 1,
+          "requires": [
+            "qi_adept_anchor_0"
+          ],
+          "icon": "skill_qi_palm",
+          "desc": "强化【气劲掌】：技能威力 +25%，冷却 -10%。",
+          "passive": {},
+          "skill_bonus": {
+            "power": 0.25,
+            "cooldown": 0.1
+          }
+        },
+        {
+          "id": "qi_adept_mastery_1",
+          "name": "内息术精通",
+          "tier": 1,
+          "col": 1,
+          "kind": "mastery",
+          "skill_id": "qi_heal",
+          "cost": 1,
+          "requires": [
+            "qi_adept_anchor_1"
+          ],
+          "icon": "skill_qi_heal",
+          "desc": "强化【内息术】：技能威力 +25%，冷却 -10%。",
+          "passive": {},
+          "skill_bonus": {
+            "power": 0.25,
+            "cooldown": 0.1
+          }
+        },
+        {
+          "id": "qi_adept_mastery_2",
+          "name": "气脉流转精通",
+          "tier": 1,
+          "col": 2,
+          "kind": "mastery",
+          "skill_id": "qi_flow",
+          "cost": 1,
+          "requires": [
+            "qi_adept_anchor_2"
+          ],
+          "icon": "skill_qi_flow",
+          "desc": "强化【气脉流转】：技能威力 +25%，冷却 -10%。",
+          "passive": {},
+          "skill_bonus": {
+            "power": 0.25,
+            "cooldown": 0.1
+          }
+        },
+        {
+          "id": "qi_adept_active_0",
+          "name": "罡气爆",
+          "tier": 2,
+          "col": 0,
+          "kind": "active",
+          "skill_id": "qi_burst",
+          "cost": 2,
+          "requires": [
+            "qi_adept_mastery_0"
+          ],
+          "icon": "skill_qi_burst",
+          "desc": "解锁进阶主动技能【罡气爆】（技能槽 R）。",
+          "passive": {},
+          "skill_bonus": {}
+        },
+        {
+          "id": "qi_adept_active_1",
+          "name": "生生不息",
+          "tier": 2,
+          "col": 1,
+          "kind": "active",
+          "skill_id": "qi_renew",
+          "cost": 2,
+          "requires": [
+            "qi_adept_mastery_1"
+          ],
+          "icon": "skill_qi_renew",
+          "desc": "解锁进阶主动技能【生生不息】（技能槽 F）。",
+          "passive": {},
+          "skill_bonus": {}
+        },
+        {
+          "id": "qi_adept_active_2",
+          "name": "罡气护体",
+          "tier": 2,
+          "col": 2,
+          "kind": "active",
+          "skill_id": "qi_guard",
+          "cost": 2,
+          "requires": [
+            "qi_adept_mastery_2"
+          ],
+          "icon": "skill_qi_guard",
+          "desc": "解锁进阶主动技能【罡气护体】（技能槽 G）。",
+          "passive": {},
+          "skill_bonus": {}
+        },
+        {
+          "id": "qi_adept_passive_0",
+          "name": "灵泉",
+          "tier": 3,
+          "col": 0,
+          "kind": "passive",
+          "skill_id": "",
+          "cost": 1,
+          "requires": [
+            "qi_adept_mastery_0"
+          ],
+          "icon": "passive_stat_attack",
+          "desc": "分支天赋：法力 +20，法强 +4。",
+          "passive": {
+            "max_mp": 20,
+            "magic_attack": 4
+          },
+          "skill_bonus": {}
+        },
+        {
+          "id": "qi_adept_passive_1",
+          "name": "共鸣",
+          "tier": 3,
+          "col": 1,
+          "kind": "passive",
+          "skill_id": "",
+          "cost": 1,
+          "requires": [
+            "qi_adept_mastery_1"
+          ],
+          "icon": "passive_stat_attack",
+          "desc": "分支天赋：法强 +5，法防 +3。",
+          "passive": {
+            "magic_attack": 5,
+            "magic_defense": 3
+          },
+          "skill_bonus": {}
+        },
+        {
+          "id": "qi_adept_passive_2",
+          "name": "静心",
+          "tier": 3,
+          "col": 2,
+          "kind": "passive",
+          "skill_id": "",
+          "cost": 1,
+          "requires": [
+            "qi_adept_mastery_2"
+          ],
+          "icon": "passive_stat_defense",
+          "desc": "分支天赋：法力 +15，防御 +3。",
+          "passive": {
+            "max_mp": 15,
+            "defense": 3
+          },
+          "skill_bonus": {}
+        },
+        {
+          "id": "qi_adept_keystone_0",
+          "name": "天命",
+          "tier": 4,
+          "col": 0,
+          "kind": "keystone",
+          "skill_id": "",
+          "cost": 2,
+          "requires": [
+            "qi_adept_passive_0"
+          ],
+          "icon": "passive_stat_attack",
+          "desc": "分支专精：法力 +40，法强 +8。",
+          "passive": {
+            "max_mp": 40,
+            "magic_attack": 8
+          },
+          "skill_bonus": {}
+        },
+        {
+          "id": "qi_adept_keystone_1",
+          "name": "协奏",
+          "tier": 4,
+          "col": 1,
+          "kind": "keystone",
+          "skill_id": "",
+          "cost": 2,
+          "requires": [
+            "qi_adept_passive_1"
+          ],
+          "icon": "passive_stat_attack",
+          "desc": "分支专精：法强 +9，暴击率 +4%。",
+          "passive": {
+            "magic_attack": 9,
+            "crit_rate": 0.04
+          },
+          "skill_bonus": {}
+        },
+        {
+          "id": "qi_adept_keystone_2",
+          "name": "澄明",
+          "tier": 4,
+          "col": 2,
+          "kind": "keystone",
+          "skill_id": "",
+          "cost": 2,
+          "requires": [
+            "qi_adept_passive_2"
+          ],
+          "icon": "passive_stat_defense",
+          "desc": "分支专精：法力 +30，法防 +6。",
+          "passive": {
+            "max_mp": 30,
+            "magic_defense": 6
+          },
+          "skill_bonus": {}
+        },
+        {
+          "id": "qi_adept_capstone",
+          "name": "天人合一",
+          "tier": 5,
+          "col": 1,
+          "kind": "capstone",
+          "skill_id": "",
+          "cost": 3,
+          "requires": [
+            "qi_adept_keystone_0",
+            "qi_adept_keystone_1",
+            "qi_adept_keystone_2"
+          ],
+          "icon": "passive_stat_capstone",
+          "desc": "终极奥义：三条分支全部专精后方可点亮。全属性 +7%，法力 +50",
+          "passive": {
+            "all_stats_bonus": 0.07,
+            "max_mp": 50
+          },
+          "skill_bonus": {}
+        }
+      ]
+    },
+    "thief": {
+      "name": "小偷之道",
+      "nodes": [
+        {
+          "id": "thief_anchor_0",
+          "name": "背刺",
+          "tier": 0,
+          "col": 0,
+          "kind": "anchor",
+          "skill_id": "backstab",
+          "cost": 0,
+          "requires": [],
+          "icon": "skill_backstab",
+          "desc": "职业初始主动技能（技能槽 1）",
+          "passive": {},
+          "skill_bonus": {}
+        },
+        {
+          "id": "thief_anchor_1",
+          "name": "烟雾弹",
+          "tier": 0,
+          "col": 1,
+          "kind": "anchor",
+          "skill_id": "smoke_bomb",
+          "cost": 0,
+          "requires": [],
+          "icon": "skill_smoke_bomb",
+          "desc": "职业初始主动技能（技能槽 2）",
+          "passive": {},
+          "skill_bonus": {}
+        },
+        {
+          "id": "thief_anchor_2",
+          "name": "毒刃",
+          "tier": 0,
+          "col": 2,
+          "kind": "anchor",
+          "skill_id": "poison_blade",
+          "cost": 0,
+          "requires": [],
+          "icon": "skill_poison_blade",
+          "desc": "职业初始主动技能（技能槽 3）",
+          "passive": {},
+          "skill_bonus": {}
+        },
+        {
+          "id": "thief_mastery_0",
+          "name": "背刺精通",
+          "tier": 1,
+          "col": 0,
+          "kind": "mastery",
+          "skill_id": "backstab",
+          "cost": 1,
+          "requires": [
+            "thief_anchor_0"
+          ],
+          "icon": "skill_backstab",
+          "desc": "强化【背刺】：技能威力 +25%，冷却 -10%。",
+          "passive": {},
+          "skill_bonus": {
+            "power": 0.25,
+            "cooldown": 0.1
+          }
+        },
+        {
+          "id": "thief_mastery_1",
+          "name": "烟雾弹精通",
+          "tier": 1,
+          "col": 1,
+          "kind": "mastery",
+          "skill_id": "smoke_bomb",
+          "cost": 1,
+          "requires": [
+            "thief_anchor_1"
+          ],
+          "icon": "skill_smoke_bomb",
+          "desc": "强化【烟雾弹】：技能威力 +25%，冷却 -10%。",
+          "passive": {},
+          "skill_bonus": {
+            "power": 0.25,
+            "cooldown": 0.1
+          }
+        },
+        {
+          "id": "thief_mastery_2",
+          "name": "毒刃精通",
+          "tier": 1,
+          "col": 2,
+          "kind": "mastery",
+          "skill_id": "poison_blade",
+          "cost": 1,
+          "requires": [
+            "thief_anchor_2"
+          ],
+          "icon": "skill_poison_blade",
+          "desc": "强化【毒刃】：技能威力 +25%，冷却 -10%。",
+          "passive": {},
+          "skill_bonus": {
+            "power": 0.25,
+            "cooldown": 0.1
+          }
+        },
+        {
+          "id": "thief_active_0",
+          "name": "致命背刺",
+          "tier": 2,
+          "col": 0,
+          "kind": "active",
+          "skill_id": "lethal_backstab",
+          "cost": 2,
+          "requires": [
+            "thief_mastery_0"
+          ],
+          "icon": "skill_lethal_backstab",
+          "desc": "解锁进阶主动技能【致命背刺】（技能槽 R）。",
+          "passive": {},
+          "skill_bonus": {}
+        },
+        {
+          "id": "thief_active_1",
+          "name": "烟幕遁形",
+          "tier": 2,
+          "col": 1,
+          "kind": "active",
+          "skill_id": "veil_step",
+          "cost": 2,
+          "requires": [
+            "thief_mastery_1"
+          ],
+          "icon": "skill_veil_step",
+          "desc": "解锁进阶主动技能【烟幕遁形】（技能槽 F）。",
+          "passive": {},
+          "skill_bonus": {}
+        },
+        {
+          "id": "thief_active_2",
+          "name": "剧毒爆发",
+          "tier": 2,
+          "col": 2,
+          "kind": "active",
+          "skill_id": "venom_burst",
+          "cost": 2,
+          "requires": [
+            "thief_mastery_2"
+          ],
+          "icon": "skill_venom_burst",
+          "desc": "解锁进阶主动技能【剧毒爆发】（技能槽 G）。",
+          "passive": {},
+          "skill_bonus": {}
+        },
+        {
+          "id": "thief_passive_0",
+          "name": "敏锐",
+          "tier": 3,
+          "col": 0,
+          "kind": "passive",
+          "skill_id": "",
+          "cost": 1,
+          "requires": [
+            "thief_mastery_0"
+          ],
+          "icon": "passive_stat_attack",
+          "desc": "分支天赋：暴击率 +4%，攻击 +3。",
+          "passive": {
+            "crit_rate": 0.04,
+            "attack": 3
+          },
+          "skill_bonus": {}
+        },
+        {
+          "id": "thief_passive_1",
+          "name": "游影",
+          "tier": 3,
+          "col": 1,
+          "kind": "passive",
+          "skill_id": "",
+          "cost": 1,
+          "requires": [
+            "thief_mastery_1"
+          ],
+          "icon": "passive_stat_speed",
+          "desc": "分支天赋：移速 +6%，闪避 +3%。",
+          "passive": {
+            "move_speed": 0.06,
+            "dodge_rate": 0.03
+          },
+          "skill_bonus": {}
+        },
+        {
+          "id": "thief_passive_2",
+          "name": "毒牙",
+          "tier": 3,
+          "col": 2,
+          "kind": "passive",
+          "skill_id": "",
+          "cost": 1,
+          "requires": [
+            "thief_mastery_2"
+          ],
+          "icon": "passive_stat_attack",
+          "desc": "分支天赋：攻击 +4，攻速 +5%。",
+          "passive": {
+            "attack": 4,
+            "attack_speed": 0.05
+          },
+          "skill_bonus": {}
+        },
+        {
+          "id": "thief_keystone_0",
+          "name": "鬼魅",
+          "tier": 4,
+          "col": 0,
+          "kind": "keystone",
+          "skill_id": "",
+          "cost": 2,
+          "requires": [
+            "thief_passive_0"
+          ],
+          "icon": "passive_stat_crit",
+          "desc": "分支专精：暴击率 +7%，暴击伤害 +18%。",
+          "passive": {
+            "crit_rate": 0.07,
+            "crit_damage": 0.18
+          },
+          "skill_bonus": {}
+        },
+        {
+          "id": "thief_keystone_1",
+          "name": "缜密",
+          "tier": 4,
+          "col": 1,
+          "kind": "keystone",
+          "skill_id": "",
+          "cost": 2,
+          "requires": [
+            "thief_passive_1"
+          ],
+          "icon": "passive_stat_speed",
+          "desc": "分支专精：移速 +10%，闪避 +6%。",
+          "passive": {
+            "move_speed": 0.1,
+            "dodge_rate": 0.06
+          },
+          "skill_bonus": {}
+        },
+        {
+          "id": "thief_keystone_2",
+          "name": "猎手",
+          "tier": 4,
+          "col": 2,
+          "kind": "keystone",
+          "skill_id": "",
+          "cost": 2,
+          "requires": [
+            "thief_passive_2"
+          ],
+          "icon": "passive_stat_attack",
+          "desc": "分支专精：攻击 +8，攻速 +10%。",
+          "passive": {
+            "attack": 8,
+            "attack_speed": 0.1
+          },
+          "skill_bonus": {}
+        },
+        {
+          "id": "thief_capstone",
+          "name": "影中之影",
+          "tier": 5,
+          "col": 1,
+          "kind": "capstone",
+          "skill_id": "",
+          "cost": 3,
+          "requires": [
+            "thief_keystone_0",
+            "thief_keystone_1",
+            "thief_keystone_2"
+          ],
+          "icon": "passive_stat_capstone",
+          "desc": "终极奥义：三条分支全部专精后方可点亮。全属性 +7%，暴击率 +5%",
+          "passive": {
+            "all_stats_bonus": 0.07,
+            "crit_rate": 0.05
+          },
+          "skill_bonus": {}
+        }
+      ]
+    },
+    "archer": {
+      "name": "弓箭手之道",
+      "nodes": [
+        {
+          "id": "archer_anchor_0",
+          "name": "穿透射击",
+          "tier": 0,
+          "col": 0,
+          "kind": "anchor",
+          "skill_id": "piercing_shot",
+          "cost": 0,
+          "requires": [],
+          "icon": "skill_piercing_shot",
+          "desc": "职业初始主动技能（技能槽 1）",
+          "passive": {},
+          "skill_bonus": {}
+        },
+        {
+          "id": "archer_anchor_1",
+          "name": "箭雨",
+          "tier": 0,
+          "col": 1,
+          "kind": "anchor",
+          "skill_id": "arrow_rain",
+          "cost": 0,
+          "requires": [],
+          "icon": "skill_arrow_rain",
+          "desc": "职业初始主动技能（技能槽 2）",
+          "passive": {},
+          "skill_bonus": {}
+        },
+        {
+          "id": "archer_anchor_2",
+          "name": "鹰眼",
+          "tier": 0,
+          "col": 2,
+          "kind": "anchor",
+          "skill_id": "hawk_eye",
+          "cost": 0,
+          "requires": [],
+          "icon": "skill_hawk_eye",
+          "desc": "职业初始主动技能（技能槽 3）",
+          "passive": {},
+          "skill_bonus": {}
+        },
+        {
+          "id": "archer_mastery_0",
+          "name": "穿透射击精通",
+          "tier": 1,
+          "col": 0,
+          "kind": "mastery",
+          "skill_id": "piercing_shot",
+          "cost": 1,
+          "requires": [
+            "archer_anchor_0"
+          ],
+          "icon": "skill_piercing_shot",
+          "desc": "强化【穿透射击】：技能威力 +25%，冷却 -10%。",
+          "passive": {},
+          "skill_bonus": {
+            "power": 0.25,
+            "cooldown": 0.1
+          }
+        },
+        {
+          "id": "archer_mastery_1",
+          "name": "箭雨精通",
+          "tier": 1,
+          "col": 1,
+          "kind": "mastery",
+          "skill_id": "arrow_rain",
+          "cost": 1,
+          "requires": [
+            "archer_anchor_1"
+          ],
+          "icon": "skill_arrow_rain",
+          "desc": "强化【箭雨】：技能威力 +25%，冷却 -10%。",
+          "passive": {},
+          "skill_bonus": {
+            "power": 0.25,
+            "cooldown": 0.1
+          }
+        },
+        {
+          "id": "archer_mastery_2",
+          "name": "鹰眼精通",
+          "tier": 1,
+          "col": 2,
+          "kind": "mastery",
+          "skill_id": "hawk_eye",
+          "cost": 1,
+          "requires": [
+            "archer_anchor_2"
+          ],
+          "icon": "skill_hawk_eye",
+          "desc": "强化【鹰眼】：技能威力 +25%，冷却 -10%。",
+          "passive": {},
+          "skill_bonus": {
+            "power": 0.25,
+            "cooldown": 0.1
+          }
+        },
+        {
+          "id": "archer_active_0",
+          "name": "破甲贯射",
+          "tier": 2,
+          "col": 0,
+          "kind": "active",
+          "skill_id": "armor_pierce",
+          "cost": 2,
+          "requires": [
+            "archer_mastery_0"
+          ],
+          "icon": "skill_armor_pierce",
+          "desc": "解锁进阶主动技能【破甲贯射】（技能槽 R）。",
+          "passive": {},
+          "skill_bonus": {}
+        },
+        {
+          "id": "archer_active_1",
+          "name": "万箭齐发",
+          "tier": 2,
+          "col": 1,
+          "kind": "active",
+          "skill_id": "arrow_storm",
+          "cost": 2,
+          "requires": [
+            "archer_mastery_1"
+          ],
+          "icon": "skill_arrow_storm",
+          "desc": "解锁进阶主动技能【万箭齐发】（技能槽 F）。",
+          "passive": {},
+          "skill_bonus": {}
+        },
+        {
+          "id": "archer_active_2",
+          "name": "鹰眼聚焦",
+          "tier": 2,
+          "col": 2,
+          "kind": "active",
+          "skill_id": "eagle_focus",
+          "cost": 2,
+          "requires": [
+            "archer_mastery_2"
+          ],
+          "icon": "skill_eagle_focus",
+          "desc": "解锁进阶主动技能【鹰眼聚焦】（技能槽 G）。",
+          "passive": {},
+          "skill_bonus": {}
+        },
+        {
+          "id": "archer_passive_0",
+          "name": "锋锐",
+          "tier": 3,
+          "col": 0,
+          "kind": "passive",
+          "skill_id": "",
+          "cost": 1,
+          "requires": [
+            "archer_mastery_0"
+          ],
+          "icon": "passive_stat_attack",
+          "desc": "分支天赋：攻击 +5，暴击率 +3%。",
+          "passive": {
+            "attack": 5,
+            "crit_rate": 0.03
+          },
+          "skill_bonus": {}
+        },
+        {
+          "id": "archer_passive_1",
+          "name": "致命",
+          "tier": 3,
+          "col": 1,
+          "kind": "passive",
+          "skill_id": "",
+          "cost": 1,
+          "requires": [
+            "archer_mastery_1"
+          ],
+          "icon": "passive_stat_crit",
+          "desc": "分支天赋：暴击伤害 +15%。",
+          "passive": {
+            "crit_damage": 0.15
+          },
+          "skill_bonus": {}
+        },
+        {
+          "id": "archer_passive_2",
+          "name": "疾风",
+          "tier": 3,
+          "col": 2,
+          "kind": "passive",
+          "skill_id": "",
+          "cost": 1,
+          "requires": [
+            "archer_mastery_2"
+          ],
+          "icon": "passive_stat_speed",
+          "desc": "分支天赋：攻速 +6%，移速 +4%。",
+          "passive": {
+            "attack_speed": 0.06,
+            "move_speed": 0.04
+          },
+          "skill_bonus": {}
+        },
+        {
+          "id": "archer_keystone_0",
+          "name": "破军之势",
+          "tier": 4,
+          "col": 0,
+          "kind": "keystone",
+          "skill_id": "",
+          "cost": 2,
+          "requires": [
+            "archer_passive_0"
+          ],
+          "icon": "passive_stat_attack",
+          "desc": "分支专精：攻击 +10，暴击率 +5%。",
+          "passive": {
+            "attack": 10,
+            "crit_rate": 0.05
+          },
+          "skill_bonus": {}
+        },
+        {
+          "id": "archer_keystone_1",
+          "name": "暴虐",
+          "tier": 4,
+          "col": 1,
+          "kind": "keystone",
+          "skill_id": "",
+          "cost": 2,
+          "requires": [
+            "archer_passive_1"
+          ],
+          "icon": "passive_stat_crit",
+          "desc": "分支专精：暴击伤害 +25%，暴击率 +4%。",
+          "passive": {
+            "crit_damage": 0.25,
+            "crit_rate": 0.04
+          },
+          "skill_bonus": {}
+        },
+        {
+          "id": "archer_keystone_2",
+          "name": "迅影",
+          "tier": 4,
+          "col": 2,
+          "kind": "keystone",
+          "skill_id": "",
+          "cost": 2,
+          "requires": [
+            "archer_passive_2"
+          ],
+          "icon": "passive_stat_speed",
+          "desc": "分支专精：攻速 +12%，移速 +8%。",
+          "passive": {
+            "attack_speed": 0.12,
+            "move_speed": 0.08
+          },
+          "skill_bonus": {}
+        },
+        {
+          "id": "archer_capstone",
+          "name": "百步穿杨",
+          "tier": 5,
+          "col": 1,
+          "kind": "capstone",
+          "skill_id": "",
+          "cost": 3,
+          "requires": [
+            "archer_keystone_0",
+            "archer_keystone_1",
+            "archer_keystone_2"
+          ],
+          "icon": "passive_stat_capstone",
+          "desc": "终极奥义：三条分支全部专精后方可点亮。全属性 +7%，暴击伤害 +20%",
+          "passive": {
+            "all_stats_bonus": 0.07,
+            "crit_damage": 0.2
+          },
+          "skill_bonus": {}
+        }
+      ]
+    },
+    "cyborg": {
+      "name": "义体战律",
+      "nodes": [
+        {
+          "id": "cyborg_anchor_0",
+          "name": "液压重拳",
+          "tier": 0,
+          "col": 0,
+          "kind": "anchor",
+          "skill_id": "hydraulic_punch",
+          "cost": 0,
+          "requires": [],
+          "icon": "skill_hydraulic_punch",
+          "desc": "职业初始主动技能（技能槽 1）",
+          "passive": {},
+          "skill_bonus": {}
+        },
+        {
+          "id": "cyborg_anchor_1",
+          "name": "能量壁垒",
+          "tier": 0,
+          "col": 1,
+          "kind": "anchor",
+          "skill_id": "energy_wall",
+          "cost": 0,
+          "requires": [],
+          "icon": "skill_energy_wall",
+          "desc": "职业初始主动技能（技能槽 2）",
+          "passive": {},
+          "skill_bonus": {}
+        },
+        {
+          "id": "cyborg_anchor_2",
+          "name": "伺服突进",
+          "tier": 0,
+          "col": 2,
+          "kind": "anchor",
+          "skill_id": "servo_charge",
+          "cost": 0,
+          "requires": [],
+          "icon": "skill_servo_charge",
+          "desc": "职业初始主动技能（技能槽 3）",
+          "passive": {},
+          "skill_bonus": {}
+        },
+        {
+          "id": "cyborg_mastery_0",
+          "name": "液压重拳精通",
+          "tier": 1,
+          "col": 0,
+          "kind": "mastery",
+          "skill_id": "hydraulic_punch",
+          "cost": 1,
+          "requires": [
+            "cyborg_anchor_0"
+          ],
+          "icon": "skill_hydraulic_punch",
+          "desc": "强化【液压重拳】：技能威力 +25%，冷却 -10%。",
+          "passive": {},
+          "skill_bonus": {
+            "power": 0.25,
+            "cooldown": 0.1
+          }
+        },
+        {
+          "id": "cyborg_mastery_1",
+          "name": "能量壁垒精通",
+          "tier": 1,
+          "col": 1,
+          "kind": "mastery",
+          "skill_id": "energy_wall",
+          "cost": 1,
+          "requires": [
+            "cyborg_anchor_1"
+          ],
+          "icon": "skill_energy_wall",
+          "desc": "强化【能量壁垒】：技能威力 +25%，冷却 -10%。",
+          "passive": {},
+          "skill_bonus": {
+            "power": 0.25,
+            "cooldown": 0.1
+          }
+        },
+        {
+          "id": "cyborg_mastery_2",
+          "name": "伺服突进精通",
+          "tier": 1,
+          "col": 2,
+          "kind": "mastery",
+          "skill_id": "servo_charge",
+          "cost": 1,
+          "requires": [
+            "cyborg_anchor_2"
+          ],
+          "icon": "skill_servo_charge",
+          "desc": "强化【伺服突进】：技能威力 +25%，冷却 -10%。",
+          "passive": {},
+          "skill_bonus": {
+            "power": 0.25,
+            "cooldown": 0.1
+          }
+        },
+        {
+          "id": "cyborg_active_0",
+          "name": "震荡践踏",
+          "tier": 2,
+          "col": 0,
+          "kind": "active",
+          "skill_id": "seismic_slam",
+          "cost": 2,
+          "requires": [
+            "cyborg_mastery_0"
+          ],
+          "icon": "skill_seismic_slam",
+          "desc": "解锁进阶主动技能【震荡践踏】（技能槽 R）。",
+          "passive": {},
+          "skill_bonus": {}
+        },
+        {
+          "id": "cyborg_active_1",
+          "name": "神盾协议",
+          "tier": 2,
+          "col": 1,
+          "kind": "active",
+          "skill_id": "aegis_protocol",
+          "cost": 2,
+          "requires": [
+            "cyborg_mastery_1"
+          ],
+          "icon": "skill_aegis_protocol",
+          "desc": "解锁进阶主动技能【神盾协议】（技能槽 F）。",
+          "passive": {},
+          "skill_bonus": {}
+        },
+        {
+          "id": "cyborg_active_2",
+          "name": "磁轨突袭",
+          "tier": 2,
+          "col": 2,
+          "kind": "active",
+          "skill_id": "rail_dash",
+          "cost": 2,
+          "requires": [
+            "cyborg_mastery_2"
+          ],
+          "icon": "skill_rail_dash",
+          "desc": "解锁进阶主动技能【磁轨突袭】（技能槽 G）。",
+          "passive": {},
+          "skill_bonus": {}
+        },
+        {
+          "id": "cyborg_passive_0",
+          "name": "坚甲",
+          "tier": 3,
+          "col": 0,
+          "kind": "passive",
+          "skill_id": "",
+          "cost": 1,
+          "requires": [
+            "cyborg_mastery_0"
+          ],
+          "icon": "passive_stat_defense",
+          "desc": "分支天赋：防御 +4，生命 +20。",
+          "passive": {
+            "defense": 4,
+            "max_hp": 20
+          },
+          "skill_bonus": {}
+        },
+        {
+          "id": "cyborg_passive_1",
+          "name": "厚壁",
+          "tier": 3,
+          "col": 1,
+          "kind": "passive",
+          "skill_id": "",
+          "cost": 1,
+          "requires": [
+            "cyborg_mastery_1"
+          ],
+          "icon": "passive_stat_defense",
+          "desc": "分支天赋：生命 +35，法防 +3。",
+          "passive": {
+            "max_hp": 35,
+            "magic_defense": 3
+          },
+          "skill_bonus": {}
+        },
+        {
+          "id": "cyborg_passive_2",
+          "name": "御法",
+          "tier": 3,
+          "col": 2,
+          "kind": "passive",
+          "skill_id": "",
+          "cost": 1,
+          "requires": [
+            "cyborg_mastery_2"
+          ],
+          "icon": "passive_stat_defense",
+          "desc": "分支天赋：防御 +3，法防 +4。",
+          "passive": {
+            "defense": 3,
+            "magic_defense": 4
+          },
+          "skill_bonus": {}
+        },
+        {
+          "id": "cyborg_keystone_0",
+          "name": "不动如山",
+          "tier": 4,
+          "col": 0,
+          "kind": "keystone",
+          "skill_id": "",
+          "cost": 2,
+          "requires": [
+            "cyborg_passive_0"
+          ],
+          "icon": "passive_stat_defense",
+          "desc": "分支专精：防御 +8，生命 +45。",
+          "passive": {
+            "defense": 8,
+            "max_hp": 45
+          },
+          "skill_bonus": {}
+        },
+        {
+          "id": "cyborg_keystone_1",
+          "name": "磐石",
+          "tier": 4,
+          "col": 1,
+          "kind": "keystone",
+          "skill_id": "",
+          "cost": 2,
+          "requires": [
+            "cyborg_passive_1"
+          ],
+          "icon": "passive_stat_defense",
+          "desc": "分支专精：生命 +70，防御 +5。",
+          "passive": {
+            "max_hp": 70,
+            "defense": 5
+          },
+          "skill_bonus": {}
+        },
+        {
+          "id": "cyborg_keystone_2",
+          "name": "护心",
+          "tier": 4,
+          "col": 2,
+          "kind": "keystone",
+          "skill_id": "",
+          "cost": 2,
+          "requires": [
+            "cyborg_passive_2"
+          ],
+          "icon": "passive_stat_defense",
+          "desc": "分支专精：法防 +9，生命 +40。",
+          "passive": {
+            "magic_defense": 9,
+            "max_hp": 40
+          },
+          "skill_bonus": {}
+        },
+        {
+          "id": "cyborg_capstone",
+          "name": "永恒机体",
+          "tier": 5,
+          "col": 1,
+          "kind": "capstone",
+          "skill_id": "",
+          "cost": 3,
+          "requires": [
+            "cyborg_keystone_0",
+            "cyborg_keystone_1",
+            "cyborg_keystone_2"
+          ],
+          "icon": "passive_stat_capstone",
+          "desc": "终极奥义：三条分支全部专精后方可点亮。全属性 +7%，生命 +60",
+          "passive": {
+            "all_stats_bonus": 0.07,
+            "max_hp": 60
+          },
+          "skill_bonus": {}
+        }
+      ]
+    },
+    "hacker": {
+      "name": "黑客之道",
+      "nodes": [
+        {
+          "id": "hacker_anchor_0",
+          "name": "病毒入侵",
+          "tier": 0,
+          "col": 0,
+          "kind": "anchor",
+          "skill_id": "virus",
+          "cost": 0,
+          "requires": [],
+          "icon": "skill_virus",
+          "desc": "职业初始主动技能（技能槽 1）",
+          "passive": {},
+          "skill_bonus": {}
+        },
+        {
+          "id": "hacker_anchor_1",
+          "name": "EMP 脉冲",
+          "tier": 0,
+          "col": 1,
+          "kind": "anchor",
+          "skill_id": "emp_pulse",
+          "cost": 0,
+          "requires": [],
+          "icon": "skill_emp_pulse",
+          "desc": "职业初始主动技能（技能槽 2）",
+          "passive": {},
+          "skill_bonus": {}
+        },
+        {
+          "id": "hacker_anchor_2",
+          "name": "系统过载",
+          "tier": 0,
+          "col": 2,
+          "kind": "anchor",
+          "skill_id": "overclock",
+          "cost": 0,
+          "requires": [],
+          "icon": "skill_overclock",
+          "desc": "职业初始主动技能（技能槽 3）",
+          "passive": {},
+          "skill_bonus": {}
+        },
+        {
+          "id": "hacker_mastery_0",
+          "name": "病毒入侵精通",
+          "tier": 1,
+          "col": 0,
+          "kind": "mastery",
+          "skill_id": "virus",
+          "cost": 1,
+          "requires": [
+            "hacker_anchor_0"
+          ],
+          "icon": "skill_virus",
+          "desc": "强化【病毒入侵】：技能威力 +25%，冷却 -10%。",
+          "passive": {},
+          "skill_bonus": {
+            "power": 0.25,
+            "cooldown": 0.1
+          }
+        },
+        {
+          "id": "hacker_mastery_1",
+          "name": "EMP 脉冲精通",
+          "tier": 1,
+          "col": 1,
+          "kind": "mastery",
+          "skill_id": "emp_pulse",
+          "cost": 1,
+          "requires": [
+            "hacker_anchor_1"
+          ],
+          "icon": "skill_emp_pulse",
+          "desc": "强化【EMP 脉冲】：技能威力 +25%，冷却 -10%。",
+          "passive": {},
+          "skill_bonus": {
+            "power": 0.25,
+            "cooldown": 0.1
+          }
+        },
+        {
+          "id": "hacker_mastery_2",
+          "name": "系统过载精通",
+          "tier": 1,
+          "col": 2,
+          "kind": "mastery",
+          "skill_id": "overclock",
+          "cost": 1,
+          "requires": [
+            "hacker_anchor_2"
+          ],
+          "icon": "skill_overclock",
+          "desc": "强化【系统过载】：技能威力 +25%，冷却 -10%。",
+          "passive": {},
+          "skill_bonus": {
+            "power": 0.25,
+            "cooldown": 0.1
+          }
+        },
+        {
+          "id": "hacker_active_0",
+          "name": "蠕虫病毒",
+          "tier": 2,
+          "col": 0,
+          "kind": "active",
+          "skill_id": "worm_virus",
+          "cost": 2,
+          "requires": [
+            "hacker_mastery_0"
+          ],
+          "icon": "skill_worm_virus",
+          "desc": "解锁进阶主动技能【蠕虫病毒】（技能槽 R）。",
+          "passive": {},
+          "skill_bonus": {}
+        },
+        {
+          "id": "hacker_active_1",
+          "name": "全域断电",
+          "tier": 2,
+          "col": 1,
+          "kind": "active",
+          "skill_id": "blackout",
+          "cost": 2,
+          "requires": [
+            "hacker_mastery_1"
+          ],
+          "icon": "skill_blackout",
+          "desc": "解锁进阶主动技能【全域断电】（技能槽 F）。",
+          "passive": {},
+          "skill_bonus": {}
+        },
+        {
+          "id": "hacker_active_2",
+          "name": "超频协议",
+          "tier": 2,
+          "col": 2,
+          "kind": "active",
+          "skill_id": "overdrive_protocol",
+          "cost": 2,
+          "requires": [
+            "hacker_mastery_2"
+          ],
+          "icon": "skill_overdrive_protocol",
+          "desc": "解锁进阶主动技能【超频协议】（技能槽 G）。",
+          "passive": {},
+          "skill_bonus": {}
+        },
+        {
+          "id": "hacker_passive_0",
+          "name": "灵泉",
+          "tier": 3,
+          "col": 0,
+          "kind": "passive",
+          "skill_id": "",
+          "cost": 1,
+          "requires": [
+            "hacker_mastery_0"
+          ],
+          "icon": "passive_stat_attack",
+          "desc": "分支天赋：法力 +20，法强 +4。",
+          "passive": {
+            "max_mp": 20,
+            "magic_attack": 4
+          },
+          "skill_bonus": {}
+        },
+        {
+          "id": "hacker_passive_1",
+          "name": "共鸣",
+          "tier": 3,
+          "col": 1,
+          "kind": "passive",
+          "skill_id": "",
+          "cost": 1,
+          "requires": [
+            "hacker_mastery_1"
+          ],
+          "icon": "passive_stat_attack",
+          "desc": "分支天赋：法强 +5，法防 +3。",
+          "passive": {
+            "magic_attack": 5,
+            "magic_defense": 3
+          },
+          "skill_bonus": {}
+        },
+        {
+          "id": "hacker_passive_2",
+          "name": "静心",
+          "tier": 3,
+          "col": 2,
+          "kind": "passive",
+          "skill_id": "",
+          "cost": 1,
+          "requires": [
+            "hacker_mastery_2"
+          ],
+          "icon": "passive_stat_defense",
+          "desc": "分支天赋：法力 +15，防御 +3。",
+          "passive": {
+            "max_mp": 15,
+            "defense": 3
+          },
+          "skill_bonus": {}
+        },
+        {
+          "id": "hacker_keystone_0",
+          "name": "天命",
+          "tier": 4,
+          "col": 0,
+          "kind": "keystone",
+          "skill_id": "",
+          "cost": 2,
+          "requires": [
+            "hacker_passive_0"
+          ],
+          "icon": "passive_stat_attack",
+          "desc": "分支专精：法力 +40，法强 +8。",
+          "passive": {
+            "max_mp": 40,
+            "magic_attack": 8
+          },
+          "skill_bonus": {}
+        },
+        {
+          "id": "hacker_keystone_1",
+          "name": "协奏",
+          "tier": 4,
+          "col": 1,
+          "kind": "keystone",
+          "skill_id": "",
+          "cost": 2,
+          "requires": [
+            "hacker_passive_1"
+          ],
+          "icon": "passive_stat_attack",
+          "desc": "分支专精：法强 +9，暴击率 +4%。",
+          "passive": {
+            "magic_attack": 9,
+            "crit_rate": 0.04
+          },
+          "skill_bonus": {}
+        },
+        {
+          "id": "hacker_keystone_2",
+          "name": "澄明",
+          "tier": 4,
+          "col": 2,
+          "kind": "keystone",
+          "skill_id": "",
+          "cost": 2,
+          "requires": [
+            "hacker_passive_2"
+          ],
+          "icon": "passive_stat_defense",
+          "desc": "分支专精：法力 +30，法防 +6。",
+          "passive": {
+            "max_mp": 30,
+            "magic_defense": 6
+          },
+          "skill_bonus": {}
+        },
+        {
+          "id": "hacker_capstone",
+          "name": "系统之神",
+          "tier": 5,
+          "col": 1,
+          "kind": "capstone",
+          "skill_id": "",
+          "cost": 3,
+          "requires": [
+            "hacker_keystone_0",
+            "hacker_keystone_1",
+            "hacker_keystone_2"
+          ],
+          "icon": "passive_stat_capstone",
+          "desc": "终极奥义：三条分支全部专精后方可点亮。全属性 +7%，法力 +50",
+          "passive": {
+            "all_stats_bonus": 0.07,
+            "max_mp": 50
+          },
+          "skill_bonus": {}
+        }
+      ]
+    },
+    "sniper": {
+      "name": "狙击手之道",
+      "nodes": [
+        {
+          "id": "sniper_anchor_0",
+          "name": "狙击",
+          "tier": 0,
+          "col": 0,
+          "kind": "anchor",
+          "skill_id": "snipe",
+          "cost": 0,
+          "requires": [],
+          "icon": "skill_snipe",
+          "desc": "职业初始主动技能（技能槽 1）",
+          "passive": {},
+          "skill_bonus": {}
+        },
+        {
+          "id": "sniper_anchor_1",
+          "name": "陷阱",
+          "tier": 0,
+          "col": 1,
+          "kind": "anchor",
+          "skill_id": "trap",
+          "cost": 0,
+          "requires": [],
+          "icon": "skill_trap",
+          "desc": "职业初始主动技能（技能槽 2）",
+          "passive": {},
+          "skill_bonus": {}
+        },
+        {
+          "id": "sniper_anchor_2",
+          "name": "精准",
+          "tier": 0,
+          "col": 2,
+          "kind": "anchor",
+          "skill_id": "focus",
+          "cost": 0,
+          "requires": [],
+          "icon": "skill_focus",
+          "desc": "职业初始主动技能（技能槽 3）",
+          "passive": {},
+          "skill_bonus": {}
+        },
+        {
+          "id": "sniper_mastery_0",
+          "name": "狙击精通",
+          "tier": 1,
+          "col": 0,
+          "kind": "mastery",
+          "skill_id": "snipe",
+          "cost": 1,
+          "requires": [
+            "sniper_anchor_0"
+          ],
+          "icon": "skill_snipe",
+          "desc": "强化【狙击】：技能威力 +25%，冷却 -10%。",
+          "passive": {},
+          "skill_bonus": {
+            "power": 0.25,
+            "cooldown": 0.1
+          }
+        },
+        {
+          "id": "sniper_mastery_1",
+          "name": "陷阱精通",
+          "tier": 1,
+          "col": 1,
+          "kind": "mastery",
+          "skill_id": "trap",
+          "cost": 1,
+          "requires": [
+            "sniper_anchor_1"
+          ],
+          "icon": "skill_trap",
+          "desc": "强化【陷阱】：技能威力 +25%，冷却 -10%。",
+          "passive": {},
+          "skill_bonus": {
+            "power": 0.25,
+            "cooldown": 0.1
+          }
+        },
+        {
+          "id": "sniper_mastery_2",
+          "name": "精准精通",
+          "tier": 1,
+          "col": 2,
+          "kind": "mastery",
+          "skill_id": "focus",
+          "cost": 1,
+          "requires": [
+            "sniper_anchor_2"
+          ],
+          "icon": "skill_focus",
+          "desc": "强化【精准】：技能威力 +25%，冷却 -10%。",
+          "passive": {},
+          "skill_bonus": {
+            "power": 0.25,
+            "cooldown": 0.1
+          }
+        },
+        {
+          "id": "sniper_active_0",
+          "name": "死神之眼",
+          "tier": 2,
+          "col": 0,
+          "kind": "active",
+          "skill_id": "reaper_eye",
+          "cost": 2,
+          "requires": [
+            "sniper_mastery_0"
+          ],
+          "icon": "skill_reaper_eye",
+          "desc": "解锁进阶主动技能【死神之眼】（技能槽 R）。",
+          "passive": {},
+          "skill_bonus": {}
+        },
+        {
+          "id": "sniper_active_1",
+          "name": "爆裂陷阱",
+          "tier": 2,
+          "col": 1,
+          "kind": "active",
+          "skill_id": "blast_trap",
+          "cost": 2,
+          "requires": [
+            "sniper_mastery_1"
+          ],
+          "icon": "skill_blast_trap",
+          "desc": "解锁进阶主动技能【爆裂陷阱】（技能槽 F）。",
+          "passive": {},
+          "skill_bonus": {}
+        },
+        {
+          "id": "sniper_active_2",
+          "name": "屏息专注",
+          "tier": 2,
+          "col": 2,
+          "kind": "active",
+          "skill_id": "steady_aim",
+          "cost": 2,
+          "requires": [
+            "sniper_mastery_2"
+          ],
+          "icon": "skill_steady_aim",
+          "desc": "解锁进阶主动技能【屏息专注】（技能槽 G）。",
+          "passive": {},
+          "skill_bonus": {}
+        },
+        {
+          "id": "sniper_passive_0",
+          "name": "敏锐",
+          "tier": 3,
+          "col": 0,
+          "kind": "passive",
+          "skill_id": "",
+          "cost": 1,
+          "requires": [
+            "sniper_mastery_0"
+          ],
+          "icon": "passive_stat_attack",
+          "desc": "分支天赋：暴击率 +4%，攻击 +3。",
+          "passive": {
+            "crit_rate": 0.04,
+            "attack": 3
+          },
+          "skill_bonus": {}
+        },
+        {
+          "id": "sniper_passive_1",
+          "name": "游影",
+          "tier": 3,
+          "col": 1,
+          "kind": "passive",
+          "skill_id": "",
+          "cost": 1,
+          "requires": [
+            "sniper_mastery_1"
+          ],
+          "icon": "passive_stat_speed",
+          "desc": "分支天赋：移速 +6%，闪避 +3%。",
+          "passive": {
+            "move_speed": 0.06,
+            "dodge_rate": 0.03
+          },
+          "skill_bonus": {}
+        },
+        {
+          "id": "sniper_passive_2",
+          "name": "毒牙",
+          "tier": 3,
+          "col": 2,
+          "kind": "passive",
+          "skill_id": "",
+          "cost": 1,
+          "requires": [
+            "sniper_mastery_2"
+          ],
+          "icon": "passive_stat_attack",
+          "desc": "分支天赋：攻击 +4，攻速 +5%。",
+          "passive": {
+            "attack": 4,
+            "attack_speed": 0.05
+          },
+          "skill_bonus": {}
+        },
+        {
+          "id": "sniper_keystone_0",
+          "name": "鬼魅",
+          "tier": 4,
+          "col": 0,
+          "kind": "keystone",
+          "skill_id": "",
+          "cost": 2,
+          "requires": [
+            "sniper_passive_0"
+          ],
+          "icon": "passive_stat_crit",
+          "desc": "分支专精：暴击率 +7%，暴击伤害 +18%。",
+          "passive": {
+            "crit_rate": 0.07,
+            "crit_damage": 0.18
+          },
+          "skill_bonus": {}
+        },
+        {
+          "id": "sniper_keystone_1",
+          "name": "缜密",
+          "tier": 4,
+          "col": 1,
+          "kind": "keystone",
+          "skill_id": "",
+          "cost": 2,
+          "requires": [
+            "sniper_passive_1"
+          ],
+          "icon": "passive_stat_speed",
+          "desc": "分支专精：移速 +10%，闪避 +6%。",
+          "passive": {
+            "move_speed": 0.1,
+            "dodge_rate": 0.06
+          },
+          "skill_bonus": {}
+        },
+        {
+          "id": "sniper_keystone_2",
+          "name": "猎手",
+          "tier": 4,
+          "col": 2,
+          "kind": "keystone",
+          "skill_id": "",
+          "cost": 2,
+          "requires": [
+            "sniper_passive_2"
+          ],
+          "icon": "passive_stat_attack",
+          "desc": "分支专精：攻击 +8，攻速 +10%。",
+          "passive": {
+            "attack": 8,
+            "attack_speed": 0.1
+          },
+          "skill_bonus": {}
+        },
+        {
+          "id": "sniper_capstone",
+          "name": "一枪入魂",
+          "tier": 5,
+          "col": 1,
+          "kind": "capstone",
+          "skill_id": "",
+          "cost": 3,
+          "requires": [
+            "sniper_keystone_0",
+            "sniper_keystone_1",
+            "sniper_keystone_2"
+          ],
+          "icon": "passive_stat_capstone",
+          "desc": "终极奥义：三条分支全部专精后方可点亮。全属性 +7%，暴击率 +5%",
+          "passive": {
+            "all_stats_bonus": 0.07,
+            "crit_rate": 0.05
+          },
+          "skill_bonus": {}
+        }
+      ]
     }
-   ]
-  },
-  "archer": {
-   "name": "弓箭手之道",
-   "nodes": [
-    {
-     "id": "archer_anchor_0",
-     "name": "穿透射击",
-     "tier": 0,
-     "col": 0,
-     "kind": "anchor",
-     "skill_id": "piercing_shot",
-     "cost": 0,
-     "requires": [],
-     "icon": "skill_piercing_shot",
-     "desc": "职业初始主动技能（初始技能）",
-     "passive": {},
-     "skill_bonus": {}
-    },
-    {
-     "id": "archer_anchor_1",
-     "name": "箭雨",
-     "tier": 0,
-     "col": 1,
-     "kind": "anchor",
-     "skill_id": "arrow_rain",
-     "cost": 0,
-     "requires": [],
-     "icon": "skill_arrow_rain",
-     "desc": "职业初始主动技能（初始技能）",
-     "passive": {},
-     "skill_bonus": {}
-    },
-    {
-     "id": "archer_anchor_2",
-     "name": "鹰眼",
-     "tier": 0,
-     "col": 2,
-     "kind": "anchor",
-     "skill_id": "hawk_eye",
-     "cost": 0,
-     "requires": [],
-     "icon": "skill_hawk_eye",
-     "desc": "职业初始主动技能（初始技能）",
-     "passive": {},
-     "skill_bonus": {}
-    },
-    {
-     "id": "archer_mastery_0",
-     "name": "穿透射击精通",
-     "tier": 1,
-     "col": 0,
-     "kind": "mastery",
-     "skill_id": "piercing_shot",
-     "cost": 1,
-     "requires": [
-      "archer_anchor_0"
-     ],
-     "icon": "skill_piercing_shot",
-     "desc": "强化【穿透射击】：技能威力 +25%，冷却 -10%。",
-     "passive": {},
-     "skill_bonus": {
-      "power": 0.25,
-      "cooldown": 0.1
-     }
-    },
-    {
-     "id": "archer_mastery_1",
-     "name": "箭雨精通",
-     "tier": 1,
-     "col": 1,
-     "kind": "mastery",
-     "skill_id": "arrow_rain",
-     "cost": 1,
-     "requires": [
-      "archer_anchor_1"
-     ],
-     "icon": "skill_arrow_rain",
-     "desc": "强化【箭雨】：技能威力 +25%，冷却 -10%。",
-     "passive": {},
-     "skill_bonus": {
-      "power": 0.25,
-      "cooldown": 0.1
-     }
-    },
-    {
-     "id": "archer_mastery_2",
-     "name": "鹰眼精通",
-     "tier": 1,
-     "col": 2,
-     "kind": "mastery",
-     "skill_id": "hawk_eye",
-     "cost": 1,
-     "requires": [
-      "archer_anchor_2"
-     ],
-     "icon": "skill_hawk_eye",
-     "desc": "强化【鹰眼】：技能威力 +25%，冷却 -10%。",
-     "passive": {},
-     "skill_bonus": {
-      "power": 0.25,
-      "cooldown": 0.1
-     }
-    },
-    {
-     "id": "archer_passive_a",
-     "name": "鹰眼校准",
-     "tier": 2,
-     "col": 0,
-     "kind": "passive",
-     "skill_id": "",
-     "cost": 2,
-     "requires": [
-      "archer_mastery_0",
-      "archer_mastery_1"
-     ],
-     "icon": "passive_stat_attack",
-     "desc": "暴击率 +5%，暴击伤害 +15%",
-     "passive": {
-      "crit_rate": 0.05,
-      "crit_damage": 0.15
-     },
-     "skill_bonus": {}
-    },
-    {
-     "id": "archer_passive_b",
-     "name": "轻甲",
-     "tier": 2,
-     "col": 2,
-     "kind": "passive",
-     "skill_id": "",
-     "cost": 2,
-     "requires": [
-      "archer_mastery_1",
-      "archer_mastery_2"
-     ],
-     "icon": "passive_stat_defense",
-     "desc": "移动速度 +12%，闪避率 +4%",
-     "passive": {
-      "move_speed": 0.12,
-      "dodge_rate": 0.04
-     },
-     "skill_bonus": {}
-    },
-    {
-     "id": "archer_capstone",
-     "name": "百步穿杨",
-     "tier": 3,
-     "col": 1,
-     "kind": "capstone",
-     "skill_id": "",
-     "cost": 3,
-     "requires": [
-      "archer_passive_a",
-      "archer_passive_b"
-     ],
-     "icon": "passive_stat_capstone",
-     "desc": "全属性 +6%，暴击伤害 +25%",
-     "passive": {
-      "all_stats_bonus": 0.06,
-      "crit_damage": 0.25
-     },
-     "skill_bonus": {}
-    }
-   ]
-  },
-  "mage": {
-   "name": "法师之道",
-   "nodes": [
-    {
-     "id": "mage_anchor_0",
-     "name": "火球术",
-     "tier": 0,
-     "col": 0,
-     "kind": "anchor",
-     "skill_id": "fireball",
-     "cost": 0,
-     "requires": [],
-     "icon": "skill_fireball",
-     "desc": "职业初始主动技能（初始技能）",
-     "passive": {},
-     "skill_bonus": {}
-    },
-    {
-     "id": "mage_anchor_1",
-     "name": "冰霜新星",
-     "tier": 0,
-     "col": 1,
-     "kind": "anchor",
-     "skill_id": "frost_nova",
-     "cost": 0,
-     "requires": [],
-     "icon": "skill_frost_nova",
-     "desc": "职业初始主动技能（初始技能）",
-     "passive": {},
-     "skill_bonus": {}
-    },
-    {
-     "id": "mage_anchor_2",
-     "name": "奥术护盾",
-     "tier": 0,
-     "col": 2,
-     "kind": "anchor",
-     "skill_id": "arcane_shield",
-     "cost": 0,
-     "requires": [],
-     "icon": "skill_arcane_shield",
-     "desc": "职业初始主动技能（初始技能）",
-     "passive": {},
-     "skill_bonus": {}
-    },
-    {
-     "id": "mage_mastery_0",
-     "name": "火球术精通",
-     "tier": 1,
-     "col": 0,
-     "kind": "mastery",
-     "skill_id": "fireball",
-     "cost": 1,
-     "requires": [
-      "mage_anchor_0"
-     ],
-     "icon": "skill_fireball",
-     "desc": "强化【火球术】：技能威力 +25%，冷却 -10%。",
-     "passive": {},
-     "skill_bonus": {
-      "power": 0.25,
-      "cooldown": 0.1
-     }
-    },
-    {
-     "id": "mage_mastery_1",
-     "name": "冰霜新星精通",
-     "tier": 1,
-     "col": 1,
-     "kind": "mastery",
-     "skill_id": "frost_nova",
-     "cost": 1,
-     "requires": [
-      "mage_anchor_1"
-     ],
-     "icon": "skill_frost_nova",
-     "desc": "强化【冰霜新星】：技能威力 +25%，冷却 -10%。",
-     "passive": {},
-     "skill_bonus": {
-      "power": 0.25,
-      "cooldown": 0.1
-     }
-    },
-    {
-     "id": "mage_mastery_2",
-     "name": "奥术护盾精通",
-     "tier": 1,
-     "col": 2,
-     "kind": "mastery",
-     "skill_id": "arcane_shield",
-     "cost": 1,
-     "requires": [
-      "mage_anchor_2"
-     ],
-     "icon": "skill_arcane_shield",
-     "desc": "强化【奥术护盾】：技能威力 +25%，冷却 -10%。",
-     "passive": {},
-     "skill_bonus": {
-      "power": 0.25,
-      "cooldown": 0.1
-     }
-    },
-    {
-     "id": "mage_passive_a",
-     "name": "魔力灌注",
-     "tier": 2,
-     "col": 0,
-     "kind": "passive",
-     "skill_id": "",
-     "cost": 2,
-     "requires": [
-      "mage_mastery_0",
-      "mage_mastery_1"
-     ],
-     "icon": "passive_stat_attack",
-     "desc": "魔法攻击 +6，魔力上限 +20",
-     "passive": {
-      "magic_attack": 6,
-      "max_mp": 20
-     },
-     "skill_bonus": {}
-    },
-    {
-     "id": "mage_passive_b",
-     "name": "奥术屏障",
-     "tier": 2,
-     "col": 2,
-     "kind": "passive",
-     "skill_id": "",
-     "cost": 2,
-     "requires": [
-      "mage_mastery_1",
-      "mage_mastery_2"
-     ],
-     "icon": "passive_stat_defense",
-     "desc": "魔法防御 +5，闪避率 +3%",
-     "passive": {
-      "magic_defense": 5,
-      "dodge_rate": 0.03
-     },
-     "skill_bonus": {}
-    },
-    {
-     "id": "mage_capstone",
-     "name": "元素宗师",
-     "tier": 3,
-     "col": 1,
-     "kind": "capstone",
-     "skill_id": "",
-     "cost": 3,
-     "requires": [
-      "mage_passive_a",
-      "mage_passive_b"
-     ],
-     "icon": "passive_stat_capstone",
-     "desc": "全属性 +6%，魔法攻击 +10",
-     "passive": {
-      "all_stats_bonus": 0.06,
-      "magic_attack": 10
-     },
-     "skill_bonus": {}
-    }
-   ]
-  },
-  "priest": {
-   "name": "牧师之道",
-   "nodes": [
-    {
-     "id": "priest_anchor_0",
-     "name": "治疗术",
-     "tier": 0,
-     "col": 0,
-     "kind": "anchor",
-     "skill_id": "heal",
-     "cost": 0,
-     "requires": [],
-     "icon": "skill_heal",
-     "desc": "职业初始主动技能（初始技能）",
-     "passive": {},
-     "skill_bonus": {}
-    },
-    {
-     "id": "priest_anchor_1",
-     "name": "神圣新星",
-     "tier": 0,
-     "col": 1,
-     "kind": "anchor",
-     "skill_id": "holy_nova",
-     "cost": 0,
-     "requires": [],
-     "icon": "skill_holy_nova",
-     "desc": "职业初始主动技能（初始技能）",
-     "passive": {},
-     "skill_bonus": {}
-    },
-    {
-     "id": "priest_anchor_2",
-     "name": "祝福",
-     "tier": 0,
-     "col": 2,
-     "kind": "anchor",
-     "skill_id": "blessing",
-     "cost": 0,
-     "requires": [],
-     "icon": "skill_blessing",
-     "desc": "职业初始主动技能（初始技能）",
-     "passive": {},
-     "skill_bonus": {}
-    },
-    {
-     "id": "priest_mastery_0",
-     "name": "治疗术精通",
-     "tier": 1,
-     "col": 0,
-     "kind": "mastery",
-     "skill_id": "heal",
-     "cost": 1,
-     "requires": [
-      "priest_anchor_0"
-     ],
-     "icon": "skill_heal",
-     "desc": "强化【治疗术】：技能威力 +25%，冷却 -10%。",
-     "passive": {},
-     "skill_bonus": {
-      "power": 0.25,
-      "cooldown": 0.1
-     }
-    },
-    {
-     "id": "priest_mastery_1",
-     "name": "神圣新星精通",
-     "tier": 1,
-     "col": 1,
-     "kind": "mastery",
-     "skill_id": "holy_nova",
-     "cost": 1,
-     "requires": [
-      "priest_anchor_1"
-     ],
-     "icon": "skill_holy_nova",
-     "desc": "强化【神圣新星】：技能威力 +25%，冷却 -10%。",
-     "passive": {},
-     "skill_bonus": {
-      "power": 0.25,
-      "cooldown": 0.1
-     }
-    },
-    {
-     "id": "priest_mastery_2",
-     "name": "祝福精通",
-     "tier": 1,
-     "col": 2,
-     "kind": "mastery",
-     "skill_id": "blessing",
-     "cost": 1,
-     "requires": [
-      "priest_anchor_2"
-     ],
-     "icon": "skill_blessing",
-     "desc": "强化【祝福】：技能威力 +25%，冷却 -10%。",
-     "passive": {},
-     "skill_bonus": {
-      "power": 0.25,
-      "cooldown": 0.1
-     }
-    },
-    {
-     "id": "priest_passive_a",
-     "name": "圣光涌流",
-     "tier": 2,
-     "col": 0,
-     "kind": "passive",
-     "skill_id": "",
-     "cost": 2,
-     "requires": [
-      "priest_mastery_0",
-      "priest_mastery_1"
-     ],
-     "icon": "passive_stat_attack",
-     "desc": "魔力上限 +25，魔法防御 +4",
-     "passive": {
-      "max_mp": 25,
-      "magic_defense": 4
-     },
-     "skill_bonus": {}
-    },
-    {
-     "id": "priest_passive_b",
-     "name": "慈悯",
-     "tier": 2,
-     "col": 2,
-     "kind": "passive",
-     "skill_id": "",
-     "cost": 2,
-     "requires": [
-      "priest_mastery_1",
-      "priest_mastery_2"
-     ],
-     "icon": "passive_stat_defense",
-     "desc": "生命上限 +30，防御 +4",
-     "passive": {
-      "max_hp": 30,
-      "defense": 4
-     },
-     "skill_bonus": {}
-    },
-    {
-     "id": "priest_capstone",
-     "name": "神佑",
-     "tier": 3,
-     "col": 1,
-     "kind": "capstone",
-     "skill_id": "",
-     "cost": 3,
-     "requires": [
-      "priest_passive_a",
-      "priest_passive_b"
-     ],
-     "icon": "passive_stat_capstone",
-     "desc": "全属性 +6%，生命上限 +50",
-     "passive": {
-      "all_stats_bonus": 0.06,
-      "max_hp": 50
-     },
-     "skill_bonus": {}
-    }
-   ]
-  },
-  "necromancer": {
-   "name": "亡灵法师之道",
-   "nodes": [
-    {
-     "id": "necromancer_anchor_0",
-     "name": "腐蚀箭",
-     "tier": 0,
-     "col": 0,
-     "kind": "anchor",
-     "skill_id": "corrupt_bolt",
-     "cost": 0,
-     "requires": [],
-     "icon": "skill_corrupt_bolt",
-     "desc": "职业初始主动技能（初始技能）",
-     "passive": {},
-     "skill_bonus": {}
-    },
-    {
-     "id": "necromancer_anchor_1",
-     "name": "亡者领域",
-     "tier": 0,
-     "col": 1,
-     "kind": "anchor",
-     "skill_id": "grave_field",
-     "cost": 0,
-     "requires": [],
-     "icon": "skill_grave_field",
-     "desc": "职业初始主动技能（初始技能）",
-     "passive": {},
-     "skill_bonus": {}
-    },
-    {
-     "id": "necromancer_anchor_2",
-     "name": "汲取",
-     "tier": 0,
-     "col": 2,
-     "kind": "anchor",
-     "skill_id": "drain",
-     "cost": 0,
-     "requires": [],
-     "icon": "skill_drain",
-     "desc": "职业初始主动技能（初始技能）",
-     "passive": {},
-     "skill_bonus": {}
-    },
-    {
-     "id": "necromancer_mastery_0",
-     "name": "腐蚀箭精通",
-     "tier": 1,
-     "col": 0,
-     "kind": "mastery",
-     "skill_id": "corrupt_bolt",
-     "cost": 1,
-     "requires": [
-      "necromancer_anchor_0"
-     ],
-     "icon": "skill_corrupt_bolt",
-     "desc": "强化【腐蚀箭】：技能威力 +25%，冷却 -10%。",
-     "passive": {},
-     "skill_bonus": {
-      "power": 0.25,
-      "cooldown": 0.1
-     }
-    },
-    {
-     "id": "necromancer_mastery_1",
-     "name": "亡者领域精通",
-     "tier": 1,
-     "col": 1,
-     "kind": "mastery",
-     "skill_id": "grave_field",
-     "cost": 1,
-     "requires": [
-      "necromancer_anchor_1"
-     ],
-     "icon": "skill_grave_field",
-     "desc": "强化【亡者领域】：技能威力 +25%，冷却 -10%。",
-     "passive": {},
-     "skill_bonus": {
-      "power": 0.25,
-      "cooldown": 0.1
-     }
-    },
-    {
-     "id": "necromancer_mastery_2",
-     "name": "汲取精通",
-     "tier": 1,
-     "col": 2,
-     "kind": "mastery",
-     "skill_id": "drain",
-     "cost": 1,
-     "requires": [
-      "necromancer_anchor_2"
-     ],
-     "icon": "skill_drain",
-     "desc": "强化【汲取】：技能威力 +25%，冷却 -10%。",
-     "passive": {},
-     "skill_bonus": {
-      "power": 0.25,
-      "cooldown": 0.1
-     }
-    },
-    {
-     "id": "necromancer_passive_a",
-     "name": "亡魂契约",
-     "tier": 2,
-     "col": 0,
-     "kind": "passive",
-     "skill_id": "",
-     "cost": 2,
-     "requires": [
-      "necromancer_mastery_0",
-      "necromancer_mastery_1"
-     ],
-     "icon": "passive_stat_attack",
-     "desc": "魔法攻击 +6，魔力上限 +18",
-     "passive": {
-      "magic_attack": 6,
-      "max_mp": 18
-     },
-     "skill_bonus": {}
-    },
-    {
-     "id": "necromancer_passive_b",
-     "name": "腐化",
-     "tier": 2,
-     "col": 2,
-     "kind": "passive",
-     "skill_id": "",
-     "cost": 2,
-     "requires": [
-      "necromancer_mastery_1",
-      "necromancer_mastery_2"
-     ],
-     "icon": "passive_stat_defense",
-     "desc": "攻击 +5，暴击率 +3%",
-     "passive": {
-      "attack": 5,
-      "crit_rate": 0.03
-     },
-     "skill_bonus": {}
-    },
-    {
-     "id": "necromancer_capstone",
-     "name": "死灵统御",
-     "tier": 3,
-     "col": 1,
-     "kind": "capstone",
-     "skill_id": "",
-     "cost": 3,
-     "requires": [
-      "necromancer_passive_a",
-      "necromancer_passive_b"
-     ],
-     "icon": "passive_stat_capstone",
-     "desc": "全属性 +6%，魔法防御 +8",
-     "passive": {
-      "all_stats_bonus": 0.06,
-      "magic_defense": 8
-     },
-     "skill_bonus": {}
-    }
-   ]
-  },
-  "death_knight": {
-   "name": "死亡骑士之道",
-   "nodes": [
-    {
-     "id": "death_knight_anchor_0",
-     "name": "死亡冲锋",
-     "tier": 0,
-     "col": 0,
-     "kind": "anchor",
-     "skill_id": "death_charge",
-     "cost": 0,
-     "requires": [],
-     "icon": "skill_death_charge",
-     "desc": "职业初始主动技能（初始技能）",
-     "passive": {},
-     "skill_bonus": {}
-    },
-    {
-     "id": "death_knight_anchor_1",
-     "name": "血斩",
-     "tier": 0,
-     "col": 1,
-     "kind": "anchor",
-     "skill_id": "blood_slash",
-     "cost": 0,
-     "requires": [],
-     "icon": "skill_blood_slash",
-     "desc": "职业初始主动技能（初始技能）",
-     "passive": {},
-     "skill_bonus": {}
-    },
-    {
-     "id": "death_knight_anchor_2",
-     "name": "黑暗护盾",
-     "tier": 0,
-     "col": 2,
-     "kind": "anchor",
-     "skill_id": "dark_shield",
-     "cost": 0,
-     "requires": [],
-     "icon": "skill_dark_shield",
-     "desc": "职业初始主动技能（初始技能）",
-     "passive": {},
-     "skill_bonus": {}
-    },
-    {
-     "id": "death_knight_mastery_0",
-     "name": "死亡冲锋精通",
-     "tier": 1,
-     "col": 0,
-     "kind": "mastery",
-     "skill_id": "death_charge",
-     "cost": 1,
-     "requires": [
-      "death_knight_anchor_0"
-     ],
-     "icon": "skill_death_charge",
-     "desc": "强化【死亡冲锋】：技能威力 +25%，冷却 -10%。",
-     "passive": {},
-     "skill_bonus": {
-      "power": 0.25,
-      "cooldown": 0.1
-     }
-    },
-    {
-     "id": "death_knight_mastery_1",
-     "name": "血斩精通",
-     "tier": 1,
-     "col": 1,
-     "kind": "mastery",
-     "skill_id": "blood_slash",
-     "cost": 1,
-     "requires": [
-      "death_knight_anchor_1"
-     ],
-     "icon": "skill_blood_slash",
-     "desc": "强化【血斩】：技能威力 +25%，冷却 -10%。",
-     "passive": {},
-     "skill_bonus": {
-      "power": 0.25,
-      "cooldown": 0.1
-     }
-    },
-    {
-     "id": "death_knight_mastery_2",
-     "name": "黑暗护盾精通",
-     "tier": 1,
-     "col": 2,
-     "kind": "mastery",
-     "skill_id": "dark_shield",
-     "cost": 1,
-     "requires": [
-      "death_knight_anchor_2"
-     ],
-     "icon": "skill_dark_shield",
-     "desc": "强化【黑暗护盾】：技能威力 +25%，冷却 -10%。",
-     "passive": {},
-     "skill_bonus": {
-      "power": 0.25,
-      "cooldown": 0.1
-     }
-    },
-    {
-     "id": "death_knight_passive_a",
-     "name": "血之渴望",
-     "tier": 2,
-     "col": 0,
-     "kind": "passive",
-     "skill_id": "",
-     "cost": 2,
-     "requires": [
-      "death_knight_mastery_0",
-      "death_knight_mastery_1"
-     ],
-     "icon": "passive_stat_attack",
-     "desc": "攻击 +7，生命上限 -15",
-     "passive": {
-      "attack": 7,
-      "max_hp": -15
-     },
-     "skill_bonus": {}
-    },
-    {
-     "id": "death_knight_passive_b",
-     "name": "亡者壁垒",
-     "tier": 2,
-     "col": 2,
-     "kind": "passive",
-     "skill_id": "",
-     "cost": 2,
-     "requires": [
-      "death_knight_mastery_1",
-      "death_knight_mastery_2"
-     ],
-     "icon": "passive_stat_defense",
-     "desc": "防御 +6，闪避率 +3%",
-     "passive": {
-      "defense": 6,
-      "dodge_rate": 0.03
-     },
-     "skill_bonus": {}
-    },
-    {
-     "id": "death_knight_capstone",
-     "name": "不朽骑士",
-     "tier": 3,
-     "col": 1,
-     "kind": "capstone",
-     "skill_id": "",
-     "cost": 3,
-     "requires": [
-      "death_knight_passive_a",
-      "death_knight_passive_b"
-     ],
-     "icon": "passive_stat_capstone",
-     "desc": "全属性 +7%，生命上限 +60",
-     "passive": {
-      "all_stats_bonus": 0.07,
-      "max_hp": 60
-     },
-     "skill_bonus": {}
-    }
-   ]
-  },
-  "thief": {
-   "name": "小偷之道",
-   "nodes": [
-    {
-     "id": "thief_anchor_0",
-     "name": "背刺",
-     "tier": 0,
-     "col": 0,
-     "kind": "anchor",
-     "skill_id": "backstab",
-     "cost": 0,
-     "requires": [],
-     "icon": "skill_backstab",
-     "desc": "职业初始主动技能（初始技能）",
-     "passive": {},
-     "skill_bonus": {}
-    },
-    {
-     "id": "thief_anchor_1",
-     "name": "烟雾弹",
-     "tier": 0,
-     "col": 1,
-     "kind": "anchor",
-     "skill_id": "smoke_bomb",
-     "cost": 0,
-     "requires": [],
-     "icon": "skill_smoke_bomb",
-     "desc": "职业初始主动技能（初始技能）",
-     "passive": {},
-     "skill_bonus": {}
-    },
-    {
-     "id": "thief_anchor_2",
-     "name": "毒刃",
-     "tier": 0,
-     "col": 2,
-     "kind": "anchor",
-     "skill_id": "poison_blade",
-     "cost": 0,
-     "requires": [],
-     "icon": "skill_poison_blade",
-     "desc": "职业初始主动技能（初始技能）",
-     "passive": {},
-     "skill_bonus": {}
-    },
-    {
-     "id": "thief_mastery_0",
-     "name": "背刺精通",
-     "tier": 1,
-     "col": 0,
-     "kind": "mastery",
-     "skill_id": "backstab",
-     "cost": 1,
-     "requires": [
-      "thief_anchor_0"
-     ],
-     "icon": "skill_backstab",
-     "desc": "强化【背刺】：技能威力 +25%，冷却 -10%。",
-     "passive": {},
-     "skill_bonus": {
-      "power": 0.25,
-      "cooldown": 0.1
-     }
-    },
-    {
-     "id": "thief_mastery_1",
-     "name": "烟雾弹精通",
-     "tier": 1,
-     "col": 1,
-     "kind": "mastery",
-     "skill_id": "smoke_bomb",
-     "cost": 1,
-     "requires": [
-      "thief_anchor_1"
-     ],
-     "icon": "skill_smoke_bomb",
-     "desc": "强化【烟雾弹】：技能威力 +25%，冷却 -10%。",
-     "passive": {},
-     "skill_bonus": {
-      "power": 0.25,
-      "cooldown": 0.1
-     }
-    },
-    {
-     "id": "thief_mastery_2",
-     "name": "毒刃精通",
-     "tier": 1,
-     "col": 2,
-     "kind": "mastery",
-     "skill_id": "poison_blade",
-     "cost": 1,
-     "requires": [
-      "thief_anchor_2"
-     ],
-     "icon": "skill_poison_blade",
-     "desc": "强化【毒刃】：技能威力 +25%，冷却 -10%。",
-     "passive": {},
-     "skill_bonus": {
-      "power": 0.25,
-      "cooldown": 0.1
-     }
-    },
-    {
-     "id": "thief_passive_a",
-     "name": "暗影步",
-     "tier": 2,
-     "col": 0,
-     "kind": "passive",
-     "skill_id": "",
-     "cost": 2,
-     "requires": [
-      "thief_mastery_0",
-      "thief_mastery_1"
-     ],
-     "icon": "passive_stat_attack",
-     "desc": "移动速度 +15%，闪避率 +5%",
-     "passive": {
-      "move_speed": 0.15,
-      "dodge_rate": 0.05
-     },
-     "skill_bonus": {}
-    },
-    {
-     "id": "thief_passive_b",
-     "name": "淬毒",
-     "tier": 2,
-     "col": 2,
-     "kind": "passive",
-     "skill_id": "",
-     "cost": 2,
-     "requires": [
-      "thief_mastery_1",
-      "thief_mastery_2"
-     ],
-     "icon": "passive_stat_defense",
-     "desc": "攻击 +5，暴击率 +4%",
-     "passive": {
-      "attack": 5,
-      "crit_rate": 0.04
-     },
-     "skill_bonus": {}
-    },
-    {
-     "id": "thief_capstone",
-     "name": "千面",
-     "tier": 3,
-     "col": 1,
-     "kind": "capstone",
-     "skill_id": "",
-     "cost": 3,
-     "requires": [
-      "thief_passive_a",
-      "thief_passive_b"
-     ],
-     "icon": "passive_stat_capstone",
-     "desc": "全属性 +6%，暴击伤害 +20%",
-     "passive": {
-      "all_stats_bonus": 0.06,
-      "crit_damage": 0.2
-     },
-     "skill_bonus": {}
-    }
-   ]
-  },
-  "sniper": {
-   "name": "狙击手之道",
-   "nodes": [
-    {
-     "id": "sniper_anchor_0",
-     "name": "狙击",
-     "tier": 0,
-     "col": 0,
-     "kind": "anchor",
-     "skill_id": "snipe",
-     "cost": 0,
-     "requires": [],
-     "icon": "skill_snipe",
-     "desc": "职业初始主动技能（初始技能）",
-     "passive": {},
-     "skill_bonus": {}
-    },
-    {
-     "id": "sniper_anchor_1",
-     "name": "陷阱",
-     "tier": 0,
-     "col": 1,
-     "kind": "anchor",
-     "skill_id": "trap",
-     "cost": 0,
-     "requires": [],
-     "icon": "skill_trap",
-     "desc": "职业初始主动技能（初始技能）",
-     "passive": {},
-     "skill_bonus": {}
-    },
-    {
-     "id": "sniper_anchor_2",
-     "name": "精准",
-     "tier": 0,
-     "col": 2,
-     "kind": "anchor",
-     "skill_id": "focus",
-     "cost": 0,
-     "requires": [],
-     "icon": "skill_focus",
-     "desc": "职业初始主动技能（初始技能）",
-     "passive": {},
-     "skill_bonus": {}
-    },
-    {
-     "id": "sniper_mastery_0",
-     "name": "狙击精通",
-     "tier": 1,
-     "col": 0,
-     "kind": "mastery",
-     "skill_id": "snipe",
-     "cost": 1,
-     "requires": [
-      "sniper_anchor_0"
-     ],
-     "icon": "skill_snipe",
-     "desc": "强化【狙击】：技能威力 +25%，冷却 -10%。",
-     "passive": {},
-     "skill_bonus": {
-      "power": 0.25,
-      "cooldown": 0.1
-     }
-    },
-    {
-     "id": "sniper_mastery_1",
-     "name": "陷阱精通",
-     "tier": 1,
-     "col": 1,
-     "kind": "mastery",
-     "skill_id": "trap",
-     "cost": 1,
-     "requires": [
-      "sniper_anchor_1"
-     ],
-     "icon": "skill_trap",
-     "desc": "强化【陷阱】：技能威力 +25%，冷却 -10%。",
-     "passive": {},
-     "skill_bonus": {
-      "power": 0.25,
-      "cooldown": 0.1
-     }
-    },
-    {
-     "id": "sniper_mastery_2",
-     "name": "精准精通",
-     "tier": 1,
-     "col": 2,
-     "kind": "mastery",
-     "skill_id": "focus",
-     "cost": 1,
-     "requires": [
-      "sniper_anchor_2"
-     ],
-     "icon": "skill_focus",
-     "desc": "强化【精准】：技能威力 +25%，冷却 -10%。",
-     "passive": {},
-     "skill_bonus": {
-      "power": 0.25,
-      "cooldown": 0.1
-     }
-    },
-    {
-     "id": "sniper_passive_a",
-     "name": "致命瞄准",
-     "tier": 2,
-     "col": 0,
-     "kind": "passive",
-     "skill_id": "",
-     "cost": 2,
-     "requires": [
-      "sniper_mastery_0",
-      "sniper_mastery_1"
-     ],
-     "icon": "passive_stat_attack",
-     "desc": "暴击率 +6%，暴击伤害 +20%",
-     "passive": {
-      "crit_rate": 0.06,
-      "crit_damage": 0.2
-     },
-     "skill_bonus": {}
-    },
-    {
-     "id": "sniper_passive_b",
-     "name": "稳固据守",
-     "tier": 2,
-     "col": 2,
-     "kind": "passive",
-     "skill_id": "",
-     "cost": 2,
-     "requires": [
-      "sniper_mastery_1",
-      "sniper_mastery_2"
-     ],
-     "icon": "passive_stat_defense",
-     "desc": "防御 +5，攻击速度 +10%",
-     "passive": {
-      "defense": 5,
-      "attack_speed": 0.1
-     },
-     "skill_bonus": {}
-    },
-    {
-     "id": "sniper_capstone",
-     "name": "死神凝视",
-     "tier": 3,
-     "col": 1,
-     "kind": "capstone",
-     "skill_id": "",
-     "cost": 3,
-     "requires": [
-      "sniper_passive_a",
-      "sniper_passive_b"
-     ],
-     "icon": "passive_stat_capstone",
-     "desc": "全属性 +6%，暴击率 +8%",
-     "passive": {
-      "all_stats_bonus": 0.06,
-      "crit_rate": 0.08
-     },
-     "skill_bonus": {}
-    }
-   ]
-  },
-  "bomber": {
-   "name": "炸弹专家之道",
-   "nodes": [
-    {
-     "id": "bomber_anchor_0",
-     "name": "投掷炸弹",
-     "tier": 0,
-     "col": 0,
-     "kind": "anchor",
-     "skill_id": "throw_bomb",
-     "cost": 0,
-     "requires": [],
-     "icon": "skill_throw_bomb",
-     "desc": "职业初始主动技能（初始技能）",
-     "passive": {},
-     "skill_bonus": {}
-    },
-    {
-     "id": "bomber_anchor_1",
-     "name": "爆破领域",
-     "tier": 0,
-     "col": 1,
-     "kind": "anchor",
-     "skill_id": "blast_zone",
-     "cost": 0,
-     "requires": [],
-     "icon": "skill_blast_zone",
-     "desc": "职业初始主动技能（初始技能）",
-     "passive": {},
-     "skill_bonus": {}
-    },
-    {
-     "id": "bomber_anchor_2",
-     "name": "燃烧弹",
-     "tier": 0,
-     "col": 2,
-     "kind": "anchor",
-     "skill_id": "incendiary",
-     "cost": 0,
-     "requires": [],
-     "icon": "skill_incendiary",
-     "desc": "职业初始主动技能（初始技能）",
-     "passive": {},
-     "skill_bonus": {}
-    },
-    {
-     "id": "bomber_mastery_0",
-     "name": "投掷炸弹精通",
-     "tier": 1,
-     "col": 0,
-     "kind": "mastery",
-     "skill_id": "throw_bomb",
-     "cost": 1,
-     "requires": [
-      "bomber_anchor_0"
-     ],
-     "icon": "skill_throw_bomb",
-     "desc": "强化【投掷炸弹】：技能威力 +25%，冷却 -10%。",
-     "passive": {},
-     "skill_bonus": {
-      "power": 0.25,
-      "cooldown": 0.1
-     }
-    },
-    {
-     "id": "bomber_mastery_1",
-     "name": "爆破领域精通",
-     "tier": 1,
-     "col": 1,
-     "kind": "mastery",
-     "skill_id": "blast_zone",
-     "cost": 1,
-     "requires": [
-      "bomber_anchor_1"
-     ],
-     "icon": "skill_blast_zone",
-     "desc": "强化【爆破领域】：技能威力 +25%，冷却 -10%。",
-     "passive": {},
-     "skill_bonus": {
-      "power": 0.25,
-      "cooldown": 0.1
-     }
-    },
-    {
-     "id": "bomber_mastery_2",
-     "name": "燃烧弹精通",
-     "tier": 1,
-     "col": 2,
-     "kind": "mastery",
-     "skill_id": "incendiary",
-     "cost": 1,
-     "requires": [
-      "bomber_anchor_2"
-     ],
-     "icon": "skill_incendiary",
-     "desc": "强化【燃烧弹】：技能威力 +25%，冷却 -10%。",
-     "passive": {},
-     "skill_bonus": {
-      "power": 0.25,
-      "cooldown": 0.1
-     }
-    },
-    {
-     "id": "bomber_passive_a",
-     "name": "烈性装药",
-     "tier": 2,
-     "col": 0,
-     "kind": "passive",
-     "skill_id": "",
-     "cost": 2,
-     "requires": [
-      "bomber_mastery_0",
-      "bomber_mastery_1"
-     ],
-     "icon": "passive_stat_attack",
-     "desc": "攻击 +6，暴击率 +3%",
-     "passive": {
-      "attack": 6,
-      "crit_rate": 0.03
-     },
-     "skill_bonus": {}
-    },
-    {
-     "id": "bomber_passive_b",
-     "name": "厚甲工装",
-     "tier": 2,
-     "col": 2,
-     "kind": "passive",
-     "skill_id": "",
-     "cost": 2,
-     "requires": [
-      "bomber_mastery_1",
-      "bomber_mastery_2"
-     ],
-     "icon": "passive_stat_defense",
-     "desc": "防御 +6，生命上限 +30",
-     "passive": {
-      "defense": 6,
-      "max_hp": 30
-     },
-     "skill_bonus": {}
-    },
-    {
-     "id": "bomber_capstone",
-     "name": "连环爆破",
-     "tier": 3,
-     "col": 1,
-     "kind": "capstone",
-     "skill_id": "",
-     "cost": 3,
-     "requires": [
-      "bomber_passive_a",
-      "bomber_passive_b"
-     ],
-     "icon": "passive_stat_capstone",
-     "desc": "全属性 +6%，攻速 +12%",
-     "passive": {
-      "all_stats_bonus": 0.06,
-      "attack_speed": 0.12
-     },
-     "skill_bonus": {}
-    }
-   ]
-  },
-  "hacker": {
-   "name": "黑客之道",
-   "nodes": [
-    {
-     "id": "hacker_anchor_0",
-     "name": "病毒入侵",
-     "tier": 0,
-     "col": 0,
-     "kind": "anchor",
-     "skill_id": "virus",
-     "cost": 0,
-     "requires": [],
-     "icon": "skill_virus",
-     "desc": "职业初始主动技能（初始技能）",
-     "passive": {},
-     "skill_bonus": {}
-    },
-    {
-     "id": "hacker_anchor_1",
-     "name": "EMP 脉冲",
-     "tier": 0,
-     "col": 1,
-     "kind": "anchor",
-     "skill_id": "emp_pulse",
-     "cost": 0,
-     "requires": [],
-     "icon": "skill_emp_pulse",
-     "desc": "职业初始主动技能（初始技能）",
-     "passive": {},
-     "skill_bonus": {}
-    },
-    {
-     "id": "hacker_anchor_2",
-     "name": "系统过载",
-     "tier": 0,
-     "col": 2,
-     "kind": "anchor",
-     "skill_id": "overclock",
-     "cost": 0,
-     "requires": [],
-     "icon": "skill_overclock",
-     "desc": "职业初始主动技能（初始技能）",
-     "passive": {},
-     "skill_bonus": {}
-    },
-    {
-     "id": "hacker_mastery_0",
-     "name": "病毒入侵精通",
-     "tier": 1,
-     "col": 0,
-     "kind": "mastery",
-     "skill_id": "virus",
-     "cost": 1,
-     "requires": [
-      "hacker_anchor_0"
-     ],
-     "icon": "skill_virus",
-     "desc": "强化【病毒入侵】：技能威力 +25%，冷却 -10%。",
-     "passive": {},
-     "skill_bonus": {
-      "power": 0.25,
-      "cooldown": 0.1
-     }
-    },
-    {
-     "id": "hacker_mastery_1",
-     "name": "EMP 脉冲精通",
-     "tier": 1,
-     "col": 1,
-     "kind": "mastery",
-     "skill_id": "emp_pulse",
-     "cost": 1,
-     "requires": [
-      "hacker_anchor_1"
-     ],
-     "icon": "skill_emp_pulse",
-     "desc": "强化【EMP 脉冲】：技能威力 +25%，冷却 -10%。",
-     "passive": {},
-     "skill_bonus": {
-      "power": 0.25,
-      "cooldown": 0.1
-     }
-    },
-    {
-     "id": "hacker_mastery_2",
-     "name": "系统过载精通",
-     "tier": 1,
-     "col": 2,
-     "kind": "mastery",
-     "skill_id": "overclock",
-     "cost": 1,
-     "requires": [
-      "hacker_anchor_2"
-     ],
-     "icon": "skill_overclock",
-     "desc": "强化【系统过载】：技能威力 +25%，冷却 -10%。",
-     "passive": {},
-     "skill_bonus": {
-      "power": 0.25,
-      "cooldown": 0.1
-     }
-    },
-    {
-     "id": "hacker_passive_a",
-     "name": "神经超频",
-     "tier": 2,
-     "col": 0,
-     "kind": "passive",
-     "skill_id": "",
-     "cost": 2,
-     "requires": [
-      "hacker_mastery_0",
-      "hacker_mastery_1"
-     ],
-     "icon": "passive_stat_attack",
-     "desc": "攻速 +12%，移动速度 +10%",
-     "passive": {
-      "attack_speed": 0.12,
-      "move_speed": 0.1
-     },
-     "skill_bonus": {}
-    },
-    {
-     "id": "hacker_passive_b",
-     "name": "数据护盾",
-     "tier": 2,
-     "col": 2,
-     "kind": "passive",
-     "skill_id": "",
-     "cost": 2,
-     "requires": [
-      "hacker_mastery_1",
-      "hacker_mastery_2"
-     ],
-     "icon": "passive_stat_defense",
-     "desc": "防御 +5，闪避率 +4%",
-     "passive": {
-      "defense": 5,
-      "dodge_rate": 0.04
-     },
-     "skill_bonus": {}
-    },
-    {
-     "id": "hacker_capstone",
-     "name": "量子掌控",
-     "tier": 3,
-     "col": 1,
-     "kind": "capstone",
-     "skill_id": "",
-     "cost": 3,
-     "requires": [
-      "hacker_passive_a",
-      "hacker_passive_b"
-     ],
-     "icon": "passive_stat_capstone",
-     "desc": "全属性 +6%，魔法攻击 +8",
-     "passive": {
-      "all_stats_bonus": 0.06,
-      "magic_attack": 8
-     },
-     "skill_bonus": {}
-    }
-   ]
-  },
-  "mech_pilot": {
-   "name": "机甲师之道",
-   "nodes": [
-    {
-     "id": "mech_pilot_anchor_0",
-     "name": "重炮轰击",
-     "tier": 0,
-     "col": 0,
-     "kind": "anchor",
-     "skill_id": "cannon",
-     "cost": 0,
-     "requires": [],
-     "icon": "skill_cannon",
-     "desc": "职业初始主动技能（初始技能）",
-     "passive": {},
-     "skill_bonus": {}
-    },
-    {
-     "id": "mech_pilot_anchor_1",
-     "name": "装甲强化",
-     "tier": 0,
-     "col": 1,
-     "kind": "anchor",
-     "skill_id": "armor_up",
-     "cost": 0,
-     "requires": [],
-     "icon": "skill_armor_up",
-     "desc": "职业初始主动技能（初始技能）",
-     "passive": {},
-     "skill_bonus": {}
-    },
-    {
-     "id": "mech_pilot_anchor_2",
-     "name": "能量护盾",
-     "tier": 0,
-     "col": 2,
-     "kind": "anchor",
-     "skill_id": "energy_field",
-     "cost": 0,
-     "requires": [],
-     "icon": "skill_energy_field",
-     "desc": "职业初始主动技能（初始技能）",
-     "passive": {},
-     "skill_bonus": {}
-    },
-    {
-     "id": "mech_pilot_mastery_0",
-     "name": "重炮轰击精通",
-     "tier": 1,
-     "col": 0,
-     "kind": "mastery",
-     "skill_id": "cannon",
-     "cost": 1,
-     "requires": [
-      "mech_pilot_anchor_0"
-     ],
-     "icon": "skill_cannon",
-     "desc": "强化【重炮轰击】：技能威力 +25%，冷却 -10%。",
-     "passive": {},
-     "skill_bonus": {
-      "power": 0.25,
-      "cooldown": 0.1
-     }
-    },
-    {
-     "id": "mech_pilot_mastery_1",
-     "name": "装甲强化精通",
-     "tier": 1,
-     "col": 1,
-     "kind": "mastery",
-     "skill_id": "armor_up",
-     "cost": 1,
-     "requires": [
-      "mech_pilot_anchor_1"
-     ],
-     "icon": "skill_armor_up",
-     "desc": "强化【装甲强化】：技能威力 +25%，冷却 -10%。",
-     "passive": {},
-     "skill_bonus": {
-      "power": 0.25,
-      "cooldown": 0.1
-     }
-    },
-    {
-     "id": "mech_pilot_mastery_2",
-     "name": "能量护盾精通",
-     "tier": 1,
-     "col": 2,
-     "kind": "mastery",
-     "skill_id": "energy_field",
-     "cost": 1,
-     "requires": [
-      "mech_pilot_anchor_2"
-     ],
-     "icon": "skill_energy_field",
-     "desc": "强化【能量护盾】：技能威力 +25%，冷却 -10%。",
-     "passive": {},
-     "skill_bonus": {
-      "power": 0.25,
-      "cooldown": 0.1
-     }
-    },
-    {
-     "id": "mech_pilot_passive_a",
-     "name": "重装弹链",
-     "tier": 2,
-     "col": 0,
-     "kind": "passive",
-     "skill_id": "",
-     "cost": 2,
-     "requires": [
-      "mech_pilot_mastery_0",
-      "mech_pilot_mastery_1"
-     ],
-     "icon": "passive_stat_attack",
-     "desc": "攻击 +6，暴击率 +3%",
-     "passive": {
-      "attack": 6,
-      "crit_rate": 0.03
-     },
-     "skill_bonus": {}
-    },
-    {
-     "id": "mech_pilot_passive_b",
-     "name": "装甲协议",
-     "tier": 2,
-     "col": 2,
-     "kind": "passive",
-     "skill_id": "",
-     "cost": 2,
-     "requires": [
-      "mech_pilot_mastery_1",
-      "mech_pilot_mastery_2"
-     ],
-     "icon": "passive_stat_defense",
-     "desc": "防御 +6，生命上限 +35",
-     "passive": {
-      "defense": 6,
-      "max_hp": 35
-     },
-     "skill_bonus": {}
-    },
-    {
-     "id": "mech_pilot_capstone",
-     "name": "泰坦协议",
-     "tier": 3,
-     "col": 1,
-     "kind": "capstone",
-     "skill_id": "",
-     "cost": 3,
-     "requires": [
-      "mech_pilot_passive_a",
-      "mech_pilot_passive_b"
-     ],
-     "icon": "passive_stat_capstone",
-     "desc": "全属性 +7%，生命上限 +70",
-     "passive": {
-      "all_stats_bonus": 0.07,
-      "max_hp": 70
-     },
-     "skill_bonus": {}
-    }
-   ]
-  },
-  "bounty_hunter": {
-   "name": "赏金猎人之道",
-   "nodes": [
-    {
-     "id": "bounty_hunter_anchor_0",
-     "name": "连射",
-     "tier": 0,
-     "col": 0,
-     "kind": "anchor",
-     "skill_id": "rapid_fire",
-     "cost": 0,
-     "requires": [],
-     "icon": "skill_rapid_fire",
-     "desc": "职业初始主动技能（初始技能）",
-     "passive": {},
-     "skill_bonus": {}
-    },
-    {
-     "id": "bounty_hunter_anchor_1",
-     "name": "追踪标记",
-     "tier": 0,
-     "col": 1,
-     "kind": "anchor",
-     "skill_id": "mark",
-     "cost": 0,
-     "requires": [],
-     "icon": "skill_mark",
-     "desc": "职业初始主动技能（初始技能）",
-     "passive": {},
-     "skill_bonus": {}
-    },
-    {
-     "id": "bounty_hunter_anchor_2",
-     "name": "缴械",
-     "tier": 0,
-     "col": 2,
-     "kind": "anchor",
-     "skill_id": "disarm",
-     "cost": 0,
-     "requires": [],
-     "icon": "skill_disarm",
-     "desc": "职业初始主动技能（初始技能）",
-     "passive": {},
-     "skill_bonus": {}
-    },
-    {
-     "id": "bounty_hunter_mastery_0",
-     "name": "连射精通",
-     "tier": 1,
-     "col": 0,
-     "kind": "mastery",
-     "skill_id": "rapid_fire",
-     "cost": 1,
-     "requires": [
-      "bounty_hunter_anchor_0"
-     ],
-     "icon": "skill_rapid_fire",
-     "desc": "强化【连射】：技能威力 +25%，冷却 -10%。",
-     "passive": {},
-     "skill_bonus": {
-      "power": 0.25,
-      "cooldown": 0.1
-     }
-    },
-    {
-     "id": "bounty_hunter_mastery_1",
-     "name": "追踪标记精通",
-     "tier": 1,
-     "col": 1,
-     "kind": "mastery",
-     "skill_id": "mark",
-     "cost": 1,
-     "requires": [
-      "bounty_hunter_anchor_1"
-     ],
-     "icon": "skill_mark",
-     "desc": "强化【追踪标记】：技能威力 +25%，冷却 -10%。",
-     "passive": {},
-     "skill_bonus": {
-      "power": 0.25,
-      "cooldown": 0.1
-     }
-    },
-    {
-     "id": "bounty_hunter_mastery_2",
-     "name": "缴械精通",
-     "tier": 1,
-     "col": 2,
-     "kind": "mastery",
-     "skill_id": "disarm",
-     "cost": 1,
-     "requires": [
-      "bounty_hunter_anchor_2"
-     ],
-     "icon": "skill_disarm",
-     "desc": "强化【缴械】：技能威力 +25%，冷却 -10%。",
-     "passive": {},
-     "skill_bonus": {
-      "power": 0.25,
-      "cooldown": 0.1
-     }
-    },
-    {
-     "id": "bounty_hunter_passive_a",
-     "name": "赏金直觉",
-     "tier": 2,
-     "col": 0,
-     "kind": "passive",
-     "skill_id": "",
-     "cost": 2,
-     "requires": [
-      "bounty_hunter_mastery_0",
-      "bounty_hunter_mastery_1"
-     ],
-     "icon": "passive_stat_attack",
-     "desc": "攻击 +6，暴击率 +4%",
-     "passive": {
-      "attack": 6,
-      "crit_rate": 0.04
-     },
-     "skill_bonus": {}
-    },
-    {
-     "id": "bounty_hunter_passive_b",
-     "name": "战术机动",
-     "tier": 2,
-     "col": 2,
-     "kind": "passive",
-     "skill_id": "",
-     "cost": 2,
-     "requires": [
-      "bounty_hunter_mastery_1",
-      "bounty_hunter_mastery_2"
-     ],
-     "icon": "passive_stat_defense",
-     "desc": "移动速度 +12%，闪避率 +4%",
-     "passive": {
-      "move_speed": 0.12,
-      "dodge_rate": 0.04
-     },
-     "skill_bonus": {}
-    },
-    {
-     "id": "bounty_hunter_capstone",
-     "name": "死亡凝视",
-     "tier": 3,
-     "col": 1,
-     "kind": "capstone",
-     "skill_id": "",
-     "cost": 3,
-     "requires": [
-      "bounty_hunter_passive_a",
-      "bounty_hunter_passive_b"
-     ],
-     "icon": "passive_stat_capstone",
-     "desc": "全属性 +6%，暴击伤害 +25%",
-     "passive": {
-      "all_stats_bonus": 0.06,
-      "crit_damage": 0.25
-     },
-     "skill_bonus": {}
-    }
-   ]
   }
- }
 }

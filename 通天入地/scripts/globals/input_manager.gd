@@ -80,6 +80,9 @@ func is_skill_pressed(slot: int) -> bool:
 		1: return Input.is_action_just_pressed("skill_1")
 		2: return Input.is_action_just_pressed("skill_2")
 		3: return Input.is_action_just_pressed("skill_3")
+		4: return Input.is_action_just_pressed("skill_4")
+		5: return Input.is_action_just_pressed("skill_5")
+		6: return Input.is_action_just_pressed("skill_6")
 		_: return false
 
 func is_dash_pressed() -> bool:

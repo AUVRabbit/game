@@ -114,7 +114,7 @@ func _run() -> void:
 	var p2 = GameManager.active_player
 	if p2:
 		p2.facing = Vector2.RIGHT
-		for i in 3:
+		for i in 6:
 			p2.try_skill(i)
 			await _wait(0.3)
 		await _shot("07_skill_vfx")

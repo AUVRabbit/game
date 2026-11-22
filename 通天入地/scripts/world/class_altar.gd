@@ -1,7 +1,7 @@
 # ============================================================
 # ClassAltar — 职业祭坛
 # 消耗金币解锁一名新职业，解锁后可随时用 Q / P 切换
-# 最多可解锁 data/classes.json 中的全部 12 个职业
+# 最多可解锁 data/classes.json 中的全部职业
 # ============================================================
 
 extends Area2D
@@ -61,7 +61,8 @@ func interact(_player: Node) -> void:
 		return
 	var next_id := _next_locked_class()
 	if next_id == "":
-		EventBus.notify("全部 12 个职业均已解锁")
+		var total := DataManager.get_all_class_ids().size() if DataManager else 0
+		EventBus.notify("全部 %d 个职业均已解锁" % total)
 		return
 	if GameManager.gold < unlock_cost:
 		EventBus.notify("解锁新职业需要 %d 金币" % unlock_cost)

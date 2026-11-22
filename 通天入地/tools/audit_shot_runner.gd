@@ -105,7 +105,7 @@ func _run() -> void:
 	# ===== 5. 技能特效 =====
 	if player and is_instance_valid(player):
 		player.facing = Vector2.RIGHT
-		for i in 3:
+		for i in 6:
 			player.try_skill(i)
 			await _wait(0.25)
 		await _shot("05_skill_vfx")
