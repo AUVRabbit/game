@@ -31,7 +31,7 @@ func _ready() -> void:
 	_setup_punk_forge()
 	_setup_portals()
 	AudioManager.play_bgm("world")
-	EventBus.notify("WASD 移动 · 左键/空格攻击 · 1/2/3 技能 · E 交互/采集 · I 背包 · B 建造 · K 技能树")
+	EventBus.notify("WASD 移动 · 左键/空格攻击 · 1/2/3/R/F/G/T/Y/V/B 技能 · E 交互/采集 · I 背包 · N 建造 · K 技能树")
 	queue_redraw()
 
 func _setup_camera() -> void:

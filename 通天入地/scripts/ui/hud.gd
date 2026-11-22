@@ -28,8 +28,9 @@ var build_hint: Label
 var toast_tween: Tween = null
 var skill_tree_button: Button = null
 var skill_bar: HBoxContainer = null
-const SKILL_KEYS := ["1", "2", "3", "R", "F", "G"]
-const SKILL_SLOT_COUNT := 6
+var hint_label: Label = null
+const SKILL_KEYS := ["1", "2", "3", "R", "F", "G", "T", "Y", "V", "B"]
+const SKILL_SLOT_COUNT := 10
 
 func _ready() -> void:
 	layer = 10
@@ -129,22 +130,22 @@ func _build_status_panel() -> void:
 	vbox.add_child(point_label)
 
 func _build_skill_bar() -> void:
-	# 6 格技能栏：1/2/3 基础技能，R/F/G 进阶技能（需技能树解锁）
+	# 10 格操作栏：1/2/3 基础，R/F/G 进阶，T/Y/V/B 由技能树层数逐层解锁
 	var bar := HBoxContainer.new()
-	bar.position = Vector2(165, 470)
-	bar.add_theme_constant_override("separation", 6)
+	bar.position = Vector2(42, 470)
+	bar.add_theme_constant_override("separation", 4)
 	root.add_child(bar)
 	skill_bar = bar
 	for i in SKILL_SLOT_COUNT:
 		var panel := PanelContainer.new()
-		panel.custom_minimum_size = Vector2(100, 58)
+		panel.custom_minimum_size = Vector2(84, 56)
 		panel.add_theme_stylebox_override("panel", _panel_style(Color(0.08, 0.09, 0.14, 0.88)))
 		var row := HBoxContainer.new()
-		row.add_theme_constant_override("separation", 4)
+		row.add_theme_constant_override("separation", 2)
 		panel.add_child(row)
 
 		var icon := TextureRect.new()
-		icon.custom_minimum_size = Vector2(36, 36)
+		icon.custom_minimum_size = Vector2(24, 24)
 		icon.expand_mode = TextureRect.EXPAND_IGNORE_SIZE
 		icon.stretch_mode = TextureRect.STRETCH_KEEP_ASPECT_CENTERED
 		row.add_child(icon)
@@ -152,20 +153,20 @@ func _build_skill_bar() -> void:
 
 		var text_col := VBoxContainer.new()
 		text_col.add_theme_constant_override("separation", 1)
-		text_col.custom_minimum_size = Vector2(42, 0)
+		text_col.custom_minimum_size = Vector2(36, 0)
 		text_col.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 		row.add_child(text_col)
 
 		var label := Label.new()
 		label.text = "[%s] 技能" % SKILL_KEYS[i]
-		label.add_theme_font_size_override("font_size", 10)
+		label.add_theme_font_size_override("font_size", 9)
 		label.clip_text = true
 		text_col.add_child(label)
 		skill_labels.append(label)
 
 		var cd_label := Label.new()
 		cd_label.text = ""
-		cd_label.add_theme_font_size_override("font_size", 10)
+		cd_label.add_theme_font_size_override("font_size", 9)
 		cd_label.add_theme_color_override("font_color", Color(0.85, 0.85, 0.95))
 		cd_label.clip_text = true
 		text_col.add_child(cd_label)
@@ -175,10 +176,11 @@ func _build_skill_bar() -> void:
 		skill_panels.append(panel)
 	var hint := Label.new()
 	hint.position = Vector2(12, 446)
-	hint.text = "左键/空格 攻击   Shift 冲刺   E 交互   1/2/3/R/F/G 技能   I 背包   B 建造   Q/P 换职业   K 技能树"
+	hint.text = "左键/空格 攻击   Shift 冲刺   E 交互   1/2/3/R/F/G/T/Y/V/B 技能   I 背包   N 建造   Q/P 换职业   K 技能树"
 	hint.add_theme_font_size_override("font_size", 11)
 	hint.add_theme_color_override("font_color", Color(0.75, 0.8, 0.9, 0.85))
 	root.add_child(hint)
+	hint_label = hint
 	var tree_btn := Button.new()
 	tree_btn.text = "技能树 (K)"
 	tree_btn.position = Vector2(12, 152)
@@ -275,16 +277,20 @@ func _on_gold_changed(new_amount: int, _delta: int) -> void:
 		gold_label.text = "金币 %d" % new_amount
 
 func _process(_delta: float) -> void:
-	# 触屏模式下触屏技能键占据右侧，技能栏左移避免遮挡
+	# 触屏模式下右侧被技能按钮占据，技能栏缩小并靠左下，避免遮挡
 	if skill_bar:
-		skill_bar.position.x = 8.0 if (InputManager and InputManager.is_touch_mode()) else 165.0
+		var touch := InputManager != null and InputManager.is_touch_mode()
+		skill_bar.position = Vector2(8, 472) if touch else Vector2(42, 470)
+		skill_bar.scale = Vector2(0.72, 0.72) if touch else Vector2.ONE
+	if hint_label:
+		hint_label.visible = not (InputManager != null and InputManager.is_touch_mode())
 	var player = GameManager.active_player if GameManager else null
 	if player == null or not is_instance_valid(player):
 		return
 	var data = player.get_node_or_null("CharacterData")
 	if data == null:
 		return
-	name_label.text = "%s  Lv.%d" % [data.class_display_name, data.level]
+	name_label.text = "%s  Lv.%d  ·  %d转" % [data.class_display_name, data.level, data.get_display_stage()]
 	if last_class_id != str(data.class_id):
 		last_class_id = str(data.class_id)
 		portrait.texture = AssetLibrary.texture("portrait_%s" % last_class_id)
@@ -300,23 +306,27 @@ func _process(_delta: float) -> void:
 		point_label.text = "技能点 %d" % SkillManager.get_points(str(data.class_id))
 
 	var class_id := str(data.class_id)
+	var slot_count := int(data.get_slot_count())
 	for i in SKILL_SLOT_COUNT:
-		if i >= data.skills.size():
+		if i >= slot_count:
+			skill_labels[i].text = "[%s] 锁" % SKILL_KEYS[i]
+			skill_cd_labels[i].text = "技能树"
+			skill_icons[i].texture = null
+			skill_icons[i].set_meta("asset_id", "")
+			skill_panels[i].modulate = Color(0.55, 0.55, 0.62, 0.85)
+			continue
+		var skill: Dictionary = data.get_skill(i + 1)
+		if skill.is_empty():
 			skill_labels[i].text = "[%s] —" % SKILL_KEYS[i]
 			skill_cd_labels[i].text = ""
 			skill_icons[i].texture = null
+			skill_icons[i].set_meta("asset_id", "")
 			skill_panels[i].modulate = Color.WHITE
 			continue
-		var skill: Dictionary = data.skills[i]
 		var icon_id := str(skill.get("icon", ""))
 		if not icon_id.is_empty() and (skill_icons[i].texture == null or skill_icons[i].get_meta("asset_id", "") != icon_id):
 			skill_icons[i].texture = AssetLibrary.texture(icon_id)
 			skill_icons[i].set_meta("asset_id", icon_id)
-		if not _skill_available(class_id, skill):
-			skill_labels[i].text = "[%s] 未解锁" % SKILL_KEYS[i]
-			skill_cd_labels[i].text = "技能树"
-			skill_panels[i].modulate = Color(0.65, 0.65, 0.72, 0.9)
-			continue
 		var left: float = player.get_skill_cooldown_left(i) if player.has_method("get_skill_cooldown_left") else 0.0
 		if left > 0.01:
 			skill_labels[i].text = str(skill.get("name", ""))

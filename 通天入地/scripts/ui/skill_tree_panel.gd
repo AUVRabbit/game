@@ -6,46 +6,53 @@
 extends CanvasLayer
 class_name SkillTreePanel
 
-const TIER_NAMES := { 0: "初始", 1: "精通", 2: "进阶", 3: "天赋", 4: "专精", 5: "终极" }
-const TIER_COUNT := 6
-const KIND_NAMES := {
-	"anchor": "初始主动", "mastery": "技能精通", "active": "进阶主动",
-	"passive": "分支天赋", "keystone": "分支专精", "capstone": "终极奥义"
-}
-const SLOT_KEYS := ["1", "2", "3", "R", "F", "G"]
+const TIER_NAMES := { 0: "层一·初阶", 1: "层二·进阶", 2: "层三·专精", 3: "层四·融合" }
+const TIER_COUNT := 4
+const KIND_NAMES := { "growth": "成长节点" }
+const SLOT_KEYS := ["1", "2", "3", "R", "F", "G", "T", "Y", "V", "B"]
 const STAT_NAMES := {
 	"attack": "攻击", "defense": "防御", "magic_attack": "法强", "magic_defense": "法防",
 	"max_hp": "生命上限", "max_mp": "魔力上限", "move_speed": "移速", "attack_speed": "攻速",
 	"crit_rate": "暴击率", "crit_damage": "暴击伤害", "dodge_rate": "闪避率",
-	"all_stats_bonus": "全属性"
+	"all_stats_bonus": "全属性", "lifesteal": "吸血", "shield_bonus": "护盾强化",
+	"heal_bonus": "治疗强化", "burn": "灼烧强化", "execute": "处决", "fortify": "坚韧",
+	"haste": "急速", "resonance": "共鸣", "trap_bonus": "布置强化", "summon_bonus": "召唤强化",
+	"power": "技能威力", "attack_pct": "攻击", "magic_attack_pct": "法伤",
+	"damage_reduction": "减伤"
 }
-const PERCENT_STATS := ["move_speed", "attack_speed", "crit_rate", "crit_damage", "dodge_rate", "all_stats_bonus"]
-const TIER_COL_W := 82
-const TIER_COL_GAP := 8
-const NODE_ROW_H := 96
-const NODE_ROW_GAP := 12
-const TIER_HEADER_H := 20
-const TREE_W := 6 * TIER_COL_W + 5 * TIER_COL_GAP
-const TREE_H := TIER_HEADER_H + 3 * NODE_ROW_H + 2 * NODE_ROW_GAP
+const PERCENT_STATS := ["move_speed", "attack_speed", "crit_rate", "crit_damage", "dodge_rate", "all_stats_bonus",
+	"lifesteal", "shield_bonus", "heal_bonus", "burn", "execute", "fortify", "haste", "resonance",
+	"trap_bonus", "summon_bonus", "power", "attack_pct", "magic_attack_pct", "damage_reduction"]
+const TIER_COL_W := 94
+const TIER_COL_GAP := 10
+const NODE_ROW_H := 78
+const NODE_ROW_GAP := 8
+const TIER_HEADER_H := 18
+const TREE_W := TIER_COUNT * TIER_COL_W + (TIER_COUNT - 1) * TIER_COL_GAP
+const TREE_H := TIER_HEADER_H + TIER_COUNT * NODE_ROW_H + (TIER_COUNT - 1) * NODE_ROW_GAP
 
 var root: Control
 var portrait: TextureRect
 var title_label: Label
 var points_label: Label
 var tree_tab: Button
-var spec_tab: Button
+var build_tab: Button
+var fusion_tab: Button
 var tree_box: Control
-var spec_box: Control
+var build_box: Control
+var fusion_box: Control
 var tree_root: Control
 var tree_links: TreeLinkLayer
 var grid: GridContainer
-var spec_list: VBoxContainer
+var build_list: VBoxContainer
+var fusion_list: VBoxContainer
 var detail_icon: TextureRect
 var detail_effect: TextureRect
 var detail_name: Label
 var detail_meta: Label
 var detail_desc: Label
 var detail_unlock: Button
+var detail_panel: PanelContainer
 var selected_node_id: String = ""
 var effect_tween: Tween = null
 var node_buttons: Dictionary = {}
@@ -130,10 +137,12 @@ func _build_ui() -> void:
 	spacer.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 	header.add_child(spacer)
 
-	tree_tab = _make_button("技能树", header)
+	tree_tab = _make_button("成长树", header)
 	tree_tab.pressed.connect(func() -> void: _show_tab("tree"))
-	spec_tab = _make_button("职业专职", header)
-	spec_tab.pressed.connect(func() -> void: _show_tab("spec"))
+	build_tab = _make_button("流派配招", header)
+	build_tab.pressed.connect(func() -> void: _show_tab("build"))
+	fusion_tab = _make_button("技能融合", header)
+	fusion_tab.pressed.connect(func() -> void: _show_tab("fusion"))
 	var reset_btn := _make_button("重置技能树", header)
 	reset_btn.pressed.connect(_on_reset_tree)
 	var close_btn := _make_button("关闭", header)
@@ -189,27 +198,41 @@ func _build_ui() -> void:
 	grid.columns = TIER_COUNT
 	grid.add_theme_constant_override("h_separation", TIER_COL_GAP)
 	grid.add_theme_constant_override("v_separation", NODE_ROW_GAP)
-	grid.custom_minimum_size = Vector2(TREE_W, 3 * NODE_ROW_H + 2 * NODE_ROW_GAP)
+	grid.custom_minimum_size = Vector2(TREE_W, TIER_COUNT * NODE_ROW_H + (TIER_COUNT - 1) * NODE_ROW_GAP)
 	tree_col.add_child(grid)
 
-	spec_box = Control.new()
-	spec_box.set_anchors_preset(Control.PRESET_FULL_RECT)
-	spec_box.visible = false
-	left.add_child(spec_box)
-	var spec_scroll := ScrollContainer.new()
-	spec_scroll.set_anchors_preset(Control.PRESET_FULL_RECT)
-	spec_scroll.horizontal_scroll_mode = ScrollContainer.SCROLL_MODE_DISABLED
-	spec_box.add_child(spec_scroll)
-	spec_list = VBoxContainer.new()
-	spec_list.add_theme_constant_override("separation", 10)
-	spec_list.size_flags_horizontal = Control.SIZE_EXPAND_FILL
-	spec_scroll.add_child(spec_list)
+	build_box = Control.new()
+	build_box.set_anchors_preset(Control.PRESET_FULL_RECT)
+	build_box.visible = false
+	left.add_child(build_box)
+	var build_scroll := ScrollContainer.new()
+	build_scroll.set_anchors_preset(Control.PRESET_FULL_RECT)
+	build_scroll.horizontal_scroll_mode = ScrollContainer.SCROLL_MODE_DISABLED
+	build_box.add_child(build_scroll)
+	build_list = VBoxContainer.new()
+	build_list.add_theme_constant_override("separation", 8)
+	build_list.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+	build_scroll.add_child(build_list)
+
+	fusion_box = Control.new()
+	fusion_box.set_anchors_preset(Control.PRESET_FULL_RECT)
+	fusion_box.visible = false
+	left.add_child(fusion_box)
+	var fusion_scroll := ScrollContainer.new()
+	fusion_scroll.set_anchors_preset(Control.PRESET_FULL_RECT)
+	fusion_scroll.horizontal_scroll_mode = ScrollContainer.SCROLL_MODE_DISABLED
+	fusion_box.add_child(fusion_scroll)
+	fusion_list = VBoxContainer.new()
+	fusion_list.add_theme_constant_override("separation", 8)
+	fusion_list.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+	fusion_scroll.add_child(fusion_list)
 
 	# 右侧详情
 	var right := PanelContainer.new()
 	right.custom_minimum_size = Vector2(248, 0)
 	right.add_theme_stylebox_override("panel", _panel_style(Color(0.06, 0.07, 0.1, 0.94)))
 	body.add_child(right)
+	detail_panel = right
 	var right_v := VBoxContainer.new()
 	right_v.add_theme_constant_override("separation", 6)
 	right.add_child(right_v)
@@ -253,7 +276,7 @@ func _build_ui() -> void:
 	right_v.add_child(detail_unlock)
 
 	var footer := Label.new()
-	footer.text = "K 打开/关闭技能树 · 升级获得技能点 · 技能树节点提升技能威力与被动属性"
+	footer.text = "K 打开/关闭 · 每完成一层（4 节点）解锁 1 个操作栏格 · 每完成 2 层解锁 1 个融合槽 · 营地内可自由配招"
 	footer.add_theme_font_size_override("font_size", 12)
 	footer.add_theme_color_override("font_color", Color(0.7, 0.75, 0.85))
 	main.add_child(footer)
@@ -302,14 +325,16 @@ func _refresh() -> void:
 	var class_id := str(data.class_id)
 	var level := int(data.level)
 	portrait.texture = AssetLibrary.texture("portrait_%s" % class_id)
-	var spec: Dictionary = SkillManager.get_specialization(class_id) if SkillManager else {}
-	if spec.is_empty():
-		title_label.text = "%s   Lv.%d" % [str(data.class_display_name), level]
-	else:
-		title_label.text = "%s · %s   Lv.%d" % [str(data.class_display_name), str(spec.get("name", "")), level]
-	points_label.text = "可用技能点：%d" % (SkillManager.get_points(class_id) if SkillManager else 0)
+	var style: Dictionary = DataManager.get_style(str(data.style_id)) if data.style_id != "" else {}
+	var style_name := str(style.get("name", "未选流派"))
+	title_label.text = "%s · %s   Lv.%d · %d转" % [str(data.class_display_name), style_name, level, int(data.get_display_stage())]
+	points_label.text = "技能点 %d   ·   操作栏 %d/%d   ·   融合槽 %d/%d   ·   金币 %d" % [
+		SkillManager.get_points(class_id) if SkillManager else 0,
+		int(data.get_slot_count()), int(data.MAX_SKILL_SLOTS),
+		int(data.fusions.size()), int(data.get_fusion_slots()), int(GameManager.gold if GameManager else 0)]
 	_rebuild_tree(class_id)
-	_rebuild_specs(class_id, level)
+	_rebuild_build(class_id, data)
+	_rebuild_fusion(class_id, data)
 	if selected_node_id != "":
 		_select_node(class_id, selected_node_id)
 	else:
@@ -317,10 +342,13 @@ func _refresh() -> void:
 
 func _show_tab(tab: String) -> void:
 	tree_box.visible = tab == "tree"
-	spec_box.visible = tab == "spec"
+	build_box.visible = tab == "build"
+	fusion_box.visible = tab == "fusion"
 	tree_tab.modulate = Color.WHITE if tab == "tree" else Color(0.7, 0.7, 0.75)
-	spec_tab.modulate = Color.WHITE if tab == "spec" else Color(0.7, 0.7, 0.75)
-	if tab == "spec":
+	build_tab.modulate = Color.WHITE if tab == "build" else Color(0.7, 0.7, 0.75)
+	fusion_tab.modulate = Color.WHITE if tab == "fusion" else Color(0.7, 0.7, 0.75)
+	detail_panel.visible = tab == "tree"
+	if tab != "tree":
 		_clear_detail()
 
 # ---------- 技能树 ----------
@@ -330,8 +358,8 @@ func _rebuild_tree(class_id: String) -> void:
 	node_buttons.clear()
 	node_edges.clear()
 	var nodes: Array = DataManager.get_skill_tree_nodes(class_id)
-	# 布局：列 = 层级（0 初始 → 5 终极），行 = 分支位置
-	for row in 3:
+	# 布局：列 = 层（0 初阶 → 3 融合），行 = 4 个节点
+	for row in TIER_COUNT:
 		for tier in TIER_COUNT:
 			var node: Dictionary = {}
 			for n in nodes:
@@ -356,7 +384,7 @@ func _node_cell(class_id: String, node: Dictionary) -> Control:
 	cell.custom_minimum_size = Vector2(TIER_COL_W, NODE_ROW_H)
 
 	var btn := Button.new()
-	btn.custom_minimum_size = Vector2(TIER_COL_W, 58)
+	btn.custom_minimum_size = Vector2(TIER_COL_W, 48)
 	btn.expand_icon = true
 	btn.icon_alignment = HORIZONTAL_ALIGNMENT_CENTER
 	btn.vertical_icon_alignment = VERTICAL_ALIGNMENT_CENTER
@@ -528,116 +556,365 @@ func _stop_effect() -> void:
 	detail_effect.texture = null
 	detail_effect.rotation = 0.0
 
-# ---------- 职业专职 ----------
-func _rebuild_specs(class_id: String, level: int) -> void:
-	for child in spec_list.get_children():
-		child.queue_free()
-	var specs: Array = DataManager.get_specializations(class_id)
-	var current: Dictionary = SkillManager.get_specialization(class_id) if SkillManager else {}
-	var title := Label.new()
-	title.text = "职业专职：%s（等级 %d 解锁，只能选择一次）" % [str(DataManager.get_class_data(class_id).get("name", class_id)), level]
-	title.add_theme_font_size_override("font_size", 15)
-	title.add_theme_color_override("font_color", Color(0.9, 0.85, 0.7))
-	spec_list.add_child(title)
-	if current.is_empty() and specs.is_empty():
-		var none := Label.new()
-		none.text = "该职业暂未开放专职"
-		spec_list.add_child(none)
-		return
-	for spec in specs:
-		spec_list.add_child(_spec_card(class_id, spec, level, str(current.get("id", ""))))
+# ---------- 流派与配招 ----------
+func _add_section(parent: Node, text: String) -> void:
+	var label := Label.new()
+	label.text = text
+	label.add_theme_font_size_override("font_size", 15)
+	label.add_theme_color_override("font_color", Color(0.95, 0.85, 0.55))
+	parent.add_child(label)
 
-func _spec_card(class_id: String, spec: Dictionary, level: int, current_id: String) -> Control:
+func _format_passive(passive: Dictionary) -> String:
+	if passive.is_empty():
+		return "无"
+	var parts: Array = []
+	for key in passive.keys():
+		if str(key) == "stacks":
+			parts.append("最多 %d 层" % int(passive[key]))
+			continue
+		var value := float(passive[key])
+		var label := str(STAT_NAMES.get(str(key), str(key)))
+		if PERCENT_STATS.has(str(key)):
+			parts.append("%s +%d%%" % [label, int(round(value * 100.0))])
+		else:
+			parts.append("%s +%d" % [label, int(value)])
+	return " · ".join(parts)
+
+func _rebuild_build(class_id: String, data) -> void:
+	for child in build_list.get_children():
+		child.queue_free()
+	data.sync_loadout()
+	var head := Label.new()
+	head.text = "1转·流派全精通　2转·万流归宗　3转·生命跃迁　4转·超脱"
+	head.add_theme_font_size_override("font_size", 16)
+	head.add_theme_color_override("font_color", Color(0.85, 0.9, 1.0))
+	build_list.add_child(head)
+
+	_add_section(build_list, "流派选择（1转 Lv.10；修习其他流派 120 金）")
+	for sid in data.get_class_style_options():
+		build_list.add_child(_style_card(data, str(sid)))
+
+	_add_section(build_list, "专精（3 条专精主动全部可用，选择 1 条被动生效）")
+	var spec_row := HBoxContainer.new()
+	spec_row.add_theme_constant_override("separation", 8)
+	var specs: Array = data.get_specs()
+	for spec in specs:
+		var spec_key := str(spec.get("id", ""))
+		var btn := Button.new()
+		btn.text = "%s · %s\n%s" % [str(spec.get("name", "")), str(spec.get("active", {}).get("name", "")), _format_passive(spec.get("passive", {}))]
+		btn.toggle_mode = true
+		btn.button_pressed = spec_key == str(data.spec_id)
+		btn.pressed.connect(func() -> void:
+			data.select_spec(spec_key)
+			_refresh())
+		spec_row.add_child(btn)
+	if specs.is_empty():
+		var none := Label.new()
+		none.text = "尚未选择流派"
+		spec_row.add_child(none)
+	build_list.add_child(spec_row)
+
+	_add_section(build_list, "阶位进阶")
+	var stage_row := HBoxContainer.new()
+	stage_row.add_theme_constant_override("separation", 8)
+	var stage_names := { 2: "2转·万流归宗", 3: "3转·生命跃迁", 4: "4转·超脱" }
+	for stage in [2, 3, 4]:
+		var check: Dictionary = data.can_transition(stage)
+		var btn := Button.new()
+		btn.text = str(stage_names[stage])
+		if int(data.get_stage()) >= stage:
+			btn.text += "（已完成）"
+			btn.disabled = true
+		elif bool(check.get("ok", false)):
+			btn.pressed.connect(func() -> void:
+				var result: Dictionary = data.transition(stage)
+				if bool(result.get("ok", false)):
+					EventBus.notify("进阶成功：%s" % str(stage_names[stage]))
+				_refresh())
+		else:
+			btn.disabled = true
+			btn.tooltip_text = str(check.get("reason", ""))
+			btn.text += "（%s）" % str(check.get("reason", "未满足"))
+		stage_row.add_child(btn)
+	build_list.add_child(stage_row)
+
+	if int(data.get_stage()) >= 4:
+		build_list.add_child(_borrow_row(data))
+
+	_add_section(build_list, "自由配招（%d/%d 格 · 流派技能 %d/6）" % [
+		int(data.loadout.size()), int(data.get_slot_count()),
+		int(data.count_style_skills_in(data.loadout))])
+	var arrange := Label.new()
+	var parts: Array = []
+	for i in data.loadout.size():
+		var sk: Dictionary = data.get_skill(i + 1)
+		if sk.is_empty():
+			continue
+		parts.append("%s:%s" % [SLOT_KEYS[i], str(sk.get("name", ""))])
+	arrange.text = "当前排列：" + ("　".join(parts) if not parts.is_empty() else "（空）")
+	arrange.add_theme_font_size_override("font_size", 12)
+	arrange.add_theme_color_override("font_color", Color(0.75, 0.85, 0.95))
+	arrange.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
+	build_list.add_child(arrange)
+
+	var default_btn := Button.new()
+	default_btn.text = "恢复默认配招"
+	default_btn.pressed.connect(func() -> void:
+		data.loadout = []
+		data._loadout_initialized = false
+		data.invalidate_abilities()
+		_refresh())
+	build_list.add_child(default_btn)
+
+	var owned: Dictionary = data.get_owned_abilities()
+	var ids: Array = owned.keys()
+	ids.sort_custom(func(a, b) -> bool:
+		return str(owned[a].get("name", "")) < str(owned[b].get("name", "")))
+	for aid in ids:
+		build_list.add_child(_ability_row(data, str(aid), owned[aid]))
+
+func _style_card(data, sid: String) -> Control:
+	var style: Dictionary = DataManager.get_style(sid)
 	var card := PanelContainer.new()
 	card.add_theme_stylebox_override("panel", _panel_style(Color(0.08, 0.09, 0.13, 0.92)))
 	var row := HBoxContainer.new()
 	row.add_theme_constant_override("separation", 10)
 	card.add_child(row)
-
-	var icon := TextureRect.new()
-	icon.custom_minimum_size = Vector2(72, 72)
-	icon.expand_mode = TextureRect.EXPAND_IGNORE_SIZE
-	icon.stretch_mode = TextureRect.STRETCH_KEEP_ASPECT_CENTERED
-	icon.texture = AssetLibrary.texture(str(spec.get("icon", "")))
-	row.add_child(icon)
-
 	var info := VBoxContainer.new()
 	info.size_flags_horizontal = Control.SIZE_EXPAND_FILL
-	info.add_theme_constant_override("separation", 2)
+	info.add_theme_constant_override("separation", 1)
 	row.add_child(info)
-
 	var name_label := Label.new()
-	name_label.text = str(spec.get("name", ""))
-	name_label.add_theme_font_size_override("font_size", 17)
+	name_label.text = "%s · %s（%s）" % [str(style.get("index", "")).to_upper(), str(style.get("name", "")), str(style.get("tag", ""))]
+	name_label.add_theme_font_size_override("font_size", 16)
 	info.add_child(name_label)
-
-	var desc_label := Label.new()
-	desc_label.text = str(spec.get("desc", ""))
-	desc_label.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
-	desc_label.custom_minimum_size = Vector2(300, 0)
-	info.add_child(desc_label)
-
-	var stats_label := Label.new()
-	stats_label.text = _format_stats(spec.get("stats", {}))
-	stats_label.add_theme_font_size_override("font_size", 13)
-	stats_label.add_theme_color_override("font_color", Color(0.7, 0.9, 0.75))
-	info.add_child(stats_label)
-
-	var bonus_label := Label.new()
-	var sb: Dictionary = spec.get("skill_bonus", {})
-	var sp: Dictionary = spec.get("passives", {})
-	var parts: Array = []
-	if not sb.is_empty():
-		parts.append("技能威力 +%d%% / 冷却 -%d%%" % [int(float(sb.get("power", 0.0)) * 100.0), int(float(sb.get("cooldown", 0.0)) * 100.0)])
-	if not sp.is_empty():
-		for key in sp.keys():
-			parts.append("%s +%d%%" % [_passive_name(str(key)), int(float(sp[key]) * 100.0)])
-	bonus_label.text = " · ".join(parts)
-	bonus_label.add_theme_font_size_override("font_size", 13)
-	bonus_label.add_theme_color_override("font_color", Color(0.85, 0.8, 0.95))
-	info.add_child(bonus_label)
+	var meta := Label.new()
+	meta.text = "被动：%s　｜　普攻：%s" % [
+		_format_passive(style.get("passive", {})), str(style.get("basic_attack", {}).get("kind", ""))]
+	meta.add_theme_font_size_override("font_size", 12)
+	meta.add_theme_color_override("font_color", Color(0.75, 0.85, 0.95))
+	meta.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
+	info.add_child(meta)
+	var skill_names: Array = []
+	for sk in style.get("skills", []):
+		skill_names.append(str(sk.get("name", "")))
+	var skills_label := Label.new()
+	skills_label.text = "6 技能：" + " / ".join(skill_names)
+	skills_label.add_theme_font_size_override("font_size", 12)
+	skills_label.add_theme_color_override("font_color", Color(0.7, 0.72, 0.8))
+	skills_label.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
+	info.add_child(skills_label)
 
 	var btn := Button.new()
-	btn.custom_minimum_size = Vector2(96, 34)
-	var spec_id := str(spec.get("id", ""))
-	if spec_id == current_id:
-		btn.text = "已转职"
+	btn.custom_minimum_size = Vector2(108, 34)
+	var learned: bool = data.is_style_learned(sid)
+	if str(data.style_id) == sid:
+		btn.text = "当前流派"
 		btn.disabled = true
+	elif learned:
+		btn.text = "启用"
+		btn.pressed.connect(func() -> void:
+			data.select_style(sid)
+			_refresh())
 	else:
-		var check := SkillManager.can_choose_specialization(class_id, spec_id, level)
-		if bool(check.get("ok", false)):
-			btn.text = "选择"
-			btn.pressed.connect(func() -> void: _choose_spec(class_id, spec_id))
-		else:
-			btn.text = str(check.get("reason", "不可选"))
+		var check: Dictionary = data.can_learn_style(sid)
+		btn.text = "修习（%d金）" % int(data.STYLE_LEARN_COST)
+		if not bool(check.get("ok", false)):
 			btn.disabled = true
+			btn.tooltip_text = str(check.get("reason", ""))
+		elif GameManager and int(GameManager.gold) < int(data.STYLE_LEARN_COST):
+			btn.disabled = true
+			btn.tooltip_text = "金币不足"
+		else:
+			btn.pressed.connect(func() -> void:
+				if GameManager and GameManager.spend_gold(int(data.STYLE_LEARN_COST)):
+					data.learn_style(sid)
+					data.select_style(sid)
+					_refresh())
 	row.add_child(btn)
 	return card
 
-func _choose_spec(class_id: String, spec_id: String) -> void:
-	var player = GameManager.active_player if GameManager else null
-	if player == null or not is_instance_valid(player):
+func _source_name(source_id: String) -> String:
+	match source_id:
+		"arcane":
+			return "法术"
+		"mech":
+			return "机械"
+		"martial":
+			return "传武"
+		"tech":
+			return "科技"
+	return source_id
+
+func _borrow_row(data) -> Control:
+	var panel := PanelContainer.new()
+	panel.add_theme_stylebox_override("panel", _panel_style(Color(0.08, 0.09, 0.13, 0.92)))
+	var row := HBoxContainer.new()
+	row.add_theme_constant_override("separation", 8)
+	panel.add_child(row)
+	var label := Label.new()
+	label.text = "4转借技（4 选 1，不得借本源流）："
+	label.add_theme_font_size_override("font_size", 13)
+	row.add_child(label)
+	var opt := OptionButton.new()
+	var options: Array = data.get_borrow_options()
+	var selected := -1
+	for i in options.size():
+		var b: Dictionary = options[i]
+		opt.add_item("%s · %s" % [_source_name(str(b.get("source", ""))), str(b.get("name", ""))])
+		opt.set_item_metadata(i, str(b.get("id", "")))
+		if str(b.get("id", "")) == str(data.borrowed_skill):
+			selected = i
+	if selected >= 0:
+		opt.select(selected)
+	row.add_child(opt)
+	var btn := Button.new()
+	btn.text = "借用"
+	btn.pressed.connect(func() -> void:
+		var idx := opt.get_selected()
+		if idx < 0:
+			return
+		var result: Dictionary = data.apply_borrow(str(opt.get_item_metadata(idx)))
+		if not bool(result.get("ok", false)):
+			EventBus.notify(str(result.get("reason", "无法借用")))
+		_refresh())
+	row.add_child(btn)
+	return panel
+
+func _ability_row(data, ability_id: String, ability: Dictionary) -> Control:
+	var row := HBoxContainer.new()
+	row.add_theme_constant_override("separation", 6)
+	var label := Label.new()
+	label.text = "%s　[%s]　CD %.1fs · %dMP" % [
+		str(ability.get("name", ability_id)), str(ability.get("type", "")),
+		float(ability.get("cd", 0.0)), int(ability.get("mp", 0))]
+	label.add_theme_font_size_override("font_size", 12)
+	label.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+	label.clip_text = true
+	row.add_child(label)
+	var btn := Button.new()
+	btn.custom_minimum_size = Vector2(70, 26)
+	if data.loadout.has(ability_id):
+		btn.text = "移出"
+		btn.pressed.connect(func() -> void:
+			data.loadout.erase(ability_id)
+			data.refresh_skills()
+			_refresh())
+	else:
+		btn.text = "装配"
+		btn.pressed.connect(func() -> void:
+			if data.loadout.size() >= data.get_slot_count():
+				EventBus.notify("操作栏格位已满：完成技能树层数可解锁更多格位")
+				return
+			if data.is_style_skill(ability_id) and data.count_style_skills_in(data.loadout) >= 6:
+				EventBus.notify("流派技能最多装配 6 格")
+				return
+			if not data.loadout.has(ability_id):
+				data.loadout.append(ability_id)
+				data.refresh_skills()
+			_refresh())
+	row.add_child(btn)
+	return row
+
+# ---------- 技能融合 ----------
+func _rebuild_fusion(class_id: String, data) -> void:
+	for child in fusion_list.get_children():
+		child.queue_free()
+	_add_section(fusion_list, "融合槽 %d/%d（每完成 2 层技能树解锁 1 个）" % [
+		int(data.fusions.size()), int(data.get_fusion_slots())])
+	var rule := Label.new()
+	rule.text = "主技能保留原形态；副技能只带 1 个词条。威力 ×1.15，冷却 ×1.25，法力 = 主 + 副 × 0.5。终极 / 变身 / 超脱 / 借技不可作副技能，同一技能只能参与一次。"
+	rule.add_theme_font_size_override("font_size", 12)
+	rule.add_theme_color_override("font_color", Color(0.72, 0.78, 0.88))
+	rule.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
+	fusion_list.add_child(rule)
+
+	if data.fusions.is_empty():
+		var none := Label.new()
+		none.text = "尚未创建融合技能"
+		none.add_theme_color_override("font_color", Color(0.65, 0.65, 0.7))
+		fusion_list.add_child(none)
+	for fid in data.fusions:
+		var fused: Dictionary = FusionService.build_from_id(data, str(fid))
+		var row := HBoxContainer.new()
+		row.add_theme_constant_override("separation", 8)
+		var label := Label.new()
+		label.text = "%s　（CD %.1fs · %dMP · 词条 %s）" % [
+			str(fused.get("name", fid)), float(fused.get("cd", 0.0)), int(fused.get("mp", 0)),
+			str(fused.get("fusion_keyword", {}).get("kind", ""))]
+		label.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+		label.add_theme_font_size_override("font_size", 13)
+		row.add_child(label)
+		var btn := Button.new()
+		btn.text = "撤销"
+		var fusion_key := str(fid)
+		btn.pressed.connect(func() -> void:
+			FusionService.remove_fusion(data, fusion_key)
+			_refresh())
+		row.add_child(btn)
+		fusion_list.add_child(row)
+
+	if data.fusions.size() >= data.get_fusion_slots():
 		return
-	var data = player.get_node_or_null("CharacterData")
-	if data == null:
+	var owned: Dictionary = data.get_owned_abilities()
+	var used := {}
+	for fid in data.fusions:
+		for part in FusionService.split_id(str(fid)):
+			used[str(part)] = true
+	var main_ids: Array = []
+	var sub_ids: Array = []
+	for aid in owned.keys():
+		var key := str(aid)
+		if key.contains("__") or used.has(key):
+			continue
+		main_ids.append(key)
+		if not bool(owned[key].get("fuse_no_sub", false)):
+			sub_ids.append(key)
+	if main_ids.is_empty() or sub_ids.is_empty():
 		return
-	if SkillManager.choose_specialization(class_id, spec_id, int(data.level)):
-		data.refresh_skill_stats()
-		data._apply_specialization_name()
-		_refresh()
+	var create_row := HBoxContainer.new()
+	create_row.add_theme_constant_override("separation", 6)
+	var main_opt := OptionButton.new()
+	for aid in main_ids:
+		main_opt.add_item(str(owned[aid].get("name", aid)))
+		main_opt.set_item_metadata(main_opt.item_count - 1, str(aid))
+	create_row.add_child(main_opt)
+	var plus := Label.new()
+	plus.text = "＋"
+	create_row.add_child(plus)
+	var sub_opt := OptionButton.new()
+	for aid in sub_ids:
+		sub_opt.add_item(str(owned[aid].get("name", aid)))
+		sub_opt.set_item_metadata(sub_opt.item_count - 1, str(aid))
+	create_row.add_child(sub_opt)
+	var fuse_btn := Button.new()
+	fuse_btn.text = "融合"
+	fuse_btn.pressed.connect(func() -> void:
+		if main_opt.get_selected() < 0 or sub_opt.get_selected() < 0:
+			return
+		var main_id := str(main_opt.get_item_metadata(main_opt.get_selected()))
+		var sub_id := str(sub_opt.get_item_metadata(sub_opt.get_selected()))
+		var result: Dictionary = FusionService.add_fusion(data, main_id, sub_id)
+		if not bool(result.get("ok", false)):
+			EventBus.notify(str(result.get("reason", "无法融合")))
+		_refresh())
+	create_row.add_child(fuse_btn)
+	fusion_list.add_child(create_row)
 
 # ---------- 工具 ----------
 func _find_skill(skill_id: String) -> Dictionary:
+	if skill_id == "" or DataManager == null:
+		return {}
+	var ability: Dictionary = DataManager.get_ability(skill_id)
+	if not ability.is_empty():
+		return ability
 	var player = GameManager.active_player if GameManager else null
 	if player == null or not is_instance_valid(player):
 		return {}
 	var data = player.get_node_or_null("CharacterData")
 	if data == null:
 		return {}
-	for s in data.skills:
-		if str(s.get("id", "")) == skill_id:
-			return s
-	return {}
+	return data.get_owned_abilities().get(skill_id, {})
 
 func _skill_slot(class_id: String, skill_id: String) -> int:
 	var def: Dictionary = DataManager.get_class_data(class_id)

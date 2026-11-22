@@ -22,6 +22,18 @@ var skill_trees: Dictionary = {}
 var skill_points_per_level: int = 1
 var skill_starting_points: int = 1
 var specializations: Dictionary = {}
+# ---------- 四阶进阶（1转流派 / 2转融合 / 3转变身 / 4转超脱） ----------
+var styles: Dictionary = {}
+var class_styles: Dictionary = {}
+var style_specs: Dictionary = {}
+var style_apexes: Dictionary = {}
+var class_fusions: Dictionary = {}
+var class_ascensions: Dictionary = {}
+var class_transcends: Dictionary = {}
+var borrow_pool: Dictionary = {}
+var tree_layout: Dictionary = {}
+var fusion_slot_rules: Dictionary = {}
+var _ability_index: Dictionary = {}
 
 func _ready() -> void:
 	_load_all()
@@ -70,13 +82,29 @@ func _load_all() -> void:
 		skill_trees = d_trees["trees"]
 	skill_points_per_level = int(d_trees.get("points_per_level", 1))
 	skill_starting_points = int(d_trees.get("starting_points", 1))
+	if d_trees.has("layout"):
+		tree_layout = d_trees["layout"]
+	if d_trees.has("fusion_slots"):
+		fusion_slot_rules = d_trees["fusion_slots"]
+
+	var d_styles := _read_json("res://data/style_branches.json")
+	if d_styles.has("styles"):
+		styles = d_styles["styles"]
+		class_styles = d_styles.get("class_styles", {})
+		style_specs = d_styles.get("specs", {})
+		style_apexes = d_styles.get("apexes", {})
+		class_fusions = d_styles.get("class_fusions", {})
+		class_ascensions = d_styles.get("ascensions", {})
+		class_transcends = d_styles.get("transcends", {})
+		borrow_pool = d_styles.get("borrow_pool", {})
+		_ability_index.clear()
 
 	var d_spec := _read_json("res://data/specializations.json")
 	if d_spec.has("specializations"):
 		specializations = d_spec["specializations"]
 
-	print("[DataManager] 数据加载完成：物品 %d / 职业 %d / 配方 %d / 任务 %d / 对话 %d / 朋克部件 %d / 技能树 %d" % [
-		items.size(), classes.size(), recipes.size(), quests.size(), dialogues.size(), punk_parts.size(), skill_trees.size()
+	print("[DataManager] 数据加载完成：物品 %d / 职业 %d / 配方 %d / 任务 %d / 对话 %d / 朋克部件 %d / 技能树 %d / 流派 %d" % [
+		items.size(), classes.size(), recipes.size(), quests.size(), dialogues.size(), punk_parts.size(), skill_trees.size(), styles.size()
 	])
 
 func _read_json(path: String) -> Dictionary:
@@ -193,3 +221,69 @@ func get_specialization_data(class_id: String, spec_id: String) -> Dictionary:
 		if str(s.get("id", "")) == spec_id:
 			return s
 	return {}
+
+# ---------- 四阶进阶 ----------
+func get_style(style_id: String) -> Dictionary:
+	return styles.get(style_id, {})
+
+func get_class_style_ids(class_id: String) -> Array:
+	return class_styles.get(class_id, [])
+
+func get_style_specs_at(style_id: String) -> Array:
+	return style_specs.get(style_id, [])
+
+func get_style_apex(style_id: String) -> Dictionary:
+	return style_apexes.get(style_id, {})
+
+func get_class_fusion(class_id: String) -> Dictionary:
+	return class_fusions.get(class_id, {})
+
+func get_class_ascension(class_id: String) -> Dictionary:
+	return class_ascensions.get(class_id, {})
+
+func get_class_transcend(class_id: String) -> Dictionary:
+	return class_transcends.get(class_id, {})
+
+func get_borrow_pool() -> Dictionary:
+	return borrow_pool
+
+func get_borrow(source_id: String) -> Dictionary:
+	return borrow_pool.get(source_id, {})
+
+func get_class_source(class_id: String) -> String:
+	return str(get_class_data(class_id).get("source", ""))
+
+func get_tree_layout() -> Dictionary:
+	return tree_layout
+
+func get_fusion_slot_rules() -> Dictionary:
+	return fusion_slot_rules
+
+func get_ability(ability_id: String) -> Dictionary:
+	if _ability_index.is_empty():
+		_build_ability_index()
+	return _ability_index.get(ability_id, {})
+
+func _build_ability_index() -> void:
+	_ability_index.clear()
+	for style_id in styles.keys():
+		var style: Dictionary = styles[style_id]
+		for sk in style.get("skills", []):
+			_ability_index[str(sk.get("id", ""))] = sk
+		for spec in style_specs.get(style_id, []):
+			_ability_index[str(spec.get("id", ""))] = spec.get("active", {})
+		var apex: Dictionary = style_apexes.get(style_id, {})
+		if not apex.is_empty():
+			_ability_index[str(apex.get("id", ""))] = apex.get("active", {})
+	for cid in class_fusions.keys():
+		var f: Dictionary = class_fusions[cid]
+		_ability_index[str(f.get("id", ""))] = f.get("active", {})
+	for cid in class_ascensions.keys():
+		var a: Dictionary = class_ascensions[cid]
+		_ability_index[str(a.get("id", ""))] = a.get("active", {})
+	for cid in class_transcends.keys():
+		var t: Dictionary = class_transcends[cid]
+		_ability_index[str(t.get("id", ""))] = t.get("active", {})
+	for src in borrow_pool.keys():
+		var b: Dictionary = borrow_pool[src]
+		_ability_index[str(b.get("id", ""))] = b.get("active", {})

@@ -68,6 +68,11 @@ func _build_action_buttons() -> void:
 	_add_action_button("R", "skill_4", Vector2(642, 302), Vector2(44, 36))
 	_add_action_button("F", "skill_5", Vector2(690, 302), Vector2(44, 36))
 	_add_action_button("G", "skill_6", Vector2(738, 302), Vector2(44, 36))
+	# 技能树解锁的 4 个额外栏位
+	_add_action_button("T", "skill_7", Vector2(642, 260), Vector2(44, 36))
+	_add_action_button("Y", "skill_8", Vector2(690, 260), Vector2(44, 36))
+	_add_action_button("V", "skill_9", Vector2(738, 260), Vector2(44, 36))
+	_add_action_button("B", "skill_10", Vector2(786, 260), Vector2(44, 36))
 
 func _add_action_button(text: String, action: String, pos: Vector2, size: Vector2) -> void:
 	var button := Button.new()
@@ -123,6 +128,18 @@ func _trigger(action: String) -> void:
 		"skill_6":
 			if player and player.has_method("try_skill"):
 				player.try_skill(5)
+		"skill_7":
+			if player and player.has_method("try_skill"):
+				player.try_skill(6)
+		"skill_8":
+			if player and player.has_method("try_skill"):
+				player.try_skill(7)
+		"skill_9":
+			if player and player.has_method("try_skill"):
+				player.try_skill(8)
+		"skill_10":
+			if player and player.has_method("try_skill"):
+				player.try_skill(9)
 		"dash":
 			if player and player.has_method("try_dash"):
 				player.try_dash()

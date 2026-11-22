@@ -279,27 +279,32 @@ func _run() -> void:
 	var tree_nodes: Array = DataManager.get_skill_tree_nodes("archer")
 	_check("技能树数据加载", tree_nodes.size() == 16, str(tree_nodes.size()))
 	_check("职业总数=16", DataManager.get_all_class_ids().size() == 16, str(DataManager.get_all_class_ids().size()))
-	_check("六技能槽数据", GameManager.active_player.character_data.skills.size() == 6,
-		str(GameManager.active_player.character_data.skills.size()))
-	var adv_skill: Dictionary = GameManager.active_player.character_data.skills[3]
-	_check("进阶技能带前置", str(adv_skill.get("requires", "")) == "archer_mastery_0", str(adv_skill.get("requires", "")))
-	_check("进阶技能初始锁定", not SkillManager.is_unlocked("archer", "archer_mastery_0"))
+	var archer_data: Node = GameManager.active_player.character_data
+	var slot_count: int = archer_data.get_slot_count()
+	_check("初始操作栏=6格", slot_count == 6, str(slot_count))
+	_check("技能栏数组=10格", archer_data.skills.size() == 10, str(archer_data.skills.size()))
+	_check("第7格初始锁定", archer_data.get_skill(7).is_empty())
+	_check("初始掌握一条流派", archer_data.learned_styles.size() == 1, str(archer_data.learned_styles))
 	var points_before: int = SkillManager.get_points("archer")
 	_check("初始技能点", points_before >= 1, str(points_before))
-	var mastery_ok: bool = SkillManager.unlock_node("archer", "archer_mastery_0")
-	_check("解锁技能树节点", mastery_ok)
-	_check("进阶技能前置开放", SkillManager.is_unlocked("archer", "archer_mastery_0"))
-	var tier2_check: Dictionary = SkillManager.can_unlock("archer", "archer_active_0")
+	var attack_before: int = archer_data.get_attack()
+	for i in 6:
+		SkillManager.grant_level_points("archer", 1)
+	var first_ok: bool = SkillManager.unlock_node("archer", "archer_t0_0")
+	_check("解锁技能树节点", first_ok)
+	_check("技能树攻击加成生效", archer_data.get_attack() == attack_before + 3,
+		"%d -> %d" % [attack_before, archer_data.get_attack()])
+	_check("未完成整层不加栏位", archer_data.get_slot_count() == 6, str(archer_data.get_slot_count()))
+	for col in [1, 2, 3]:
+		SkillManager.unlock_node("archer", "archer_t0_%d" % col)
+	_check("完成第一层加1格", archer_data.get_completed_tree_layers() == 1 and archer_data.get_slot_count() == 7,
+		"%d层/%d格" % [archer_data.get_completed_tree_layers(), archer_data.get_slot_count()])
+	var tier2_check: Dictionary = SkillManager.can_unlock("archer", "archer_t2_0")
 	_check("前置节点校验", not bool(tier2_check.get("ok", true)), str(tier2_check.get("reason", "")))
 	_check("新职业立绘加载", AssetLibrary.texture("portrait_runeward") != null)
 	_check("新职业世界精灵加载", AssetLibrary.texture("sprite_player_runeward") != null)
 	_check("新职业技能图标加载", AssetLibrary.texture("skill_rune_shield") != null)
 	_check("新职业进阶图标加载", AssetLibrary.texture("skill_rune_reflect") != null)
-	var archer_data: Node = GameManager.active_player.character_data
-	var power_mult: float = archer_data.get_skill_power_multiplier(str(archer_data.skills[0].get("id", "")))
-	_check("技能树威力加成生效", power_mult > 1.0, "x%.2f" % power_mult)
-	var cd_mult: float = archer_data.get_skill_cooldown_multiplier(str(archer_data.skills[0].get("id", "")))
-	_check("技能树冷却缩减生效", cd_mult < 1.0, "x%.2f" % cd_mult)
 	var spec_ok: bool = SkillManager.choose_specialization("archer", "sharpshooter", 5)
 	_check("职业专职选择", spec_ok)
 	archer_data.refresh_skill_stats()
@@ -326,8 +331,69 @@ func _run() -> void:
 	_check("技能树重置返还技能点", SkillManager.get_points("archer") > points_before - 1)
 	SaveManager.load_game(0)
 	await _wait(0.9)
-	_check("读档恢复技能树", SkillManager.is_unlocked("archer", "archer_mastery_0"))
+	_check("读档恢复技能树", SkillManager.is_unlocked("archer", "archer_t0_0"))
 	_check("读档恢复专职", str(SkillManager.get_specialization("archer").get("id", "")) == "sharpshooter")
+
+	# ---------- 6.9 四阶进阶 ----------
+	var prog: Node = null
+	for nd in GameManager.party:
+		var cd: Node = nd.get_node_or_null("CharacterData")
+		if cd != null and str(cd.class_id) == "archer":
+			prog = cd
+			break
+	_check("进阶角色有效", prog != null)
+	if prog == null:
+		prog = archer_data
+	for i in 20:
+		SkillManager.grant_level_points("archer", 1)
+	for layer in [1, 2, 3]:
+		for col in 4:
+			SkillManager.unlock_node("archer", "archer_t%d_%d" % [layer, col])
+	_check("四层完成操作栏=10格", prog.get_slot_count() == 10, str(prog.get_slot_count()))
+	_check("四层完成融合槽=2", prog.get_fusion_slots() == 2, str(prog.get_fusion_slots()))
+	prog.level = 10
+	_check("Lv10可修习第二流派", bool(prog.can_learn_style("archer_b").get("ok", false)),
+		str(prog.can_learn_style("archer_b").get("reason", "")))
+	prog.learn_style("archer_b")
+	prog.select_style("archer_b")
+	_check("切换流派后技能变更", str(prog.get_skill(1).get("id", "")).begins_with("archer_b_"),
+		str(prog.get_skill(1).get("id", "")))
+	prog.learn_style("archer_c")
+	var style_ids: Array = []
+	for aid in prog.get_owned_abilities().keys():
+		if prog.is_style_skill(str(aid)):
+			style_ids.append(str(aid))
+	_check("18流派技能可选", style_ids.size() == 18, str(style_ids.size()))
+	prog.loadout = style_ids.slice(0, 6)
+	prog.sync_loadout()
+	_check("操作栏上限 10 格", prog.loadout.size() <= 10, str(prog.loadout.size()))
+	var removed_id := str(prog.loadout[0])
+	prog.loadout.erase(removed_id)
+	prog.sync_loadout()
+	_check("配招可自由移出", not prog.loadout.has(removed_id) and prog.loadout.size() == 5,
+		str(prog.loadout.size()))
+	prog.level = 30
+	var t2: Dictionary = prog.transition(2)
+	_check("二转·万流归宗", bool(t2.get("ok", false)) and prog.get_stage() == 2, str(t2.get("reason", "")))
+	_check("二转三流派常驻", prog.get_owned_abilities().has("archer_c_1"))
+	_check("二转后操作栏自动填充", not prog.get_skill(1).is_empty(), str(prog.get_skill(1).get("id", "")))
+	prog.level = 50
+	var hp_before: int = prog.get_max_hp()
+	var t3: Dictionary = prog.transition(3)
+	_check("三转·生命跃迁", bool(t3.get("ok", false)) and prog.get_stage() == 3, str(t3.get("reason", "")))
+	_check("变身提升生命上限", prog.get_max_hp() > hp_before, "%d -> %d" % [hp_before, prog.get_max_hp()])
+	prog.level = 70
+	var t4: Dictionary = prog.transition(4)
+	_check("四转·超脱", bool(t4.get("ok", false)) and prog.get_stage() == 4, str(t4.get("reason", "")))
+	_check("本源流不可借", not bool(prog.apply_borrow("tech").get("ok", true)))
+	_check("四转可借外源流", prog.get_borrow_options().size() == 3 and bool(prog.apply_borrow("arcane").get("ok", false)),
+		str(prog.borrowed_skill))
+	var fused: Dictionary = FusionService.add_fusion(prog, "archer_a_1", "archer_b_1")
+	var fused_id := "archer_a_1__archer_b_1"
+	_check("技能融合生成", bool(fused.get("ok", false)) and prog.get_owned_abilities().has(fused_id),
+		str(fused.get("reason", "")))
+	_check("融合技能可进入配招", prog.get_owned_abilities()[fused_id].get("fusion_keyword", {}).has("kind"))
+	_check("融合撤销", FusionService.remove_fusion(prog, fused_id) and not prog.get_owned_abilities().has(fused_id))
 
 	# ---------- 7. 通天塔 / Roguelike ----------
 	GameManager.start_tower_run()
@@ -406,6 +472,8 @@ func _run() -> void:
 			if is_instance_valid(s):
 				s.free()
 		host.character_data.setup_class("necromancer")
+		host.character_data.learned_styles.append("necromancer_c")
+		host.character_data.select_style("necromancer_c")
 		host.character_data.mp = host.character_data.get_max_mp()
 		SkillExecutor.cast(host, host.character_data.skills[1])
 		await _wait(0.25)

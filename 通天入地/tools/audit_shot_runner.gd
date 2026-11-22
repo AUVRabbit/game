@@ -117,11 +117,14 @@ func _run() -> void:
 		tree_panel.call("_toggle")
 		await _wait(1.0)
 		await _shot("06_skill_tree")
-		# 职业专职页签
+		# 流派配招页签
 		if tree_panel.has_method("_show_tab"):
-			tree_panel.call("_show_tab", "spec")
+			tree_panel.call("_show_tab", "build")
 			await _wait(0.8)
-			await _shot("07_specialization")
+			await _shot("07_skill_build")
+			tree_panel.call("_show_tab", "fusion")
+			await _wait(0.8)
+			await _shot("07b_skill_fusion")
 			tree_panel.call("_show_tab", "tree")
 		tree_panel.call("_toggle")
 		await _wait(0.5)
@@ -190,10 +193,13 @@ func _run() -> void:
 	var touch := _find_by_name("TouchControls")
 	if touch:
 		var prev: bool = bool(touch.get("visible"))
+		var prev_mode = InputManager.current_mode
+		InputManager.current_mode = InputManager.InputMode.TOUCH
 		touch.set("visible", true)
 		await _wait(0.6)
 		await _shot("15_touch_controls")
 		touch.set("visible", prev)
+		InputManager.current_mode = prev_mode
 	else:
 		print("AUDIT_SKIP 15 TouchControls missing")
 

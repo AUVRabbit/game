@@ -195,7 +195,7 @@ func _make_label(text: String) -> Label:
 
 func _build_footer() -> void:
 	var hint := Label.new()
-	hint.text = "WASD 移动 · 左键/空格 攻击 · 1/2/3 技能 · Shift 冲刺 · I 背包 · B 建造 · K 技能树 · Esc 暂停"
+	hint.text = "WASD 移动 · 左键/空格 攻击 · 1/2/3/R/F/G/T/Y/V/B 技能 · Shift 冲刺 · I 背包 · N 建造 · K 技能树 · Esc 暂停"
 	hint.position = Vector2(0, 470)
 	hint.size = Vector2(960, 24)
 	hint.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER

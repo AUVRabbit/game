@@ -39,9 +39,15 @@ static func cast(caster, skill: Dictionary) -> bool:
 			_melee_aoe(caster, origin, float(skill.get("radius", 80)), base_damage, is_magic, color, level,
 				float(skill.get("knockback", 0.0)), float(skill.get("stun", 0.0)))
 		"projectile":
-			_projectile(caster, origin, dir, base_damage, is_magic, float(skill.get("speed", 420)), color,
-				str(skill.get("icon", "")), int(skill.get("pierce", 0)), float(skill.get("splash_radius", 0.0)),
-				float(skill.get("range", 0.0)), float(skill.get("knockback", 0.0)))
+			var pellets := maxi(1, int(skill.get("pellets", 1)))
+			var spread := float(skill.get("spread", 0.0))
+			for i in pellets:
+				var off := 0.0
+				if pellets > 1:
+					off = lerpf(-spread, spread, float(i) / float(pellets - 1))
+				_projectile(caster, origin, dir.rotated(off), base_damage, is_magic, float(skill.get("speed", 420)), color,
+					str(skill.get("icon", "")), int(skill.get("pierce", 0)), float(skill.get("splash_radius", 0.0)),
+					float(skill.get("range", 0.0)), float(skill.get("knockback", 0.0)))
 		"heal":
 			var heal_power := float(skill.get("power", 30))
 			if data.has_method("get_heal_bonus"):
@@ -50,7 +56,12 @@ static func cast(caster, skill: Dictionary) -> bool:
 			DamageNumber.spawn(level, origin + Vector2(0, -30), healed, false, true)
 			EffectRing.spawn(level, origin, 46.0, color)
 		"buff":
-			data.add_buff(str(skill.get("stat", "attack")), float(skill.get("value", 5)), float(skill.get("duration", 5)))
+			var buffs: Array = skill.get("buffs", [])
+			if not buffs.is_empty():
+				for buff in buffs:
+					data.add_buff(str(buff.get("stat", "attack")), float(buff.get("value", 5)), float(skill.get("duration", 5)))
+			else:
+				data.add_buff(str(skill.get("stat", "attack")), float(skill.get("value", 5)), float(skill.get("duration", 5)))
 			EffectRing.spawn(level, origin, 44.0, color)
 			EventBus.notify("获得增益：%s" % str(skill.get("name", "")))
 		"shield":
@@ -58,12 +69,16 @@ static func cast(caster, skill: Dictionary) -> bool:
 			if data.has_method("get_shield_bonus"):
 				shield_power *= 1.0 + float(data.get_shield_bonus())
 			data.add_shield(int(shield_power))
+			var shield_buffs: Array = skill.get("buffs", [])
+			for buff in shield_buffs:
+				data.add_buff(str(buff.get("stat", "defense")), float(buff.get("value", 5)), float(skill.get("duration", 5)))
 			EffectRing.spawn(level, origin, 50.0, color)
 			EventBus.notify("获得护盾：%d" % int(shield_power))
 		"chain":
 			_chain(origin, float(skill.get("radius", 220)), int(skill.get("count", 3)), base_damage, is_magic, color, level)
 		"aoe_zone":
 			_aoe_zone(caster, origin + dir * 70.0, float(skill.get("radius", 90)), base_damage, is_magic, float(skill.get("delay", 0.5)), color, level)
+			_apply_extra_shield(caster, data, skill, color, level)
 		"dash_strike":
 			_dash_strike(caster, dir, float(skill.get("distance", 120)), float(skill.get("radius", 60)), base_damage, is_magic, color, level)
 		"snipe":
@@ -80,6 +95,7 @@ static func cast(caster, skill: Dictionary) -> bool:
 			_root_zone(caster, origin + dir * 70.0, float(skill.get("radius", 110)),
 				base_damage, is_magic, float(skill.get("root", 1.5)), color, level)
 		"heal_zone":
+			_apply_extra_shield(caster, data, skill, color, level)
 			_heal_zone(caster, origin, float(skill.get("radius", 110)), int(skill.get("heal", 18)),
 				float(skill.get("duration", 5.0)), float(skill.get("tick", 1.0)), color, level)
 		"mark":
@@ -95,8 +111,77 @@ static func cast(caster, skill: Dictionary) -> bool:
 			_melee_aoe(caster, origin, float(skill.get("radius", 80)), base_damage, is_magic, color, level)
 
 	EventBus.skill_cast.emit(caster, str(skill.get("id", "")))
+	_apply_fusion_keyword(caster, skill, origin, dir, base_damage, is_magic, color, level)
 	AudioManager.play_sfx("skill")
 	return true
+
+
+static func _apply_extra_shield(caster, data, skill: Dictionary, color: Color, level: Node) -> void:
+	var has_shield := skill.has("shield") or str(skill.get("extra_type", "")) == "shield"
+	if not has_shield:
+		return
+	var amount := float(skill.get("shield", 0))
+	if amount <= 0.0:
+		amount = float(skill.get("power", 60))
+	if data.has_method("get_shield_bonus"):
+		amount *= 1.0 + float(data.get_shield_bonus())
+	data.add_shield(int(amount))
+	var pos: Vector2 = caster.global_position if caster is Node2D else Vector2.ZERO
+	EffectRing.spawn(level, pos, 50.0, color)
+
+
+static func _apply_fusion_keyword(caster, skill: Dictionary, origin: Vector2, dir: Vector2, base_damage: int,
+		is_magic: bool, color: Color, level: Node) -> void:
+	var kw: Dictionary = skill.get("fusion_keyword", {})
+	if kw.is_empty():
+		return
+	var kind := str(kw.get("kind", ""))
+	var value := float(kw.get("value", 0.1))
+	var center := origin
+	if str(skill.get("type", "")) in ["projectile", "snipe", "beam"]:
+		center = origin + dir.normalized() * 150.0
+	var radius := maxf(130.0, float(skill.get("radius", 0.0)))
+	match kind:
+		"burn", "corrosion":
+			for enemy in _enemies():
+				if _dist(enemy, center) <= radius:
+					_apply_damage(caster, enemy, maxi(1, int(round(float(base_damage) * value))), is_magic, level)
+					if enemy.has_method("apply_mark"):
+						enemy.apply_mark(3.0, value)
+		"freeze":
+			for enemy in _enemies():
+				if _dist(enemy, center) <= radius and enemy.has_method("apply_slow"):
+					enemy.apply_slow(0.35, 1.5)
+		"root":
+			for enemy in _enemies():
+				if _dist(enemy, center) <= radius and enemy.has_method("apply_slow"):
+					enemy.apply_slow(0.08, maxf(0.5, value))
+		"stun":
+			for enemy in _enemies():
+				if _dist(enemy, center) <= radius and enemy.has_method("apply_stun"):
+					enemy.apply_stun(maxf(0.3, value))
+		"knockback":
+			for enemy in _enemies():
+				if enemy is Node2D and _dist(enemy, center) <= radius:
+					var push: Vector2 = ((enemy as Node2D).global_position - center).normalized()
+					if push.length() < 0.01:
+						push = Vector2.DOWN
+					(enemy as Node2D).global_position += push * maxf(30.0, value)
+		"holy":
+			var cdata = caster.get("character_data")
+			if cdata != null:
+				var healed: int = cdata.heal(int(round(float(cdata.get_max_hp()) * value)))
+				if healed > 0:
+					DamageNumber.spawn(level, origin + Vector2(0, -30), healed, false, true)
+		"blink":
+			if caster is Node2D:
+				(caster as Node2D).global_position += dir.normalized() * maxf(30.0, value)
+				EffectRing.spawn(level, (caster as Node2D).global_position, 24.0, color)
+		"summon":
+			_summon(caster, {"count": 1, "duration": 6.0, "speed": 130.0, "interval": 1.0},
+				origin, maxi(1, int(base_damage * 0.5)), is_magic, color, level)
+		"mark":
+			_mark(origin, 240.0, 6.0, value, color, level)
 
 static func _melee_aoe(caster, origin: Vector2, radius: float, damage: int, is_magic: bool, color: Color, level: Node,
 		knockback: float = 0.0, stun: float = 0.0) -> void:
@@ -184,7 +269,18 @@ static func _dist(node, pos: Vector2) -> float:
 static func _apply_damage(caster, enemy, damage: int, is_magic: bool, level: Node, is_crit: bool = false) -> int:
 	if not is_instance_valid(enemy) or not enemy.has_method("take_damage"):
 		return 0
-	var final_damage: int = enemy.take_damage(damage, is_magic, caster)
+	var scaled := damage
+	if caster != null:
+		var cdata = caster.get("character_data")
+		if cdata != null and cdata.has_method("get_execute_bonus"):
+			var execute_bonus := float(cdata.get_execute_bonus())
+			if execute_bonus > 0.0:
+				var stunned = enemy.get("stun_left")
+				var slowed = enemy.get("slow_left")
+				var controlled := (stunned != null and float(stunned) > 0.0) or (slowed != null and float(slowed) > 0.0)
+				if controlled:
+					scaled = int(round(float(scaled) * (1.0 + execute_bonus)))
+	var final_damage: int = enemy.take_damage(scaled, is_magic, caster)
 	DamageNumber.spawn(level, enemy.global_position + Vector2(0, -26), final_damage, is_crit)
 	return final_damage
 
@@ -301,6 +397,11 @@ static func _deployable(caster, skill: Dictionary, origin: Vector2, dir: Vector2
 	var count := maxi(1, int(skill.get("count", 1)))
 	var offset := float(skill.get("offset", 90))
 	var spread := float(skill.get("spread", 0))
+	var trap_bonus := 0.0
+	var cdata = caster.get("character_data")
+	if cdata != null and cdata.has_method("get_trap_bonus"):
+		trap_bonus = float(cdata.get_trap_bonus())
+	var trap_damage := int(round(float(damage) * (1.0 + trap_bonus)))
 	var perp := Vector2(-dir.y, dir.x)
 	for i in count:
 		var t := 0.0 if count <= 1 else float(i) / float(count - 1) - 0.5
@@ -308,12 +409,12 @@ static func _deployable(caster, skill: Dictionary, origin: Vector2, dir: Vector2
 		var device = preload("res://scripts/combat/deployable.gd").new()
 		device.mode = mode
 		device.radius = float(skill.get("radius", 80))
-		device.damage = damage
+		device.damage = trap_damage
 		device.is_magic = is_magic
 		device.source = caster
 		device.color = color
 		device.fuse = float(skill.get("fuse", 0.5))
-		device.lifetime = float(skill.get("duration", 12.0))
+		device.lifetime = float(skill.get("duration", 12.0)) * (1.0 + trap_bonus)
 		device.interval = float(skill.get("interval", 1.0))
 		device.aim_dir = dir.normalized()
 		level.add_child(device)
@@ -325,6 +426,13 @@ static func _summon(caster, skill: Dictionary, origin: Vector2, damage: int,
 		is_magic: bool, color: Color, level: Node) -> void:
 	var count := maxi(1, int(skill.get("count", 1)))
 	var dur := float(skill.get("duration", 12.0))
+	var summon_bonus := 0.0
+	var cdata = caster.get("character_data")
+	if cdata != null and cdata.has_method("get_summon_bonus"):
+		summon_bonus = float(cdata.get_summon_bonus())
+	if summon_bonus >= 0.2:
+		count += 1
+	damage = int(round(float(damage) * (1.0 + summon_bonus)))
 	for i in count:
 		var minion = preload("res://scripts/combat/summoned_minion.gd").new()
 		minion.lifetime = dur

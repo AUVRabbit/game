@@ -74,7 +74,7 @@ func _explode() -> void:
 	queue_free()
 
 func _shoot() -> void:
-	var target := _nearest_enemy(380.0)
+	var target: Node2D = _nearest_enemy(380.0)
 	if target == null:
 		return
 	var dir: Vector2 = (target.global_position - global_position).normalized()

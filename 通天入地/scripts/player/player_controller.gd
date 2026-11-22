@@ -27,7 +27,7 @@ var attack_cooldown: float = 0.0
 var dash_cd: float = 0.0
 var dash_timer: float = 0.0
 var dash_dir: Vector2 = Vector2.DOWN
-var skill_cooldowns: Array = [0.0, 0.0, 0.0, 0.0, 0.0, 0.0]
+var skill_cooldowns: Array = [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0]
 var spawn_point: Vector2 = Vector2.ZERO
 
 func _ready() -> void:
@@ -164,7 +164,7 @@ func _unhandled_input(event: InputEvent) -> void:
 	elif event.is_action_pressed("interact"):
 		try_interact()
 	else:
-		for i in 6:
+		for i in 10:
 			if event.is_action_pressed("skill_%d" % (i + 1)):
 				try_skill(i)
 				return
@@ -231,13 +231,19 @@ func try_attack() -> void:
 		state = State.IDLE
 
 func try_skill(slot: int) -> void:
-	if slot < 0 or slot >= character_data.skills.size():
+	if character_data == null or slot < 0 or slot >= 10:
 		return
 	if slot < skill_cooldowns.size() and float(skill_cooldowns[slot]) > 0.0:
 		return
 	if character_data.hp <= 0:
 		return
-	var skill: Dictionary = character_data.skills[slot]
+	if slot >= character_data.get_slot_count():
+		EventBus.notify("该操作栏格位尚未解锁：完成技能树层数可获得更多格位")
+		return
+	var skill: Dictionary = character_data.get_skill(slot + 1)
+	if skill.is_empty():
+		EventBus.notify("该格位尚未装配技能")
+		return
 	if not _skill_unlocked(skill):
 		EventBus.notify("【%s】尚未解锁：请在技能树点亮前置节点" % str(skill.get("name", "")))
 		return
@@ -328,9 +334,11 @@ func revive() -> void:
 func get_skill_cooldown_ratio(slot: int) -> float:
 	if slot < 0 or slot >= skill_cooldowns.size() or character_data == null:
 		return 0.0
-	if slot >= character_data.skills.size():
+	if slot >= character_data.get_slot_count():
 		return 0.0
-	var skill: Dictionary = character_data.skills[slot]
+	var skill: Dictionary = character_data.get_skill(slot + 1)
+	if skill.is_empty():
+		return 0.0
 	var total_cd := maxf(0.01, float(skill.get("cd", 1.0)))
 	return clampf(float(skill_cooldowns[slot]) / total_cd, 0.0, 1.0)
 
