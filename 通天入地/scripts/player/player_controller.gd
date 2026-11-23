@@ -1,6 +1,7 @@
 # ============================================================
 # PlayerController — 玩家角色控制器
-# 8 方向等距移动 / 普攻 / 3 技能槽 / 冲刺无敌 / 交互 / 切换
+# 8 方向等距移动 / 普攻 / 10 技能槽 / 冲刺无敌 / 交互 / 切换
+# 内置通用动画控制器（sprite_anim.gd），纯 tween 形变实现移动/攻击/施法/受击/冲刺。
 # ============================================================
 
 extends CharacterBody2D
@@ -20,6 +21,8 @@ var attack_point: Marker2D = null
 var body_poly: Polygon2D = null
 var sprite: Sprite2D = null
 var _sprite_class_id: String = ""
+var _anim: SpriteAnim = null
+var _cached_sprite_offset: Vector2 = Vector2.ZERO
 
 var state: State = State.IDLE
 var facing: Vector2 = Vector2.DOWN
@@ -46,6 +49,12 @@ func _ready() -> void:
 			character_data.hp = character_data.get_max_hp()
 		if character_data.mp < 0:
 			character_data.mp = 0
+	# 把 SpriteAnim 接到 Visual 上（Visual 持有 sprite / body_poly），驱动位置/缩放/旋转/闪烁
+	if visual:
+		_anim = SpriteAnim.new()
+		_anim.name = "Anim"
+		visual.add_child(_anim)
+		_anim.setup(visual)
 
 func _apply_class_color() -> void:
 	if body_poly and character_data:
@@ -70,6 +79,10 @@ func _refresh_class_sprite() -> void:
 			sprite.visible = false
 		if body_poly:
 			body_poly.visible = true
+		# 调整动画控制器的 base_offset 指向 body_poly（替代 Sprite2D）
+		if _anim:
+			_anim.target = body_poly
+			_anim._base_offset = Vector2.ZERO
 		return
 	if sprite == null or not is_instance_valid(sprite):
 		sprite = Sprite2D.new()
@@ -86,9 +99,15 @@ func _refresh_class_sprite() -> void:
 		center_x = float(rect.position.x) + float(rect.size.x) * 0.5
 		bottom = float(rect.position.y) + float(rect.size.y)
 	sprite.scale = Vector2.ONE * scale_factor
-	sprite.position = Vector2((half - center_x) * scale_factor, (half - bottom) * scale_factor)
+	var off := Vector2((half - center_x) * scale_factor, (half - bottom) * scale_factor)
+	sprite.position = off
+	_cached_sprite_offset = off
 	if body_poly:
 		body_poly.visible = false
+	if _anim:
+		_anim.target = sprite
+		_anim._base_offset = off
+		_anim._base_scale = sprite.scale
 
 func _content_rect(tex: Texture2D) -> Rect2i:
 	var img: Image = tex.get_image()
@@ -101,6 +120,21 @@ func _content_rect(tex: Texture2D) -> Rect2i:
 
 func _on_stats_changed() -> void:
 	_apply_class_color()
+
+# ---------- 找敌人 / 目标 ----------
+
+func _find_nearest_enemy(max_dist: float = 300.0) -> Node2D:
+	var best: Node2D = null
+	var best_d := max_dist
+	for enemy in get_tree().get_nodes_in_group("enemies"):
+		if not is_instance_valid(enemy) or not (enemy is Node2D):
+			continue
+		var d: float = global_position.distance_to(enemy.global_position)
+		if d < best_d:
+			best_d = d
+			best = enemy
+	return best
+
 
 func _physics_process(delta: float) -> void:
 	if character_data == null:
@@ -115,14 +149,19 @@ func _physics_process(delta: float) -> void:
 
 	if GameManager and GameManager.is_input_blocked():
 		velocity = Vector2.ZERO
+		_anim_snap_to(SpriteAnim.AnimState.IDLE, facing, 0.0)
 		return
 	if character_data.hp <= 0:
 		velocity = Vector2.ZERO
+		if _anim:
+			_anim.enter_dead()
 		return
 
 	if dash_timer > 0.0:
 		dash_timer = maxf(0.0, dash_timer - delta)
 		velocity = dash_dir * DASH_SPEED
+		if _anim:
+			_anim.settle_to(SpriteAnim.AnimState.DASH, dash_dir)
 		move_and_slide()
 		if dash_timer <= 0.0:
 			state = State.IDLE
@@ -145,6 +184,22 @@ func _physics_process(delta: float) -> void:
 	move_and_slide()
 	if visual:
 		visual.scale.x = -1.0 if facing.x < -0.05 else 1.0
+
+	# 推进动画状态机
+	_anim_snap_to(
+		SpriteAnim.AnimState.RUN if move_vec.length() > 0.05 else SpriteAnim.AnimState.IDLE,
+		facing, velocity.length())
+
+
+func _anim_snap_to(desired: SpriteAnim.AnimState, dir: Vector2, move_m: float) -> void:
+	if _anim == null:
+		return
+	if _anim.state == SpriteAnim.AnimState.HURT or _anim.state == SpriteAnim.AnimState.ATTACK or _anim.state == SpriteAnim.AnimState.CAST or _anim.state == SpriteAnim.AnimState.DASH:
+		return  # 动作进行中，等动作结束后由 try_attack / try_skill 收尾
+	if _anim.state == SpriteAnim.AnimState.DEAD:
+		return
+	_anim.settle_to(desired, dir, move_m)
+
 
 func _unhandled_input(event: InputEvent) -> void:
 	if GameManager and GameManager.is_input_blocked():
@@ -189,12 +244,35 @@ func try_attack() -> void:
 	var is_crit: bool = randf() < character_data.get_crit_rate()
 	if is_crit:
 		damage = int(round(damage * character_data.crit_damage))
+
+	# 锁定最近敌人作为攻击目标
+	var target := _find_nearest_enemy(280.0 if kind != "melee" else 120.0)
+	var target_pos: Vector2 = global_position + facing * 24.0
+	if target:
+		target_pos = target.global_position
+		# 显示锁定标记
+		TargetingReticle.spawn(get_parent(), target.global_position,
+			Color.from_string(str(profile.get("color", "#ffd966")), Color(1.0, 0.85, 0.4, 0.9)), 0.3, 16.0)
+
+	# 朝向目标
+	if target:
+		facing = (target.global_position - global_position).normalized()
+		if visual:
+			visual.scale.x = -1.0 if facing.x < -0.05 else 1.0
+
+	# 动画：近战前冲 / 远程后坐
+	var anim_kind := "projectile" if kind != "melee" else "melee"
+	var anim_range := float(profile.get("radius", ATTACK_RADIUS)) if kind == "melee" else 22.0
+	var anim_dur := 0.28
+	if _anim:
+		_anim.enter_attack(anim_kind, anim_range, anim_dur, target_pos, facing)
+
 	# 远程/射线/抛掷类普攻交给技能执行器，近战保留贴身判定
 	if kind != "melee":
 		SkillExecutor.cast_basic(self, profile, damage, is_crit)
 		AudioManager.play_sfx("skill")
 		EventBus.attack_performed.emit(self, null)
-		await get_tree().create_timer(0.15).timeout
+		await get_tree().create_timer(anim_dur).timeout
 		if state == State.ATTACK:
 			state = State.IDLE
 		return
@@ -223,10 +301,14 @@ func try_attack() -> void:
 			character_data.heal(int(round(float(dealt) * lifesteal)))
 	if hit_any:
 		AudioManager.play_sfx("hit")
+		if ScreenShake and ScreenShake.has_method("micro"):
+			ScreenShake.micro()
 	var ring_color := Color.from_string(str(profile.get("color", "#ffd966")), Color(1.0, 0.85, 0.4, 0.9))
 	EffectRing.spawn(get_parent(), origin, radius, ring_color)
+	# 近战挥砍弧形 vfx
+	SkillVfx.spawn(get_parent(), origin, "melee_slash", ring_color, 0.9, facing.angle())
 	EventBus.attack_performed.emit(self, null)
-	await get_tree().create_timer(0.2).timeout
+	await get_tree().create_timer(anim_dur).timeout
 	if state == State.ATTACK:
 		state = State.IDLE
 
@@ -247,14 +329,66 @@ func try_skill(slot: int) -> void:
 	if not _skill_unlocked(skill):
 		EventBus.notify("【%s】尚未解锁：请在技能树点亮前置节点" % str(skill.get("name", "")))
 		return
-	if SkillExecutor.cast(self, skill):
-		state = State.CAST
-		if slot < skill_cooldowns.size():
-			var cd_mult: float = character_data.get_skill_cooldown_multiplier(str(skill.get("id", "")))
-			skill_cooldowns[slot] = float(skill.get("cd", 3.0)) * cd_mult
-		await get_tree().create_timer(0.15).timeout
-		if state == State.CAST:
-			state = State.IDLE
+
+	# 先锁定目标（远程/近战技能），决定施法朝向
+	var range := _range_for(skill)
+	var target := _find_nearest_enemy(range) if range > 0.0 else null
+	var type_name := str(skill.get("type", ""))
+	if target and _skill_is_targeted(type_name):
+		facing = (target.global_position - global_position).normalized()
+		if visual:
+			visual.scale.x = -1.0 if facing.x < -0.05 else 1.0
+		TargetingReticle.spawn(get_parent(), target.global_position,
+			Color.from_string(str(skill.get("color", "#ffffff")), Color.WHITE), 0.35, 20.0)
+
+	# 施法动画
+	if _anim:
+		var dur := 0.3
+		var kind2 := str(skill.get("type", ""))
+		if kind2 == "melee_aoe" or kind2 == "dash_strike":
+			_anim.enter_attack("melee", float(skill.get("radius", 60)), 0.28, Vector2.ZERO, facing)
+		else:
+			_anim.enter_cast(dur, facing)
+
+	state = State.CAST
+	var ok := SkillExecutor.cast(self, skill)
+	if slot < skill_cooldowns.size():
+		var cd_mult: float = character_data.get_skill_cooldown_multiplier(str(skill.get("id", "")))
+		skill_cooldowns[slot] = float(skill.get("cd", 3.0)) * cd_mult
+	var post_dur := 0.16 if ok else 0.0
+	await get_tree().create_timer(post_dur).timeout
+	if state == State.CAST:
+		state = State.IDLE
+
+
+func _skill_is_targeted(type_name: String) -> bool:
+	match type_name:
+		"heal", "buff", "shield", "summon", "deployable", "aoe_zone", "root_zone", "heal_zone", "pull_zone":
+			return false
+		_:
+			return true
+
+
+func _range_for(skill: Dictionary) -> float:
+	var type_name := str(skill.get("type", ""))
+	match type_name:
+		"melee_aoe":
+			return float(skill.get("radius", 120))
+		"projectile":
+			return float(skill.get("range", 420))
+		"dash_strike":
+			return float(skill.get("radius", 160))
+		"chain":
+			return float(skill.get("radius", 300))
+		"snipe":
+			return float(skill.get("range", 640))
+		"blink_strike":
+			return float(skill.get("radius", 260))
+		"aoe_zone", "root_zone", "pull_zone", "heal_zone":
+			return float(skill.get("radius", 160))
+		_:
+			return 0.0
+
 
 # 进阶主动技能需先在技能树点亮对应的精通节点
 func _skill_unlocked(skill: Dictionary) -> bool:
@@ -279,6 +413,8 @@ func try_dash() -> void:
 	dash_cd = DASH_COOLDOWN
 	dash_timer = DASH_DURATION
 	dash_dir = facing if facing.length() > 0.01 else Vector2.DOWN
+	if _anim:
+		_anim.enter_dash()
 	state = State.DASH
 	AudioManager.play_sfx("dash")
 	EffectRing.spawn(get_parent(), global_position, 30.0, Color(0.7, 0.9, 1.0, 0.8))
@@ -309,24 +445,37 @@ func receive_damage(amount: int, is_magic: bool = false, source: Node = null) ->
 		DamageNumber.spawn(get_parent(), global_position + Vector2(0, -32), dealt, false)
 		EventBus.player_hurt.emit(self, dealt, source)
 		AudioManager.play_sfx("hurt")
-		_flash()
+		_flash_and_poke(source)
 	return dealt
 
-func _flash() -> void:
-	if visual == null:
-		return
-	visual.modulate = Color(1.0, 0.4, 0.4)
-	var tween := create_tween()
-	tween.tween_property(visual, "modulate", Color.WHITE, 0.18)
+func _flash_and_poke(source: Node) -> void:
+	# 颜色闪烁
+	if _anim:
+		_anim.flash(Color(1.0, 0.55, 0.55), 0.12)
+		# 计算被击退方向
+		var dir := Vector2.ZERO
+		if source is Node2D:
+			dir = (global_position - (source as Node2D).global_position).normalized()
+		if dir.length() < 0.01:
+			dir = -facing
+		_anim.enter_hurt(dir, Color(1.0, 0.55, 0.55))
+	if ScreenShake and ScreenShake.has_method("shake"):
+		ScreenShake.shake(3.2, 0.14, 55.0)
+
 
 func _on_died() -> void:
 	state = State.DEAD
 	velocity = Vector2.ZERO
-	if visual:
+	if _anim:
+		_anim.enter_dead()
+	elif visual:
 		visual.modulate = Color(0.4, 0.4, 0.4, 0.7)
 
 func revive() -> void:
 	state = State.IDLE
+	if _anim:
+		_anim.state = SpriteAnim.AnimState.IDLE
+		_anim._mod_flash = 0.0
 	if visual:
 		visual.modulate = Color.WHITE
 	dash_timer = 0.0

@@ -19,15 +19,38 @@ func _wait(seconds: float) -> void:
 
 func _spawn_dummy(host: Node, packed: PackedScene, dist: float) -> Node:
 	var e = packed.instantiate()
+	e.name = "SmokeDummy_%d" % randi()
 	e.enemy_name = "特色靶子"
 	e.max_hp = 9999
 	e.hp = 9999
 	e.attack = 0
 	e.move_speed = 0.0
 	e.detect_range = 0.0
-	host.get_parent().add_child(e)
-	e.global_position = host.global_position + Vector2(dist, 0)
+	e.attack_range = 999.0
+	e.attack_cooldown_time = 99.0
+	var parent := GameManager.current_world.get_node_or_null("Dynamic") if GameManager and GameManager.current_world else null
+	if parent == null and host != null:
+		parent = host.get_parent()
+	if parent == null:
+		parent = get_tree().current_scene
+	parent.add_child(e)
+	# 在 _ready() 执行后再覆盖 EnemyBase 强制设置的 collision_layer/mask
+	e.collision_layer = 0
+	e.collision_mask = 0
+	e.set_physics_process(false)
+	e.global_position = host.global_position + Vector2(dist, 0) if host != null else Vector2(dist, 0)
 	return e
+
+func _find_skill_slot_by_type(data: CharacterBase, type_name: String) -> int:
+	if data == null:
+		return -1
+	var ids: Array = data.get_loadout_ids()
+	var owned: Dictionary = data.get_owned_abilities()
+	for i in ids.size():
+		var sk = owned.get(str(ids[i]), {})
+		if not sk.is_empty() and str(sk.get("type", "")) == type_name:
+			return i  # 0-based slot for try_skill
+	return -1
 
 func _run() -> void:
 	await _wait(0.2)
@@ -435,9 +458,16 @@ func _run() -> void:
 	if is_instance_valid(host) and host.character_data != null:
 		var orig_class := str(host.character_data.class_id)
 		var dummy_packed: PackedScene = load("res://scenes/enemies/enemy.tscn")
+		# 先禁用 tower 里所有 EnemySpawner，不让它 respawn 干扰测试
+		for sp in get_tree().get_nodes_in_group("enemy_spawners"):
+			if is_instance_valid(sp):
+				sp.set_process(false)
+				sp.set_physics_process(false)
+		# 清理所有已存在的敌人
 		for e in get_tree().get_nodes_in_group("enemies"):
 			if is_instance_valid(e):
 				e.free()
+		await _wait(0.1)
 		# 狙击手：460px 外普攻与技能均应命中
 		host.character_data.setup_class("sniper")
 		host.character_data.mp = host.character_data.get_max_mp()
@@ -453,17 +483,21 @@ func _run() -> void:
 		SkillExecutor.cast(host, host.character_data.skills[0])
 		await _wait(0.2)
 		_check("狙击技能超远命中", far.hp < far_hp, "%d -> %d" % [far_hp, far.hp])
-		if is_instance_valid(far):
-			far.free()
 		# 炸弹专家：部署炸药并引爆
 		host.character_data.setup_class("bomber")
 		host.character_data.mp = host.character_data.get_max_mp()
 		host.facing = Vector2.RIGHT
+		var bomb_slot := _find_skill_slot_by_type(host.character_data, "deployable")
+		if bomb_slot >= 0:
+			host.skill_cooldowns[bomb_slot] = 0.0
 		var near = _spawn_dummy(host, dummy_packed, 88.0)
 		await _wait(0.15)
 		var near_hp: int = near.hp
-		SkillExecutor.cast(host, host.character_data.skills[0])
-		await _wait(1.0)
+		if bomb_slot >= 0:
+			host.try_skill(bomb_slot)
+		else:
+			_check("炸弹专家有 deployable 技能", false, "未找到 deployable 类型技能")
+		await _wait(1.5)
 		_check("炸弹专家部署炸药并引爆", near.hp < near_hp, "%d -> %d" % [near_hp, near.hp])
 		if is_instance_valid(near):
 			near.free()
@@ -475,7 +509,13 @@ func _run() -> void:
 		host.character_data.learned_styles.append("necromancer_c")
 		host.character_data.select_style("necromancer_c")
 		host.character_data.mp = host.character_data.get_max_mp()
-		SkillExecutor.cast(host, host.character_data.skills[1])
+		var summon_slot := _find_skill_slot_by_type(host.character_data, "summon")
+		if summon_slot >= 0:
+			host.skill_cooldowns[summon_slot] = 0.0
+		if summon_slot >= 0:
+			host.try_skill(summon_slot)
+		else:
+			_check("亡灵法师有 summon 技能", false, "未找到 summon 类型技能")
 		await _wait(0.25)
 		var summon_count: int = get_tree().get_nodes_in_group("summons").size()
 		_check("亡灵法师召唤亡灵", summon_count >= 1, str(summon_count))

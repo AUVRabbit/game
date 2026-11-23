@@ -68,10 +68,16 @@ func _on_body_entered(body: Node) -> void:
 	if level:
 		DamageNumber.spawn(level, body.global_position + Vector2(0, -24), dealt, is_crit)
 		SkillVfx.spawn_impact(level, body.global_position, "explosion", color)
+	# 震屏（每枚投射物命中至少一次）
+	if ScreenShake and ScreenShake.has_method("shake"):
+		var intensity := 1.8 if splash_radius > 0.0 else 1.2
+		ScreenShake.shake(intensity, 0.06, 90.0)
 	if knockback > 0.0 and body is Node2D:
 		(body as Node2D).global_position += direction.normalized() * knockback
 	if splash_radius > 0.0:
 		_splash(level, body)
+		if ScreenShake and ScreenShake.has_method("shake"):
+			ScreenShake.shake(3.5, 0.14, 55.0)
 	if pierce > 0:
 		pierce -= 1
 	else:

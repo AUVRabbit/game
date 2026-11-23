@@ -71,6 +71,8 @@ func _explode() -> void:
 	EffectRing.spawn(get_parent(), global_position, radius, color)
 	SkillVfx.spawn_impact(get_parent(), global_position, "explosion", color)
 	AudioManager.play_sfx("hit")
+	if ScreenShake and ScreenShake.has_method("heavy"):
+		ScreenShake.heavy()
 	queue_free()
 
 func _shoot() -> void:

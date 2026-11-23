@@ -31,6 +31,7 @@ SaveManager="*res://scripts/globals/save_manager.gd"
 BuildManager="*res://scripts/globals/build_manager.gd"
 QuestManager="*res://scripts/globals/quest_manager.gd"
 RoguelikeManager="*res://scripts/globals/roguelike_manager.gd"
+ScreenShake="*res://scripts/combat/screen_shake.gd"
 PunkManager="*res://scripts/globals/punk_manager.gd"
 SkillManager="*res://scripts/globals/skill_manager.gd"
 

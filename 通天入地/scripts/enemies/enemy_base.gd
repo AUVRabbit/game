@@ -1,6 +1,7 @@
 # ============================================================
 # EnemyBase — 敌人基类
 # 状态机 AI：巡逻 → 追击 → 攻击；掉落金币/经验/物品
+# 内置通用动画控制器（sprite_anim.gd），纯代码形变实现移动/攻击/受击/死亡。
 # ============================================================
 
 extends CharacterBody2D
@@ -42,6 +43,10 @@ var slow_factor: float = 1.0
 var mark_left: float = 0.0
 var mark_amp: float = 0.0
 
+var _anim: SpriteAnim = null
+var _drawn_sprite_rect: Rect2 = Rect2()
+var visual_offset: Vector2 = Vector2.ZERO
+
 func _ready() -> void:
 	add_to_group("enemies")
 	collision_layer = 4
@@ -57,6 +62,11 @@ func _ready() -> void:
 		body_radius = 28.0
 		move_speed *= 0.8
 	sprite_texture = _load_sprite()
+	# 动画控制器：驱动 Node2D 自身的位置/缩放/旋转（由 _draw 绘制贴图）
+	_anim = SpriteAnim.new()
+	_anim.name = "Anim"
+	add_child(_anim)
+	_anim.setup(self)
 	queue_redraw()
 
 func _load_sprite() -> Texture2D:
@@ -93,6 +103,8 @@ func _content_rect(tex: Texture2D) -> Rect2i:
 
 func _physics_process(delta: float) -> void:
 	if hp <= 0:
+		if _anim and _anim.state != SpriteAnim.AnimState.DEAD:
+			_anim.enter_dead()
 		return
 	if GameManager and GameManager.is_input_blocked():
 		velocity = Vector2.ZERO
@@ -115,23 +127,36 @@ func _physics_process(delta: float) -> void:
 		queue_redraw()
 	if stun_left > 0.0:
 		velocity = Vector2.ZERO
+		if _anim:
+			_anim.settle_to(SpriteAnim.AnimState.IDLE, Vector2.DOWN)
 		return
 
 	var player := _find_player()
 	if player == null:
 		_do_patrol(delta)
+		if _anim:
+			_anim.settle_to(SpriteAnim.AnimState.IDLE, Vector2.DOWN)
 		return
 	var dist: float = global_position.distance_to(player.global_position)
 	if dist <= attack_range:
 		state = State.ATTACK
 		velocity = Vector2.ZERO
+		var dir := (player.global_position - global_position).normalized()
+		if _anim:
+			# 蓄力 → 扑向玩家
+			_anim.enter_attack("melee", attack_range * 1.2, 0.4, player.global_position, dir)
 		_try_attack(player)
 	elif dist <= detect_range:
 		state = State.CHASE
-		velocity = (player.global_position - global_position).normalized() * move_speed * slow_factor
+		var dir := (player.global_position - global_position).normalized()
+		velocity = dir * move_speed * slow_factor
 		move_and_slide()
+		if _anim:
+			_anim.settle_to(SpriteAnim.AnimState.RUN, dir, velocity.length())
 	else:
 		_do_patrol(delta)
+		if _anim:
+			_anim.settle_to(SpriteAnim.AnimState.RUN, velocity.normalized(), velocity.length())
 
 func _find_player() -> Node2D:
 	if GameManager and is_instance_valid(GameManager.active_player):
@@ -160,6 +185,7 @@ func _try_attack(player: Node) -> void:
 		return
 	attack_timer = attack_cooldown_time
 	AudioManager.play_sfx("enemy_attack")
+	SkillVfx.spawn(get_parent(), global_position, "melee_slash", Color(0.95, 0.3, 0.3), 0.7, (player.global_position - global_position).angle())
 	if player.has_method("receive_damage"):
 		player.receive_damage(attack, false, self)
 		return
@@ -182,17 +208,32 @@ func take_damage(amount: int, is_magic: bool = false, source: Node = null) -> in
 	hp = maxi(0, hp - dealt)
 	flash_timer = 0.12
 	queue_redraw()
+	# 被击中动画反馈
+	if _anim:
+		var push_dir := Vector2.ZERO
+		if source is Node2D:
+			push_dir = (global_position - (source as Node2D).global_position).normalized()
+		if push_dir.length() < 0.01:
+			push_dir = Vector2(randf_range(-1, 1), randf_range(-1, 1)).normalized()
+		var flash_c := Color(1.0, 1.0, 1.0) if is_magic else Color(1.0, 0.6, 0.6)
+		_anim.enter_hurt(push_dir, flash_c)
+	if ScreenShake and ScreenShake.has_method("micro"):
+		ScreenShake.micro()
 	if hp <= 0:
 		_die()
 	return dealt
 
 func apply_stun(duration: float) -> void:
 	stun_left = maxf(stun_left, duration)
+	if _anim:
+		_anim.flash(Color(1.0, 0.9, 0.5), 0.15)
 	queue_redraw()
 
 func apply_slow(factor: float, duration: float) -> void:
 	slow_factor = minf(slow_factor, clampf(factor, 0.1, 1.0))
 	slow_left = maxf(slow_left, duration)
+	if _anim:
+		_anim.flash(Color(0.6, 0.85, 1.0), 0.12)
 	queue_redraw()
 
 func apply_mark(duration: float, amp: float) -> void:
@@ -216,7 +257,13 @@ func _die() -> void:
 			data.add_exp(exp_reward)
 	_spawn_drops()
 	EventBus.enemy_died.emit(self, killer)
-	queue_free()
+	if ScreenShake and ScreenShake.has_method("micro"):
+		ScreenShake.micro()
+	hp = 0
+	# 让死亡动画播放 0.8s 后再清理
+	var tree: SceneTree = get_tree()
+	if tree:
+		tree.create_timer(0.8).timeout.connect(func (): queue_free())
 
 func _spawn_drops() -> void:
 	var level: Node = GameManager.current_world if GameManager else null
@@ -237,6 +284,8 @@ func _spawn_drops() -> void:
 		pickup.global_position = global_position + Vector2(randf_range(-18, 18), randf_range(-18, 18))
 
 func _draw() -> void:
+	if visual_offset != Vector2.ZERO:
+		draw_set_transform(visual_offset, 0.0, Vector2.ONE)
 	var fill := body_color
 	if flash_timer > 0.0:
 		fill = Color(1.0, 1.0, 1.0)
@@ -251,6 +300,7 @@ func _draw() -> void:
 		var factor: float = fit / float(maxi(src.size.x, src.size.y))
 		var dest_size := Vector2(src.size) * factor
 		var dest := Rect2(-dest_size.x * 0.5, -dest_size.y + body_radius * 0.6, dest_size.x, dest_size.y)
+		_drawn_sprite_rect = dest
 		draw_texture_rect_region(sprite_texture, dest, src, tint)
 	else:
 		if is_boss:

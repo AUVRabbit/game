@@ -4,6 +4,9 @@
 # 支持：melee_aoe / projectile / heal / buff / shield / chain / aoe_zone /
 #       dash_strike / snipe / deployable / summon / blink_strike /
 #       root_zone / heal_zone / mark / stun_wave / pull_zone
+# 增强：锁定最近敌人（TargetingReticle + 靶向方向调整），
+#       命中反馈（enemy._anim.hurt() + 屏幕震屏），
+#       区域技能预警圈（aoe_zone / pull_zone）。
 # ============================================================
 
 extends RefCounted
@@ -21,8 +24,8 @@ static func cast(caster, skill: Dictionary) -> bool:
 		return false
 
 	var type_name := str(skill.get("type", "melee_aoe"))
-	var dir: Vector2 = caster.facing if caster.facing.length() > 0.01 else Vector2.DOWN
 	var origin: Vector2 = caster.global_position
+	var facing: Vector2 = caster.facing if caster.facing.length() > 0.01 else Vector2.DOWN
 	var power := float(skill.get("power", 1.0))
 	if data.has_method("get_skill_power_multiplier"):
 		power *= float(data.get_skill_power_multiplier(str(skill.get("id", ""))))
@@ -32,11 +35,25 @@ static func cast(caster, skill: Dictionary) -> bool:
 	var color := Color.from_string(str(skill.get("color", "#ffffff")), Color.WHITE)
 	var level: Node = caster.get_parent()
 
+	# ===== 靶向锁定 =====
+	var target := _lock_target(caster, type_name, skill)
+	var dir := facing
+	var lock_pos := origin + facing * 60.0
+	if target:
+		dir = (target.global_position - origin).normalized()
+		lock_pos = target.global_position
+		# 锁定标记（非友方/非区域类）
+		if not (type_name in ["heal", "buff", "shield", "heal_zone", "summon", "deployable"]):
+			TargetingReticle.spawn(level, target.global_position, color, 0.32, 20.0)
+
 	SkillVfx.spawn_skill(level, skill, origin, dir)
 
 	match type_name:
 		"melee_aoe":
-			_melee_aoe(caster, origin, float(skill.get("radius", 80)), base_damage, is_magic, color, level,
+			var pos := origin + dir * 38.0
+			if target:
+				pos = target.global_position + (pos - origin).normalized() * 20.0
+			_melee_aoe(caster, pos, float(skill.get("radius", 80)), base_damage, is_magic, color, level,
 				float(skill.get("knockback", 0.0)), float(skill.get("stun", 0.0)))
 		"projectile":
 			var pellets := maxi(1, int(skill.get("pellets", 1)))
@@ -75,46 +92,109 @@ static func cast(caster, skill: Dictionary) -> bool:
 			EffectRing.spawn(level, origin, 50.0, color)
 			EventBus.notify("获得护盾：%d" % int(shield_power))
 		"chain":
-			_chain(origin, float(skill.get("radius", 220)), int(skill.get("count", 3)), base_damage, is_magic, color, level)
+			var chain_origin := lock_pos
+			if target:
+				chain_origin = target.global_position
+			_chain(chain_origin, float(skill.get("radius", 220)), int(skill.get("count", 3)), base_damage, is_magic, color, level)
 		"aoe_zone":
-			_aoe_zone(caster, origin + dir * 70.0, float(skill.get("radius", 90)), base_damage, is_magic, float(skill.get("delay", 0.5)), color, level)
+			var pos := origin + dir * 100.0
+			if target:
+				pos = target.global_position
+			_aoe_zone(caster, pos, float(skill.get("radius", 90)), base_damage, is_magic, float(skill.get("delay", 0.5)), color, level)
 			_apply_extra_shield(caster, data, skill, color, level)
 		"dash_strike":
 			_dash_strike(caster, dir, float(skill.get("distance", 120)), float(skill.get("radius", 60)), base_damage, is_magic, color, level)
 		"snipe":
-			_snipe(caster, origin, dir, float(skill.get("range", 600)), float(skill.get("width", 18)),
+			var sniping_dir := dir
+			var snipe_range := float(skill.get("range", 600))
+			if target:
+				sniping_dir = dir.normalized()
+			_snipe(caster, origin, sniping_dir, snipe_range, float(skill.get("width", 18)),
 				base_damage, is_magic, color, level, float(skill.get("lifesteal", 0.0)))
 		"deployable":
-			_deployable(caster, skill, origin, dir, base_damage, is_magic, color, level)
+			var deploy_pos := origin + dir * float(skill.get("offset", 90))
+			if target:
+				deploy_pos = origin + dir * clampf(origin.distance_to(target.global_position) * 0.8, 30.0, 260.0)
+			_deployable(caster, skill, origin, dir, base_damage, is_magic, color, level, deploy_pos)
 		"summon":
-			_summon(caster, skill, origin, base_damage, is_magic, color, level)
+			_summon(caster, skill, origin, maxi(1, base_damage), is_magic, color, level)
 		"blink_strike":
 			_blink_strike(caster, float(skill.get("range", 170)), float(skill.get("radius", 55)),
 				base_damage, is_magic, color, level)
 		"root_zone":
-			_root_zone(caster, origin + dir * 70.0, float(skill.get("radius", 110)),
+			var pos := origin + dir * 100.0
+			if target:
+				pos = target.global_position
+			_root_zone(caster, pos, float(skill.get("radius", 110)),
 				base_damage, is_magic, float(skill.get("root", 1.5)), color, level)
 		"heal_zone":
 			_apply_extra_shield(caster, data, skill, color, level)
 			_heal_zone(caster, origin, float(skill.get("radius", 110)), int(skill.get("heal", 18)),
 				float(skill.get("duration", 5.0)), float(skill.get("tick", 1.0)), color, level)
 		"mark":
-			_mark(origin, float(skill.get("radius", 320)), float(skill.get("duration", 8.0)),
-				float(skill.get("amp", 0.25)), color, level)
+			_mark_skill(origin, float(skill.get("radius", 320)), float(skill.get("duration", 8.0)),
+				float(skill.get("amp", 0.25)), color, level, target)
 		"stun_wave":
 			_stun_wave(caster, origin, float(skill.get("radius", 110)), base_damage, is_magic,
 				float(skill.get("stun", 0.8)), float(skill.get("knockback", 100)), color, level)
 		"pull_zone":
-			_pull_zone(caster, origin, float(skill.get("radius", 120)), base_damage, is_magic,
+			var pos := origin + dir * 80.0
+			if target:
+				pos = target.global_position
+			_pull_zone(caster, pos, float(skill.get("radius", 120)), base_damage, is_magic,
 				float(skill.get("duration", 0.8)), float(skill.get("pull", 70)), color, level)
 		_:
-			_melee_aoe(caster, origin, float(skill.get("radius", 80)), base_damage, is_magic, color, level)
+			_melee_aoe(caster, origin + dir * 40.0, float(skill.get("radius", 80)), base_damage, is_magic, color, level)
 
 	EventBus.skill_cast.emit(caster, str(skill.get("id", "")))
 	_apply_fusion_keyword(caster, skill, origin, dir, base_damage, is_magic, color, level)
 	AudioManager.play_sfx("skill")
 	return true
 
+
+# ---------- 锁定目标（用于靶向技能） ----------
+static func _lock_target(caster, type_name: String, skill: Dictionary) -> Node2D:
+	if caster == null or not (caster is Node2D):
+		return null
+	var range_dist := _lock_range(caster, type_name, skill)
+	if range_dist <= 0.0:
+		return null
+	var best: Node2D = null
+	var best_d := range_dist
+	for enemy in _enemies():
+		if not (enemy is Node2D):
+			continue
+		var d: float = (caster as Node2D).global_position.distance_to((enemy as Node2D).global_position)
+		if d < best_d:
+			best_d = d
+			best = enemy
+	return best
+
+
+static func _lock_range(caster, type_name: String, skill: Dictionary) -> float:
+	match type_name:
+		"melee_aoe":
+			return float(skill.get("radius", 80)) + 60.0
+		"projectile":
+			var r := float(skill.get("range", 0.0))
+			return r if r > 0.0 else 420.0
+		"snipe":
+			return float(skill.get("range", 600))
+		"dash_strike":
+			return float(skill.get("distance", 120)) + 40.0
+		"blink_strike":
+			return float(skill.get("range", 170))
+		"chain":
+			return float(skill.get("radius", 220))
+		"mark":
+			return float(skill.get("radius", 320))
+		"stun_wave", "pull_zone":
+			return float(skill.get("radius", 160))
+		_:
+			return 0.0
+
+
+# ---------- 通用：额外护盾 / 融合词条 ----------
 
 static func _apply_extra_shield(caster, data, skill: Dictionary, color: Color, level: Node) -> void:
 	var has_shield := skill.has("shield") or str(skill.get("extra_type", "")) == "shield"
@@ -181,14 +261,20 @@ static func _apply_fusion_keyword(caster, skill: Dictionary, origin: Vector2, di
 			_summon(caster, {"count": 1, "duration": 6.0, "speed": 130.0, "interval": 1.0},
 				origin, maxi(1, int(base_damage * 0.5)), is_magic, color, level)
 		"mark":
-			_mark(origin, 240.0, 6.0, value, color, level)
+			_mark_skill(origin, 240.0, 6.0, value, color, level, null)
+
+
+# ---------- 攻击 / 伤害 ----------
 
 static func _melee_aoe(caster, origin: Vector2, radius: float, damage: int, is_magic: bool, color: Color, level: Node,
 		knockback: float = 0.0, stun: float = 0.0) -> void:
 	EffectRing.spawn(level, origin, radius, color)
+	SkillVfx.spawn(level, origin, "melee_slash", color, 1.0, 0.0)
+	var any := false
 	for enemy in _enemies():
 		if _dist(enemy, origin) <= radius:
 			_apply_damage(caster, enemy, damage, is_magic, level)
+			any = true
 			if enemy is Node2D:
 				var push: Vector2 = ((enemy as Node2D).global_position - origin).normalized()
 				if push.length() < 0.01:
@@ -197,6 +283,9 @@ static func _melee_aoe(caster, origin: Vector2, radius: float, damage: int, is_m
 					(enemy as Node2D).global_position += push * knockback
 			if stun > 0.0 and enemy.has_method("apply_stun"):
 				enemy.apply_stun(stun)
+	if any and ScreenShake and ScreenShake.has_method("shake"):
+		ScreenShake.shake(4.5, 0.16, 45.0)
+
 
 static func _projectile(caster, origin: Vector2, dir: Vector2, damage: int, is_magic: bool, speed: float, color: Color,
 		icon_id: String = "", pierce: int = 0, splash: float = 0.0, range_dist: float = 0.0,
@@ -218,6 +307,8 @@ static func _projectile(caster, origin: Vector2, dir: Vector2, damage: int, is_m
 	projectile.lifetime = maxf(0.3, range_dist / maxf(1.0, speed)) if range_dist > 0.0 else 1.6
 	level.add_child(projectile)
 	projectile.global_position = origin
+	EffectRing.spawn(level, origin, 14.0, color, 0.18)
+
 
 static func _chain(origin: Vector2, radius: float, count: int, damage: int, is_magic: bool, color: Color, level: Node) -> void:
 	EffectRing.spawn(level, origin, radius, color)
@@ -232,24 +323,41 @@ static func _chain(origin: Vector2, radius: float, count: int, damage: int, is_m
 	for i in limit:
 		_apply_damage(null, targets[i], damage, is_magic, level)
 
+
 static func _aoe_zone(caster, pos: Vector2, radius: float, damage: int, is_magic: bool, delay: float, color: Color, level: Node) -> void:
-	EffectRing.spawn(level, pos, radius, color)
+	# 预警圈：先画一个较暗的脉冲圈
+	EffectRing.spawn(level, pos, radius, Color(color.r, color.g, color.b, 0.35), delay)
+	# 红色预警脉冲
+	var warn_c := Color(color.r * 1.1 + 0.2, color.g * 0.3, color.b * 0.3, 0.9)
+	EffectRing.spawn(level, pos, radius * 0.7, warn_c, delay * 0.8)
 	var tree: SceneTree = caster.get_tree()
 	await tree.create_timer(delay).timeout
 	if not is_instance_valid(caster):
 		return
-	EffectRing.spawn(level, pos, radius * 1.1, color)
+	EffectRing.spawn(level, pos, radius * 1.15, color)
+	SkillVfx.spawn(level, pos, "explosion", color, 1.2, 0.0)
+	var any := false
 	for enemy in _enemies():
 		if _dist(enemy, pos) <= radius:
 			_apply_damage(caster, enemy, damage, is_magic, level)
+			any = true
+	if any and ScreenShake and ScreenShake.has_method("heavy"):
+		ScreenShake.heavy()
+
 
 static func _dash_strike(caster, dir: Vector2, distance: float, radius: float, damage: int, is_magic: bool, color: Color, level: Node) -> void:
 	caster.global_position += dir.normalized() * distance
 	var pos: Vector2 = caster.global_position
 	EffectRing.spawn(level, pos, radius, color)
+	SkillVfx.spawn(level, pos, "dash_streak", color, 1.0, dir.angle())
 	for enemy in _enemies():
 		if _dist(enemy, pos) <= radius:
 			_apply_damage(caster, enemy, damage, is_magic, level)
+	if ScreenShake and ScreenShake.has_method("micro"):
+		ScreenShake.micro()
+
+
+# ---------- 工具 ----------
 
 static func _enemies() -> Array:
 	var result: Array = []
@@ -261,10 +369,12 @@ static func _enemies() -> Array:
 			result.append(e)
 	return result
 
+
 static func _dist(node, pos: Vector2) -> float:
 	if node is Node2D:
 		return (node as Node2D).global_position.distance_to(pos)
 	return 999999.0
+
 
 static func _apply_damage(caster, enemy, damage: int, is_magic: bool, level: Node, is_crit: bool = false) -> int:
 	if not is_instance_valid(enemy) or not enemy.has_method("take_damage"):
@@ -282,12 +392,17 @@ static func _apply_damage(caster, enemy, damage: int, is_magic: bool, level: Nod
 					scaled = int(round(float(scaled) * (1.0 + execute_bonus)))
 	var final_damage: int = enemy.take_damage(scaled, is_magic, caster)
 	DamageNumber.spawn(level, enemy.global_position + Vector2(0, -26), final_damage, is_crit)
+	# 轻微震屏（避免每个命中都抖一下导致画面糊）
+	if ScreenShake and ScreenShake.has_method("shake"):
+		ScreenShake.shake(1.4, 0.06, 80.0)
 	return final_damage
+
 
 static func _body_radius(enemy) -> float:
 	if enemy != null and "body_radius" in enemy:
 		return float(enemy.body_radius)
 	return 14.0
+
 
 # ---------- 普攻（按职业 basic_attack 配置执行非近战普攻） ----------
 static func cast_basic(caster, profile: Dictionary, damage: int, is_crit: bool) -> void:
@@ -302,6 +417,11 @@ static func cast_basic(caster, profile: Dictionary, damage: int, is_crit: bool) 
 	var level: Node = caster.get_parent()
 	if level == null:
 		return
+	# 锁定目标（非近战普攻）
+	var target := _lock_target(caster, "projectile", profile)
+	if target:
+		dir = (target.global_position - origin).normalized()
+		TargetingReticle.spawn(level, target.global_position, color, 0.28, 14.0)
 	match kind:
 		"projectile":
 			var pellets := maxi(1, int(profile.get("pellets", 1)))
@@ -340,10 +460,14 @@ static func cast_basic(caster, profile: Dictionary, damage: int, is_crit: bool) 
 			bomb.fuse = float(profile.get("fuse", 0.4))
 			bomb.lifetime = 3.0
 			level.add_child(bomb)
-			bomb.global_position = caster.global_position + dir * float(profile.get("range", 220))
-			EffectRing.spawn(level, bomb.global_position, bomb.radius * 0.5, color)
+			var bomb_pos := origin + dir * float(profile.get("range", 220))
+			if target:
+				bomb_pos = target.global_position
+			bomb.global_position = bomb_pos
+			EffectRing.spawn(level, bomb.global_position, bomb.radius * 0.5, color, 0.28)
 
-# ---------- 狙击：超远距离穿透射线 ----------
+
+# ---------- 狙击 / 光束 ----------
 static func _snipe(caster, origin: Vector2, dir: Vector2, range_dist: float, width: float, damage: int,
 		is_magic: bool, color: Color, level: Node, lifesteal: float = 0.0, is_crit: bool = false) -> void:
 	var d := dir.normalized()
@@ -359,10 +483,13 @@ static func _snipe(caster, origin: Vector2, dir: Vector2, range_dist: float, wid
 		if perp <= width * 0.5 + _body_radius(enemy):
 			total += _apply_damage(caster, enemy, damage, is_magic, level, is_crit)
 	_beam_visual(level, origin, origin + d * range_dist, color)
+	if total > 0 and ScreenShake and ScreenShake.has_method("shake"):
+		ScreenShake.shake(2.5, 0.12, 60.0)
 	if lifesteal > 0.0 and total > 0 and caster != null:
 		var cdata = caster.get("character_data")
 		if cdata != null:
 			cdata.heal(int(round(float(total) * lifesteal)))
+
 
 static func _beam_visual(level: Node, origin: Vector2, end: Vector2, color: Color) -> void:
 	if level == null:
@@ -390,9 +517,10 @@ static func _beam_visual(level: Node, origin: Vector2, end: Vector2, color: Colo
 	tw2.tween_property(core, "modulate:a", 0.0, 0.25)
 	tw2.tween_callback(core.queue_free)
 
-# ---------- 部署物：炸弹 / 地雷 / 炮塔 ----------
+
+# ---------- 部署物 ----------
 static func _deployable(caster, skill: Dictionary, origin: Vector2, dir: Vector2, damage: int,
-		is_magic: bool, color: Color, level: Node) -> void:
+		is_magic: bool, color: Color, level: Node, deploy_pos: Vector2 = Vector2.ZERO) -> void:
 	var mode := str(skill.get("deploy", "bomb"))
 	var count := maxi(1, int(skill.get("count", 1)))
 	var offset := float(skill.get("offset", 90))
@@ -405,7 +533,9 @@ static func _deployable(caster, skill: Dictionary, origin: Vector2, dir: Vector2
 	var perp := Vector2(-dir.y, dir.x)
 	for i in count:
 		var t := 0.0 if count <= 1 else float(i) / float(count - 1) - 0.5
-		var pos: Vector2 = origin + dir.normalized() * offset + perp * t * spread
+		var pos: Vector2 = deploy_pos
+		if pos.length() < 0.01:
+			pos = origin + dir.normalized() * offset + perp * t * spread
 		var device = preload("res://scripts/combat/deployable.gd").new()
 		device.mode = mode
 		device.radius = float(skill.get("radius", 80))
@@ -417,11 +547,15 @@ static func _deployable(caster, skill: Dictionary, origin: Vector2, dir: Vector2
 		device.lifetime = float(skill.get("duration", 12.0)) * (1.0 + trap_bonus)
 		device.interval = float(skill.get("interval", 1.0))
 		device.aim_dir = dir.normalized()
-		level.add_child(device)
-		device.global_position = pos
-		EffectRing.spawn(level, pos, 26.0, color)
+		if level == null:
+			push_warning("SkillExecutor._deployable: level is null, caster=%s" % str(caster))
+		else:
+			level.add_child(device)
+			device.global_position = pos
+			EffectRing.spawn(level, pos, 26.0, color, 0.22)
 
-# ---------- 召唤：亡灵随从 ----------
+
+# ---------- 召唤 ----------
 static func _summon(caster, skill: Dictionary, origin: Vector2, damage: int,
 		is_magic: bool, color: Color, level: Node) -> void:
 	var count := maxi(1, int(skill.get("count", 1)))
@@ -445,13 +579,16 @@ static func _summon(caster, skill: Dictionary, origin: Vector2, damage: int,
 		minion.source = caster
 		minion.color = color
 		minion.body_scale = float(skill.get("scale", 1.0))
+		if level == null:
+			return
 		level.add_child(minion)
 		var ang := TAU * float(i) / float(count)
 		minion.global_position = origin + Vector2(cos(ang), sin(ang)) * 30.0
 		EffectRing.spawn(level, minion.global_position, 20.0, color)
 	EventBus.notify("召唤亡灵：%d 只" % count)
 
-# ---------- 瞬步突袭：闪现至目标身后 ----------
+
+# ---------- 瞬步突袭 ----------
 static func _blink_strike(caster, range_dist: float, radius: float, damage: int, is_magic: bool,
 		color: Color, level: Node) -> void:
 	var target = null
@@ -472,17 +609,20 @@ static func _blink_strike(caster, range_dist: float, radius: float, damage: int,
 		if _dist(enemy, target.global_position) <= radius:
 			_apply_damage(caster, enemy, damage, is_magic, level)
 
-# ---------- 符文禁锢：范围定身 ----------
+
+# ---------- 符文禁锢 ----------
 static func _root_zone(caster, pos: Vector2, radius: float, damage: int, is_magic: bool,
 		duration: float, color: Color, level: Node) -> void:
 	EffectRing.spawn(level, pos, radius, color)
+	EffectRing.spawn(level, pos, radius * 0.5, Color(color.r * 0.4, color.g * 0.6, color.b * 1.1, 0.8), 0.5)
 	for enemy in _enemies():
 		if _dist(enemy, pos) <= radius:
 			_apply_damage(caster, enemy, damage, is_magic, level)
 			if enemy.has_method("apply_slow"):
 				enemy.apply_slow(0.08, duration)
 
-# ---------- 圣光领域：持续治疗 ----------
+
+# ---------- 圣光领域 ----------
 static func _heal_zone(caster, origin: Vector2, radius: float, heal: int, duration: float,
 		tick: float, color: Color, level: Node) -> void:
 	var tree: SceneTree = caster.get_tree()
@@ -502,31 +642,37 @@ static func _heal_zone(caster, origin: Vector2, radius: float, heal: int, durati
 			return
 		elapsed += tick
 
-# ---------- 猎杀标记：目标受到额外伤害 ----------
-static func _mark(origin: Vector2, radius: float, duration: float, amp: float, color: Color, level: Node) -> void:
-	var target = null
-	var best := radius
-	for enemy in _enemies():
-		var d := _dist(enemy, origin)
-		if d < best:
-			best = d
-			target = enemy
-	if target == null:
+
+# ---------- 猎杀标记（接受外部 target 覆盖） ----------
+static func _mark_skill(origin: Vector2, radius: float, duration: float, amp: float, color: Color, level: Node, target: Node2D = null) -> void:
+	var mark_target = target
+	if mark_target == null:
+		var best := radius
+		for enemy in _enemies():
+			var d := _dist(enemy, origin)
+			if d < best:
+				best = d
+				mark_target = enemy
+	if mark_target == null:
 		EventBus.notify("范围内没有可标记的目标")
 		return
-	if target.has_method("apply_mark"):
-		target.apply_mark(duration, amp)
-	EffectRing.spawn(level, target.global_position, 30.0, color)
+	if mark_target.has_method("apply_mark"):
+		mark_target.apply_mark(duration, amp)
+	EffectRing.spawn(level, mark_target.global_position, 30.0, color)
 	EventBus.notify("已标记目标：受到伤害 +%d%%" % int(round(amp * 100.0)))
 
-# ---------- 震波：范围击退 + 眩晕 ----------
+
+# ---------- 震波 ----------
 static func _stun_wave(caster, origin: Vector2, radius: float, damage: int, is_magic: bool,
 		stun: float, knockback: float, color: Color, level: Node) -> void:
 	EffectRing.spawn(level, origin, radius, color)
+	SkillVfx.spawn(level, origin, "void_pulse", color, 1.1, 0.0)
+	var any := false
 	for enemy in _enemies():
 		if _dist(enemy, origin) > radius:
 			continue
 		_apply_damage(caster, enemy, damage, is_magic, level)
+		any = true
 		if enemy is Node2D:
 			var push: Vector2 = ((enemy as Node2D).global_position - origin).normalized()
 			if push.length() < 0.01:
@@ -534,16 +680,21 @@ static func _stun_wave(caster, origin: Vector2, radius: float, damage: int, is_m
 			(enemy as Node2D).global_position += push * knockback
 		if enemy.has_method("apply_stun"):
 			enemy.apply_stun(stun)
+	if any and ScreenShake and ScreenShake.has_method("shake"):
+		ScreenShake.shake(5.0, 0.18, 42.0)
 
-# ---------- 引力场：持续牵引 + 收束伤害 ----------
+
+# ---------- 引力场 ----------
 static func _pull_zone(caster, origin: Vector2, radius: float, damage: int, is_magic: bool,
 		duration: float, pull: float, color: Color, level: Node) -> void:
+	# 预警
+	EffectRing.spawn(level, origin, radius, Color(color.r, color.g * 0.4, color.b, 0.4), duration)
 	var tree: SceneTree = caster.get_tree()
 	if tree == null:
 		return
 	var ticks := 6
 	for i in ticks:
-		EffectRing.spawn(level, origin, radius * (1.0 - float(i) / float(ticks) * 0.35), color)
+		EffectRing.spawn(level, origin, radius * (1.0 - float(i) / float(ticks) * 0.35), color, duration / float(ticks))
 		for enemy in _enemies():
 			if not (enemy is Node2D) or _dist(enemy, origin) > radius:
 				continue
@@ -552,7 +703,11 @@ static func _pull_zone(caster, origin: Vector2, radius: float, damage: int, is_m
 		await tree.create_timer(duration / float(ticks)).timeout
 		if not is_instance_valid(caster):
 			return
+	var any := false
 	for enemy in _enemies():
 		if _dist(enemy, origin) <= radius * 0.7:
 			_apply_damage(caster, enemy, damage, is_magic, level)
+			any = true
 	EffectRing.spawn(level, origin, radius * 0.7, color)
+	if any and ScreenShake and ScreenShake.has_method("shake"):
+		ScreenShake.shake(4.5, 0.16, 40.0)

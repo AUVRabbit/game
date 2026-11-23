@@ -16,6 +16,8 @@ var follow_target: Node2D = null
 func _ready() -> void:
 	position_smoothing_enabled = false
 	zoom = Vector2(1.0, 1.0)
+	if ScreenShake and ScreenShake.has_method("register_camera"):
+		ScreenShake.register_camera(self)
 
 func _process(delta: float) -> void:
 	var player = GameManager.active_player if GameManager else null
