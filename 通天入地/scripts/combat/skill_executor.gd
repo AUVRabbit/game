@@ -942,37 +942,161 @@ static func _deployable(caster, skill: Dictionary, origin: Vector2, dir: Vector2
 		EffectRing.spawn(level, origin, 16.0, color, 0.18)
 
 
-# ---------- 召唤 ----------
+# ---------- 召唤（材料消耗：尸体/残骸） ----------
 static func _summon(caster, skill: Dictionary, origin: Vector2, damage: int,
 		is_magic: bool, color: Color, level: Node) -> void:
-	var count := maxi(1, int(skill.get("count", 1)))
-	var dur := float(skill.get("duration", 12.0))
 	var summon_bonus := 0.0
 	var cdata = caster.get("character_data")
 	if cdata != null and cdata.has_method("get_summon_bonus"):
 		summon_bonus = float(cdata.get_summon_bonus())
-	if summon_bonus >= 0.2:
-		count += 1
+
+	# —— 材料系统：尝试消耗附近的尸体，不同尸体→不同召唤物 ——
+	var corpses_nearby: Array = []
+	var corpse_search_radius := 220.0
+	if level != null and caster is Node2D:
+		for node in level.get_children():
+			if node.has_method("is_valid") and node.get("corpse_type") != null and node.get("harvestable"):
+				var d := (caster as Node2D).global_position.distance_to((node as Node2D).global_position)
+				if d <= corpse_search_radius:
+					corpses_nearby.append(node)
+
+	var base_count := maxi(1, int(skill.get("count", 1)))
 	damage = int(round(float(damage) * (1.0 + summon_bonus)))
-	for i in count:
-		var minion = preload("res://scripts/combat/summoned_minion.gd").new()
-		minion.lifetime = dur
-		minion.damage = damage
-		minion.is_magic = is_magic
-		minion.move_speed = float(skill.get("speed", 120.0))
-		minion.attack_range = float(skill.get("attack_range", 42.0))
-		minion.attack_interval = float(skill.get("interval", 1.0))
-		minion.detect_range = float(skill.get("detect_range", 420.0))
-		minion.source = caster
-		minion.color = color
-		minion.body_scale = float(skill.get("scale", 1.0))
-		if level == null:
-			return
-		level.add_child(minion)
-		var ang := TAU * float(i) / float(count)
-		minion.global_position = origin + Vector2(cos(ang), sin(ang)) * 30.0
-		EffectRing.spawn(level, minion.global_position, 20.0, color)
-	EventBus.notify("召唤亡灵：%d 只" % count)
+
+	# 没有尸体 → 只能召唤最弱的"魂灵"（1 只普通亡灵）
+	if corpses_nearby.is_empty():
+		var default_count := 1 if summon_bonus < 0.2 else 2
+		for i in default_count:
+			_create_minion(caster, skill, origin, damage, is_magic, color, level, i, "ghost")
+		EventBus.notify("附近无尸体，召唤 %d 只幽魂" % default_count)
+		return
+
+	# 有尸体 → 按尸体数量+类型召唤（每消耗 1 具尸体召唤 1 个专属亡灵）
+	var summon_total := mini(base_count + corpses_nearby.size() / 2, corpses_nearby.size())
+	var consumed := 0
+	var idx := 0
+	for corpse in corpses_nearby:
+		if consumed >= summon_total:
+			break
+		var ct: int = int(corpse.get("corpse_type"))
+		_create_minion(caster, skill, origin, damage, is_magic, color, level, idx, ct)
+		corpse.harvestable = false
+		var tw: Tween = corpse.create_tween()
+		tw.tween_property(corpse, "modulate:a", 0.0, 0.3).set_delay(0.05)
+		tw.tween_callback(corpse.queue_free)
+		idx += 1
+		consumed += 1
+
+	EventBus.notify("消耗 %d 具尸体，召唤 %d 只亡灵" % [consumed, consumed])
+
+
+# —— 创建具体类型的召唤物（不同尸体 → 不同属性）——
+static func _create_minion(caster, skill: Dictionary, origin: Vector2, base_damage: int,
+		is_magic: bool, color: Color, level: Node, idx: int, corpse_type) -> void:
+	if level == null:
+		return
+	var ct := int(corpse_type) if not (corpse_type is String) else -1
+	var minion = preload("res://scripts/combat/summoned_minion.gd").new()
+
+	# 默认值（魂灵）
+	var minion_color := color
+	var move_speed := float(skill.get("speed", 120.0))
+	var attack_range := float(skill.get("attack_range", 42.0))
+	var minion_damage := base_damage
+	var special_tag: String = ""
+	var tag_name: String = "魂灵"
+
+	match ct:
+		# —— 骸骨 → 骷髅弓手（远程、穿透箭）——
+		Corpse.CorpseType.SKELETON:
+			minion_color = Color(0.9, 0.85, 0.75)
+			move_speed = 130.0
+			attack_range = 160.0
+			minion_damage = int(round(float(base_damage) * 1.2))
+			special_tag = "skeleton_archer"
+			tag_name = "骷髅弓手"
+		# —— 腐肉 → 丧尸（近战坦克、慢速、厚血）——
+		Corpse.CorpseType.ZOMBIE:
+			minion_color = Color(0.5, 0.7, 0.4)
+			move_speed = 70.0
+			attack_range = 36.0
+			minion_damage = int(round(float(base_damage) * 1.4))
+			special_tag = "zombie_tank"
+			tag_name = "丧尸坦克"
+		# —— 岩浆 → 火焰精灵（远程火球、自爆）——
+		Corpse.CorpseType.ELEMENTAL_FIRE:
+			minion_color = Color(1.0, 0.4, 0.15)
+			move_speed = 100.0
+			attack_range = 180.0
+			minion_damage = int(round(float(base_damage) * 1.35))
+			special_tag = "fire_sprite"
+			tag_name = "火焰精灵"
+			is_magic = true
+		# —— 粘液 → 水元素（减速+范围伤害）——
+		Corpse.CorpseType.SLIME:
+			minion_color = Color(0.5, 0.9, 0.6)
+			move_speed = 90.0
+			attack_range = 80.0
+			minion_damage = int(round(float(base_damage) * 1.0))
+			special_tag = "water_slime"
+			tag_name = "水元素"
+		# —— 水元素 → 雷电精灵（chain 闪电）——
+		Corpse.CorpseType.ELEMENTAL_WATER:
+			minion_color = Color(0.6, 0.85, 1.0)
+			move_speed = 110.0
+			attack_range = 200.0
+			minion_damage = int(round(float(base_damage) * 1.3))
+			special_tag = "thunder_sprite"
+			tag_name = "雷电精灵"
+			is_magic = true
+		# —— 机械残骸 → 机械幽灵（chain 闪电 + 远程激光）——
+		Corpse.CorpseType.MECH:
+			minion_color = Color(0.65, 0.65, 0.75)
+			move_speed = 120.0
+			attack_range = 220.0
+			minion_damage = int(round(float(base_damage) * 1.25))
+			special_tag = "mech_ghost"
+			tag_name = "机械幽灵"
+			is_magic = true
+		# —— 幽魂残片 → 暗影刺客（隐身+暴击高）——
+		Corpse.CorpseType.GHOST:
+			minion_color = Color(0.7, 0.7, 1.0)
+			move_speed = 160.0
+			attack_range = 34.0
+			minion_damage = int(round(float(base_damage) * 1.5))
+			special_tag = "shadow_assassin"
+			tag_name = "暗影刺客"
+		# —— 巨兽残骸 → 巨型亡灵（AOE、击退）——
+		Corpse.CorpseType.OGRE:
+			minion_color = Color(0.7, 0.45, 0.3)
+			move_speed = 80.0
+			attack_range = 56.0
+			minion_damage = int(round(float(base_damage) * 2.0))
+			special_tag = "ogre_bone"
+			tag_name = "巨型亡灵"
+		_:
+			pass
+
+	var base_pos: Vector2 = origin + Vector2(cos(TAU * float(idx) / 4.0), sin(TAU * float(idx) / 4.0)) * 30.0
+
+	var default_interval := float(skill.get("interval")) if skill.has("interval") else 1.0
+	if special_tag == "shadow_assassin":
+		default_interval = 0.6
+
+	minion.lifetime = float(skill.get("duration", 12.0))
+	minion.damage = minion_damage
+	minion.is_magic = is_magic
+	minion.move_speed = move_speed
+	minion.attack_range = attack_range
+	minion.attack_interval = default_interval
+	minion.detect_range = float(skill.get("detect_range", 420.0))
+	minion.source = caster
+	minion.color = minion_color
+	minion.body_scale = float(skill.get("scale", 1.0))
+	minion.special_ability = special_tag
+	level.add_child(minion)
+	minion.global_position = base_pos
+	EffectRing.spawn(level, minion.global_position, 20.0, minion_color)
 
 
 # ---------- 瞬步突袭 ----------

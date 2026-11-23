@@ -515,6 +515,13 @@ func _run() -> void:
 		host.character_data.learned_styles.append("necromancer_c")
 		host.character_data.select_style("necromancer_c")
 		host.character_data.mp = host.character_data.get_max_mp()
+		# 在 host 附近放一具骸骨尸体（让召唤能消费材料，测试真·材料召唤链）
+		var corpse_script: GDScript = load("res://scripts/enemies/corpse.gd")
+		var corpse = corpse_script.new()
+		corpse.setup(0, "earth", Color(0.85, 0.8, 0.7))  # 0 = CorpseType.SKELETON
+		corpse.global_position = host.global_position + Vector2(30, 0)
+		corpse.z_index = 25
+		host.get_parent().add_child(corpse)
 		var summon_slot := _find_skill_slot_by_type(host.character_data, "summon")
 		if summon_slot >= 0:
 			host.skill_cooldowns[summon_slot] = 0.0

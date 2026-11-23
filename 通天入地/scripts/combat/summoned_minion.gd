@@ -17,6 +17,8 @@ var detect_range: float = 420.0
 var source: Node = null
 var color: Color = Color(0.62, 0.45, 0.95)
 var body_scale: float = 1.0
+var special_ability: String = ""
+var minion_type: String = "ghost"
 
 var attack_timer: float = 0.0
 var target: Node2D = null

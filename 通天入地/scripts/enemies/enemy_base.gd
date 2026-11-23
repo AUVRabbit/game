@@ -254,7 +254,38 @@ func take_damage(amount: int, is_magic: bool = false, source: Node = null) -> in
 		_die()
 	return dealt
 
-# —— 被击中爆粒子（D3 风格：方向向外的碎片 + 上升的小血滴）——
+# —— 生成尸体残留（亡灵召唤的原材料）——
+func _spawn_corpse() -> void:
+	var level: Node = get_tree().current_scene if get_tree() else null
+	if level == null:
+		return
+	var corpse := preload("res://scripts/enemies/corpse.gd").new()
+	var ct := Corpse.CorpseType.SKELETON
+	match primary_element:
+		"earth", "physical": ct = Corpse.CorpseType.SKELETON
+		"fire": ct = Corpse.CorpseType.ELEMENTAL_FIRE
+		"water": ct = Corpse.CorpseType.SLIME
+		"thunder": ct = Corpse.CorpseType.ELEMENTAL_WATER
+		"ice": ct = Corpse.CorpseType.SKELETON
+		"shadow": ct = Corpse.CorpseType.GHOST
+		"mech": ct = Corpse.CorpseType.MECH
+		"root": ct = Corpse.CorpseType.ZOMBIE
+		"holy": ct = Corpse.CorpseType.SKELETON
+		"nature": ct = Corpse.CorpseType.ZOMBIE
+		_:
+			if body_color.r < 0.5 and body_color.g < 0.5 and body_color.b > body_color.r:
+				ct = Corpse.CorpseType.GHOST
+			else:
+				ct = Corpse.CorpseType.SKELETON
+	corpse.setup(ct, primary_element, body_color)
+	corpse.global_position = global_position
+	corpse.z_index = 25
+	level.add_child(corpse)
+	# 加一点腐化抖动提示
+	var tween := corpse.create_tween()
+	tween.set_parallel(true)
+	tween.tween_property(corpse, "modulate:a", 0.9, 0.6)
+
 func _spawn_hit_particles(push_dir: Vector2, is_magic: bool) -> void:
 	var level: Node = get_tree().current_scene if get_tree() else null
 	if level == null:
@@ -338,6 +369,9 @@ func _die() -> void:
 
 	# 3. 爆尸体碎片（10+ 个向外飞的彩色碎片 + 向上抛的血珠）
 	_spawn_death_particles()
+
+	# 4. 生成尸体残留（亡灵召唤/爆破师材料源）
+	_spawn_corpse()
 
 	hp = 0
 	# 让死亡动画播放 0.8s 后再清理
