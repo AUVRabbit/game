@@ -40,8 +40,29 @@ static func texture(asset_id: String) -> Texture2D:
 	var path := path_for(asset_id)
 	var tex: Texture2D = null
 	if ResourceLoader.exists(path):
-		tex = load(path)
+		var res := load(path)
+		if res is Texture2D:
+			tex = res
+	if tex == null:
+		tex = _make_placeholder(asset_id)
 	_cache[asset_id] = tex
+	return tex
+
+static func _make_placeholder(asset_id: String) -> ImageTexture:
+	var size := 32
+	var img := Image.create(size, size, false, Image.FORMAT_RGBA8)
+	# 根据 asset_id hash 生成稳定颜色
+	var h := asset_id.hash()
+	var r := (h & 0xFF) / 255.0
+	var g := ((h >> 8) & 0xFF) / 255.0
+	var b := ((h >> 16) & 0xFF) / 255.0
+	var col := Color(r, g, b, 1.0)
+	img.fill(col)
+	# 画一个对角十字
+	for i in range(size):
+		img.set_pixel(i, i, Color.WHITE)
+		img.set_pixel(i, size - 1 - i, Color.WHITE)
+	var tex := ImageTexture.create_from_image(img)
 	return tex
 
 static func clear_cache() -> void:

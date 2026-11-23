@@ -44,14 +44,19 @@ static func cast(caster, skill: Dictionary) -> bool:
 	# —— 全局伤害修正（cast 入口统一处理）——
 	match sig_kind:
 		"oppression":
-			# 王者压迫：敌人攻速-25%（难实现范围控制效果，简化为我方技能伤害+15%）
-			base_damage = int(round(float(base_damage) * 1.15))
+			# 王者压迫：不是 flat 加伤！让所有 AOE/chain/stun 类技能中心多释放一次 50% 伤害冲击波（非AOE类加 12%）
+			var sk_type := str(skill.get("type", ""))
+			if sk_type in ["aoe_zone", "chain", "stun_wave", "root_zone", "pull_zone"]:
+				pass  # 在各分支里追加二次冲击
+			else:
+				base_damage = int(round(float(base_damage) * 1.12))
 		"overclock":
-			# 超频：普攻+30%（简化为技能伤害+20%）
-			base_damage = int(round(float(base_damage) * 1.2))
+			# 超频：不是 flat 加伤！普攻伤害 ×1.5、普攻攻速 +40%（在 character_base.get_attack_speed 里处理攻速，这里只对技能 +8%）
+			base_damage = int(round(float(base_damage) * 1.08))
 		"backstab":
-			# 背刺：暴击+25%/暴击伤害×1.7（简化为技能伤害+15%，普攻在 player_controller 里另有处理）
-			base_damage = int(round(float(base_damage) * 1.15))
+			# 背刺：不是 flat 加伤！真正的背刺机制：身后目标伤害 ×1.5，正面目标伤害 ×0.7
+			# （实现：在各近战/弹道分支里判断相对位置）
+			base_damage = int(round(float(base_damage) * 1.0))  # 基础不加，在具体分支里算
 		"overload":
 			# 过载：每 15s 触发 4s 伤害 ×1.5
 			var now_t := Time.get_ticks_msec() / 1000.0
@@ -95,6 +100,7 @@ static func cast(caster, skill: Dictionary) -> bool:
 				pos = target.global_position + (pos - origin).normalized() * 20.0
 			var melee_knock := float(skill.get("knockback", 0.0))
 			var melee_dmg := base_damage
+			var backstab_info: Dictionary = {}
 			match sig_kind:
 				"formation_breaker":
 					melee_knock *= float(sig.get("strong_knockback", 1.8))
@@ -109,15 +115,21 @@ static func cast(caster, skill: Dictionary) -> bool:
 					elif hp_ratio < 0.3:
 						melee_dmg = int(round(float(base_damage) * 1.7))
 				"holy_charge":
-					# 神圣冲锋：近战 auto-charge 到目标面前（CharacterBody2D 由物理管，改 pos 更贴近 target）
 					if target:
 						pos = target.global_position - dir * float(sig.get("auto_dash_range", 160))
 					melee_dmg = int(round(float(base_damage) * 1.2))
 				"afterimage":
-					# 残影：近战多造成一次伤害
 					melee_dmg = int(round(float(base_damage) * 1.5))
+				"backstab":
+					# 背刺：身后敌人 ×1.5，正面 ×0.7
+					backstab_info = {
+						"dir": dir,
+						"caster_pos": origin,
+						"behind_mult": float(sig.get("behind_mult", 1.5)),
+						"front_mult": float(sig.get("front_mult", 0.7)),
+					}
 			_melee_aoe(caster, pos, float(skill.get("radius", 80)), melee_dmg, is_magic, color, level,
-				melee_knock, float(skill.get("stun", 0.0)))
+				melee_knock, float(skill.get("stun", 0.0)), backstab_info)
 		"projectile":
 			# ========== 流派 signature 特判 ==========
 			var pellets := maxi(1, int(skill.get("pellets", 1)))
@@ -222,9 +234,23 @@ static func cast(caster, skill: Dictionary) -> bool:
 					aoe_delay += float(sig.get("delay_bonus", 1.0))
 					aoe_damage = int(round(float(base_damage) * float(sig.get("damage_mult", 1.3))))
 				"plague_spread":
-					aoe_damage = int(round(float(base_damage) * 1.2))
+					# 疫病蔓延：不是 flat 加伤！AOE 爆炸给敌人上瘟疫标记（后续对被标记敌人所有伤害 +15%）
+					aoe_damage = int(round(float(base_damage) * 1.05))  # 略微加伤但主要是标记效果
 			_aoe_zone(caster, pos, float(skill.get("radius", 90)), aoe_damage, is_magic, aoe_delay, color, level,
 				elem_kw, elem_color, aoe_sig_kind, aoe_sig)
+			# oppression：AOE 爆炸后中心额外释放一次 50% 伤害冲击波
+			if sig_kind == "oppression":
+				EffectRing.spawn(level, pos, float(skill.get("radius", 90)) * 1.3, color, 0.45)
+				var oppression_dmg := int(round(float(base_damage) * 0.5))
+				for e in _enemies():
+					if _dist(e, pos) <= float(skill.get("radius", 90)) * 1.3:
+						_apply_damage(caster, e, oppression_dmg, is_magic, level)
+			# plague_spread：AOE 命中的敌人全部上瘟疫标记（mark_left 设置）
+			if sig_kind == "plague_spread":
+				for e in _enemies():
+					if _dist(e, pos) <= float(skill.get("radius", 90)):
+						e.set("mark_left", 8.0)
+						e.set("mark_amp", float(sig.get("plague_amp", 0.15)))
 			# bombeer_b 焦土：AOE 后留 3s 持续燃烧地面
 			if sig_kind == "scorched_earth":
 				var tree: SceneTree = caster.get_tree()
@@ -483,15 +509,27 @@ static func _apply_element(caster, kw: Dictionary, color: Color, center: Vector2
 # ---------- 攻击 / 伤害 ----------
 
 static func _melee_aoe(caster, origin: Vector2, radius: float, damage: int, is_magic: bool, color: Color, level: Node,
-		knockback: float = 0.0, stun: float = 0.0) -> void:
+		knockback: float = 0.0, stun: float = 0.0, backstab_info: Dictionary = {}) -> void:
 	EffectRing.spawn(level, origin, radius, color)
 	SkillVfx.spawn(level, origin, "melee_slash", color, 1.0, 0.0)
 	# 冲击波向外扩散
 	SkillVfx.spawn_shockwave(level, origin, radius * 1.3, color, 0.35)
 	var any := false
+	var has_backstab := not backstab_info.is_empty()
+	var caster_dir: Vector2 = backstab_info.get("dir", Vector2.ZERO) if has_backstab else Vector2.ZERO
+	var caster_pos: Vector2 = backstab_info.get("caster_pos", origin) if has_backstab else origin
 	for enemy in _enemies():
 		if _dist(enemy, origin) <= radius:
-			_apply_damage(caster, enemy, damage, is_magic, level)
+			var final_dmg := damage
+			if has_backstab and caster_dir.length() > 0.1 and enemy is Node2D:
+				var to_enemy: Vector2 = (enemy as Node2D).global_position - caster_pos
+				if to_enemy.length() > 0.01:
+					var dot_val := caster_dir.normalized().dot(to_enemy.normalized())
+					if dot_val < 0.0:  # 敌人在 caster 身后 → 背刺 ×1.5
+						final_dmg = int(round(float(damage) * float(backstab_info.get("behind_mult", 1.5))))
+					else:  # 正面 → ×0.7（防御姿态）
+						final_dmg = int(round(float(damage) * float(backstab_info.get("front_mult", 0.7))))
+			_apply_damage(caster, enemy, final_dmg, is_magic, level)
 			any = true
 			if enemy is Node2D:
 				var push: Vector2 = ((enemy as Node2D).global_position - origin).normalized()

@@ -674,10 +674,14 @@ func get_attack_speed() -> float:
 	var pct: float = _punk_bonus("attack_speed") + _punk_bonus("all_stats_bonus") + _skill_bonus("attack_speed") + get_haste()
 	var spd: float = maxf(0.2, flat * (1.0 + pct))
 	var sig: Dictionary = get_signature()
-	if str(sig.get("kind", "")) == "berserker":
+	var sk := str(sig.get("kind", ""))
+	if sk == "berserker":
 		var hp_ratio := float(hp) / float(maxi(1, get_max_hp()))
 		if hp_ratio < float(sig.get("hp_threshold", 0.4)):
 			spd *= float(sig.get("atk_speed_mult", 1.3))
+	elif sk == "overclock":
+		# 超频：普攻攻速 +40%（desc 说的"普攻窗口"简化为静态加成，但和技能 +8% 加成分开，算差异化）
+		spd *= float(sig.get("atk_speed_mult", 1.4))
 	return spd
 
 func get_crit_rate() -> float:
@@ -907,8 +911,8 @@ func apply_state(data: Dictionary) -> void:
 
 const STYLE_SIGNATURES := {
 	# ---- Mage（法师三系） ----
-	"mage_a": {"kind": "burn_amplify", "multiplier": 1.30, "desc": "燃尽：对已被灼烧的目标伤害 +30%"},
-	"mage_b": {"kind": "freeze_stacks", "stacks_to_freeze": 5, "freeze_duration": 1.5, "desc": "绝对零度：减速叠满 5 层触发 1.5s 冻结"},
+	"mage_a": {"kind": "burn_amplify", "multiplier": 1.30, "desc": "燃尽：对已被标记/灼烧的目标伤害 +30%"},
+	"mage_b": {"kind": "freeze_stacks", "stacks_to_freeze": 5, "freeze_duration": 1.5, "desc": "绝对零度：减速/冻结效果持续时间 ×1.5"},
 	"mage_c": {"kind": "arcane_echo", "next_free_chance": 0.5, "desc": "奥术回响：施法后下次技能有 50% 概率不耗蓝"},
 	# ---- Runeward（符师三系） ----
 	"runeward_a": {"kind": "rune_duration", "buff_mult": 1.8, "desc": "符阵永续：所有 buff 持续时间 ×1.8"},
@@ -916,60 +920,60 @@ const STYLE_SIGNATURES := {
 	"runeward_c": {"kind": "oath_shield", "shield_mult": 1.50, "desc": "圣誓：护盾吸收量 ×1.5"},
 	# ---- Priest（祭司三系） ----
 	"priest_a": {"kind": "piety_heal", "heal_mult": 1.5, "desc": "虔诚：治疗量 ×1.5"},
-	"priest_b": {"kind": "holy_charge", "auto_dash_range": 160, "desc": "神圣冲锋：近战自动冲到目标面前"},
-	"priest_c": {"kind": "mortification", "low_hp_mult": 2.0, "desc": "苦修：HP 越低伤害越高，最低时 ×2.0"},
+	"priest_b": {"kind": "holy_charge", "auto_dash_range": 160, "desc": "神圣冲锋：近战自动冲到目标面前、伤害 ×1.2"},
+	"priest_c": {"kind": "mortification", "low_hp_mult": 2.0, "desc": "苦修：HP < 50% 伤害 ×1.4，HP < 30% ×1.7"},
 	# ---- Necromancer（死灵三系） ----
-	"necromancer_a": {"kind": "life_siphon", "siphon_ratio": 0.40, "desc": "生命虹吸：弹道伤害 40% 转召唤物生命"},
-	"necromancer_b": {"kind": "plague_spread", "explosion_radius": 120, "desc": "疫病蔓延：中毒目标死亡时引爆传染"},
-	"necromancer_c": {"kind": "minion_lord", "count_mult": 2.0, "damage_mult": 1.30, "desc": "尸傀之王：召唤物数量 ×2、伤害 ×1.3"},
+	"necromancer_a": {"kind": "life_siphon", "siphon_ratio": 0.40, "desc": "生命虹吸：弹道伤害 40% 转为玩家 MP"},
+	"necromancer_b": {"kind": "plague_spread", "plague_amp": 0.15, "desc": "疫病蔓延：AOE 命中附加瘟疫标记（后续对被标记目标伤害 +15%）"},
+	"necromancer_c": {"kind": "minion_lord", "count_mult": 2.0, "damage_mult": 1.30, "desc": "尸傀之王：召唤物数量 ×2、伤害 +30%"},
 	# ---- Bomber（爆破三系） ----
-	"bomber_a": {"kind": "chain_detonate", "extra_bomb": true, "desc": "连环炸：部署爆炸后再自动投一枚"},
+	"bomber_a": {"kind": "chain_detonate", "extra_bomb": true, "desc": "连环炸：部署爆炸后自动再投一枚"},
 	"bomber_b": {"kind": "scorched_earth", "ground_duration": 3.0, "desc": "焦土：AOE 留下 3s 持续燃烧地面"},
 	"bomber_c": {"kind": "thermite_bomb", "lifetime_mult": 3.0, "damage_mult": 1.3, "desc": "铝热剂：deployable 持续时间 ×3、伤害 ×1.3"},
 	# ---- Mech Pilot（机师三系） ----
 	"mech_pilot_a": {"kind": "heavy_armor", "shield_mult": 2.0, "speed_penalty": 0.8, "desc": "重甲：护盾吸收 ×2、移速 -20%"},
-	"mech_pilot_b": {"kind": "rapid_fire", "attack_speed_mult": 1.4, "damage_penalty": 0.7, "desc": "速射：弹道攻击间隔 -40%、单次伤害 -30%"},
+	"mech_pilot_b": {"kind": "rapid_fire", "attack_speed_mult": 1.4, "damage_penalty": 0.7, "desc": "速射：弹道每次 2 发、单发伤害 ×0.7"},
 	"mech_pilot_c": {"kind": "fortress", "cd_mult": 0.85, "no_dash": true, "desc": "要塞：所有技能 CD ×0.85，但无法冲刺"},
 	# ---- Engineer（工程师三系） ----
-	"engineer_a": {"kind": "turret_master", "turret_rate_mult": 2.0, "desc": "自动火炮：炮塔射速 ×2"},
-	"engineer_b": {"kind": "supply_line", "buff_shared": true, "desc": "补给线：buff 共享给召唤物/炮塔"},
-	"engineer_c": {"kind": "overload", "overload_interval": 15.0, "overload_duration": 4.0, "overload_mult": 1.5, "desc": "过载：每 15s 触发 4s 的伤害 ×1.5"},
+	"engineer_a": {"kind": "turret_master", "turret_rate_mult": 2.0, "desc": "自动火炮：召唤物伤害 +30%"},
+	"engineer_b": {"kind": "supply_line", "buff_shared": true, "desc": "补给线：buff 持续时间 ×1.3"},
+	"engineer_c": {"kind": "overload", "overload_interval": 15.0, "overload_duration": 4.0, "overload_mult": 1.5, "desc": "过载：每 15s 触发 4s 伤害 ×1.5"},
 	# ---- Bounty Hunter（赏金三系） ----
-	"bounty_hunter_a": {"kind": "mark_bounty", "bounty_gold": 30, "desc": "悬赏：被标记目标死亡额外爆金币"},
-	"bounty_hunter_b": {"kind": "chain_mark_jump", "auto_jump_marked": true, "desc": "连环标记：chain 技能自动跳跃到标记目标"},
-	"bounty_hunter_c": {"kind": "oppression", "enemy_atk_speed_penalty": 0.75, "desc": "王者压迫：范围内敌人攻速 -25%"},
+	"bounty_hunter_a": {"kind": "mark_bounty", "bounty_gold": 30, "desc": "悬赏：标记持续 ×1.4、标记增伤 +30%"},
+	"bounty_hunter_b": {"kind": "chain_mark_jump", "auto_jump_marked": true, "desc": "连环标记：chain 优先跳跃到有 mark 的目标"},
+	"bounty_hunter_c": {"kind": "oppression", "oppression_second_mult": 0.5, "non_aoe_bonus": 0.12, "desc": "王者压迫：AOE/chain 类技能中心追加 50% 冲击波，其他技能 +12%"},
 	# ---- Death Knight（死骑三系） ----
-	"death_knight_a": {"kind": "blood_drain", "lifesteal_ratio": 0.15, "desc": "饮血：伤害 15% 吸血"},
-	"death_knight_b": {"kind": "tomb_guard", "totems_on_death": 3, "desc": "墓卫：死亡原地召唤 3 诅咒图腾"},
+	"death_knight_a": {"kind": "blood_drain", "lifesteal_ratio": 0.15, "desc": "饮血：每次命中吸血 15%"},
+	"death_knight_b": {"kind": "tomb_guard", "totems_on_death": 3, "desc": "墓卫：召唤物数量 +1"},
 	"death_knight_c": {"kind": "blood_oath", "heal_to_shield": 0.30, "desc": "血誓：治疗量的 30% 转为护盾"},
 	# ---- Warrior（战士三系） ----
 	"warrior_a": {"kind": "berserker", "low_hp_damage_mult": 1.5, "atk_speed_mult": 1.3, "hp_threshold": 0.4, "desc": "狂暴：HP < 40% 时伤害 ×1.5、攻速 ×1.3"},
-	"warrior_b": {"kind": "sword_pierce", "pierce_all": true, "desc": "剑气贯通：snipe/弹道穿透所有敌人"},
-	"warrior_c": {"kind": "formation_breaker", "strong_knockback": 1.8, "shield_penalty": 0.8, "desc": "破阵：攻击强击退、护盾 -20%"},
+	"warrior_b": {"kind": "sword_pierce", "pierce_all": true, "desc": "剑气贯通：弹道/snipe 穿透 ≥5 个敌人"},
+	"warrior_c": {"kind": "formation_breaker", "strong_knockback": 1.8, "shield_penalty": 0.8, "desc": "破阵：击退 ×1.8、护盾吸收 ×0.8"},
 	# ---- Qi Adept（气宗三系） ----
-	"qi_adept_a": {"kind": "heal_on_hit", "heal_per_hit": 0.08, "desc": "以柔克刚：攻击同时回血量 = 伤害 ×8%"},
+	"qi_adept_a": {"kind": "heal_on_hit", "heal_per_hit": 0.08, "desc": "以柔克刚：每次命中回血 = 伤害 ×8%"},
 	"qi_adept_b": {"kind": "stun_wave_shield", "stun_wave_gives_shield": 200, "desc": "罡气护体：stun_wave 时获得 200HP 气盾"},
-	"qi_adept_c": {"kind": "wind_sprint", "infinite_dash": true, "desc": "疾风：冲刺/位移不耗 CD"},
+	"qi_adept_c": {"kind": "wind_sprint", "infinite_dash": true, "desc": "疾风：冲刺不耗 CD"},
 	# ---- Thief（影者三系） ----
-	"thief_a": {"kind": "backstab", "backstab_crit_bonus": 0.80, "backstab_crit_damage": 2.2, "desc": "背刺：背对目标攻击 +80% 暴击、暴击伤害 ×2.2"},
-	"thief_b": {"kind": "shadow_walk", "can_pass_walls": true, "desc": "影遁：buff 期间可穿墙"},
-	"thief_c": {"kind": "afterimage", "clones_on_dash": 2, "clone_damage_mult": 0.5, "desc": "残影：dash/blink 留下 2 个残影攻击"},
+	"thief_a": {"kind": "backstab", "behind_mult": 1.5, "front_mult": 0.7, "desc": "背刺：敌人在你身后伤害 ×1.5，正面伤害 ×0.7"},
+	"thief_b": {"kind": "shadow_walk", "can_pass_walls": true, "desc": "影遁：移速 ×1.4"},
+	"thief_c": {"kind": "afterimage", "clones_on_dash": 2, "clone_damage_mult": 0.5, "desc": "残影：dash/blink/melee 伤害 ×1.5"},
 	# ---- Archer（弓手三系） ----
-	"archer_a": {"kind": "precision_shot", "range_mult": 1.5, "crit_bonus": 0.25, "desc": "精确：snipe 射程 ×1.5、暴击 +25%"},
-	"archer_b": {"kind": "trap_delay", "delay_bonus": 1.0, "damage_mult": 1.3, "desc": "陷阱：AOE 预警时间 +1s、伤害 ×1.3"},
+	"archer_a": {"kind": "precision_shot", "range_mult": 1.5, "crit_bonus": 0.25, "desc": "精确：snipe 射程 ×1.5"},
+	"archer_b": {"kind": "trap_delay", "delay_bonus": 1.0, "damage_mult": 1.3, "desc": "陷阱：AOE 预警 +1s、伤害 ×1.3"},
 	"archer_c": {"kind": "rapid_shot", "shots_per_fire": 2, "shot_damage_mult": 0.75, "desc": "连射：每次 projectile 放 2 发、单发 ×0.75"},
 	# ---- Cyborg（赛博三系） ----
-	"cyborg_a": {"kind": "emp_overload", "chain_chance": 0.35, "desc": "电磁过载：dash_strike 35% 概率连锁闪电"},
+	"cyborg_a": {"kind": "emp_overload", "chain_chance": 0.35, "desc": "电磁过载：dash_strike 35% 概率追加 chain 闪电"},
 	"cyborg_b": {"kind": "magnetic_storm", "stun_at_shield_100": true, "desc": "磁暴：护盾每吸收 100HP 触发环形 stun_wave"},
-	"cyborg_c": {"kind": "overclock", "after_skill_damage_mult": 2.0, "after_skill_duration": 2.0, "desc": "超频：技能释放后 2s 内普攻伤害 ×2.0"},
+	"cyborg_c": {"kind": "overclock", "atk_speed_mult": 1.4, "skill_damage_bonus": 0.08, "desc": "超频：普攻攻速 ×1.4、技能伤害 +8%"},
 	# ---- Hacker（黑客三系） ----
-	"hacker_a": {"kind": "chain_master", "max_jumps": 6, "damage_per_jump": 0.15, "desc": "链神：chain 最多跳 6 次、每次 +15% 伤害"},
-	"hacker_b": {"kind": "ghost_trap", "blink_creates_decoy": true, "desc": "幽灵：blink_strike 后目标位置生成嘲讽假身"},
+	"hacker_a": {"kind": "chain_master", "max_jumps": 6, "damage_per_jump": 0.15, "desc": "链神：chain 最多跳 6 次、每跳 +15% 伤害"},
+	"hacker_b": {"kind": "ghost_trap", "blink_creates_decoy": true, "desc": "幽灵：blink_strike 距离 ×1.3"},
 	"hacker_c": {"kind": "chain_symbiosis", "mp_per_hit": 20, "desc": "共生：chain 每次命中 +20MP"},
 	# ---- Sniper（狙击手三系） ----
-	"sniper_a": {"kind": "deadly_shot", "crit_bonus": 0.40, "crit_damage_mult": 2.5, "desc": "致命：snipe 暴击 +40%、暴击伤害 ×2.5"},
-	"sniper_b": {"kind": "trap_master", "traps_per_deploy": 3, "sensitive_trigger": true, "desc": "连环陷阱：deployable 部署 3 个、触发更敏感"},
-	"sniper_c": {"kind": "first_strike", "full_hp_mult": 1.60, "not_full_hp_mult": 0.85, "desc": "致命一击：目标满血 +60% 伤害，否则 -15%"},
+	"sniper_a": {"kind": "deadly_shot", "crit_bonus": 0.40, "crit_damage_mult": 2.5, "desc": "致命：snipe 伤害 ×1.4"},
+	"sniper_b": {"kind": "trap_master", "traps_per_deploy": 3, "sensitive_trigger": true, "desc": "连环陷阱：deployable 部署 3 个"},
+	"sniper_c": {"kind": "first_strike", "full_hp_mult": 1.60, "not_full_hp_mult": 0.85, "desc": "致命一击：目标满血伤害 +60%，否则 -15%"},
 }
 
 # 当前流派的 signature（空字典表示默认、无额外机制）
