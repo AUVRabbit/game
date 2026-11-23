@@ -87,22 +87,55 @@ func _process(delta: float) -> void:
 		AnimState.ATTACK:
 			var t := clampf(_attack_timer / maxf(_attack_total, 0.001), 0.0, 1.0)
 			if _attack_kind == "melee":
-				# 前冲 → 收回
+				# D3 三段式：蓄力(t<0.2) → 前冲命中(0.2~0.55) → 收招(0.55~1.0)
 				var forward = facing * _attack_range
-				var k := sin(t * PI)
-				action_offset = forward * k * 0.7 + Vector2(0, sin(_breath_t * 8) * 1.2)
-				action_scale = 1.08 + k * 0.06
-				action_rot = facing.x * 0.12 * k
+				var kf_mult: float = 0.0
+				var scale_k: float = 1.0
+				var rot_k: float = 0.0
+				if t < 0.22:
+					kf_mult = -sin(t / 0.22 * PI) * 0.35
+					scale_k = 1.12 - sin(t / 0.22 * PI) * 0.07
+					rot_k = -facing.x * 0.18 * (t / 0.22)
+				elif t < 0.55:
+					var t2 := (t - 0.22) / 0.33
+					kf_mult = sin(t2 * PI) * 1.1
+					scale_k = 1.08 + sin(t2 * PI) * 0.06
+					rot_k = facing.x * 0.28 * sin(t2 * PI)
+				else:
+					var t3 := (t - 0.55) / 0.45
+					kf_mult = 0.35 * sin(PI + t3 * PI * 0.6)
+					scale_k = 1.0 + 0.02 * sin(t3 * PI * 2.0)
+					rot_k = facing.x * 0.1 * sin(t3 * PI * 0.8)
+				action_offset = forward * kf_mult * 0.7 + Vector2(0, sin(_breath_t * 8) * 1.2)
+				action_scale = scale_k
+				action_rot = rot_k
 			else:
-				# 远程/法术：轻微后坐 + 倾斜
-				action_offset = -facing * 4.0 * sin(t * PI) * 0.4 + Vector2(0, sin(_breath_t * 6) * 0.6)
-				action_rot = facing.x * 0.08 * sin(t * PI)
-				action_scale = 1.0 + 0.04 * sin(t * PI)
+				var offset_vec := Vector2.ZERO
+				var rot_k: float = 0.0
+				var scale_k: float = 1.0
+				if t < 0.35:
+					var t2 := t / 0.35
+					offset_vec = -facing * 4.0 * sin(t2 * PI)
+					rot_k = -facing.x * 0.14 * sin(t2 * PI)
+					scale_k = 0.93 + 0.07 * t2
+				elif t < 0.55:
+					var t2 := (t - 0.35) / 0.2
+					offset_vec = facing * 3.0 * sin(t2 * PI)
+					rot_k = facing.x * 0.22 * sin(t2 * PI)
+					scale_k = 1.04
+				else:
+					var t3 := (t - 0.55) / 0.45
+					offset_vec = -facing * 1.0 * sin(t3 * PI * 0.8)
+					rot_k = facing.x * 0.06 * sin(t3 * PI)
+					scale_k = 1.0
+				action_offset = offset_vec + Vector2(0, sin(_breath_t * 6) * 0.6)
+				action_rot = rot_k
+				action_scale = scale_k
 		AnimState.CAST:
-			# 上抬 + 双手光环
+			# 施法：上抬 + 双手光环 + 咏唱时身体脉动
 			var t := clampf(_attack_timer / maxf(_attack_total, 0.001), 0.0, 1.0)
-			action_offset = Vector2(0, -2.0 * sin(t * PI))
-			action_scale = 1.0 + 0.06 * sin(t * PI)
+			action_offset = Vector2(0, -2.0 * sin(t * PI * 3))
+			action_scale = 1.0 + 0.06 * sin(t * PI * 4)
 		AnimState.DASH:
 			action_scale = 1.0 + sin(_breath_t * 20) * 0.04
 		AnimState.HURT:

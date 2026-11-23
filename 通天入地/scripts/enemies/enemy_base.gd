@@ -218,20 +218,64 @@ func take_damage(amount: int, is_magic: bool = false, source: Node = null) -> in
 	hp = maxi(0, hp - dealt)
 	flash_timer = 0.12
 	queue_redraw()
-	# 被击中动画反馈
+
+	# —— 被击中反馈链（D3 风格）——
+	var push_dir := Vector2.ZERO
+	if source is Node2D:
+		push_dir = (global_position - (source as Node2D).global_position).normalized()
+	if push_dir.length() < 0.01:
+		push_dir = Vector2(randf_range(-1, 1), randf_range(-1, 1)).normalized()
+
+	# 1. SpriteAnim 受击
 	if _anim:
-		var push_dir := Vector2.ZERO
-		if source is Node2D:
-			push_dir = (global_position - (source as Node2D).global_position).normalized()
-		if push_dir.length() < 0.01:
-			push_dir = Vector2(randf_range(-1, 1), randf_range(-1, 1)).normalized()
 		var flash_c := Color(1.0, 1.0, 1.0) if is_magic else Color(1.0, 0.6, 0.6)
 		_anim.enter_hurt(push_dir, flash_c)
-	if ScreenShake and ScreenShake.has_method("micro"):
-		ScreenShake.micro()
+
+	# 2. 击退（物理层位移）
+	if push_dir.length() > 0.01:
+		var knock_power := clampf(float(dealt) * 0.12, 4.0, 24.0)
+		if not status_immune.has("knockback"):
+			global_position += push_dir * knock_power
+
+	# 3. 爆血粒子（敌人中心爆出）
+	_spawn_hit_particles(push_dir, is_magic)
+
+	# 4. 震屏（按伤害强度）
+	var shake_intensity := clampf(float(dealt) / 30.0, 1.0, 4.0)
+	if ScreenShake and ScreenShake.has_method("shake"):
+		ScreenShake.shake(shake_intensity, 0.06, 40.0)
+
+	# 5. HitStop 命中停顿（越强停越久）
+	var stop_dur := clampf(float(dealt) / 300.0, 0.035, 0.09)
+	if HitStop and HitStop.has_method("hit"):
+		HitStop.hit(stop_dur, shake_intensity)
+
 	if hp <= 0:
 		_die()
 	return dealt
+
+# —— 被击中爆粒子（D3 风格：方向向外的碎片 + 上升的小血滴）——
+func _spawn_hit_particles(push_dir: Vector2, is_magic: bool) -> void:
+	var level: Node = get_tree().current_scene if get_tree() else null
+	if level == null:
+		return
+	var blood_color := Color(1.0, 0.35, 0.25) if not is_magic else Color(0.7, 0.5, 1.0)
+	var count := 6
+	for i in count:
+		var ang := push_dir.angle() + randf_range(-0.6, 0.6)
+		var spd := randf_range(40.0, 120.0)
+		var dist := spd * 0.22
+		var p := ColorRect.new()
+		p.color = blood_color
+		p.size = Vector2(3.0, 3.0)
+		p.global_position = global_position + Vector2(randf_range(-6, 6), randf_range(-10, -2))
+		p.z_index = 50
+		level.add_child(p)
+		var tween := p.create_tween()
+		var target_pos := p.global_position + Vector2(cos(ang), sin(ang)) * dist + Vector2(0, 14)
+		tween.tween_property(p, "global_position", target_pos, 0.28).set_trans(Tween.TRANS_QUAD).set_ease(Tween.EASE_OUT)
+		tween.parallel().tween_property(p, "modulate:a", 0.0, 0.28).set_delay(0.08)
+		tween.chain().tween_callback(p.queue_free)
 
 func is_immune(status_kind: String) -> bool:
 	return status_immune.has(status_kind)
@@ -282,13 +326,70 @@ func _die() -> void:
 			data.add_exp(exp_reward)
 	_spawn_drops()
 	EventBus.enemy_died.emit(self, killer)
-	if ScreenShake and ScreenShake.has_method("micro"):
-		ScreenShake.micro()
+
+	# —— 死亡反馈链（D3 风格）——
+	# 1. 大震屏
+	if ScreenShake and ScreenShake.has_method("shake"):
+		ScreenShake.shake(5.0, 0.25, 100.0)
+
+	# 2. 长 HitStop（死亡是最强命中！）
+	if HitStop and HitStop.has_method("hit"):
+		HitStop.hit(0.09, 3.0)
+
+	# 3. 爆尸体碎片（10+ 个向外飞的彩色碎片 + 向上抛的血珠）
+	_spawn_death_particles()
+
 	hp = 0
 	# 让死亡动画播放 0.8s 后再清理
 	var tree: SceneTree = get_tree()
 	if tree:
 		tree.create_timer(0.8).timeout.connect(func (): queue_free())
+
+func _spawn_death_particles() -> void:
+	var level: Node = get_tree().current_scene if get_tree() else null
+	if level == null:
+		return
+	# 14 个碎片：向外飞 + 重力下落
+	var shard_colors := [
+		body_color, Color(1.0, 0.4, 0.3), Color(0.9, 0.85, 0.7), Color(1.0, 0.7, 0.5)
+	]
+	for i in 14:
+		var ang := TAU * (float(i) / 14.0) + randf_range(-0.15, 0.15)
+		var spd := randf_range(80.0, 180.0)
+		var dist := spd * 0.35
+		var col: Color = shard_colors[randi() % shard_colors.size()]
+		var size := randf_range(4.0, 8.0)
+		var p := ColorRect.new()
+		p.color = col
+		p.size = Vector2(size, size)
+		p.global_position = global_position + Vector2(randf_range(-6, 6), randf_range(-6, 6))
+		p.z_index = 50
+		level.add_child(p)
+		var tween := p.create_tween()
+		var target_pos := p.global_position + Vector2(cos(ang), sin(ang)) * dist + Vector2(0, 50)
+		tween.set_parallel(true)
+		tween.tween_property(p, "global_position", target_pos, 0.55).set_trans(Tween.TRANS_QUAD).set_ease(Tween.EASE_OUT)
+		tween.tween_property(p, "modulate:a", 0.0, 0.55).set_delay(0.2)
+		tween.tween_property(p, "rotation", randf_range(-1.5, 1.5), 0.45)
+		tween.chain().tween_callback(p.queue_free)
+	# 8 个向上抛的"血珠"（如果是火/机元素则是熔岩/金属屑）
+	var drop_color := body_color if primary_element == "fire" or primary_element == "mech" else Color(0.95, 0.25, 0.15)
+	for i in 8:
+		var ang := randf_range(PI * 0.7, PI * 1.3)  # 向上的扇形
+		var spd := randf_range(80.0, 140.0)
+		var dist := spd * 0.38
+		var p := ColorRect.new()
+		p.color = drop_color
+		p.size = Vector2(3.0, 3.0)
+		p.global_position = global_position + Vector2(randf_range(-4, 4), randf_range(-4, 4))
+		p.z_index = 50
+		level.add_child(p)
+		var tween := p.create_tween()
+		var target_pos := p.global_position + Vector2(cos(ang), sin(ang)) * dist + Vector2(0, 60)
+		tween.set_parallel(true)
+		tween.tween_property(p, "global_position", target_pos, 0.75).set_trans(Tween.TRANS_QUAD).set_ease(Tween.EASE_OUT)
+		tween.tween_property(p, "modulate:a", 0.0, 0.75).set_delay(0.4)
+		tween.chain().tween_callback(p.queue_free)
 
 func _spawn_drops() -> void:
 	var level: Node = GameManager.current_world if GameManager else null
