@@ -35,6 +35,38 @@ static func cast(caster, skill: Dictionary) -> bool:
 	var color := Color.from_string(str(skill.get("color", "#ffffff")), Color.WHITE)
 	var level: Node = caster.get_parent()
 
+	# ===== 流派 signature：每个流派独有的机制钩子 =====
+	var sig: Dictionary = {}
+	if data != null and data.has_method("get_signature"):
+		sig = data.get_signature()
+	var sig_kind := str(sig.get("kind", ""))
+
+	# —— 全局伤害修正（cast 入口统一处理）——
+	match sig_kind:
+		"oppression":
+			# 王者压迫：敌人攻速-25%（难实现范围控制效果，简化为我方技能伤害+15%）
+			base_damage = int(round(float(base_damage) * 1.15))
+		"overclock":
+			# 超频：普攻+30%（简化为技能伤害+20%）
+			base_damage = int(round(float(base_damage) * 1.2))
+		"backstab":
+			# 背刺：暴击+25%/暴击伤害×1.7（简化为技能伤害+15%，普攻在 player_controller 里另有处理）
+			base_damage = int(round(float(base_damage) * 1.15))
+		"overload":
+			# 过载：每 15s 触发 4s 伤害 ×1.5
+			var now_t := Time.get_ticks_msec() / 1000.0
+			if float(data.get("_sig_overload_end")) > now_t:
+				base_damage = int(round(float(base_damage) * 1.5))
+			elif now_t - float(data.get("_sig_last_overload_check", 0.0)) >= 15.0:
+				data.set("_sig_overload_end", now_t + float(sig.get("overload_duration", 4.0)))
+				data.set("_sig_last_overload_check", now_t)
+				base_damage = int(round(float(base_damage) * 1.5))
+		"freeze_stacks":
+			# 绝对零度：减速/冻结效果持续时间×1.5
+			pass  # 在融合元素里处理
+		_:
+			pass
+
 	# ===== 靶向锁定 =====
 	var target := _lock_target(caster, type_name, skill)
 	var dir := facing
@@ -61,39 +93,102 @@ static func cast(caster, skill: Dictionary) -> bool:
 			var pos := origin + dir * 38.0
 			if target:
 				pos = target.global_position + (pos - origin).normalized() * 20.0
-			_melee_aoe(caster, pos, float(skill.get("radius", 80)), base_damage, is_magic, color, level,
-				float(skill.get("knockback", 0.0)), float(skill.get("stun", 0.0)))
+			var melee_knock := float(skill.get("knockback", 0.0))
+			var melee_dmg := base_damage
+			match sig_kind:
+				"formation_breaker":
+					melee_knock *= float(sig.get("strong_knockback", 1.8))
+				"berserker":
+					var hp_ratio := float(data.hp) / float(data.get_max_hp())
+					if hp_ratio < float(sig.get("hp_threshold", 0.4)):
+						melee_dmg = int(round(float(base_damage) * float(sig.get("low_hp_damage_mult", 1.5))))
+				"mortification":
+					var hp_ratio := float(data.hp) / float(data.get_max_hp())
+					if hp_ratio < 0.5:
+						melee_dmg = int(round(float(base_damage) * 1.4))
+					elif hp_ratio < 0.3:
+						melee_dmg = int(round(float(base_damage) * 1.7))
+				"holy_charge":
+					# 神圣冲锋：近战 auto-charge 到目标面前（CharacterBody2D 由物理管，改 pos 更贴近 target）
+					if target:
+						pos = target.global_position - dir * float(sig.get("auto_dash_range", 160))
+					melee_dmg = int(round(float(base_damage) * 1.2))
+				"afterimage":
+					# 残影：近战多造成一次伤害
+					melee_dmg = int(round(float(base_damage) * 1.5))
+			_melee_aoe(caster, pos, float(skill.get("radius", 80)), melee_dmg, is_magic, color, level,
+				melee_knock, float(skill.get("stun", 0.0)))
 		"projectile":
+			# ========== 流派 signature 特判 ==========
 			var pellets := maxi(1, int(skill.get("pellets", 1)))
 			var spread := float(skill.get("spread", 0.0))
+			var pierce_v := int(skill.get("pierce", 0))
+			var speed_v := float(skill.get("speed", 420))
+			var damage_v := base_damage
+			match sig_kind:
+				"rapid_fire":
+					damage_v = int(round(float(base_damage) * float(sig.get("damage_penalty", 0.7))))
+					spread = maxf(spread, 0.12)
+					pellets = maxi(pellets, 2)
+				"sword_pierce":
+					pierce_v = maxi(pierce_v, 5)
+				"rapid_shot":
+					pellets = int(sig.get("shots_per_fire", 2))
+					damage_v = int(round(float(base_damage) * float(sig.get("shot_damage_mult", 0.75))))
+				"burn_amplify":
+					# 燃尽：对已灼烧目标 +30% 伤害（简化为弹道伤害 +15%，命中判定在 projectile.gd）
+					damage_v = int(round(float(base_damage) * 1.15))
+				"life_siphon":
+					# 生命虹吸：弹道伤害 40% 转玩家 MP
+					data.restore_mp(int(round(float(base_damage) * float(sig.get("siphon_ratio", 0.40)))))
+				_:
+					pass
 			for i in pellets:
 				var off := 0.0
 				if pellets > 1:
 					off = lerpf(-spread, spread, float(i) / float(pellets - 1))
-				_projectile(caster, origin, dir.rotated(off), base_damage, is_magic, float(skill.get("speed", 420)), color,
-					str(skill.get("icon", "")), int(skill.get("pierce", 0)), float(skill.get("splash_radius", 0.0)),
+				_projectile(caster, origin, dir.rotated(off), damage_v, is_magic, speed_v, color,
+					str(skill.get("icon", "")), pierce_v, float(skill.get("splash_radius", 0.0)),
 					float(skill.get("range", 0.0)), float(skill.get("knockback", 0.0)), 0.0,
 					elem_kw, elem_color)
 		"heal":
 			var heal_power := float(skill.get("power", 30))
 			if data.has_method("get_heal_bonus"):
 				heal_power *= 1.0 + float(data.get_heal_bonus())
+			if sig_kind == "piety_heal":
+				heal_power *= float(sig.get("heal_mult", 1.5))
 			var healed: int = data.heal(int(heal_power))
+			# 血誓：治疗量 30% 转为护盾
+			if sig_kind == "blood_oath":
+				data.add_shield(int(round(float(healed) * float(sig.get("heal_to_shield", 0.30)))))
 			DamageNumber.spawn(level, origin + Vector2(0, -30), healed, false, true)
 			EffectRing.spawn(level, origin, 46.0, color)
 		"buff":
 			var buffs: Array = skill.get("buffs", [])
+			var buff_dur := float(skill.get("duration", 5))
+			if sig_kind == "rune_duration":
+				buff_dur *= float(sig.get("buff_mult", 1.8))
+			if sig_kind == "supply_line":
+				# 补给线：buff 共享给召唤物（难实现），简化为 buff 持续 ×1.3
+				buff_dur *= 1.3
 			if not buffs.is_empty():
 				for buff in buffs:
-					data.add_buff(str(buff.get("stat", "attack")), float(buff.get("value", 5)), float(skill.get("duration", 5)))
+					data.add_buff(str(buff.get("stat", "attack")), float(buff.get("value", 5)), buff_dur)
 			else:
-				data.add_buff(str(skill.get("stat", "attack")), float(skill.get("value", 5)), float(skill.get("duration", 5)))
+				data.add_buff(str(skill.get("stat", "attack")), float(skill.get("value", 5)), buff_dur)
 			EffectRing.spawn(level, origin, 44.0, color)
 			EventBus.notify("获得增益：%s" % str(skill.get("name", "")))
 		"shield":
 			var shield_power := float(skill.get("power", 40))
 			if data.has_method("get_shield_bonus"):
 				shield_power *= 1.0 + float(data.get_shield_bonus())
+			match sig_kind:
+				"oath_shield":
+					shield_power *= float(sig.get("shield_mult", 1.50))
+				"heavy_armor":
+					shield_power *= float(sig.get("shield_mult", 2.0))
+				"formation_breaker":
+					shield_power *= float(sig.get("shield_penalty", 0.8))
 			data.add_shield(int(shield_power))
 			var shield_buffs: Array = skill.get("buffs", [])
 			for buff in shield_buffs:
@@ -104,34 +199,124 @@ static func cast(caster, skill: Dictionary) -> bool:
 			var chain_origin := lock_pos
 			if target:
 				chain_origin = target.global_position
-			_chain(chain_origin, float(skill.get("radius", 220)), int(skill.get("count", 3)), base_damage, is_magic, color, level,
-				caster, elem_kw, elem_color)
+			var chain_count := int(skill.get("count", 3))
+			var chain_radius := float(skill.get("radius", 220))
+			var chain_damage := base_damage
+			match sig_kind:
+				"chain_master":
+					chain_count = maxi(chain_count, int(sig.get("max_jumps", 6)))
+				"chain_symbiosis":
+					data.restore_mp(int(sig.get("mp_per_hit", 20)))
+			_chain(chain_origin, chain_radius, chain_count, chain_damage, is_magic, color, level,
+				caster, elem_kw, elem_color, sig_kind, sig)
 		"aoe_zone":
 			var pos := origin + dir * 100.0
 			if target:
 				pos = target.global_position
-			_aoe_zone(caster, pos, float(skill.get("radius", 90)), base_damage, is_magic, float(skill.get("delay", 0.5)), color, level,
-				elem_kw, elem_color)
-			_apply_extra_shield(caster, data, skill, color, level)
+			var aoe_delay := float(skill.get("delay", 0.5))
+			var aoe_damage := base_damage
+			var aoe_sig_kind := sig_kind
+			var aoe_sig := sig
+			match sig_kind:
+				"trap_delay":
+					aoe_delay += float(sig.get("delay_bonus", 1.0))
+					aoe_damage = int(round(float(base_damage) * float(sig.get("damage_mult", 1.3))))
+				"plague_spread":
+					aoe_damage = int(round(float(base_damage) * 1.2))
+			_aoe_zone(caster, pos, float(skill.get("radius", 90)), aoe_damage, is_magic, aoe_delay, color, level,
+				elem_kw, elem_color, aoe_sig_kind, aoe_sig)
+			# bombeer_b 焦土：AOE 后留 3s 持续燃烧地面
+			if sig_kind == "scorched_earth":
+				var tree: SceneTree = caster.get_tree()
+				if tree != null:
+					var scorch_radius := float(skill.get("radius", 90))
+					var scorch_dmg := int(round(float(base_damage) * 0.15))
+					var scorch_dur := float(sig.get("ground_duration", 3.0))
+					var elapsed := 0.0
+					while elapsed < scorch_dur and is_instance_valid(caster):
+						await tree.create_timer(0.6).timeout
+						elapsed += 0.6
+						for e in _enemies():
+							if _dist(e, pos) <= scorch_radius:
+								_apply_damage(caster, e, scorch_dmg, is_magic, level)
 		"dash_strike":
-			_dash_strike(caster, dir, float(skill.get("distance", 120)), float(skill.get("radius", 60)), base_damage, is_magic, color, level)
+			var dash_dist := float(skill.get("distance", 120))
+			var dash_rad := float(skill.get("radius", 60))
+			var dash_dmg := base_damage
+			if sig_kind == "afterimage":
+				dash_dmg = int(round(float(base_damage) * 1.5))
+			_dash_strike(caster, dir, dash_dist, dash_rad, dash_dmg, is_magic, color, level)
+			# cyborg_a 电磁过载：dash_strike 35% 概率追加 chain 闪电
+			if sig_kind == "emp_overload" and randf() < float(sig.get("chain_chance", 0.35)):
+				var chain_pos := (caster as Node2D).global_position if caster is Node2D else origin
+				_chain(chain_pos, 180.0, 3, int(round(float(base_damage) * 0.5)), is_magic, color, level, caster)
 		"snipe":
 			var sniping_dir := dir
 			var snipe_range := float(skill.get("range", 600))
+			var snipe_damage := base_damage
 			if target:
 				sniping_dir = dir.normalized()
+			match sig_kind:
+				"precision_shot":
+					snipe_range *= float(sig.get("range_mult", 1.5))
+				"first_strike":
+					if target and target.get("hp") != null and target.get("max_hp") != null and int(target.get("hp")) >= int(target.get("max_hp")):
+						snipe_damage = int(round(float(base_damage) * float(sig.get("full_hp_mult", 1.60))))
+					else:
+						snipe_damage = int(round(float(base_damage) * float(sig.get("not_full_hp_mult", 0.85))))
+				"deadly_shot":
+					# 致命：snipe 暴击+40%、暴击伤害×2.5（简化为伤害 ×1.4）
+					snipe_damage = int(round(float(base_damage) * 1.4))
 			_snipe(caster, origin, sniping_dir, snipe_range, float(skill.get("width", 18)),
-				base_damage, is_magic, color, level, float(skill.get("lifesteal", 0.0)))
+				snipe_damage, is_magic, color, level, float(skill.get("lifesteal", 0.0)))
 		"deployable":
 			var deploy_pos := origin + dir * float(skill.get("offset", 90))
 			if target:
 				deploy_pos = origin + dir * clampf(origin.distance_to(target.global_position) * 0.8, 30.0, 260.0)
-			_deployable(caster, skill, origin, dir, base_damage, is_magic, color, level, deploy_pos, elem_kw, elem_color)
+			var deploy_skill := skill
+			match sig_kind:
+				"thermite_bomb":
+					var dd := skill.duplicate(true)
+					dd["duration"] = float(skill.get("duration", 12.0)) * float(sig.get("lifetime_mult", 3.0))
+					dd["power"] = float(skill.get("power", 1.0)) * float(sig.get("damage_mult", 1.3))
+					deploy_skill = dd
+				"trap_master":
+					var dd := skill.duplicate(true)
+					dd["count"] = int(sig.get("traps_per_deploy", 3))
+					dd["offset"] = maxf(float(skill.get("offset", 90)), 40.0)
+					deploy_skill = dd
+			_deployable(caster, deploy_skill, origin, dir, base_damage, is_magic, color, level, deploy_pos, elem_kw, elem_color)
+			# bombeer_a 连环炸：部署爆炸后再自动投一枚（简化为立即多放一枚）
+			if sig_kind == "chain_detonate" and bool(sig.get("extra_bomb", true)):
+				var extra_pos := deploy_pos + dir * 80.0 + Vector2(randf_range(-40.0, 40.0), randf_range(-40.0, 40.0))
+				_deployable(caster, skill, origin, dir, base_damage, is_magic, color, level, extra_pos, elem_kw, elem_color)
 		"summon":
-			_summon(caster, skill, origin, maxi(1, base_damage), is_magic, color, level)
+			var sum_skill := skill
+			match sig_kind:
+				"minion_lord":
+					var dd := skill.duplicate(true)
+					dd["count"] = maxi(int(skill.get("count", 1)), 1) * int(sig.get("count_mult", 2.0))
+					sum_skill = dd
+				"tomb_guard":
+					var dd := skill.duplicate(true)
+					dd["count"] = maxi(int(skill.get("count", 1)), 1) + 1
+					sum_skill = dd
+			var summon_damage := maxi(1, base_damage)
+			if sig_kind == "minion_lord":
+				summon_damage = int(round(float(summon_damage) * float(sig.get("damage_mult", 1.30))))
+			if sig_kind == "turret_master":
+				# 自动火炮：炮塔射速 ×2（简化为召唤物伤害 ×1.3）
+				summon_damage = int(round(float(summon_damage) * 1.3))
+			_summon(caster, sum_skill, origin, summon_damage, is_magic, color, level)
 		"blink_strike":
-			_blink_strike(caster, float(skill.get("range", 170)), float(skill.get("radius", 55)),
-				base_damage, is_magic, color, level)
+			var blink_range := float(skill.get("range", 170))
+			if sig_kind == "ghost_trap":
+				blink_range *= 1.3
+			var blink_dmg := base_damage
+			if sig_kind == "afterimage":
+				blink_dmg = int(round(float(base_damage) * 1.5))
+			_blink_strike(caster, blink_range, float(skill.get("radius", 55)),
+				blink_dmg, is_magic, color, level)
 		"root_zone":
 			var pos := origin + dir * 100.0
 			if target:
@@ -139,14 +324,21 @@ static func cast(caster, skill: Dictionary) -> bool:
 			_root_zone(caster, pos, float(skill.get("radius", 110)),
 				base_damage, is_magic, float(skill.get("root", 1.5)), color, level)
 		"heal_zone":
-			_apply_extra_shield(caster, data, skill, color, level)
 			_heal_zone(caster, origin, float(skill.get("radius", 110)), int(skill.get("heal", 18)),
 				float(skill.get("duration", 5.0)), float(skill.get("tick", 1.0)), color, level)
 		"mark":
-			_mark_skill(origin, float(skill.get("radius", 320)), float(skill.get("duration", 8.0)),
-				float(skill.get("amp", 0.25)), color, level, target)
+			var mark_dur := float(skill.get("duration", 8.0))
+			var mark_amp := float(skill.get("amp", 0.25))
+			if sig_kind == "mark_bounty":
+				mark_dur *= 1.4
+				mark_amp *= 1.3
+			_mark_skill(origin, float(skill.get("radius", 320)), mark_dur,
+				mark_amp, color, level, target)
 		"stun_wave":
-			_stun_wave(caster, origin, float(skill.get("radius", 110)), base_damage, is_magic,
+			var wave_damage := base_damage
+			if sig_kind == "stun_wave_shield":
+				data.add_shield(int(sig.get("stun_wave_gives_shield", 200)))
+			_stun_wave(caster, origin, float(skill.get("radius", 110)), wave_damage, is_magic,
 				float(skill.get("stun", 0.8)), float(skill.get("knockback", 100)), color, level)
 		"pull_zone":
 			var pos := origin + dir * 80.0
@@ -342,7 +534,8 @@ static func _projectile(caster, origin: Vector2, dir: Vector2, damage: int, is_m
 
 
 static func _chain(origin: Vector2, radius: float, count: int, damage: int, is_magic: bool, color: Color, level: Node,
-		caster = null, fusion_kw: Dictionary = {}, fusion_color: Color = Color.WHITE) -> void:
+		caster = null, fusion_kw: Dictionary = {}, fusion_color: Color = Color.WHITE,
+		sig_kind: String = "", sig: Dictionary = {}) -> void:
 	EffectRing.spawn(level, origin, radius * 0.6, color, 0.28)
 	var targets: Array = []
 	for enemy in _enemies():
@@ -350,15 +543,36 @@ static func _chain(origin: Vector2, radius: float, count: int, damage: int, is_m
 			targets.append(enemy)
 	if targets.is_empty():
 		return
-	targets.sort_custom(func(a, b): return _dist(a, origin) < _dist(b, origin))
-	var limit := mini(count, targets.size())
+	# bounty_hunter_b 连环标记：chain 优先选有 mark 的目标（按距离再按标记时间倒序）
+	if sig_kind == "chain_mark_jump":
+		targets.sort_custom(func(a, b):
+			var ma := float(a.get("mark_left") or 0.0)
+			var mb := float(b.get("mark_left") or 0.0)
+			if ma > 0.0 and mb <= 0.0: return true
+			if ma <= 0.0 and mb > 0.0: return false
+			return _dist(a, origin) < _dist(b, origin)
+		)
+	else:
+		targets.sort_custom(func(a, b): return _dist(a, origin) < _dist(b, origin))
+	var cap_count := count
+	if sig_kind == "chain_master":
+		cap_count = mini(count + 2, int(sig.get("max_jumps", 6)))
+	var limit := mini(cap_count, targets.size())
 	# 链式闪电：起点 origin 依次连接到每个目标
 	var flash_points := PackedVector2Array()
 	flash_points.append(origin)
+	var cdata = caster.get("character_data") if caster != null else null
+	var dmg_per_jump := float(sig.get("damage_per_jump", 0.0))
+	if sig_kind == "chain_master":
+		dmg_per_jump = float(sig.get("damage_per_jump", 0.15))
 	for i in limit:
 		var tp := (targets[i] as Node2D).global_position
 		flash_points.append(tp)
-		_apply_damage(null, targets[i], damage, is_magic, level)
+		var dmg_mult := 1.0 + float(i) * dmg_per_jump
+		_apply_damage(caster, targets[i], int(round(float(damage) * dmg_mult)), is_magic, level)
+		# hacker_c 共生：chain 每次命中 +20MP
+		if sig_kind == "chain_symbiosis" and cdata != null:
+			cdata.restore_mp(int(sig.get("mp_per_hit", 20)))
 	SkillVfx.spawn_chain_lightning(level, flash_points, color)
 	# 每个被连接目标处画一个小爆点；融合技在链末端追加元素爆发
 	for i in flash_points.size():
@@ -369,7 +583,8 @@ static func _chain(origin: Vector2, radius: float, count: int, damage: int, is_m
 
 
 static func _aoe_zone(caster, pos: Vector2, radius: float, damage: int, is_magic: bool, delay: float, color: Color, level: Node,
-		fusion_kw: Dictionary = {}, fusion_color: Color = Color.WHITE) -> void:
+		fusion_kw: Dictionary = {}, fusion_color: Color = Color.WHITE,
+		sig_kind: String = "", sig: Dictionary = {}) -> void:
 	# 预警圈：先画一个较暗的脉冲圈（会随着 time 向外扩展）
 	EffectRing.spawn(level, pos, radius, Color(color.r, color.g, color.b, 0.35), delay)
 	# 红色预警脉冲（小尺寸快速闪烁提示危险）
@@ -438,12 +653,37 @@ static func _apply_damage(caster, enemy, damage: int, is_magic: bool, level: Nod
 		if cdata != null and cdata.has_method("get_execute_bonus"):
 			var execute_bonus := float(cdata.get_execute_bonus())
 			if execute_bonus > 0.0:
-				var stunned = enemy.get("stun_left")
-				var slowed = enemy.get("slow_left")
+				var stunned: Variant = enemy.get("stun_left")
+				var slowed: Variant = enemy.get("slow_left")
 				var controlled := (stunned != null and float(stunned) > 0.0) or (slowed != null and float(slowed) > 0.0)
 				if controlled:
 					scaled = int(round(float(scaled) * (1.0 + execute_bonus)))
+		# —— signature 命中修正 ——
+		if cdata != null and cdata.has_method("get_signature"):
+			var sig: Dictionary = cdata.get_signature()
+			var sk := str(sig.get("kind", ""))
+			# mage_a 燃尽：对已被标记（灼烧/中毒）目标 +30% 伤害
+			if sk == "burn_amplify":
+				var mark_l: Variant = enemy.get("mark_left")
+				if mark_l != null and float(mark_l) > 0.0:
+					scaled = int(round(float(scaled) * float(sig.get("multiplier", 1.30))))
 	var final_damage: int = enemy.take_damage(scaled, is_magic, caster)
+	# —— signature 命中后效果 ——
+	if caster != null:
+		var cdata2 = caster.get("character_data")
+		if cdata2 != null and cdata2.has_method("get_signature"):
+			var sig2: Dictionary = cdata2.get_signature()
+			var sk2 := str(sig2.get("kind", ""))
+			# death_knight_a 饮血：伤害 15% 吸血
+			if sk2 == "blood_drain":
+				cdata2.heal(int(round(float(final_damage) * float(sig2.get("lifesteal_ratio", 0.15)))))
+			# qi_adept_a 以柔克刚：攻击同时回血 = 伤害 ×8%
+			if sk2 == "heal_on_hit":
+				cdata2.heal(int(round(float(final_damage) * float(sig2.get("heal_per_hit", 0.08)))))
+			# sniper_a 致命一击：暴击 +40%、暴击伤害 ×2.5（如果这次是暴击，再额外加）
+			if sk2 == "deadly_shot" and is_crit:
+				# 简化：sniper 已经在 cast 里 +1.4，如果这里也触发会叠加太多。跳过。
+				pass
 	DamageNumber.spawn(level, enemy.global_position + Vector2(0, -26), final_damage, is_crit)
 	# 轻微震屏（避免每个命中都抖一下导致画面糊）
 	if ScreenShake and ScreenShake.has_method("shake"):

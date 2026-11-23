@@ -351,9 +351,13 @@ func try_skill(slot: int) -> void:
 			_anim.enter_cast(dur, facing)
 
 	state = State.CAST
-	var ok := SkillExecutor.cast(self, skill)
+	var ok: bool = await SkillExecutor.cast(self, skill)
 	if slot < skill_cooldowns.size():
 		var cd_mult: float = character_data.get_skill_cooldown_multiplier(str(skill.get("id", "")))
+		# mech_pilot_c 要塞：所有技能 CD ×0.85
+		var sig_kind2 := str(character_data.get_signature().get("kind", "")) if character_data != null and character_data.has_method("get_signature") else ""
+		if sig_kind2 == "fortress":
+			cd_mult *= 0.85
 		skill_cooldowns[slot] = float(skill.get("cd", 3.0)) * cd_mult
 	var post_dur := 0.16 if ok else 0.0
 	await get_tree().create_timer(post_dur).timeout
@@ -408,11 +412,18 @@ func _skill_unlocked(skill: Dictionary) -> bool:
 	return SkillManager.is_unlocked(class_id, str(req))
 
 func try_dash() -> void:
+	var sig_kind := str(character_data.get_signature().get("kind", "")) if character_data != null and character_data.has_method("get_signature") else ""
+	if sig_kind == "fortress":
+		# mech_pilot_c 要塞：无法冲刺
+		EventBus.notify("要塞姿态：无法冲刺")
+		return
 	if dash_cd > 0.0 or dash_timer > 0.0:
 		return
-	dash_cd = DASH_COOLDOWN
 	dash_timer = DASH_DURATION
 	dash_dir = facing if facing.length() > 0.01 else Vector2.DOWN
+	if sig_kind != "wind_sprint":
+		# qi_adept_c 疾风：冲刺不耗 CD
+		dash_cd = DASH_COOLDOWN
 	if _anim:
 		_anim.enter_dash()
 	state = State.DASH

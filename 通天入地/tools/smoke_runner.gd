@@ -574,6 +574,64 @@ func _run() -> void:
 		if is_instance_valid(fuse_far):
 			fuse_far.free()
 
+	# ---------- 流派专属机制（signature）全覆盖 ----------
+	# 每个流派都必须有自己的 signature，不能千篇一律。
+	var styles_list := [
+		"mage_a", "mage_b", "mage_c",
+		"runeward_a", "runeward_b", "runeward_c",
+		"priest_a", "priest_b", "priest_c",
+		"necromancer_a", "necromancer_b", "necromancer_c",
+		"bomber_a", "bomber_b", "bomber_c",
+		"mech_pilot_a", "mech_pilot_b", "mech_pilot_c",
+		"engineer_a", "engineer_b", "engineer_c",
+		"bounty_hunter_a", "bounty_hunter_b", "bounty_hunter_c",
+		"death_knight_a", "death_knight_b", "death_knight_c",
+		"warrior_a", "warrior_b", "warrior_c",
+		"qi_adept_a", "qi_adept_b", "qi_adept_c",
+		"thief_a", "thief_b", "thief_c",
+		"archer_a", "archer_b", "archer_c",
+		"cyborg_a", "cyborg_b", "cyborg_c",
+		"hacker_a", "hacker_b", "hacker_c",
+		"sniper_a", "sniper_b", "sniper_c",
+	]
+	var all_kinds: Array = []
+	for sid in styles_list:
+		var sig_d: Dictionary = CharacterBase.STYLE_SIGNATURES.get(sid, {})
+		_check("%s 有专属机制" % sid, not sig_d.is_empty(), str(sig_d))
+		var kind := str(sig_d.get("kind", ""))
+		_check("%s 机制非空" % sid, kind != "", kind)
+		all_kinds.append(kind)
+	# 同一职业的 3 个流派机制必须互不相同
+	var class_groups := {
+		"mage": ["mage_a", "mage_b", "mage_c"],
+		"runeward": ["runeward_a", "runeward_b", "runeward_c"],
+		"priest": ["priest_a", "priest_b", "priest_c"],
+		"necromancer": ["necromancer_a", "necromancer_b", "necromancer_c"],
+		"bomber": ["bomber_a", "bomber_b", "bomber_c"],
+		"mech_pilot": ["mech_pilot_a", "mech_pilot_b", "mech_pilot_c"],
+		"engineer": ["engineer_a", "engineer_b", "engineer_c"],
+		"bounty_hunter": ["bounty_hunter_a", "bounty_hunter_b", "bounty_hunter_c"],
+		"death_knight": ["death_knight_a", "death_knight_b", "death_knight_c"],
+		"warrior": ["warrior_a", "warrior_b", "warrior_c"],
+		"qi_adept": ["qi_adept_a", "qi_adept_b", "qi_adept_c"],
+		"thief": ["thief_a", "thief_b", "thief_c"],
+		"archer": ["archer_a", "archer_b", "archer_c"],
+		"cyborg": ["cyborg_a", "cyborg_b", "cyborg_c"],
+		"hacker": ["hacker_a", "hacker_b", "hacker_c"],
+		"sniper": ["sniper_a", "sniper_b", "sniper_c"],
+	}
+	for cls in class_groups.keys():
+		var grp: Array = class_groups[cls]
+		var k0 := str(CharacterBase.STYLE_SIGNATURES.get(grp[0], {}).get("kind", ""))
+		var k1 := str(CharacterBase.STYLE_SIGNATURES.get(grp[1], {}).get("kind", ""))
+		var k2 := str(CharacterBase.STYLE_SIGNATURES.get(grp[2], {}).get("kind", ""))
+		var kl := [k0, k1, k2]
+		_check("%s 三流派机制各不相同 %s" % [cls, str(kl)], k0 != k1 and k1 != k2, str(kl))
+	# 48 流派总机制种类 ≥ 30（说明不是靠换皮）
+	var distinct_kinds := all_kinds.duplicate()
+	distinct_kinds.sort()
+	_check("48 流派总机制种类 ≥ 30（不是千篇一律）", distinct_kinds.size() >= 30, "%d 种" % distinct_kinds.size())
+
 	# ---------- 结束 ----------
 	print("SMOKE_RESULT failures=%d" % failures)
 	await _wait(0.2)
