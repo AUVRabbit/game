@@ -1,6 +1,8 @@
 class_name FusionService
 extends RefCounted
-# 技能融合：主技能保留原形态，副技能只贡献 1 个词条。
+# 技能融合：两个技能合成一个「全新技能」——
+# 不是把副技能动画叠在主技能上，而是以副技能提炼出的元素，
+# 重新染色、重新命名、并在命中瞬间与主技能融合成一次完整表现。
 #
 # 规则（见 docs/STYLE_BRANCHES.md 8.4）：
 # - 威力 = 主 × 1.15，冷却 = 主 × 1.25，法力 = 主 + 副 × 0.5
@@ -10,6 +12,21 @@ extends RefCounted
 
 const POWER_MULT := 1.15
 const CD_MULT := 1.25
+
+# 融合元素：由副技能提炼，决定新技能的名称前缀、染色与命中爆发形态
+const ELEMENTS := {
+	"burn": {"cn": "炎", "color": "#ff6a2a", "verb": "灼烧爆裂"},
+	"corrosion": {"cn": "蚀", "color": "#8bd450", "verb": "腐蚀扩散"},
+	"freeze": {"cn": "霜", "color": "#7ec8ff", "verb": "霜爆新星"},
+	"stun": {"cn": "雷", "color": "#ffe066", "verb": "雷震迸发"},
+	"root": {"cn": "棘", "color": "#5fd18a", "verb": "荆棘丛生"},
+	"knockback": {"cn": "斥", "color": "#ff9a5a", "verb": "冲击震荡"},
+	"holy": {"cn": "圣", "color": "#ffe9a8", "verb": "圣光回响"},
+	"summon": {"cn": "魂", "color": "#b58cff", "verb": "亡魂共鸣"},
+	"mark": {"cn": "印", "color": "#ff7ab6", "verb": "印记烙刻"},
+	"blink": {"cn": "影", "color": "#9aa7ff", "verb": "残影突袭"},
+	"none": {"cn": "融", "color": "#ffffff", "verb": "融合爆发"},
+}
 
 
 static func split_id(fusion_id: String) -> Array:
@@ -60,18 +77,32 @@ static func build(data, main_id: String, sub_id: String, owned: Dictionary = {})
 		return {}
 	var main: Dictionary = pool[main_id]
 	var sub: Dictionary = pool[sub_id]
+	var kw: Dictionary = keyword_of(sub)
+	var elem: Dictionary = ELEMENTS.get(str(kw.get("kind", "")), ELEMENTS["none"])
+	var main_color := Color.from_string(str(main.get("color", "#ffffff")), Color.WHITE)
+	var elem_color := Color.from_string(str(elem.get("color", "#ffffff")), Color.WHITE)
+	# 新技能使用两色混合后的独有色，而不是沿用主技能配色
+	var fuse_color := main_color.lerp(elem_color, 0.45)
 	var result: Dictionary = main.duplicate(true)
 	result["id"] = "%s__%s" % [main_id, sub_id]
-	result["name"] = "%s·%s" % [str(main.get("name", "")), str(sub.get("name", ""))]
+	result["name"] = "融·%s%s" % [str(elem.get("cn", "")), str(main.get("name", ""))]
+	result["color"] = "#" + fuse_color.to_html(false)
 	result["cd"] = snappedf(float(main.get("cd", 8.0)) * CD_MULT, 0.01)
 	result["mp"] = int(main.get("mp", 10)) + int(round(float(sub.get("mp", 10)) * 0.5))
 	if main.has("power"):
 		result["power"] = snappedf(float(main["power"]) * POWER_MULT, 0.001)
-	result["fusion_keyword"] = keyword_of(sub)
+	result["fusion_keyword"] = kw
 	result["fuse_main_id"] = main_id
 	result["fuse_sub_id"] = sub_id
+	result["fuse_element"] = str(kw.get("kind", ""))
+	result["fuse_element_cn"] = str(elem.get("cn", ""))
+	result["fuse_element_color"] = str(elem.get("color", "#ffffff"))
+	result["fuse_verb"] = str(elem.get("verb", ""))
+	result["fuse_main_color"] = str(main.get("color", "#ffffff"))
 	result["origin"] = "fusion"
-	result["desc"] = "%s｜融合词条：%s" % [str(main.get("desc", "")), str(result["fusion_keyword"].get("kind", ""))]
+	result["desc"] = "融合技：%s × %s → %s属性「%s」。命中时引发%s，独立于原技能的完整表现。" % [
+		str(main.get("name", "")), str(sub.get("name", "")),
+		str(elem.get("cn", "")), str(elem.get("verb", "")), str(elem.get("verb", ""))]
 	return result
 
 

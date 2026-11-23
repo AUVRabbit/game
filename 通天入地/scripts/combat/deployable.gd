@@ -21,6 +21,8 @@ var aim_dir: Vector2 = Vector2.DOWN
 var target_pos: Vector2 = Vector2.ZERO       # 抛物线飞行终点
 var fly_speed: float = 320.0
 var fly_arc: float = 60.0                    # 抛物线最大高度
+var fusion_kw: Dictionary = {}               # 融合技元素（命中时一并爆发）
+var fusion_color: Color = Color.WHITE
 
 var elapsed: float = 0.0
 var shoot_timer: float = 0.0
@@ -104,6 +106,9 @@ func _explode() -> void:
 	SkillVfx.spawn_burst(get_parent(), global_position, radius, color, 0.5)
 	EffectRing.spawn(get_parent(), global_position, radius, color)
 	SkillVfx.spawn_impact(get_parent(), global_position, "explosion", color)
+	# 融合技：爆炸同时引发元素爆发，形成一次完整的新技能表现
+	if not fusion_kw.is_empty():
+		SkillExecutor._apply_element(source, fusion_kw, fusion_color, global_position, radius, damage, is_magic, get_parent())
 	AudioManager.play_sfx("hit")
 	if ScreenShake and ScreenShake.has_method("heavy"):
 		ScreenShake.heavy()

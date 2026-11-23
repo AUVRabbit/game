@@ -823,7 +823,7 @@ func _rebuild_fusion(class_id: String, data) -> void:
 	_add_section(fusion_list, "融合槽 %d/%d（每完成 2 层技能树解锁 1 个）" % [
 		int(data.fusions.size()), int(data.get_fusion_slots())])
 	var rule := Label.new()
-	rule.text = "主技能保留原形态；副技能只带 1 个词条。威力 ×1.15，冷却 ×1.25，法力 = 主 + 副 × 0.5。终极 / 变身 / 超脱 / 借技不可作副技能，同一技能只能参与一次。"
+	rule.text = "融合 = 全新技能：以主技能为骨架、副技能为元素，重新命名并重新染色，命中时元素与主技能同帧爆发（不是两段动画叠加）。威力 ×1.15，冷却 ×1.25，法力 = 主 + 副 × 0.5。终极 / 变身 / 超脱 / 借技不可作副技能，同一技能只能参与一次。"
 	rule.add_theme_font_size_override("font_size", 12)
 	rule.add_theme_color_override("font_color", Color(0.72, 0.78, 0.88))
 	rule.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
@@ -839,9 +839,9 @@ func _rebuild_fusion(class_id: String, data) -> void:
 		var row := HBoxContainer.new()
 		row.add_theme_constant_override("separation", 8)
 		var label := Label.new()
-		label.text = "%s　（CD %.1fs · %dMP · 词条 %s）" % [
+		label.text = "%s　（CD %.1fs · %dMP · %s）" % [
 			str(fused.get("name", fid)), float(fused.get("cd", 0.0)), int(fused.get("mp", 0)),
-			str(fused.get("fusion_keyword", {}).get("kind", ""))]
+			str(fused.get("fuse_verb", fused.get("fusion_keyword", {}).get("kind", "")))]
 		label.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 		label.add_theme_font_size_override("font_size", 13)
 		row.add_child(label)

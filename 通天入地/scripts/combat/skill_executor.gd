@@ -46,7 +46,15 @@ static func cast(caster, skill: Dictionary) -> bool:
 		if not (type_name in ["heal", "buff", "shield", "heal_zone", "summon", "deployable"]):
 			TargetingReticle.spawn(level, target.global_position, color, 0.32, 20.0)
 
-	SkillVfx.spawn_skill(level, skill, origin, dir)
+	# ===== 融合技：全新技能，独立起手 + 元素伤害内嵌，而非叠加主/副技能动画 =====
+	var is_fusion := str(skill.get("origin", "")) == "fusion"
+	var elem_kw: Dictionary = skill.get("fusion_keyword", {}) if is_fusion else {}
+	var elem_color := Color.from_string(str(skill.get("fuse_element_color", skill.get("color", "#ffffff"))), Color.WHITE)
+	if is_fusion:
+		var main_color := Color.from_string(str(skill.get("fuse_main_color", skill.get("color", "#ffffff"))), Color.WHITE)
+		SkillVfx.spawn_fusion_release(level, origin, main_color, elem_color, dir)
+	else:
+		SkillVfx.spawn_skill(level, skill, origin, dir)
 
 	match type_name:
 		"melee_aoe":
@@ -64,7 +72,8 @@ static func cast(caster, skill: Dictionary) -> bool:
 					off = lerpf(-spread, spread, float(i) / float(pellets - 1))
 				_projectile(caster, origin, dir.rotated(off), base_damage, is_magic, float(skill.get("speed", 420)), color,
 					str(skill.get("icon", "")), int(skill.get("pierce", 0)), float(skill.get("splash_radius", 0.0)),
-					float(skill.get("range", 0.0)), float(skill.get("knockback", 0.0)))
+					float(skill.get("range", 0.0)), float(skill.get("knockback", 0.0)), 0.0,
+					elem_kw, elem_color)
 		"heal":
 			var heal_power := float(skill.get("power", 30))
 			if data.has_method("get_heal_bonus"):
@@ -95,12 +104,14 @@ static func cast(caster, skill: Dictionary) -> bool:
 			var chain_origin := lock_pos
 			if target:
 				chain_origin = target.global_position
-			_chain(chain_origin, float(skill.get("radius", 220)), int(skill.get("count", 3)), base_damage, is_magic, color, level)
+			_chain(chain_origin, float(skill.get("radius", 220)), int(skill.get("count", 3)), base_damage, is_magic, color, level,
+				caster, elem_kw, elem_color)
 		"aoe_zone":
 			var pos := origin + dir * 100.0
 			if target:
 				pos = target.global_position
-			_aoe_zone(caster, pos, float(skill.get("radius", 90)), base_damage, is_magic, float(skill.get("delay", 0.5)), color, level)
+			_aoe_zone(caster, pos, float(skill.get("radius", 90)), base_damage, is_magic, float(skill.get("delay", 0.5)), color, level,
+				elem_kw, elem_color)
 			_apply_extra_shield(caster, data, skill, color, level)
 		"dash_strike":
 			_dash_strike(caster, dir, float(skill.get("distance", 120)), float(skill.get("radius", 60)), base_damage, is_magic, color, level)
@@ -115,7 +126,7 @@ static func cast(caster, skill: Dictionary) -> bool:
 			var deploy_pos := origin + dir * float(skill.get("offset", 90))
 			if target:
 				deploy_pos = origin + dir * clampf(origin.distance_to(target.global_position) * 0.8, 30.0, 260.0)
-			_deployable(caster, skill, origin, dir, base_damage, is_magic, color, level, deploy_pos)
+			_deployable(caster, skill, origin, dir, base_damage, is_magic, color, level, deploy_pos, elem_kw, elem_color)
 		"summon":
 			_summon(caster, skill, origin, maxi(1, base_damage), is_magic, color, level)
 		"blink_strike":
@@ -147,7 +158,22 @@ static func cast(caster, skill: Dictionary) -> bool:
 			_melee_aoe(caster, origin + dir * 40.0, float(skill.get("radius", 80)), base_damage, is_magic, color, level)
 
 	EventBus.skill_cast.emit(caster, str(skill.get("id", "")))
-	_apply_fusion_keyword(caster, skill, origin, dir, base_damage, is_magic, color, level)
+	# 融合元素：弹道 / 区域 / 部署 / 链式已在各自命中处内嵌结算，
+	# 其余类型在这里与主技能同帧、同中心点结算，形成一次完整的新技能表现。
+	if is_fusion and not (type_name in ["projectile", "aoe_zone", "deployable", "chain"]):
+		var ec := origin
+		var er := maxf(110.0, float(skill.get("radius", 0.0)))
+		match type_name:
+			"melee_aoe", "dash_strike", "blink_strike":
+				ec = target.global_position if target else origin + dir * 40.0
+			"root_zone", "pull_zone", "mark", "heal_zone":
+				ec = target.global_position if target else origin + dir * 100.0
+			"snipe":
+				ec = target.global_position if target else origin + dir * float(skill.get("range", 600))
+				er = maxf(er, 140.0)
+			_:
+				ec = origin if type_name in ["stun_wave", "heal", "buff", "shield", "summon"] else origin + dir * 40.0
+		_apply_element(caster, elem_kw, elem_color, ec, er, base_damage, is_magic, level)
 	AudioManager.play_sfx("skill")
 	return true
 
@@ -210,22 +236,20 @@ static func _apply_extra_shield(caster, data, skill: Dictionary, color: Color, l
 	EffectRing.spawn(level, pos, 50.0, color)
 
 
-static func _apply_fusion_keyword(caster, skill: Dictionary, origin: Vector2, dir: Vector2, base_damage: int,
-		is_magic: bool, color: Color, level: Node) -> void:
-	var kw: Dictionary = skill.get("fusion_keyword", {})
-	if kw.is_empty():
-		return
+# 融合元素结算：在指定中心点播放一次元素表现并施加对应效果。
+# 由融合技的命中瞬间调用（弹道命中点 / 区域爆点 / 施法同步点）。
+static func _apply_element(caster, kw: Dictionary, color: Color, center: Vector2, radius: float,
+		damage: int, is_magic: bool, level: Node) -> void:
 	var kind := str(kw.get("kind", ""))
+	if kind == "":
+		return
 	var value := float(kw.get("value", 0.1))
-	var center := origin
-	if str(skill.get("type", "")) in ["projectile", "snipe", "beam"]:
-		center = origin + dir.normalized() * 150.0
-	var radius := maxf(130.0, float(skill.get("radius", 0.0)))
+	SkillVfx.spawn_element(level, center, kind, color, radius)
 	match kind:
 		"burn", "corrosion":
 			for enemy in _enemies():
 				if _dist(enemy, center) <= radius:
-					_apply_damage(caster, enemy, maxi(1, int(round(float(base_damage) * value))), is_magic, level)
+					_apply_damage(caster, enemy, maxi(1, int(round(float(damage) * value))), is_magic, level)
 					if enemy.has_method("apply_mark"):
 						enemy.apply_mark(3.0, value)
 		"freeze":
@@ -252,16 +276,16 @@ static func _apply_fusion_keyword(caster, skill: Dictionary, origin: Vector2, di
 			if cdata != null:
 				var healed: int = cdata.heal(int(round(float(cdata.get_max_hp()) * value)))
 				if healed > 0:
-					DamageNumber.spawn(level, origin + Vector2(0, -30), healed, false, true)
+					DamageNumber.spawn(level, center + Vector2(0, -30), healed, false, true)
 		"blink":
 			if caster is Node2D:
-				(caster as Node2D).global_position += dir.normalized() * maxf(30.0, value)
+				(caster as Node2D).global_position += (center - (caster as Node2D).global_position).normalized() * maxf(30.0, value)
 				EffectRing.spawn(level, (caster as Node2D).global_position, 24.0, color)
 		"summon":
 			_summon(caster, {"count": 1, "duration": 6.0, "speed": 130.0, "interval": 1.0},
-				origin, maxi(1, int(base_damage * 0.5)), is_magic, color, level)
+				center, maxi(1, int(damage * 0.5)), is_magic, color, level)
 		"mark":
-			_mark_skill(origin, 240.0, 6.0, value, color, level, null)
+			_mark_skill(center, maxf(180.0, radius), 6.0, value, color, level, null)
 
 
 # ---------- 攻击 / 伤害 ----------
@@ -291,7 +315,8 @@ static func _melee_aoe(caster, origin: Vector2, radius: float, damage: int, is_m
 
 static func _projectile(caster, origin: Vector2, dir: Vector2, damage: int, is_magic: bool, speed: float, color: Color,
 		icon_id: String = "", pierce: int = 0, splash: float = 0.0, range_dist: float = 0.0,
-		knockback: float = 0.0, arc_amp: float = 0.0) -> void:
+		knockback: float = 0.0, arc_amp: float = 0.0,
+		fusion_kw: Dictionary = {}, fusion_color: Color = Color.WHITE) -> void:
 	var level: Node = caster.get_parent()
 	if level == null:
 		return
@@ -307,6 +332,8 @@ static func _projectile(caster, origin: Vector2, dir: Vector2, damage: int, is_m
 	projectile.splash_radius = splash
 	projectile.knockback = knockback
 	projectile.arc_amplitude = arc_amp
+	projectile.fusion_kw = fusion_kw
+	projectile.fusion_color = fusion_color
 	projectile.lifetime = maxf(0.3, range_dist / maxf(1.0, speed)) if range_dist > 0.0 else 1.6
 	level.add_child(projectile)
 	projectile.global_position = origin
@@ -314,7 +341,8 @@ static func _projectile(caster, origin: Vector2, dir: Vector2, damage: int, is_m
 	SkillVfx.spawn_muzzle_flash(level, origin, color, dir.angle())
 
 
-static func _chain(origin: Vector2, radius: float, count: int, damage: int, is_magic: bool, color: Color, level: Node) -> void:
+static func _chain(origin: Vector2, radius: float, count: int, damage: int, is_magic: bool, color: Color, level: Node,
+		caster = null, fusion_kw: Dictionary = {}, fusion_color: Color = Color.WHITE) -> void:
 	EffectRing.spawn(level, origin, radius * 0.6, color, 0.28)
 	var targets: Array = []
 	for enemy in _enemies():
@@ -332,12 +360,16 @@ static func _chain(origin: Vector2, radius: float, count: int, damage: int, is_m
 		flash_points.append(tp)
 		_apply_damage(null, targets[i], damage, is_magic, level)
 	SkillVfx.spawn_chain_lightning(level, flash_points, color)
-	# 每个被连接目标处画一个小爆点
+	# 每个被连接目标处画一个小爆点；融合技在链末端追加元素爆发
 	for i in flash_points.size():
 		EffectRing.spawn(level, flash_points[i], 22.0, color, 0.22)
+	if not fusion_kw.is_empty():
+		_apply_element(caster, fusion_kw, fusion_color, flash_points[flash_points.size() - 1],
+			maxf(110.0, radius * 0.6), damage, is_magic, level)
 
 
-static func _aoe_zone(caster, pos: Vector2, radius: float, damage: int, is_magic: bool, delay: float, color: Color, level: Node) -> void:
+static func _aoe_zone(caster, pos: Vector2, radius: float, damage: int, is_magic: bool, delay: float, color: Color, level: Node,
+		fusion_kw: Dictionary = {}, fusion_color: Color = Color.WHITE) -> void:
 	# 预警圈：先画一个较暗的脉冲圈（会随着 time 向外扩展）
 	EffectRing.spawn(level, pos, radius, Color(color.r, color.g, color.b, 0.35), delay)
 	# 红色预警脉冲（小尺寸快速闪烁提示危险）
@@ -360,6 +392,8 @@ static func _aoe_zone(caster, pos: Vector2, radius: float, damage: int, is_magic
 		if _dist(enemy, pos) <= radius:
 			_apply_damage(caster, enemy, damage, is_magic, level)
 			any = true
+	if not fusion_kw.is_empty():
+		_apply_element(caster, fusion_kw, fusion_color, pos, radius, damage, is_magic, level)
 	if any and ScreenShake and ScreenShake.has_method("heavy"):
 		ScreenShake.heavy()
 
@@ -540,7 +574,8 @@ static func _beam_visual(level: Node, origin: Vector2, end: Vector2, color: Colo
 
 # ---------- 部署物 ----------
 static func _deployable(caster, skill: Dictionary, origin: Vector2, dir: Vector2, damage: int,
-		is_magic: bool, color: Color, level: Node, deploy_pos: Vector2 = Vector2.ZERO) -> void:
+		is_magic: bool, color: Color, level: Node, deploy_pos: Vector2 = Vector2.ZERO,
+		fusion_kw: Dictionary = {}, fusion_color: Color = Color.WHITE) -> void:
 	var mode := str(skill.get("deploy", "bomb"))
 	var count := maxi(1, int(skill.get("count", 1)))
 	var offset := float(skill.get("offset", 90))
@@ -568,6 +603,8 @@ static func _deployable(caster, skill: Dictionary, origin: Vector2, dir: Vector2
 		device.interval = float(skill.get("interval", 1.0))
 		device.aim_dir = dir.normalized()
 		device.target_pos = pos
+		device.fusion_kw = fusion_kw
+		device.fusion_color = fusion_color
 		device.global_position = origin
 		if level == null:
 			push_warning("SkillExecutor._deployable: level is null, caster=%s" % str(caster))

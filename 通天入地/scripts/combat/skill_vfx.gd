@@ -150,6 +150,52 @@ static func spawn_burst(level: Node, pos: Vector2, radius: float, color: Color, 
 	level.add_child(burst)
 	burst.global_position = pos
 
+# ------- 8. 融合技释放：双色法阵 + 汇聚粒子（全新技能的专属起手） -------
+static func spawn_fusion_release(level: Node, pos: Vector2, main_color: Color, elem_color: Color, dir: Vector2) -> void:
+	if level == null:
+		return
+	var fx := _FusionReleaseVisual.new()
+	fx.color_a = main_color
+	fx.color_b = elem_color
+	fx.direction = dir.normalized()
+	fx.duration = 0.42
+	level.add_child(fx)
+	fx.global_position = pos
+
+# ------- 9. 融合元素命中爆发：按元素种类播放统一的一次性表现 -------
+static func spawn_element(level: Node, pos: Vector2, kind: String, color: Color, radius: float) -> void:
+	if level == null:
+		return
+	match kind:
+		"burn":
+			spawn_burst(level, pos, radius * 0.9, color, 0.45)
+			spawn_shockwave(level, pos, radius * 1.2, color, 0.3)
+		"corrosion":
+			spawn_burst(level, pos, radius, color, 0.5)
+		"freeze":
+			# 冰霜：地刺改作冰锥 + 霜环
+			spawn_ground_spikes(level, pos, radius, maxi(6, int(radius / 16.0)), color, 0.4)
+			spawn_shockwave(level, pos, radius * 1.15, color, 0.35)
+		"stun":
+			spawn_lightning_bolt(level, pos, maxf(180.0, radius * 1.6), color, 0.2)
+			spawn_shockwave(level, pos, radius, color, 0.25)
+		"root":
+			spawn_ground_spikes(level, pos, radius, maxi(6, int(radius / 18.0)), color, 0.45)
+		"knockback":
+			spawn_shockwave(level, pos, radius * 1.3, color, 0.32)
+		"holy":
+			spawn_shockwave(level, pos, radius * 0.9, color, 0.4)
+			spawn(level, pos, "explosion", color, 0.55)
+		"summon":
+			spawn_burst(level, pos, radius * 0.7, color, 0.45)
+		"mark":
+			spawn_shockwave(level, pos, radius * 0.8, color, 0.3)
+		"blink":
+			spawn_muzzle_flash(level, pos, color, 0.0)
+			spawn_shockwave(level, pos, radius * 0.7, color, 0.25)
+		_:
+			spawn_burst(level, pos, radius, color, 0.4)
+
 
 # ============================================================
 # 以下是内部 Visual Node2D 类（程序化绘制）
@@ -392,3 +438,48 @@ class _BurstVisual extends Node2D:
 			var dist := radius * (0.2 + 0.9 * t)
 			var pos := s.normalized() * dist
 			draw_circle(pos, 3.0 * (1.0 - t * 0.5), Color(color.r, color.g, color.b, alpha))
+
+
+class _FusionReleaseVisual extends Node2D:
+	# 融合技专属起手：内外双色法阵（一种主技能色、一种元素色），
+	# 加上朝向施法方向的能量汇聚，用来强调这是一招「新技能」。
+	var color_a: Color = Color.WHITE
+	var color_b: Color = Color(1.0, 0.6, 0.2)
+	var direction: Vector2 = Vector2.RIGHT
+	var duration: float = 0.42
+	var elapsed: float = 0.0
+	var _sparks: Array = []
+
+	func _ready() -> void:
+		for i in 10:
+			var ang := TAU * float(i) / 10.0
+			_sparks.append({"ang": ang, "phase": randf_range(0.0, 0.4)})
+
+	func _process(delta: float) -> void:
+		elapsed += delta
+		queue_redraw()
+		if elapsed >= duration:
+			queue_free()
+
+	func _draw() -> void:
+		var t := clampf(elapsed / maxf(duration, 0.001), 0.0, 1.0)
+		var alpha := 1.0 - t
+		# 内环（主技能色）收缩，外环（元素色）扩张 —— 两色交织
+		var r_in := 26.0 * (1.0 - t * 0.6)
+		var r_out := 34.0 + 26.0 * t
+		draw_arc(Vector2.ZERO, r_in, 0.0, TAU, 32, Color(color_a.r, color_a.g, color_a.b, alpha * 0.9), 2.5)
+		draw_arc(Vector2.ZERO, r_out, 0.0, TAU, 40, Color(color_b.r, color_b.g, color_b.b, alpha * 0.8), 2.0)
+		draw_arc(Vector2.ZERO, r_out * 0.82, 0.0, TAU, 36, Color(color_a.r, color_a.g, color_a.b, alpha * 0.35), 1.0)
+		# 中心核
+		draw_circle(Vector2.ZERO, 10.0, Color(1.0, 1.0, 1.0, alpha * 0.75))
+		draw_circle(Vector2.ZERO, 18.0, Color(color_b.r, color_b.g, color_b.b, alpha * 0.18))
+		# 汇聚粒子：从外圈向中心收拢
+		for s in _sparks:
+			var ang: float = float(s["ang"]) + elapsed * 2.0
+			var dist := lerpf(46.0, 8.0, clampf(t + float(s["phase"]), 0.0, 1.0))
+			var p := Vector2(cos(ang), sin(ang)) * dist
+			draw_circle(p, 2.0, Color(color_b.r, color_b.g, color_b.b, alpha * 0.9))
+		# 朝向施法方向的一道光束起手
+		var tip := direction * (52.0 + 18.0 * t)
+		draw_line(Vector2.ZERO, tip, Color(1.0, 1.0, 1.0, alpha * 0.6), 3.0)
+		draw_line(Vector2.ZERO, tip * 0.8, Color(color_a.r, color_a.g, color_a.b, alpha * 0.5), 6.0)

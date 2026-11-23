@@ -21,6 +21,8 @@ var knockback: float = 0.0
 var hit_bodies: Array = []
 var arc_amplitude: float = 0.0   # 抛物线摆动幅度（lob 类抛掷物）
 var arc_frequency: float = 2.0
+var fusion_kw: Dictionary = {}   # 融合技元素：命中瞬间在此弹道上爆发
+var fusion_color: Color = Color.WHITE
 
 var _spawn_y: float = 0.0
 var _trail_points: Array = []
@@ -62,8 +64,7 @@ func _spawn_sprite() -> void:
 func _spawn_trail() -> void:
 	# 拖尾：Line2D + 采样点（Trail2D 在 headless 环境有时不可用）
 	_trail_line = Line2D.new()
-	_trail_line.width_begin = 10.0
-	_trail_line.width_end = 1.0
+	_trail_line.width = 9.0
 	_trail_line.default_color = Color(color.r, color.g, color.b, 0.75)
 	_trail_line.z_index = 1
 	var mat := CanvasItemMaterial.new()
@@ -112,6 +113,10 @@ func _on_body_entered(body: Node) -> void:
 		DamageNumber.spawn(level, body.global_position + Vector2(0, -24), dealt, is_crit)
 		SkillVfx.spawn_impact(level, body.global_position, "explosion", color)
 		EffectRing.spawn(level, body.global_position, 26.0, color, 0.22)
+		# 融合技：元素在弹道命中点爆发，属于同一发技能
+		if not fusion_kw.is_empty():
+			var radius := splash_radius if splash_radius > 0.0 else 110.0
+			SkillExecutor._apply_element(source, fusion_kw, fusion_color, body.global_position, radius, damage, is_magic, level)
 	if ScreenShake and ScreenShake.has_method("shake"):
 		var intensity := 1.8 if splash_radius > 0.0 else 1.2
 		ScreenShake.shake(intensity, 0.06, 90.0)

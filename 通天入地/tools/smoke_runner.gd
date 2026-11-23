@@ -416,6 +416,12 @@ func _run() -> void:
 	_check("技能融合生成", bool(fused.get("ok", false)) and prog.get_owned_abilities().has(fused_id),
 		str(fused.get("reason", "")))
 	_check("融合技能可进入配招", prog.get_owned_abilities()[fused_id].get("fusion_keyword", {}).has("kind"))
+	var fused_skill: Dictionary = prog.get_owned_abilities()[fused_id]
+	_check("融合技能为全新技能（独立命名+元素染色）",
+		str(fused_skill.get("name", "")).begins_with("融·")
+		and str(fused_skill.get("fuse_element_cn", "")) != ""
+		and str(fused_skill.get("fuse_element_color", "")) != str(fused_skill.get("fuse_main_color", "")),
+		str(fused_skill.get("name", "")))
 	_check("融合撤销", FusionService.remove_fusion(prog, fused_id) and not prog.get_owned_abilities().has(fused_id))
 
 	# ---------- 7. 通天塔 / Roguelike ----------
@@ -533,6 +539,40 @@ func _run() -> void:
 				turrets += 1
 		_check("工程师部署炮塔", turrets >= 1, str(turrets))
 		host.character_data.setup_class(orig_class)
+		# 融合技：作为「全新技能」独立释放（独立起手 + 元素在同一次命中内爆发）
+		for d in get_tree().get_nodes_in_group("deployables"):
+			if is_instance_valid(d):
+				d.free()
+		var fuse_near = _spawn_dummy(host, dummy_packed, 60.0)
+		await _wait(0.12)
+		var fuse_hp: int = fuse_near.hp
+		var fuse_skill := {
+			"id": "smoke_fuse", "name": "融·炎测试", "type": "melee_aoe", "power": 1.0,
+			"radius": 90.0, "mp": 0, "damage_type": "physical", "color": "#ff9e4a",
+			"origin": "fusion", "fusion_keyword": {"kind": "burn", "value": 0.2},
+			"fuse_element_color": "#ff6a2a", "fuse_main_color": "#ffd166",
+		}
+		SkillExecutor.cast(host, fuse_skill)
+		await _wait(0.3)
+		_check("融合技独立释放造成伤害", fuse_near.hp < fuse_hp, "%d -> %d" % [fuse_hp, fuse_near.hp])
+		if is_instance_valid(fuse_near):
+			fuse_near.free()
+		# 融合弹道：元素在命中点随弹道一同爆发（同一发技能）
+		var fuse_far = _spawn_dummy(host, dummy_packed, 150.0)
+		fuse_far.collision_layer = 4
+		await _wait(0.12)
+		var fuse_hp2: int = fuse_far.hp
+		var fuse_proj := {
+			"id": "smoke_fuse_proj", "name": "融·霜测试弹", "type": "projectile", "power": 1.0,
+			"speed": 600.0, "range": 360.0, "mp": 0, "damage_type": "physical", "color": "#9ad0ff",
+			"origin": "fusion", "fusion_keyword": {"kind": "freeze", "value": 0.35},
+			"fuse_element_color": "#7ec8ff", "fuse_main_color": "#9ad0ff",
+		}
+		SkillExecutor.cast(host, fuse_proj)
+		await _wait(0.6)
+		_check("融合弹道命中引发元素爆发", fuse_far.hp < fuse_hp2, "%d -> %d" % [fuse_hp2, fuse_far.hp])
+		if is_instance_valid(fuse_far):
+			fuse_far.free()
 
 	# ---------- 结束 ----------
 	print("SMOKE_RESULT failures=%d" % failures)
