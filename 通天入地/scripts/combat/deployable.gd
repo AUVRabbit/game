@@ -1,8 +1,7 @@
 # ============================================================
 # Deployable — 可部署物（炸弹 / 地雷 / 炮塔）
-# 炸弹：引信到期后范围爆炸
-# 地雷：短暂布防后，敌人踏入即引爆
-# 炮塔：在持续时间内自动射击最近敌人
+# bomb / mine: 抛物线飞行 → 落地 fuse/等待 → 爆炸
+# turret: 直接部署，持续射击
 # 纯代码绘制，与敌人占位形体保持同一视觉语言
 # ============================================================
 
@@ -19,6 +18,9 @@ var fuse: float = 0.5
 var lifetime: float = 10.0
 var interval: float = 1.0
 var aim_dir: Vector2 = Vector2.DOWN
+var target_pos: Vector2 = Vector2.ZERO       # 抛物线飞行终点
+var fly_speed: float = 320.0
+var fly_arc: float = 60.0                    # 抛物线最大高度
 
 var elapsed: float = 0.0
 var shoot_timer: float = 0.0
@@ -26,16 +28,46 @@ var armed: bool = false
 var consumed: bool = false
 var pulse: float = 0.0
 
+var _flying: bool = false
+var _fly_elapsed: float = 0.0
+var _fly_duration: float = 0.0
+var _fly_start: Vector2 = Vector2.ZERO
+var _fly_trajectory_y: float = 0.0
+
 func _ready() -> void:
 	add_to_group("deployables")
 	z_index = 1
 	shoot_timer = interval * 0.5
+	# bomb/mine 有抛物线飞行，turret 直接落地
+	if mode in ["bomb", "mine"] and target_pos.length() > 0.01:
+		_flying = true
+		_fly_start = global_position
+		var dist := _fly_start.distance_to(target_pos)
+		_fly_duration = maxf(0.25, dist / maxf(80.0, fly_speed))
+		_fly_trajectory_y = fly_arc * clampf(dist / 200.0, 0.5, 2.5)
+	else:
+		global_position = target_pos
 
 func _process(delta: float) -> void:
 	if consumed:
 		return
 	elapsed += delta
 	pulse += delta
+
+	# 抛物线飞行阶段
+	if _flying:
+		_fly_elapsed += delta
+		var t_norm := clampf(_fly_elapsed / _fly_duration, 0.0, 1.0)
+		global_position = _fly_start.lerp(target_pos, t_norm)
+		global_position.y -= _fly_trajectory_y * sin(t_norm * PI)   # 弧形上抛
+		# 飞行过程中的视觉闪烁
+		if t_norm >= 1.0:
+			_flying = false
+			# 落地小爆点
+			EffectRing.spawn(get_parent(), global_position, 20.0, color, 0.18)
+		queue_redraw()
+		return
+
 	queue_redraw()
 	match mode:
 		"bomb":
@@ -68,6 +100,8 @@ func _explode() -> void:
 		if _dist(enemy) <= radius:
 			var dealt: int = enemy.take_damage(damage, is_magic, source)
 			DamageNumber.spawn(get_parent(), enemy.global_position + Vector2(0, -26), dealt, false)
+	SkillVfx.spawn_shockwave(get_parent(), global_position, radius * 1.3, color, 0.42)
+	SkillVfx.spawn_burst(get_parent(), global_position, radius, color, 0.5)
 	EffectRing.spawn(get_parent(), global_position, radius, color)
 	SkillVfx.spawn_impact(get_parent(), global_position, "explosion", color)
 	AudioManager.play_sfx("hit")
@@ -91,7 +125,7 @@ func _shoot() -> void:
 	projectile.lifetime = 0.9
 	get_parent().add_child(projectile)
 	projectile.global_position = global_position
-	SkillVfx.spawn_impact(get_parent(), global_position + dir * 14.0, "steam_burst", color)
+	SkillVfx.spawn_muzzle_flash(get_parent(), global_position + dir * 14.0, color, dir.angle())
 
 func _enemies() -> Array:
 	var result: Array = []
@@ -119,6 +153,27 @@ func _dist(node) -> float:
 	return 99999.0
 
 func _draw() -> void:
+	# 飞行中：画飞行中的炸弹（稍透明 + 拖影）
+	if _flying:
+		var t_norm := clampf(_fly_elapsed / maxf(_fly_duration, 0.001), 0.0, 1.0)
+		var alpha := 1.0 - t_norm * 0.3
+		var trail_points := PackedVector2Array()
+		for k in 6:
+			var kk := float(k) / float(6)
+			var tp := _fly_start.lerp(target_pos, t_norm - kk * 0.12)
+			tp.y -= _fly_trajectory_y * sin(clampf(t_norm - kk * 0.12, 0.0, 1.0) * PI)
+			trail_points.append(tp - global_position)
+		for i in trail_points.size() - 1:
+			var a := (1.0 - float(i) / float(trail_points.size())) * alpha * 0.4
+			draw_line(trail_points[i], trail_points[i + 1], Color(color.r, color.g, color.b, a), 3.0 - float(i) * 0.4)
+		# 炸弹本体
+		draw_circle(Vector2.ZERO, 11.0, Color(0.12, 0.1, 0.1, alpha))
+		draw_circle(Vector2.ZERO, 8.0, Color(0.3, 0.25, 0.22, alpha))
+		# 引线火花
+		var spark_a := 0.7 + sin(pulse * 30.0) * 0.3
+		draw_circle(Vector2(0, -12), 3.5, Color(1.0, 0.6, 0.2, spark_a))
+		return
+
 	match mode:
 		"bomb":
 			var t := clampf(elapsed / maxf(0.01, fuse), 0.0, 1.0)

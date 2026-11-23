@@ -270,6 +270,8 @@ static func _melee_aoe(caster, origin: Vector2, radius: float, damage: int, is_m
 		knockback: float = 0.0, stun: float = 0.0) -> void:
 	EffectRing.spawn(level, origin, radius, color)
 	SkillVfx.spawn(level, origin, "melee_slash", color, 1.0, 0.0)
+	# 冲击波向外扩散
+	SkillVfx.spawn_shockwave(level, origin, radius * 1.3, color, 0.35)
 	var any := false
 	for enemy in _enemies():
 		if _dist(enemy, origin) <= radius:
@@ -289,7 +291,7 @@ static func _melee_aoe(caster, origin: Vector2, radius: float, damage: int, is_m
 
 static func _projectile(caster, origin: Vector2, dir: Vector2, damage: int, is_magic: bool, speed: float, color: Color,
 		icon_id: String = "", pierce: int = 0, splash: float = 0.0, range_dist: float = 0.0,
-		knockback: float = 0.0) -> void:
+		knockback: float = 0.0, arc_amp: float = 0.0) -> void:
 	var level: Node = caster.get_parent()
 	if level == null:
 		return
@@ -304,14 +306,16 @@ static func _projectile(caster, origin: Vector2, dir: Vector2, damage: int, is_m
 	projectile.pierce = pierce
 	projectile.splash_radius = splash
 	projectile.knockback = knockback
+	projectile.arc_amplitude = arc_amp
 	projectile.lifetime = maxf(0.3, range_dist / maxf(1.0, speed)) if range_dist > 0.0 else 1.6
 	level.add_child(projectile)
 	projectile.global_position = origin
-	EffectRing.spawn(level, origin, 14.0, color, 0.18)
+	# 发射瞬间：枪口闪光
+	SkillVfx.spawn_muzzle_flash(level, origin, color, dir.angle())
 
 
 static func _chain(origin: Vector2, radius: float, count: int, damage: int, is_magic: bool, color: Color, level: Node) -> void:
-	EffectRing.spawn(level, origin, radius, color)
+	EffectRing.spawn(level, origin, radius * 0.6, color, 0.28)
 	var targets: Array = []
 	for enemy in _enemies():
 		if _dist(enemy, origin) <= radius:
@@ -320,22 +324,37 @@ static func _chain(origin: Vector2, radius: float, count: int, damage: int, is_m
 		return
 	targets.sort_custom(func(a, b): return _dist(a, origin) < _dist(b, origin))
 	var limit := mini(count, targets.size())
+	# 链式闪电：起点 origin 依次连接到每个目标
+	var flash_points := PackedVector2Array()
+	flash_points.append(origin)
 	for i in limit:
+		var tp := (targets[i] as Node2D).global_position
+		flash_points.append(tp)
 		_apply_damage(null, targets[i], damage, is_magic, level)
+	SkillVfx.spawn_chain_lightning(level, flash_points, color)
+	# 每个被连接目标处画一个小爆点
+	for i in flash_points.size():
+		EffectRing.spawn(level, flash_points[i], 22.0, color, 0.22)
 
 
 static func _aoe_zone(caster, pos: Vector2, radius: float, damage: int, is_magic: bool, delay: float, color: Color, level: Node) -> void:
-	# 预警圈：先画一个较暗的脉冲圈
+	# 预警圈：先画一个较暗的脉冲圈（会随着 time 向外扩展）
 	EffectRing.spawn(level, pos, radius, Color(color.r, color.g, color.b, 0.35), delay)
-	# 红色预警脉冲
+	# 红色预警脉冲（小尺寸快速闪烁提示危险）
 	var warn_c := Color(color.r * 1.1 + 0.2, color.g * 0.3, color.b * 0.3, 0.9)
-	EffectRing.spawn(level, pos, radius * 0.7, warn_c, delay * 0.8)
+	EffectRing.spawn(level, pos, radius * 0.6, warn_c, delay * 0.7)
+	# 落雷预警光束（从天而降一闪而过的闪电）
+	var bolt_len := maxf(220.0, radius * 2.2)
+	SkillVfx.spawn_lightning_bolt(level, pos, bolt_len, color, maxf(0.12, delay * 0.5))
 	var tree: SceneTree = caster.get_tree()
 	await tree.create_timer(delay).timeout
 	if not is_instance_valid(caster):
 		return
+	# 爆炸瞬间：落雷 + 冲击波 + 碎片爆点
+	SkillVfx.spawn_lightning_bolt(level, pos, bolt_len, color, 0.18)
+	SkillVfx.spawn_shockwave(level, pos, radius * 1.35, color, 0.42)
+	SkillVfx.spawn_burst(level, pos, radius, color, 0.45)
 	EffectRing.spawn(level, pos, radius * 1.15, color)
-	SkillVfx.spawn(level, pos, "explosion", color, 1.2, 0.0)
 	var any := false
 	for enemy in _enemies():
 		if _dist(enemy, pos) <= radius:
@@ -459,12 +478,13 @@ static func cast_basic(caster, profile: Dictionary, damage: int, is_crit: bool) 
 			bomb.color = color
 			bomb.fuse = float(profile.get("fuse", 0.4))
 			bomb.lifetime = 3.0
-			level.add_child(bomb)
 			var bomb_pos := origin + dir * float(profile.get("range", 220))
 			if target:
 				bomb_pos = target.global_position
-			bomb.global_position = bomb_pos
-			EffectRing.spawn(level, bomb.global_position, bomb.radius * 0.5, color, 0.28)
+			bomb.target_pos = bomb_pos
+			bomb.global_position = origin
+			level.add_child(bomb)
+			EffectRing.spawn(level, origin, 16.0, color, 0.18)
 
 
 # ---------- 狙击 / 光束 ----------
@@ -547,12 +567,13 @@ static func _deployable(caster, skill: Dictionary, origin: Vector2, dir: Vector2
 		device.lifetime = float(skill.get("duration", 12.0)) * (1.0 + trap_bonus)
 		device.interval = float(skill.get("interval", 1.0))
 		device.aim_dir = dir.normalized()
+		device.target_pos = pos
+		device.global_position = origin
 		if level == null:
 			push_warning("SkillExecutor._deployable: level is null, caster=%s" % str(caster))
 		else:
 			level.add_child(device)
-			device.global_position = pos
-			EffectRing.spawn(level, pos, 26.0, color, 0.22)
+		EffectRing.spawn(level, origin, 16.0, color, 0.18)
 
 
 # ---------- 召唤 ----------
@@ -610,11 +631,15 @@ static func _blink_strike(caster, range_dist: float, radius: float, damage: int,
 			_apply_damage(caster, enemy, damage, is_magic, level)
 
 
-# ---------- 符文禁锢 ----------
+# ---------- 符文禁锢（地刺从地面刺出） ----------
 static func _root_zone(caster, pos: Vector2, radius: float, damage: int, is_magic: bool,
 		duration: float, color: Color, level: Node) -> void:
-	EffectRing.spawn(level, pos, radius, color)
-	EffectRing.spawn(level, pos, radius * 0.5, Color(color.r * 0.4, color.g * 0.6, color.b * 1.1, 0.8), 0.5)
+	# 预警
+	EffectRing.spawn(level, pos, radius, Color(color.r, color.g * 0.6, color.b * 0.5, 0.5), 0.22)
+	# 地刺尖刺从地面刺出
+	SkillVfx.spawn_ground_spikes(level, pos, radius, maxi(6, int(radius / 18.0)), color, 0.42)
+	# 符文圆形底座
+	EffectRing.spawn(level, pos, radius * 0.5, Color(color.r * 0.3, color.g * 0.6, color.b * 1.1, 0.8), 0.5)
 	for enemy in _enemies():
 		if _dist(enemy, pos) <= radius:
 			_apply_damage(caster, enemy, damage, is_magic, level)
@@ -662,11 +687,13 @@ static func _mark_skill(origin: Vector2, radius: float, duration: float, amp: fl
 	EventBus.notify("已标记目标：受到伤害 +%d%%" % int(round(amp * 100.0)))
 
 
-# ---------- 震波 ----------
+# ---------- 震波（环形冲击波向外扩散） ----------
 static func _stun_wave(caster, origin: Vector2, radius: float, damage: int, is_magic: bool,
 		stun: float, knockback: float, color: Color, level: Node) -> void:
 	EffectRing.spawn(level, origin, radius, color)
 	SkillVfx.spawn(level, origin, "void_pulse", color, 1.1, 0.0)
+	# 冲击波向外扩散
+	SkillVfx.spawn_shockwave(level, origin, radius * 1.3, color, 0.4)
 	var any := false
 	for enemy in _enemies():
 		if _dist(enemy, origin) > radius:
