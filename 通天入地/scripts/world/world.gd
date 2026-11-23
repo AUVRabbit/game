@@ -49,15 +49,15 @@ func _setup_spawners() -> void:
 		push_error("[World] 敌人场景缺失")
 		return
 	_add_spawner(Vector2(430, 70), enemy_packed, {
-		"enemy_name": "史莱姆", "enemy_type": "slime", "max_hp": 42, "attack": 8,
-		"defense": 2, "magic_defense": 1, "exp_reward": 18,
+		"enemy_name": "史莱姆", "enemy_type": "slime", "primary_element": "water", "status_immune": ["stun", "knockback"],
+		"max_hp": 42, "attack": 8, "defense": 2, "magic_defense": 1, "exp_reward": 18,
 		"gold_reward_min": 3, "gold_reward_max": 8, "move_speed": 68.0,
 		"body_color": Color(0.35, 0.85, 0.5), "body_radius": 15.0,
 		"drop_table": [{ "id": "slime_gel", "chance": 0.7, "min": 1, "max": 2 }]
 	}, 4)
 	_add_spawner(Vector2(-430, 130), enemy_packed, {
-		"enemy_name": "机械蛛", "enemy_type": "mech", "max_hp": 85, "attack": 12,
-		"defense": 7, "magic_defense": 3, "exp_reward": 36,
+		"enemy_name": "机械蛛", "enemy_type": "mech", "primary_element": "mech", "status_immune": [],
+		"max_hp": 85, "attack": 12, "defense": 7, "magic_defense": 3, "exp_reward": 36,
 		"gold_reward_min": 8, "gold_reward_max": 15, "move_speed": 60.0,
 		"body_color": Color(0.65, 0.65, 0.72), "body_radius": 20.0,
 		"drop_table": [
@@ -66,11 +66,26 @@ func _setup_spawners() -> void:
 		]
 	}, 3)
 	_add_spawner(Vector2(60, 220), enemy_packed, {
-		"enemy_name": "幽魂", "enemy_type": "wraith", "max_hp": 55, "attack": 14,
-		"defense": 3, "magic_defense": 8, "exp_reward": 32,
+		"enemy_name": "幽魂", "enemy_type": "wraith", "primary_element": "shadow", "status_immune": ["knockback", "root"],
+		"max_hp": 55, "attack": 14, "defense": 3, "magic_defense": 8, "exp_reward": 32,
 		"gold_reward_min": 6, "gold_reward_max": 12, "move_speed": 96.0,
 		"body_color": Color(0.55, 0.65, 1.0), "body_radius": 15.0,
 		"drop_table": [{ "id": "ghost_dust", "chance": 0.6, "min": 1, "max": 2 }]
+	}, 3)
+	_add_spawner(Vector2(380, -130), enemy_packed, {
+		"enemy_name": "岩浆怪", "enemy_type": "magma", "primary_element": "fire",
+		"elemental_mods": {"fire": 0.0, "thunder": 0.5}, "status_immune": ["slow", "burn"],
+		"max_hp": 110, "attack": 16, "defense": 5, "magic_defense": 6, "exp_reward": 48,
+		"gold_reward_min": 12, "gold_reward_max": 22, "move_speed": 58.0,
+		"body_color": Color(1.0, 0.35, 0.1), "body_radius": 22.0,
+		"drop_table": [{ "id": "fire_core", "chance": 0.5, "min": 1, "max": 2 }]
+	}, 2)
+	_add_spawner(Vector2(-380, -130), enemy_packed, {
+		"enemy_name": "骷髅兵", "enemy_type": "skeleton", "primary_element": "earth", "status_immune": [],
+		"max_hp": 65, "attack": 11, "defense": 5, "magic_defense": 2, "exp_reward": 26,
+		"gold_reward_min": 5, "gold_reward_max": 10, "move_speed": 82.0,
+		"body_color": Color(0.92, 0.9, 0.78), "body_radius": 14.0,
+		"drop_table": [{ "id": "bone", "chance": 0.7, "min": 1, "max": 3 }]
 	}, 3)
 
 func _add_spawner(pos: Vector2, enemy_scene: PackedScene, config: Dictionary, max_alive: int) -> void:

@@ -35,6 +35,15 @@ static func cast(caster, skill: Dictionary) -> bool:
 	var color := Color.from_string(str(skill.get("color", "#ffffff")), Color.WHITE)
 	var level: Node = caster.get_parent()
 
+	# —— 推断本次伤害的元素类型（用于克制表）——
+	var damage_element: String = "physical"
+	var fusion_kw_in: Dictionary = skill.get("fusion_keyword", {})
+	if not fusion_kw_in.is_empty():
+		damage_element = ElementKeeper.from_fusion_kind(str(fusion_kw_in.get("kind", "")))
+	elif str(skill.get("damage_type", "physical")) == "magic":
+		# 魔法默认按 "fire" 处理（可以后续细分）
+		damage_element = "fire"
+
 	# ===== 流派 signature：每个流派独有的机制钩子 =====
 	var sig: Dictionary = {}
 	if data != null and data.has_method("get_signature"):
@@ -682,10 +691,52 @@ static func _dist(node, pos: Vector2) -> float:
 	return 999999.0
 
 
-static func _apply_damage(caster, enemy, damage: int, is_magic: bool, level: Node, is_crit: bool = false) -> int:
+static func _apply_damage(caster, enemy, damage: int, is_magic: bool, level: Node,
+		is_crit: bool = false, damage_element: String = "physical") -> int:
 	if not is_instance_valid(enemy) or not enemy.has_method("take_damage"):
 		return 0
 	var scaled := damage
+	# ========== 元素克制：per-enemy 计算 ==========
+	var enemy_element: String = ""
+	var element_mult := 1.0
+	var mods_v: Variant = enemy.get("elemental_mods")
+	var mods: Dictionary = {}
+	if mods_v != null and mods_v is Dictionary:
+		mods = mods_v
+	var pe_v: Variant = enemy.get("primary_element")
+	if pe_v != null:
+		enemy_element = str(pe_v)
+	if enemy_element != "" and enemy_element != "none":
+		if mods.has(damage_element):
+			element_mult = float(mods[damage_element])
+		else:
+			element_mult = ElementKeeper.multiplier(enemy_element, damage_element)
+	# 同元素物理 vs 物理 特殊处理（物理生物对物理伤害没有额外免疫）
+	if enemy_element == "physical" and damage_element == "physical":
+		element_mult = 1.0
+	scaled = int(round(float(scaled) * element_mult))
+	# ========== 克制反馈文字 ==========
+	var feedback_text: String = ""
+	var feedback_color: Color = Color.WHITE
+	if element_mult <= 0.01:
+		feedback_text = "免疫!"
+		feedback_color = Color(0.6, 0.6, 0.8)
+	elif element_mult <= 0.5:
+		feedback_text = "抵抗"
+		feedback_color = Color(0.5, 0.85, 1.0)
+	elif element_mult >= 1.5:
+		feedback_text = "克制!"
+		feedback_color = Color(1.0, 0.85, 0.3)
+	elif element_mult >= 1.3:
+		feedback_text = "微克"
+		feedback_color = Color(1.0, 0.7, 0.3)
+	if feedback_text != "" and level != null and enemy is Node2D:
+		DamageNumber.spawn(level, (enemy as Node2D).global_position + Vector2(0, -44), 0, false, false, feedback_text, feedback_color)
+	if element_mult <= 0.01:
+		# 完全免疫：不往下走了
+		DamageNumber.spawn(level, (enemy as Node2D).global_position + Vector2(0, -26), 0, false)
+		return 0
+	# ========== signature 命中修正（被克制后再叠一层）==========
 	if caster != null:
 		var cdata = caster.get("character_data")
 		if cdata != null and cdata.has_method("get_execute_bonus"):
@@ -705,7 +756,7 @@ static func _apply_damage(caster, enemy, damage: int, is_magic: bool, level: Nod
 				var mark_l: Variant = enemy.get("mark_left")
 				if mark_l != null and float(mark_l) > 0.0:
 					scaled = int(round(float(scaled) * float(sig.get("multiplier", 1.30))))
-	var final_damage: int = enemy.take_damage(scaled, is_magic, caster)
+	var final_damage: int = enemy.take_damage(maxi(1, scaled), is_magic, caster)
 	# —— signature 命中后效果 ——
 	if caster != null:
 		var cdata2 = caster.get("character_data")

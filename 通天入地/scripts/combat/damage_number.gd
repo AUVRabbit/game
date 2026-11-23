@@ -5,20 +5,27 @@
 extends Label
 class_name DamageNumber
 
-static func spawn(parent: Node, world_pos: Vector2, amount: int, is_crit: bool = false, is_heal: bool = false) -> void:
+static func spawn(parent: Node, world_pos: Vector2, amount: int, is_crit: bool = false, is_heal: bool = false,
+		override_text: String = "", override_color: Color = Color.WHITE) -> void:
 	if parent == null or not is_instance_valid(parent):
 		return
 	var label := DamageNumber.new()
-	if is_heal:
+	if override_text != "":
+		label.text = override_text
+		label.add_theme_color_override("font_color", override_color)
+		label.add_theme_font_size_override("font_size", 18)
+	elif is_heal:
 		label.text = "+%d" % amount
 		label.add_theme_color_override("font_color", Color(0.45, 1.0, 0.55))
+		label.add_theme_font_size_override("font_size", 22)
 	elif is_crit:
 		label.text = "%d!" % amount
 		label.add_theme_color_override("font_color", Color(1.0, 0.85, 0.2))
+		label.add_theme_font_size_override("font_size", 22)
 	else:
 		label.text = str(amount)
 		label.add_theme_color_override("font_color", Color(1.0, 0.95, 0.9))
-	label.add_theme_font_size_override("font_size", 22 if is_crit else 16)
+		label.add_theme_font_size_override("font_size", 16)
 	label.z_index = 100
 	label.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
 	parent.add_child(label)

@@ -27,6 +27,16 @@ enum State { PATROL, CHASE, ATTACK, DEAD }
 @export var body_color: Color = Color(0.4, 0.8, 0.5)
 @export var body_radius: float = 16.0
 
+# ========== 元素克制系统 ==========
+# 敌人的主元素（决定伤害倍率和状态免疫）
+# 可选值: "water"(水) / "fire"(火) / "thunder"(雷) / "ice"(冰) / "holy"(圣) / "shadow"(幽) / "mech"(机) / "nature"(木) / "physical"(物) / "none"(无)
+@export var primary_element: String = "physical"
+# 状态免疫：敌人对这些状态完全免疫（即使被施加也不会生效）
+# 可选: "stun" / "slow" / "freeze" / "knockback" / "root" / "burn"
+@export var status_immune: Array = []
+# 自定义元素修正：覆盖默认克制表。例: {"burn": 0.0, "freeze": 2.0}
+@export var elemental_mods: Dictionary = {}
+
 var sprite_texture: Texture2D = null
 var sprite_content: Rect2i = Rect2i()
 var hp: int = 40
@@ -223,13 +233,22 @@ func take_damage(amount: int, is_magic: bool = false, source: Node = null) -> in
 		_die()
 	return dealt
 
+func is_immune(status_kind: String) -> bool:
+	return status_immune.has(status_kind)
+
 func apply_stun(duration: float) -> void:
+	if is_immune("stun"):
+		if _anim: _anim.flash(Color(1.0, 1.0, 1.0), 0.10)
+		return
 	stun_left = maxf(stun_left, duration)
 	if _anim:
 		_anim.flash(Color(1.0, 0.9, 0.5), 0.15)
 	queue_redraw()
 
 func apply_slow(factor: float, duration: float) -> void:
+	if is_immune("slow") or is_immune("freeze"):
+		if _anim: _anim.flash(Color(1.0, 1.0, 1.0), 0.10)
+		return
 	slow_factor = minf(slow_factor, clampf(factor, 0.1, 1.0))
 	slow_left = maxf(slow_left, duration)
 	if _anim:
@@ -240,6 +259,12 @@ func apply_mark(duration: float, amp: float) -> void:
 	mark_amp = maxf(mark_amp, amp)
 	mark_left = maxf(mark_left, duration)
 	queue_redraw()
+
+func apply_knockback(push_dir: Vector2, amount: float) -> void:
+	if is_immune("knockback"):
+		return
+	if push_dir.length() > 0.01:
+		global_position += push_dir.normalized() * amount
 
 func _die() -> void:
 	state = State.DEAD
