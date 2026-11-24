@@ -63,7 +63,7 @@ static func from_images(
 		
 		for f in range(frame_count):
 			var region := Rect2(f * fw, 0, fw, fh)
-			frames.add_frame(action_name, tex, region, Vector2.ZERO)
+			frames.add_frame(action_name, tex, 1.0, region, Vector2.ZERO)
 	
 	return frames
 

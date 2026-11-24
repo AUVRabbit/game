@@ -23,6 +23,7 @@ var sprite: Sprite2D = null
 var _sprite_class_id: String = ""
 var _anim: SpriteAnim = null
 var _cached_sprite_offset: Vector2 = Vector2.ZERO
+var frame_anim: AnimatedSprite2D = null  # 多帧 sprite sheet 动画层
 
 var state: State = State.IDLE
 var facing: Vector2 = Vector2.DOWN
@@ -108,6 +109,40 @@ func _refresh_class_sprite() -> void:
 		_anim.target = sprite
 		_anim._base_offset = off
 		_anim._base_scale = sprite.scale
+	# 多帧 sheet 动画层（和 Sprite2D 同位置叠加，frame anim 驱动帧切换，SpriteAnim 驱动形变）
+	_try_attach_frame_anim(class_id, off, sprite.scale)
+
+func _try_attach_frame_anim(class_id: String, sprite_off: Vector2, sprite_scale: Vector2) -> void:
+	if visual == null:
+		return
+	if frame_anim != null and is_instance_valid(frame_anim):
+		return
+	var frame_w := 128
+	var frame_h := 128
+	var asset_id := "player_%s" % class_id
+	var actions := ["idle", "walk", "attack", "hit"]
+	var counts := [4, 4, 3, 2]
+	var fps_list := [8, 12, 14, 16]
+	var frames := SpriteFramesBuilder.from_asset_id(asset_id, frame_w, frame_h, actions, counts, fps_list)
+	if frames.get_animation_names().size() == 0:
+		return
+	frame_anim = AnimatedSprite2D.new()
+	frame_anim.name = "FrameAnim"
+	frame_anim.sprite_frames = frames
+	frame_anim.animation = "idle"
+	frame_anim.frame = 0
+	frame_anim.texture_filter = CanvasItem.TEXTURE_FILTER_NEAREST
+	frame_anim.position = sprite_off
+	frame_anim.scale = sprite_scale
+	visual.add_child(frame_anim)
+	frame_anim.play("idle")
+
+func _frame_set_action(action: String) -> void:
+	if frame_anim == null:
+		return
+	var names := frame_anim.sprite_frames.get_animation_names()
+	if action in names:
+		frame_anim.play(action)
 
 func _content_rect(tex: Texture2D) -> Rect2i:
 	var img: Image = tex.get_image()
@@ -194,11 +229,21 @@ func _physics_process(delta: float) -> void:
 func _anim_snap_to(desired: SpriteAnim.AnimState, dir: Vector2, move_m: float) -> void:
 	if _anim == null:
 		return
-	if _anim.state == SpriteAnim.AnimState.HURT or _anim.state == SpriteAnim.AnimState.ATTACK or _anim.state == SpriteAnim.AnimState.CAST or _anim.state == SpriteAnim.AnimState.DASH:
-		return  # 动作进行中，等动作结束后由 try_attack / try_skill 收尾
+	if _anim.state == SpriteAnim.AnimState.HURT or _anim.state == SpriteAnim.AnimState.ATTACK or \
+		_anim.state == SpriteAnim.AnimState.CAST or _anim.state == SpriteAnim.AnimState.DASH or \
+		_anim.state == SpriteAnim.AnimState.SWORD_SWING or _anim.state == SpriteAnim.AnimState.BOW_DRAW or \
+		_anim.state == SpriteAnim.AnimState.THROW_BOMB or _anim.state == SpriteAnim.AnimState.CAST_SPELL or \
+		_anim.state == SpriteAnim.AnimState.SUMMON_RITUAL or _anim.state == SpriteAnim.AnimState.FORCE_READY:
+		return
 	if _anim.state == SpriteAnim.AnimState.DEAD:
 		return
 	_anim.settle_to(desired, dir, move_m)
+	# 同步帧动画层
+	if frame_anim:
+		if desired == SpriteAnim.AnimState.RUN:
+			frame_anim.play("walk")
+		else:
+			frame_anim.play("idle")
 
 
 func _unhandled_input(event: InputEvent) -> void:
@@ -260,12 +305,12 @@ func try_attack() -> void:
 		if visual:
 			visual.scale.x = -1.0 if facing.x < -0.05 else 1.0
 
-	# 动画：近战前冲 / 远程后坐
-	var anim_kind := "projectile" if kind != "melee" else "melee"
+	# ============ 精细动作路由：每种武器专属动作 ============
 	var anim_range := float(profile.get("radius", ATTACK_RADIUS)) if kind == "melee" else 22.0
 	var anim_dur := 0.28
-	if _anim:
-		_anim.enter_attack(anim_kind, anim_range, anim_dur, target_pos, facing)
+	route_basic_attack_kind(kind, profile, anim_range, anim_dur, facing)
+	if frame_anim:
+		frame_anim.play("attack")
 
 	# 远程/射线/抛掷类普攻交给技能执行器，近战保留贴身判定
 	if kind != "melee":
@@ -341,14 +386,16 @@ func try_skill(slot: int) -> void:
 		TargetingReticle.spawn(get_parent(), target.global_position,
 			Color.from_string(str(skill.get("color", "#ffffff")), Color.WHITE), 0.35, 20.0)
 
-	# 施法动画
+	# 施法动画（每种技能类型专属动作）
 	if _anim:
 		var dur := 0.3
-		var kind2 := str(skill.get("type", ""))
-		if kind2 == "melee_aoe" or kind2 == "dash_strike":
-			_anim.enter_attack("melee", float(skill.get("radius", 60)), 0.28, Vector2.ZERO, facing)
-		else:
-			_anim.enter_cast(dur, facing)
+		var radius2 := float(skill.get("radius", 60))
+		route_skill_type(type_name, radius2, dur, facing)
+		if frame_anim:
+			if type_name in ["melee_aoe", "dash_strike", "blink_strike"]:
+				frame_anim.play("attack")
+			else:
+				frame_anim.play("attack")
 
 	state = State.CAST
 	var ok: bool = await SkillExecutor.cast(self, skill)
@@ -440,8 +487,17 @@ func try_interact() -> void:
 		if d < best_dist:
 			best_dist = d
 			nearest = node
-	if nearest and nearest.has_method("interact"):
-		nearest.interact(self)
+	if nearest:
+		# 根据可交互对象类型选择 FORCE_READY 子状态
+		var sub := "dialog"
+		if nearest.is_in_group("forges") or nearest.is_in_group("craft_stations"):
+			sub = "forge"
+		elif nearest.is_in_group("chests") or nearest.is_in_group("resources"):
+			sub = "search"
+		if _anim:
+			_anim.enter_force_ready(sub)
+		if nearest.has_method("interact"):
+			nearest.interact(self)
 
 func is_invulnerable() -> bool:
 	return dash_timer > 0.0
@@ -463,13 +519,15 @@ func _flash_and_poke(source: Node) -> void:
 	# 颜色闪烁
 	if _anim:
 		_anim.flash(Color(1.0, 0.55, 0.55), 0.12)
-		# 计算被击退方向
 		var dir := Vector2.ZERO
 		if source is Node2D:
 			dir = (global_position - (source as Node2D).global_position).normalized()
 		if dir.length() < 0.01:
 			dir = -facing
 		_anim.enter_hurt(dir, Color(1.0, 0.55, 0.55))
+	# 帧动画层：受击闪红 2 帧
+	if frame_anim:
+		frame_anim.play("hit")
 	if ScreenShake and ScreenShake.has_method("shake"):
 		ScreenShake.shake(3.2, 0.14, 55.0)
 
@@ -489,7 +547,58 @@ func revive() -> void:
 		_anim._mod_flash = 0.0
 	if visual:
 		visual.modulate = Color.WHITE
+	if frame_anim:
+		frame_anim.play("idle")
 	dash_timer = 0.0
+
+# ============ 动作路由函数：每种武器/技能类型→专属 SpriteAnim ============
+
+func route_basic_attack_kind(kind: String, profile: Dictionary, range: float, dur: float, dir: Vector2) -> void:
+	"""按普攻武器类型选动作（近战→剑挥，远程→弓拉，投掷→炸弹抛）"""
+	if _anim == null:
+		return
+	var icon_name := str(profile.get("icon", ""))
+	var color_str := str(profile.get("color", "#ffffff"))
+	var color := Color.from_string(color_str, Color.WHITE)
+	if kind == "melee":
+		_anim.enter_sword_swing(range, dur, dir)
+	elif kind == "projectile":
+		# 红色/橙色 + icon 含 bomb/blast → 炸弹投掷动作
+		var bomb_keywords := ["bomb", "blast", "grenade", "explosive", "bomber", "aluminum"]
+		var is_bomb := icon_name.to_lower().contains("bomb") or color.r > 0.85 and color.g < 0.55
+		if is_bomb:
+			_anim.enter_throw_bomb(dur * 1.4, dir)
+		else:
+			_anim.enter_bow_draw(dur * 1.5, dir)
+	else:
+		_anim.enter_cast_spell(dur * 1.6, dir)
+
+func route_skill_type(type_name: String, radius: float, dur: float, dir: Vector2) -> void:
+	"""按技能 type 字段选最匹配的专属动作"""
+	if _anim == null:
+		return
+	match type_name:
+		# 近战系：剑/斧挥砍（大幅前冲 + 过顶劈）
+		"melee_aoe", "dash_strike", "blink_strike":
+			_anim.enter_sword_swing(radius, dur * 1.1, dir)
+		# 远程系：弓拉弦蓄力（后拉 + body 压缩）
+		"projectile", "snipe", "mark", "pull_zone":
+			_anim.enter_bow_draw(dur * 1.5, dir)
+		# 投掷系：手榴弹上抛（下蹲 + 上抛）
+		"deployable":
+			_anim.enter_throw_bomb(dur * 1.6, dir)
+		# 召唤：法阵仪式（下沉 + 放大 + 旋转）
+		"summon":
+			_anim.enter_summon_ritual(dur * 2.0, dir)
+		# 治疗/增益：法术双手上抬
+		"heal", "buff", "shield", "heal_zone":
+			_anim.enter_cast_spell(dur * 1.5, dir)
+		# 链式/区域/状态类：标准法术咏唱
+		"chain", "aoe_zone", "root_zone", "stun_wave":
+			_anim.enter_cast_spell(dur * 1.3, dir)
+		_:
+			# fallback
+			_anim.enter_cast(dur, dir)
 
 func get_skill_cooldown_ratio(slot: int) -> float:
 	if slot < 0 or slot >= skill_cooldowns.size() or character_data == null:

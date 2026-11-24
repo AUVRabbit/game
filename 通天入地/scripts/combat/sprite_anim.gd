@@ -1,12 +1,25 @@
 # ============================================================
-# SpriteAnim — 通用 Node2D 动画控制器（纯 tween 形变 + 呼吸 + 冲刺残影）
-# 适配玩家与敌人，不依赖 AnimatedSprite2D / SpriteFrames。
+# SpriteAnim — 程序化形变动画控制器（13 种独立动作）
+#
+# 动作类型：
+#   基础:    IDLE / RUN / ATTACK / CAST / DASH / HURT / DEAD
+#   武器化:  SWORD_SWING / BOW_DRAW / THROW_BOMB
+#   职业化:  CAST_SPELL / SUMMON_RITUAL
+#   场景化:  FORCE_READY  (对话/搜寻/锻造通用锁定状态)
+#
+# 每种动作都有专属 Tween 曲线（蓄力→释放→收招），不是简单几帧循环。
+# 不依赖 AnimatedSprite2D / SpriteFrames。
 # ============================================================
 
 extends Node2D
 class_name SpriteAnim
 
-enum AnimState { IDLE, RUN, ATTACK, CAST, DASH, HURT, DEAD }
+enum AnimState {
+	IDLE, RUN, ATTACK, CAST, DASH, HURT, DEAD,   # 7 基础
+	SWORD_SWING, BOW_DRAW, THROW_BOMB,             # 3 武器化
+	CAST_SPELL, SUMMON_RITUAL,                    # 2 职业化
+	FORCE_READY                                   # 1 场景化（对话/搜寻/锻造）
+}
 
 var target: Node2D = null
 var _is_character_body := false
@@ -24,7 +37,7 @@ var _attack_timer: float = 0.0
 var _attack_total: float = 0.0
 var _attack_target_pos: Vector2 = Vector2.ZERO
 var _attack_range: float = 0.0
-var _attack_kind: String = ""  # "melee" | "projectile"
+var _attack_kind: String = ""  # "melee" | "projectile" | "bow" | "swing" | "bomb" | "spell" | "summon"
 var _hurt_timer: float = 0.0
 var _hurt_push: Vector2 = Vector2.ZERO
 var _dead_timer: float = 0.0
@@ -34,12 +47,14 @@ var _flash_color: Color = Color.WHITE
 var _ghost_spawn_interval: float = 0.055
 var _ghost_last_spawn: float = 0.0
 var _ghost_lifetime: float = 0.18
+# FORCE_READY 子状态（场景化状态内部细分）
+var _force_subtype: String = "dialog"  # "dialog" | "search" | "forge"
+var _force_timer: float = 0.0
 
 func setup(owner: Node2D) -> void:
 	target = owner
 	_is_character_body = owner is CharacterBody2D
 	if _is_character_body:
-		# CharacterBody2D 的 position 由物理系统管理，动画只改 offset
 		_base_offset = Vector2.ZERO
 	else:
 		_base_offset = owner.position
@@ -53,7 +68,7 @@ func _process(delta: float) -> void:
 		return
 	_breath_t += delta
 
-	# 伤害闪烁叠加颜色
+	# 伤害闪烁
 	var color := Color(1.0, 1.0, 1.0, 1.0)
 	if _mod_flash > 0.0:
 		_mod_flash -= delta
@@ -65,33 +80,35 @@ func _process(delta: float) -> void:
 	if target.has_method("set_modulate"):
 		target.modulate = color
 
-	# 呼吸：idle 时慢，run 时快
+	# 呼吸
 	var breath_speed := 2.6 if state == AnimState.RUN else 1.6
 	var breath_strength := 2.2 if state == AnimState.RUN else 1.2
 	var breath_y := sin(_breath_t * breath_speed) * breath_strength
 	var breath_x := cos(_breath_t * breath_speed * 0.5) * breath_strength * 0.3
 
-	# 动作特定的位移/缩放/旋转
 	var action_offset := Vector2(breath_x, breath_y)
 	var action_scale := 1.0
 	var action_rot := 0.0
 
 	match state:
 		AnimState.IDLE:
+			# 细腻呼吸 + 微重心摇摆 + 眨眼（模拟）
 			action_scale = 1.0 + sin(_breath_t * 1.4) * 0.02
+			action_offset.x += sin(_breath_t * 0.9) * 0.8
+			action_offset.y += sin(_breath_t * 2.2) * 0.4
+			action_rot = sin(_breath_t * 0.6) * 0.015
 		AnimState.RUN:
 			var step = sin(_breath_t * 9.0)
 			action_offset.y += step * 3.0
 			action_offset.x += step * facing.x * 2.0
 			action_scale = 1.0 + step * 0.04
+			action_rot = step * facing.x * 0.04
 		AnimState.ATTACK:
 			var t := clampf(_attack_timer / maxf(_attack_total, 0.001), 0.0, 1.0)
 			if _attack_kind == "melee":
-				# D3 三段式：蓄力(t<0.2) → 前冲命中(0.2~0.55) → 收招(0.55~1.0)
+				# 三段式：蓄力(t<0.22) → 前冲命中(0.22~0.55) → 收招(0.55~1.0)
 				var forward = facing * _attack_range
-				var kf_mult: float = 0.0
-				var scale_k: float = 1.0
-				var rot_k: float = 0.0
+				var kf_mult: float = 0.0; var scale_k: float = 1.0; var rot_k: float = 0.0
 				if t < 0.22:
 					kf_mult = -sin(t / 0.22 * PI) * 0.35
 					scale_k = 1.12 - sin(t / 0.22 * PI) * 0.07
@@ -107,35 +124,121 @@ func _process(delta: float) -> void:
 					scale_k = 1.0 + 0.02 * sin(t3 * PI * 2.0)
 					rot_k = facing.x * 0.1 * sin(t3 * PI * 0.8)
 				action_offset = forward * kf_mult * 0.7 + Vector2(0, sin(_breath_t * 8) * 1.2)
-				action_scale = scale_k
-				action_rot = rot_k
+				action_scale = scale_k; action_rot = rot_k
 			else:
-				var offset_vec := Vector2.ZERO
-				var rot_k: float = 0.0
-				var scale_k: float = 1.0
+				var offset_vec := Vector2.ZERO; var rot_k2: float = 0.0; var scale_k2: float = 1.0
 				if t < 0.35:
 					var t2 := t / 0.35
 					offset_vec = -facing * 4.0 * sin(t2 * PI)
-					rot_k = -facing.x * 0.14 * sin(t2 * PI)
-					scale_k = 0.93 + 0.07 * t2
+					rot_k2 = -facing.x * 0.14 * sin(t2 * PI)
+					scale_k2 = 0.93 + 0.07 * t2
 				elif t < 0.55:
 					var t2 := (t - 0.35) / 0.2
 					offset_vec = facing * 3.0 * sin(t2 * PI)
-					rot_k = facing.x * 0.22 * sin(t2 * PI)
-					scale_k = 1.04
+					rot_k2 = facing.x * 0.22 * sin(t2 * PI)
+					scale_k2 = 1.04
 				else:
 					var t3 := (t - 0.55) / 0.45
 					offset_vec = -facing * 1.0 * sin(t3 * PI * 0.8)
-					rot_k = facing.x * 0.06 * sin(t3 * PI)
-					scale_k = 1.0
+					rot_k2 = facing.x * 0.06 * sin(t3 * PI)
+					scale_k2 = 1.0
 				action_offset = offset_vec + Vector2(0, sin(_breath_t * 6) * 0.6)
-				action_rot = rot_k
-				action_scale = scale_k
-		AnimState.CAST:
-			# 施法：上抬 + 双手光环 + 咏唱时身体脉动
+				action_rot = rot_k2; action_scale = scale_k2
+		# ============ 新动作 1：SWORD_SWING 剑/斧挥砍 ============
+		AnimState.SWORD_SWING:
 			var t := clampf(_attack_timer / maxf(_attack_total, 0.001), 0.0, 1.0)
-			action_offset = Vector2(0, -2.0 * sin(t * PI * 3))
-			action_scale = 1.0 + 0.06 * sin(t * PI * 4)
+			var forward = facing * _attack_range
+			var kf_mult: float = 0.0; var scale_k: float = 1.0; var rot_k: float = 0.0
+			if t < 0.18:
+				# 蓄力：身体后压 + 剑往后摆
+				kf_mult = -sin(t / 0.18 * PI) * 0.3
+				scale_k = 1.08 - sin(t / 0.18 * PI) * 0.05
+				rot_k = -0.45 * (t / 0.18) * facing.x
+			elif t < 0.42:
+				# 挥击：大幅前冲 + 旋转 -0.45 → +0.45 弧度（过顶劈）
+				var t2 := (t - 0.18) / 0.24
+				kf_mult = sin(t2 * PI) * 1.4
+				scale_k = 1.12 + sin(t2 * PI) * 0.08
+				rot_k = lerpf(-0.45, 0.45, t2) * facing.x
+			elif t < 0.62:
+				# 劈完回摆
+				var t3 := (t - 0.42) / 0.2
+				kf_mult = 0.7 * sin(PI - t3 * PI)
+				scale_k = 1.05
+				rot_k = 0.45 * (1.0 - t3) * facing.x
+			else:
+				var t4 := (t - 0.62) / 0.38
+				kf_mult = -0.2 * sin(t4 * PI * 0.5)
+				rot_k = 0.08 * sin(t4 * PI) * facing.x
+			action_offset = forward * kf_mult * 0.7
+			action_scale = scale_k; action_rot = rot_k
+		# ============ 新动作 2：BOW_DRAW 弓拉弦 ============
+		AnimState.BOW_DRAW:
+			var t := clampf(_attack_timer / maxf(_attack_total, 0.001), 0.0, 1.0)
+			var back = -facing  # 拉弓往回
+			var kf_mult: float = 0.0; var scale_k: float = 1.0; var rot_k: float = 0.0
+			if t < 0.55:
+				# 蓄力：缓慢后拉 + body 压缩
+				var t2 := t / 0.55
+				kf_mult = sin(t2 * PI) * 1.0
+				scale_k = 0.94 + t2 * 0.06
+				rot_k = -facing.x * 0.08 * t2
+				action_offset = back * kf_mult + Vector2(0, -2.0 * sin(t2 * PI))
+			elif t < 0.72:
+				# 放箭！前冲 + 反弹
+				var t2 := (t - 0.55) / 0.17
+				kf_mult = sin(t2 * PI) * 1.3
+				scale_k = 1.10
+				rot_k = facing.x * 0.15
+				action_offset = facing * kf_mult + Vector2(0, -3.0 * sin(t2 * PI))
+			else:
+				var t3 := (t - 0.72) / 0.28
+				kf_mult = 0.3 * sin(t3 * PI * 0.6)
+				scale_k = 1.0
+				action_offset = facing * kf_mult
+			action_scale = scale_k; action_rot = rot_k
+		# ============ 新动作 3：THROW_BOMB 投掷炸弹 ============
+		AnimState.THROW_BOMB:
+			var t := clampf(_attack_timer / maxf(_attack_total, 0.001), 0.0, 1.0)
+			var kf_mult: float = 0.0; var scale_k: float = 1.0; var rot_k: float = 0.0
+			if t < 0.4:
+				# 蓄力：下蹲 + 身体后仰（手往后拉）
+				var t2 := t / 0.4
+				kf_mult = -sin(t2 * PI) * 0.3
+				scale_k = 0.92 + sin(t2 * PI) * 0.03
+				rot_k = -facing.x * 0.25 * (t2)
+				action_offset = facing * kf_mult + Vector2(0, sin(t2 * PI) * 2.0)
+			elif t < 0.55:
+				# 上抛！身体弹起 + 前倾（手往前上抛）
+				var t2 := (t - 0.4) / 0.15
+				kf_mult = sin(t2 * PI) * 0.5
+				scale_k = 1.08
+				rot_k = facing.x * 0.35 * sin(t2 * PI)
+				action_offset = facing * kf_mult + Vector2(0, -5.0 * sin(t2 * PI))
+			else:
+				var t3 := (t - 0.55) / 0.45
+				scale_k = 1.0 - 0.05 * (1.0 - t3)
+				rot_k = facing.x * 0.12 * sin(t3 * PI * 0.5)
+				action_offset = Vector2(0, 0.5 * sin(t3 * PI))
+			action_scale = scale_k; action_rot = rot_k
+		# ============ 新动作 4：CAST_SPELL 法术咏唱 ============
+		AnimState.CAST_SPELL:
+			var t := clampf(_attack_timer / maxf(_attack_total, 0.001), 0.0, 1.0)
+			# 法师：双手上抬 -6px + 身体快速脉动 scale + 轻微左右摇摆
+			action_offset = Vector2(sin(t * PI * 4) * 1.5, -3.0 * sin(t * PI * 2.5))
+			action_scale = 1.0 + 0.08 * sin(t * PI * 5)
+			action_rot = sin(t * PI * 3) * 0.04
+		# ============ 新动作 5：SUMMON_RITUAL 召唤法阵 ============
+		AnimState.SUMMON_RITUAL:
+			var t := clampf(_attack_timer / maxf(_attack_total, 0.001), 0.0, 1.0)
+			# 召唤：身体下沉 + 放大 + 慢速旋转光环 + 轻微左右摇摆
+			action_offset = Vector2(sin(t * PI * 2) * 2.0, 2.0 * sin(t * PI * 3))
+			action_scale = 1.0 + 0.12 * sin(t * PI * 2)
+			action_rot = sin(t * PI * 1.5) * 0.08
+		AnimState.CAST:
+			var t_cast := clampf(_attack_timer / maxf(_attack_total, 0.001), 0.0, 1.0)
+			action_offset = Vector2(0, -2.0 * sin(t_cast * PI * 3))
+			action_scale = 1.0 + 0.06 * sin(t_cast * PI * 4)
 		AnimState.DASH:
 			action_scale = 1.0 + sin(_breath_t * 20) * 0.04
 		AnimState.HURT:
@@ -148,6 +251,43 @@ func _process(delta: float) -> void:
 			action_scale = 1.0 - 0.2 * t
 			color.a = 1.0 - 0.5 * t
 			target.modulate = color
+		# ============ 新动作 6：FORCE_READY 对话/搜寻/锻造 ============
+		AnimState.FORCE_READY:
+			_force_timer += delta
+			match _force_subtype:
+				"dialog":
+					# 对话：轻微前后摇摆 + 每 1.2s 眨一次眼（缩一下）
+					action_offset.x = sin(_breath_t * 1.0) * 1.5
+					action_offset.y = -1.0 + sin(_breath_t * 1.8) * 0.8
+					action_scale = 0.99 + sin(_breath_t * 1.0) * 0.01
+					action_rot = sin(_breath_t * 0.7) * 0.025
+					# 眨眼（身体快速缩一下模拟）
+					if fmod(_force_timer, 2.4) < 0.08:
+						action_scale *= 0.94
+				"search":
+					# 搜寻：身体前倾 + 左右快速张望
+					action_offset.y = -2.5  # 前倾
+					action_offset.x = sin(_breath_t * 3.2) * 4.0  # 左右快速扫
+					action_rot = sin(_breath_t * 3.2) * 0.08 * facing.x
+					action_scale = 1.0
+				"forge":
+					# 锻造：规律性上下锤 + 身体缩放
+					var hammer_t := fmod(_force_timer, 0.75) / 0.75
+					# 锤子循环：蓄力(0~0.35) → 敲击(0.35~0.4) → 抬起(0.4~0.75)
+					if hammer_t < 0.35:
+						var t2 := hammer_t / 0.35
+						action_offset.y = -4.0 * sin(t2 * PI)  # 抬手蓄力
+						action_scale = 1.02
+					elif hammer_t < 0.45:
+						var t2 := (hammer_t - 0.35) / 0.1
+						action_offset.y = -4.0 + 10.0 * t2  # 快速砸下
+						action_scale = 0.94 - t2 * 0.04
+						action_rot = facing.x * 0.15 * (1.0 - t2)  # 锤砸时身体旋转
+					else:
+						var t2 := (hammer_t - 0.45) / 0.3
+						action_offset.y = 6.0 * (1.0 - t2)  # 慢慢抬起
+						action_scale = 1.0
+						action_rot *= (1.0 - t2)
 
 	# 冲刺残影
 	if state == AnimState.DASH:
@@ -159,14 +299,12 @@ func _process(delta: float) -> void:
 	# 应用组合
 	var final_offset := _base_offset + action_offset + _active_offset
 	if _is_character_body:
-		# CharacterBody2D 的 position 由物理系统管理，通过自定义属性传递视觉偏移
 		target.set("visual_offset", final_offset)
 	else:
 		target.position = final_offset
 	target.rotation = _active_rotation + action_rot
 	target.scale = _base_scale * _active_scale_mult * action_scale
 
-	# tick 计时器
 	if _attack_timer > 0.0:
 		_attack_timer -= delta
 	if _hurt_timer > 0.0:
@@ -187,6 +325,52 @@ func enter_attack(fkind: String, range: float, duration: float, target_pos: Vect
 		facing = dir.normalized()
 	if target_pos.length() > 0.001:
 		_attack_target_pos = target_pos
+
+
+func enter_sword_swing(range: float, duration: float = 0.35, dir: Vector2 = Vector2.ZERO) -> void:
+	state = AnimState.SWORD_SWING
+	_attack_kind = "swing"
+	_attack_range = range
+	_attack_total = duration
+	_attack_timer = duration
+	if dir.length() > 0.01:
+		facing = dir.normalized()
+
+
+func enter_bow_draw(duration: float = 0.42, dir: Vector2 = Vector2.ZERO) -> void:
+	state = AnimState.BOW_DRAW
+	_attack_kind = "bow"
+	_attack_total = duration
+	_attack_timer = duration
+	if dir.length() > 0.01:
+		facing = dir.normalized()
+
+
+func enter_throw_bomb(duration: float = 0.45, dir: Vector2 = Vector2.ZERO) -> void:
+	state = AnimState.THROW_BOMB
+	_attack_kind = "bomb"
+	_attack_total = duration
+	_attack_timer = duration
+	if dir.length() > 0.01:
+		facing = dir.normalized()
+
+
+func enter_cast_spell(duration: float = 0.45, dir: Vector2 = Vector2.ZERO) -> void:
+	state = AnimState.CAST_SPELL
+	_attack_kind = "spell"
+	_attack_total = duration
+	_attack_timer = duration
+	if dir.length() > 0.01:
+		facing = dir.normalized()
+
+
+func enter_summon_ritual(duration: float = 0.65, dir: Vector2 = Vector2.ZERO) -> void:
+	state = AnimState.SUMMON_RITUAL
+	_attack_kind = "summon"
+	_attack_total = duration
+	_attack_timer = duration
+	if dir.length() > 0.01:
+		facing = dir.normalized()
 
 
 func enter_cast(duration: float, dir: Vector2 = Vector2.ZERO) -> void:
@@ -217,9 +401,14 @@ func enter_dead() -> void:
 	_dead_timer = 0.0
 
 
+func enter_force_ready(subtype: String = "dialog") -> void:
+	state = AnimState.FORCE_READY
+	_force_subtype = subtype
+	_force_timer = 0.0
+
+
 func settle_to(next_state: AnimState, new_facing: Vector2, move_m: float = 0.0) -> void:
-	# 只有在非动作状态下才跟随
-	if state == AnimState.HURT:
+	if state == AnimState.HURT or state == AnimState.FORCE_READY:
 		return
 	state = next_state
 	if new_facing.length() > 0.01:
@@ -240,7 +429,6 @@ func _spawn_ghost() -> void:
 	if target is Sprite2D:
 		src = (target as Sprite2D).texture
 	else:
-		# 尝试 Visual 子节点
 		var vis = target.get_node_or_null("Visual")
 		if vis:
 			for c in vis.get_children():
