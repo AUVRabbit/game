@@ -14,6 +14,34 @@ var primary_element: String = "earth"
 var remaining: float = 30.0
 var color: Color = Color(0.85, 0.8, 0.7)
 var harvestable: bool = true
+var sprite: Sprite2D = null
+var _use_sprite: bool = false
+
+func _asset_id_for_type() -> String:
+	match corpse_type:
+		CorpseType.SKELETON:      return "corpse_skeleton"
+		CorpseType.ZOMBIE:       return "corpse_zombie"
+		CorpseType.ELEMENTAL_FIRE: return "corpse_fire"
+		CorpseType.ELEMENTAL_WATER: return "corpse_water"
+		CorpseType.MECH:         return "corpse_mech"
+		CorpseType.SLIME:        return "corpse_slime"
+		CorpseType.GHOST:        return "corpse_ghost"
+		CorpseType.OGRE:         return "corpse_ogre"
+	return ""
+
+func _ready() -> void:
+	var asset_id := _asset_id_for_type()
+	if asset_id != "" and AssetLibrary.has(asset_id):
+		var tex := AssetLibrary.texture(asset_id)
+		if tex != null:
+			sprite = Sprite2D.new()
+			sprite.name = "CorpseSprite"
+			sprite.texture = tex
+			sprite.texture_filter = CanvasItem.TEXTURE_FILTER_NEAREST
+			var fit := 40.0 / float(maxi(tex.get_width(), tex.get_height()))
+			sprite.scale = Vector2.ONE * fit
+			add_child(sprite)
+			_use_sprite = true
 
 func setup(type: int, element: String, col: Color) -> void:
 	corpse_type = type
@@ -44,16 +72,21 @@ func _draw() -> void:
 	var t := Time.get_ticks_msec() / 1000.0
 	# 地面阴影（所有类型共用）
 	draw_ellipse(Vector2(0, 4), 18.0, 6.0, Color(0.0, 0.0, 0.0, 0.3 * alpha))
-	match corpse_type:
-		CorpseType.SKELETON: _draw_skeleton(alpha)
-		CorpseType.ZOMBIE: _draw_zombie(alpha)
-		CorpseType.ELEMENTAL_FIRE: _draw_fire(alpha, t)
-		CorpseType.ELEMENTAL_WATER: _draw_water(alpha, t)
-		CorpseType.MECH: _draw_mech(alpha)
-		CorpseType.SLIME: _draw_slime(alpha, t)
-		CorpseType.GHOST: _draw_ghost(alpha, t)
-		CorpseType.OGRE: _draw_ogre(alpha)
-		_: draw_circle(Vector2.ZERO, 12.0, Color(color.r, color.g, color.b, alpha * 0.5))
+	# 有 sprite 贴图时跳过程序化身体绘制
+	if _use_sprite:
+		if sprite != null:
+			sprite.modulate.a = alpha
+	else:
+		match corpse_type:
+			CorpseType.SKELETON: _draw_skeleton(alpha)
+			CorpseType.ZOMBIE: _draw_zombie(alpha)
+			CorpseType.ELEMENTAL_FIRE: _draw_fire(alpha, t)
+			CorpseType.ELEMENTAL_WATER: _draw_water(alpha, t)
+			CorpseType.MECH: _draw_mech(alpha)
+			CorpseType.SLIME: _draw_slime(alpha, t)
+			CorpseType.GHOST: _draw_ghost(alpha, t)
+			CorpseType.OGRE: _draw_ogre(alpha)
+			_: draw_circle(Vector2.ZERO, 12.0, Color(color.r, color.g, color.b, alpha * 0.5))
 	# 腐化倒计时条（≤20s 显示）
 	if remaining <= 20.0:
 		var bar_w := 28.0 * (remaining / 30.0)

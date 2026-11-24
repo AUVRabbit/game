@@ -21,6 +21,10 @@ static func path_for(asset_id: String) -> String:
 		return "res://assets/vfx/%s.png" % asset_id.substr(4)
 	if asset_id.begins_with("enemy_"):
 		return "res://assets/sprites/%s.png" % asset_id
+	if asset_id.begins_with("minion_"):
+		return "res://assets/sprites/%s.png" % asset_id
+	if asset_id.begins_with("corpse_"):
+		return "res://assets/sprites/%s.png" % asset_id
 	if asset_id.begins_with("sprite_"):
 		return "res://assets/sprites/world/%s.png" % asset_id.substr(7)
 	if asset_id.begins_with("ground_"):

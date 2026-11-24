@@ -26,6 +26,20 @@ var pulse: float = 0.0
 var lifetime_left: float = 0.0
 var attack_flash: float = 0.0
 var _facing: Vector2 = Vector2.DOWN
+var sprite: Sprite2D = null
+var _use_sprite: bool = false
+
+func _asset_id_for_type() -> String:
+	match minion_type:
+		"ghost":   return "minion_archer"
+		"zombie":  return "minion_zombie"
+		"fire":    return "minion_fire"
+		"water":   return "minion_water"
+		"thunder": return "minion_thunder"
+		"mech":    return "minion_mech"
+		"shadow":  return "minion_shadow"
+		"giant":   return "minion_giant"
+	return ""
 
 func _ready() -> void:
 	add_to_group("summons")
@@ -33,6 +47,25 @@ func _ready() -> void:
 	collision_mask = 0
 	z_index = 1
 	lifetime_left = lifetime
+	# 尝试加载 sprite 贴图，有就挂 Sprite2D，没就 fallback 到程序化 _draw
+	var asset_id := _asset_id_for_type()
+	if asset_id != "" and AssetLibrary.has(asset_id):
+		var tex := AssetLibrary.texture(asset_id)
+		if tex != null:
+			sprite = Sprite2D.new()
+			sprite.name = "MinionSprite"
+			sprite.texture = tex
+			sprite.texture_filter = CanvasItem.TEXTURE_FILTER_NEAREST
+			# 按 body_scale 缩放（96x96 原图，48px 游戏单位 → 0.5 scale）
+			var target := 38.0 * body_scale
+			var fit := target / float(maxi(tex.get_width(), tex.get_height()))
+			sprite.scale = Vector2.ONE * fit
+			# 把 sprite 往上抬一点（脚底对齐）
+			var half_h := float(tex.get_height()) * fit * 0.5
+			sprite.offset = Vector2(0, -half_h * 0.4)
+			add_child(sprite)
+			_use_sprite = true
+	queue_redraw()
 
 func _physics_process(delta: float) -> void:
 	pulse += delta
@@ -155,6 +188,9 @@ func _draw() -> void:
 	if attack_flash > 0.0:
 		var flash_a := attack_flash / 0.15
 		draw_arc(Vector2.ZERO, 40.0 * s, 0, TAU, 32, Color(1, 1, 1, flash_a * 0.4), 3.0)
+	# 有 sprite 贴图时跳过程序化身体绘制（Sprite2D 已经挂上）
+	if _use_sprite:
+		return
 	if minion_type == "ghost":
 		_draw_archer(s)
 	elif minion_type == "zombie":

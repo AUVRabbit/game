@@ -91,6 +91,10 @@ func _load_sprite() -> Texture2D:
 				asset_id = "enemy_mech_spider"
 			"wraith":
 				asset_id = "enemy_wraith"
+			"skeleton":
+				asset_id = "enemy_skeleton"
+			"lava_giant", "fire_elemental":
+				asset_id = "enemy_lava_giant"
 			_:
 				asset_id = ""
 	if asset_id == "":
