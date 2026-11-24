@@ -77,7 +77,7 @@ func _ready() -> void:
 	# === 帧动画层（AnimatedSprite2D）===
 	var sheet_id := _sheet_asset_id()
 	if sheet_id != "":
-		_try_attach_animated_sprite(sheet_id, frame_w=96, frame_h=96)
+		_try_attach_animated_sprite(sheet_id, 96, 96)
 	# === 形变层（SpriteAnim 保留做动态前冲/旋转/呼吸）===
 	_anim = SpriteAnim.new()
 	_anim.name = "Anim"

@@ -18,7 +18,8 @@ enum AnimState {
 	IDLE, RUN, ATTACK, CAST, DASH, HURT, DEAD,   # 7 基础
 	SWORD_SWING, BOW_DRAW, THROW_BOMB,             # 3 武器化
 	CAST_SPELL, SUMMON_RITUAL,                    # 2 职业化
-	FORCE_READY                                   # 1 场景化（对话/搜寻/锻造）
+	FORCE_READY,                                  # 1 场景化（对话/搜寻/锻造）
+	CROUCH, WALK_CROUCH, PRONE, LURK,             # 4 低姿态
 }
 
 var target: Node2D = null
@@ -231,10 +232,35 @@ func _process(delta: float) -> void:
 		# ============ 新动作 5：SUMMON_RITUAL 召唤法阵 ============
 		AnimState.SUMMON_RITUAL:
 			var t := clampf(_attack_timer / maxf(_attack_total, 0.001), 0.0, 1.0)
-			# 召唤：身体下沉 + 放大 + 慢速旋转光环 + 轻微左右摇摆
 			action_offset = Vector2(sin(t * PI * 2) * 2.0, 2.0 * sin(t * PI * 3))
 			action_scale = 1.0 + 0.12 * sin(t * PI * 2)
 			action_rot = sin(t * PI * 1.5) * 0.08
+		# ============ 低姿态新增（独立于 FORCE_READY）============
+		AnimState.CROUCH:
+			# 蹲下：身体压扁 + 重心下移 + 轻微呼吸
+			action_scale = Vector2(1.05, 0.78)
+			action_offset = Vector2(0, 6.0 + sin(_breath_t * 2) * 0.5)
+			action_rot = 0.0
+		AnimState.WALK_CROUCH:
+			# 蹲走：压扁 + 下移 + 小步频摆动
+			var step := sin(_breath_t * 6.5)
+			action_scale = Vector2(1.05, 0.78)
+			action_offset = Vector2(step * 1.5, 6.0 + step * 1.2)
+			action_rot = step * facing.x * 0.02
+		AnimState.PRONE:
+			# 趴下：完全压扁 + 平躺 + 轻微呼吸
+			action_scale = Vector2(1.15, 0.45)
+			action_offset = Vector2(0, 12.0)
+			action_rot = sin(_breath_t * 1.2) * 0.03
+		AnimState.LURK:
+			# 潜伏：半蹲 + 左右探头 + 身体微微发抖
+			var peek := sin(_breath_t * 1.8)
+			action_scale = Vector2(1.02, 0.88)
+			action_offset = Vector2(peek * 2.5, 3.5)
+			action_rot = peek * 0.05 + sin(_breath_t * 11) * 0.008  # 微抖
+			# 透明度脉动（隐形感）
+			color.a = 0.85 + sin(_breath_t * 2.5) * 0.1
+			target.modulate = color
 		AnimState.CAST:
 			var t_cast := clampf(_attack_timer / maxf(_attack_total, 0.001), 0.0, 1.0)
 			action_offset = Vector2(0, -2.0 * sin(t_cast * PI * 3))
