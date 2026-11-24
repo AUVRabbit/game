@@ -1,0 +1,824 @@
+2026-11-24T11:45:23 | ========== TRAINING GROUND AUDIT START ==========
+2026-11-24T11:45:23 | Godot=4.7.2-stable (official)
+2026-11-24T11:45:23 | ACTION  新游戏 → 进入训练场
+2026-11-24T11:45:25 | PASS  训练场场景加载 | res://scenes/world/training_ground.tscn
+2026-11-24T11:45:25 | PASS  训练场出战角色存在 | 
+2026-11-24T11:45:26 | PASS  职业石数量 = 16 | 16
+2026-11-24T11:45:26 | PASS  元素木桩数量 = 8 | 8
+2026-11-24T11:45:26 | PASS  木桩进入 training_dummies 组 | 8
+2026-11-24T11:45:26 | PASS  存在中性物理木桩（不受元素免疫干扰） | 
+2026-11-24T11:45:26 | PASS  三功能台所属 Dynamic 节点存在 | 
+2026-11-24T11:45:26 | PASS  训练场信息面板存在 | 
+2026-11-24T11:45:26 | SHOT    screenshots/00_training_overview.jpg
+2026-11-24T11:45:26 | ACTION  遍历 16 职业石：切换职业 + 完整进阶 + 立绘/技能校验
+2026-11-24T11:45:26 | PASS  职业 mage 切换/技能/进阶 | class=mage skills=10 stage=4 slots=10
+2026-11-24T11:45:26 | PASS  职业 mage 立绘加载 | 
+2026-11-24T11:45:26 | SHOT    classes/01_mage.jpg
+2026-11-24T11:45:26 | PASS  职业 runeward 切换/技能/进阶 | class=runeward skills=10 stage=4 slots=10
+2026-11-24T11:45:26 | PASS  职业 runeward 立绘加载 | 
+2026-11-24T11:45:26 | SHOT    classes/02_runeward.jpg
+2026-11-24T11:45:27 | PASS  职业 priest 切换/技能/进阶 | class=priest skills=10 stage=4 slots=10
+2026-11-24T11:45:27 | PASS  职业 priest 立绘加载 | 
+2026-11-24T11:45:27 | SHOT    classes/03_priest.jpg
+2026-11-24T11:45:27 | PASS  职业 necromancer 切换/技能/进阶 | class=necromancer skills=10 stage=4 slots=10
+2026-11-24T11:45:27 | PASS  职业 necromancer 立绘加载 | 
+2026-11-24T11:45:27 | SHOT    classes/04_necromancer.jpg
+2026-11-24T11:45:27 | PASS  职业 bomber 切换/技能/进阶 | class=bomber skills=10 stage=4 slots=10
+2026-11-24T11:45:27 | PASS  职业 bomber 立绘加载 | 
+2026-11-24T11:45:27 | SHOT    classes/05_bomber.jpg
+2026-11-24T11:45:28 | PASS  职业 mech_pilot 切换/技能/进阶 | class=mech_pilot skills=10 stage=4 slots=10
+2026-11-24T11:45:28 | PASS  职业 mech_pilot 立绘加载 | 
+2026-11-24T11:45:28 | SHOT    classes/06_mech_pilot.jpg
+2026-11-24T11:45:28 | PASS  职业 engineer 切换/技能/进阶 | class=engineer skills=10 stage=4 slots=10
+2026-11-24T11:45:28 | PASS  职业 engineer 立绘加载 | 
+2026-11-24T11:45:28 | SHOT    classes/07_engineer.jpg
+2026-11-24T11:45:28 | PASS  职业 bounty_hunter 切换/技能/进阶 | class=bounty_hunter skills=10 stage=4 slots=10
+2026-11-24T11:45:28 | PASS  职业 bounty_hunter 立绘加载 | 
+2026-11-24T11:45:28 | SHOT    classes/08_bounty_hunter.jpg
+2026-11-24T11:45:29 | PASS  职业 death_knight 切换/技能/进阶 | class=death_knight skills=10 stage=4 slots=10
+2026-11-24T11:45:29 | PASS  职业 death_knight 立绘加载 | 
+2026-11-24T11:45:29 | SHOT    classes/09_death_knight.jpg
+2026-11-24T11:45:29 | PASS  职业 warrior 切换/技能/进阶 | class=warrior skills=10 stage=4 slots=10
+2026-11-24T11:45:29 | PASS  职业 warrior 立绘加载 | 
+2026-11-24T11:45:29 | SHOT    classes/10_warrior.jpg
+2026-11-24T11:45:29 | PASS  职业 qi_adept 切换/技能/进阶 | class=qi_adept skills=10 stage=4 slots=10
+2026-11-24T11:45:29 | PASS  职业 qi_adept 立绘加载 | 
+2026-11-24T11:45:29 | SHOT    classes/11_qi_adept.jpg
+2026-11-24T11:45:30 | PASS  职业 thief 切换/技能/进阶 | class=thief skills=10 stage=4 slots=10
+2026-11-24T11:45:30 | PASS  职业 thief 立绘加载 | 
+2026-11-24T11:45:30 | SHOT    classes/12_thief.jpg
+2026-11-24T11:45:30 | PASS  职业 archer 切换/技能/进阶 | class=archer skills=10 stage=4 slots=10
+2026-11-24T11:45:30 | PASS  职业 archer 立绘加载 | 
+2026-11-24T11:45:30 | SHOT    classes/13_archer.jpg
+2026-11-24T11:45:30 | PASS  职业 cyborg 切换/技能/进阶 | class=cyborg skills=10 stage=4 slots=10
+2026-11-24T11:45:30 | PASS  职业 cyborg 立绘加载 | 
+2026-11-24T11:45:30 | SHOT    classes/14_cyborg.jpg
+2026-11-24T11:45:31 | PASS  职业 hacker 切换/技能/进阶 | class=hacker skills=10 stage=4 slots=10
+2026-11-24T11:45:31 | PASS  职业 hacker 立绘加载 | 
+2026-11-24T11:45:31 | SHOT    classes/15_hacker.jpg
+2026-11-24T11:45:31 | PASS  职业 sniper 切换/技能/进阶 | class=sniper skills=10 stage=4 slots=10
+2026-11-24T11:45:31 | PASS  职业 sniper 立绘加载 | 
+2026-11-24T11:45:31 | SHOT    classes/16_sniper.jpg
+2026-11-24T11:45:31 | ACTION  开始 16 职业全技能实测（进阶后每职业 10 技能槽）
+2026-11-24T11:45:31 | PASS  mage 技能数>=6（完整进阶 10） | 10
+2026-11-24T11:45:31 | ACTION  施放 mage[1] 火花术 / mage_a_1（projectile）
+2026-11-24T11:45:32 | OBSERVE 技能结果 OK projectile; Dmg 0->606, Hits 0->1; MP 783->775; CD=0.80; VFX=1; Anim=n/a
+2026-11-24T11:45:32 | SHOT    skills/001_mage_mage_a_1.jpg
+2026-11-24T11:45:32 | PASS  技能 mage-mage_a_1 | projectile; Dmg 0->606, Hits 0->1; MP 783->775; CD=0.80; VFX=1; Anim=n/a
+2026-11-24T11:45:32 | ACTION  施放 mage[2] 烈焰喷发 / mage_a_2（aoe_zone）
+2026-11-24T11:45:33 | OBSERVE 技能结果 OK aoe_zone; Dmg 0->491, Hits 0->1; MP 783->767; CD=5.05; VFX=0; Anim=n/a
+2026-11-24T11:45:33 | SHOT    skills/002_mage_mage_a_2.jpg
+2026-11-24T11:45:33 | PASS  技能 mage-mage_a_2 | aoe_zone; Dmg 0->491, Hits 0->1; MP 783->767; CD=5.05; VFX=0; Anim=n/a
+2026-11-24T11:45:33 | ACTION  施放 mage[3] 熔岩护甲 / mage_a_3（shield）
+2026-11-24T11:45:33 | OBSERVE 技能结果 OK shield; Shield 0->70; MP 783->765; CD=11.58; VFX=1; Anim=n/a
+2026-11-24T11:45:33 | SHOT    skills/003_mage_mage_a_3.jpg
+2026-11-24T11:45:33 | PASS  技能 mage-mage_a_3 | shield; Shield 0->70; MP 783->765; CD=11.58; VFX=1; Anim=n/a
+2026-11-24T11:45:33 | ACTION  施放 mage[4] 陨星术 / mage_a_4（aoe_zone）
+2026-11-24T11:45:35 | OBSERVE 技能结果 OK aoe_zone; Dmg 0->1826, Hits 0->2; MP 783->757; CD=10.83; VFX=0; Anim=n/a
+2026-11-24T11:45:35 | SHOT    skills/004_mage_mage_a_4.jpg
+2026-11-24T11:45:35 | PASS  技能 mage-mage_a_4 | aoe_zone; Dmg 0->1826, Hits 0->2; MP 783->757; CD=10.83; VFX=0; Anim=n/a
+2026-11-24T11:45:35 | ACTION  施放 mage[5] 烈焰风暴 / mage_a_5（aoe_zone）
+2026-11-24T11:45:36 | OBSERVE 技能结果 OK aoe_zone; Dmg 0->1404, Hits 0->2; MP 783->761; CD=9.00; VFX=0; Anim=n/a
+2026-11-24T11:45:36 | SHOT    skills/005_mage_mage_a_5.jpg
+2026-11-24T11:45:36 | PASS  技能 mage-mage_a_5 | aoe_zone; Dmg 0->1404, Hits 0->2; MP 783->761; CD=9.00; VFX=0; Anim=n/a
+2026-11-24T11:45:36 | ACTION  施放 mage[6] 焚天 / mage_a_6（aoe_zone）
+2026-11-24T11:45:37 | OBSERVE 技能结果 OK aoe_zone; Dmg 0->3144, Hits 0->3; MP 783->749; CD=16.72; VFX=0; Anim=n/a
+2026-11-24T11:45:37 | SHOT    skills/006_mage_mage_a_6.jpg
+2026-11-24T11:45:37 | PASS  技能 mage-mage_a_6 | aoe_zone; Dmg 0->3144, Hits 0->3; MP 783->749; CD=16.72; VFX=0; Anim=n/a
+2026-11-24T11:45:38 | ACTION  施放 mage[7] 元素轮舞 / mage_fusion（aoe_zone）
+2026-11-24T11:45:39 | OBSERVE 技能结果 OK aoe_zone; Dmg 0->6318, Hits 0->4; MP 783->723; CD=28.98; VFX=0; Anim=n/a
+2026-11-24T11:45:39 | SHOT    skills/007_mage_mage_fusion.jpg
+2026-11-24T11:45:39 | PASS  技能 mage-mage_fusion | aoe_zone; Dmg 0->6318, Hits 0->4; MP 783->723; CD=28.98; VFX=0; Anim=n/a
+2026-11-24T11:45:39 | ACTION  施放 mage[8] 灰烬领域 / mage_a_spec_a（aoe_zone）
+2026-11-24T11:45:40 | OBSERVE 技能结果 OK aoe_zone; Dmg 0->3833, Hits 0->3; MP 783->737; CD=24.90; VFX=0; Anim=n/a
+2026-11-24T11:45:40 | SHOT    skills/008_mage_mage_a_spec_a.jpg
+2026-11-24T11:45:40 | PASS  技能 mage-mage_a_spec_a | aoe_zone; Dmg 0->3833, Hits 0->3; MP 783->737; CD=24.90; VFX=0; Anim=n/a
+2026-11-24T11:45:40 | ACTION  施放 mage[9] 天火焚城 / mage_a_apex（aoe_zone）
+2026-11-24T11:45:42 | OBSERVE 技能结果 OK aoe_zone; Dmg 0->6570, Hits 0->4; MP 783->729; CD=30.57; VFX=0; Anim=n/a
+2026-11-24T11:45:42 | SHOT    skills/009_mage_mage_a_apex.jpg
+2026-11-24T11:45:42 | PASS  技能 mage-mage_a_apex | aoe_zone; Dmg 0->6570, Hits 0->4; MP 783->729; CD=30.57; VFX=0; Anim=n/a
+2026-11-24T11:45:42 | ACTION  施放 mage[10] 烈焰突进 / mage_a_spec_b（dash_strike）
+2026-11-24T11:45:42 | OBSERVE 技能结果 OK dash_strike; Move 232, Dmg 0->2581; MP 783->753; CD=14.68; VFX=1; Anim=n/a
+2026-11-24T11:45:42 | SHOT    skills/010_mage_mage_a_spec_b.jpg
+2026-11-24T11:45:42 | PASS  技能 mage-mage_a_spec_b | dash_strike; Move 232, Dmg 0->2581; MP 783->753; CD=14.68; VFX=1; Anim=n/a
+2026-11-24T11:45:43 | PASS  runeward 技能数>=6（完整进阶 10） | 10
+2026-11-24T11:45:43 | ACTION  施放 runeward[1] 符盾 / runeward_a_1（shield）
+2026-11-24T11:45:43 | OBSERVE 技能结果 OK shield; Shield 0->108; MP 648->632; CD=11.62; VFX=1; Anim=n/a
+2026-11-24T11:45:43 | SHOT    skills/011_runeward_runeward_a_1.jpg
+2026-11-24T11:45:43 | PASS  技能 runeward-runeward_a_1 | shield; Shield 0->108; MP 648->632; CD=11.62; VFX=1; Anim=n/a
+2026-11-24T11:45:43 | ACTION  施放 runeward[2] 符爆 / runeward_a_2（stun_wave）
+2026-11-24T11:45:44 | OBSERVE 技能结果 OK stun_wave; Dmg 0->361, Hits 0->1; MP 648->636; CD=4.55; VFX=2; Anim=n/a
+2026-11-24T11:45:44 | SHOT    skills/012_runeward_runeward_a_2.jpg
+2026-11-24T11:45:44 | PASS  技能 runeward-runeward_a_2 | stun_wave; Dmg 0->361, Hits 0->1; MP 648->636; CD=4.55; VFX=2; Anim=n/a
+2026-11-24T11:45:44 | ACTION  施放 runeward[3] 咒护 / runeward_a_3（buff）
+2026-11-24T11:45:44 | OBSERVE 技能结果 OK buff; BuffCount 0->1; MP 648->634; CD=13.58; VFX=1; Anim=n/a
+2026-11-24T11:45:44 | SHOT    skills/013_runeward_runeward_a_3.jpg
+2026-11-24T11:45:44 | PASS  技能 runeward-runeward_a_3 | buff; BuffCount 0->1; MP 648->634; CD=13.58; VFX=1; Anim=n/a
+2026-11-24T11:45:44 | ACTION  施放 runeward[4] 反噬符文 / runeward_a_4（shield）
+2026-11-24T11:45:44 | OBSERVE 技能结果 OK shield; Shield 0->171; MP 648->626; CD=17.60; VFX=1; Anim=n/a
+2026-11-24T11:45:44 | SHOT    skills/014_runeward_runeward_a_4.jpg
+2026-11-24T11:45:44 | PASS  技能 runeward-runeward_a_4 | shield; Shield 0->171; MP 648->626; CD=17.60; VFX=1; Anim=n/a
+2026-11-24T11:45:44 | ACTION  施放 runeward[5] 符文禁锢 / runeward_a_5（root_zone）
+2026-11-24T11:45:45 | OBSERVE 技能结果 OK root_zone; Dmg 0->1784, Hits 0->4; MP 648->628; CD=10.68; VFX=1; Anim=n/a
+2026-11-24T11:45:45 | SHOT    skills/015_runeward_runeward_a_5.jpg
+2026-11-24T11:45:45 | PASS  技能 runeward-runeward_a_5 | root_zone; Dmg 0->1784, Hits 0->4; MP 648->628; CD=10.68; VFX=1; Anim=n/a
+2026-11-24T11:45:45 | ACTION  施放 runeward[6] 符阵壁垒 / runeward_a_6（buff）
+2026-11-24T11:45:45 | OBSERVE 技能结果 OK buff; BuffCount 0->1; MP 648->624; CD=19.62; VFX=1; Anim=n/a
+2026-11-24T11:45:45 | SHOT    skills/016_runeward_runeward_a_6.jpg
+2026-11-24T11:45:45 | PASS  技能 runeward-runeward_a_6 | buff; BuffCount 0->1; MP 648->624; CD=19.62; VFX=1; Anim=n/a
+2026-11-24T11:45:45 | ACTION  施放 runeward[7] 符阵归一 / runeward_fusion（buff）
+2026-11-24T11:45:46 | OBSERVE 技能结果 OK buff; BuffCount 0->2; MP 648->596; CD=33.62; VFX=1; Anim=n/a
+2026-11-24T11:45:46 | SHOT    skills/017_runeward_runeward_fusion.jpg
+2026-11-24T11:45:46 | PASS  技能 runeward-runeward_fusion | buff; BuffCount 0->2; MP 648->596; CD=33.62; VFX=1; Anim=n/a
+2026-11-24T11:45:46 | ACTION  施放 runeward[8] 九宫符阵 / runeward_a_spec_a（heal_zone）
+2026-11-24T11:45:47 | OBSERVE 技能结果 OK heal_zone; HP 1670->1715 (+45); MP 648->612; CD=24.65; VFX=1; Anim=n/a
+2026-11-24T11:45:47 | SHOT    skills/018_runeward_runeward_a_spec_a.jpg
+2026-11-24T11:45:47 | PASS  技能 runeward-runeward_a_spec_a | heal_zone; HP 1670->1715 (+45); MP 648->612; CD=24.65; VFX=1; Anim=n/a
+2026-11-24T11:45:47 | ACTION  施放 runeward[9] 万符天罗 / runeward_a_apex（buff）
+2026-11-24T11:45:47 | OBSERVE 技能结果 OK buff; BuffCount 0->1; MP 648->600; CD=31.60; VFX=1; Anim=n/a
+2026-11-24T11:45:47 | SHOT    skills/019_runeward_runeward_a_apex.jpg
+2026-11-24T11:45:47 | PASS  技能 runeward-runeward_a_apex | buff; BuffCount 0->1; MP 648->600; CD=31.60; VFX=1; Anim=n/a
+2026-11-24T11:45:47 | ACTION  施放 runeward[10] 符能反噬 / runeward_a_spec_b（stun_wave）
+2026-11-24T11:45:48 | OBSERVE 技能结果 OK stun_wave; Dmg 0->2688, Hits 0->3; MP 648->616; CD=17.70; VFX=2; Anim=n/a
+2026-11-24T11:45:48 | SHOT    skills/020_runeward_runeward_a_spec_b.jpg
+2026-11-24T11:45:48 | PASS  技能 runeward-runeward_a_spec_b | stun_wave; Dmg 0->2688, Hits 0->3; MP 648->616; CD=17.70; VFX=2; Anim=n/a
+2026-11-24T11:45:48 | PASS  priest 技能数>=6（完整进阶 10） | 10
+2026-11-24T11:45:48 | ACTION  施放 priest[1] 治疗术 / priest_a_1（heal）
+2026-11-24T11:45:49 | OBSERVE 技能结果 OK heal; HP 1544->1589 (+45); MP 701->687; CD=3.60; VFX=1; Anim=n/a
+2026-11-24T11:45:49 | SHOT    skills/021_priest_priest_a_1.jpg
+2026-11-24T11:45:49 | PASS  技能 priest-priest_a_1 | heal; HP 1544->1589 (+45); MP 701->687; CD=3.60; VFX=1; Anim=n/a
+2026-11-24T11:45:49 | ACTION  施放 priest[2] 圣光弹 / priest_a_2（projectile）
+2026-11-24T11:45:49 | OBSERVE 技能结果 OK projectile; Dmg 0->311, Hits 0->1; MP 701->691; CD=2.40; VFX=1; Anim=n/a
+2026-11-24T11:45:49 | SHOT    skills/022_priest_priest_a_2.jpg
+2026-11-24T11:45:49 | PASS  技能 priest-priest_a_2 | projectile; Dmg 0->311, Hits 0->1; MP 701->691; CD=2.40; VFX=1; Anim=n/a
+2026-11-24T11:45:49 | ACTION  施放 priest[3] 祝福 / priest_a_3（buff）
+2026-11-24T11:45:50 | OBSERVE 技能结果 OK buff; BuffCount 0->1; MP 701->685; CD=13.60; VFX=1; Anim=n/a
+2026-11-24T11:45:50 | SHOT    skills/023_priest_priest_a_3.jpg
+2026-11-24T11:45:50 | PASS  技能 priest-priest_a_3 | buff; BuffCount 0->1; MP 701->685; CD=13.60; VFX=1; Anim=n/a
+2026-11-24T11:45:50 | ACTION  施放 priest[4] 圣愈光辉 / priest_a_4（heal_zone）
+2026-11-24T11:45:51 | OBSERVE 技能结果 OK heal_zone; HP 1544->1589 (+45); MP 701->669; CD=12.67; VFX=1; Anim=n/a
+2026-11-24T11:45:51 | SHOT    skills/024_priest_priest_a_4.jpg
+2026-11-24T11:45:51 | PASS  技能 priest-priest_a_4 | heal_zone; HP 1544->1589 (+45); MP 701->669; CD=12.67; VFX=1; Anim=n/a
+2026-11-24T11:45:51 | ACTION  施放 priest[5] 圣光新星 / priest_a_5（melee_aoe）
+2026-11-24T11:45:51 | OBSERVE 技能结果 OK melee_aoe; Dmg 0->489, Hits 0->1; MP 701->679; CD=8.70; VFX=1; Anim=n/a
+2026-11-24T11:45:52 | SHOT    skills/025_priest_priest_a_5.jpg
+2026-11-24T11:45:52 | PASS  技能 priest-priest_a_5 | melee_aoe; Dmg 0->489, Hits 0->1; MP 701->679; CD=8.70; VFX=1; Anim=n/a
+2026-11-24T11:45:52 | ACTION  施放 priest[6] 神谕降临 / priest_a_6（heal_zone）
+2026-11-24T11:45:53 | OBSERVE 技能结果 OK heal_zone; HP 1544->1589 (+45); MP 701->663; CD=18.65; VFX=1; Anim=n/a
+2026-11-24T11:45:53 | SHOT    skills/026_priest_priest_a_6.jpg
+2026-11-24T11:45:53 | PASS  技能 priest-priest_a_6 | heal_zone; HP 1544->1589 (+45); MP 701->663; CD=18.65; VFX=1; Anim=n/a
+2026-11-24T11:45:53 | ACTION  施放 priest[7] 三位一体 / priest_fusion（heal_zone）
+2026-11-24T11:45:54 | OBSERVE 技能结果 OK heal_zone; HP 1544->1589 (+45); MP 701->645; CD=30.67; VFX=1; Anim=n/a
+2026-11-24T11:45:54 | SHOT    skills/027_priest_priest_fusion.jpg
+2026-11-24T11:45:54 | PASS  技能 priest-priest_fusion | heal_zone; HP 1544->1589 (+45); MP 701->645; CD=30.67; VFX=1; Anim=n/a
+2026-11-24T11:45:54 | ACTION  施放 priest[8] 圣言·愈 / priest_a_spec_a（heal）
+2026-11-24T11:45:55 | OBSERVE 技能结果 OK heal; HP 1544->1589 (+45); MP 701->661; CD=17.60; VFX=1; Anim=n/a
+2026-11-24T11:45:55 | SHOT    skills/028_priest_priest_a_spec_a.jpg
+2026-11-24T11:45:55 | PASS  技能 priest-priest_a_spec_a | heal; HP 1544->1589 (+45); MP 701->661; CD=17.60; VFX=1; Anim=n/a
+2026-11-24T11:45:55 | ACTION  施放 priest[9] 神谕·创世 / priest_a_apex（heal_zone）
+2026-11-24T11:45:56 | OBSERVE 技能结果 OK heal_zone; HP 1544->1589 (+45); MP 701->645; CD=32.67; VFX=1; Anim=n/a
+2026-11-24T11:45:56 | SHOT    skills/029_priest_priest_a_apex.jpg
+2026-11-24T11:45:56 | PASS  技能 priest-priest_a_apex | heal_zone; HP 1544->1589 (+45); MP 701->645; CD=32.67; VFX=1; Anim=n/a
+2026-11-24T11:45:56 | ACTION  施放 priest[10] 光耀审判 / priest_a_spec_b（snipe）
+2026-11-24T11:45:56 | OBSERVE 技能结果 OK snipe; Dmg 0->4646, Hits 0->6; MP 701->665; CD=19.83; VFX=1; Anim=n/a
+2026-11-24T11:45:56 | SHOT    skills/030_priest_priest_a_spec_b.jpg
+2026-11-24T11:45:56 | PASS  技能 priest-priest_a_spec_b | snipe; Dmg 0->4646, Hits 0->6; MP 701->665; CD=19.83; VFX=1; Anim=n/a
+2026-11-24T11:45:57 | PASS  necromancer 技能数>=6（完整进阶 10） | 10
+2026-11-24T11:45:57 | ACTION  施放 necromancer[1] 腐蚀箭 / necromancer_a_1（projectile）
+2026-11-24T11:45:57 | OBSERVE 技能结果 OK projectile; Dmg 0->854, Hits 0->2; MP 769->748; CD=1.32; VFX=-1; Anim=n/a
+2026-11-24T11:45:57 | SHOT    skills/031_necromancer_necromancer_a_1.jpg
+2026-11-24T11:45:57 | PASS  技能 necromancer-necromancer_a_1 | projectile; Dmg 0->854, Hits 0->2; MP 769->748; CD=1.32; VFX=-1; Anim=n/a
+2026-11-24T11:45:57 | ACTION  施放 necromancer[2] 汲取 / necromancer_a_2（snipe）
+2026-11-24T11:45:58 | OBSERVE 技能结果 OK snipe; Dmg 0->1376, Hits 0->4; MP 769->755; CD=7.85; VFX=1; Anim=n/a
+2026-11-24T11:45:58 | SHOT    skills/032_necromancer_necromancer_a_2.jpg
+2026-11-24T11:45:58 | PASS  技能 necromancer-necromancer_a_2 | snipe; Dmg 0->1376, Hits 0->4; MP 769->755; CD=7.85; VFX=1; Anim=n/a
+2026-11-24T11:45:58 | ACTION  施放 necromancer[3] 黑暗护盾 / necromancer_a_3（shield）
+2026-11-24T11:45:58 | OBSERVE 技能结果 OK shield; Shield 0->52; MP 769->753; CD=11.60; VFX=1; Anim=n/a
+2026-11-24T11:45:58 | SHOT    skills/033_necromancer_necromancer_a_3.jpg
+2026-11-24T11:45:58 | PASS  技能 necromancer-necromancer_a_3 | shield; Shield 0->52; MP 769->753; CD=11.60; VFX=1; Anim=n/a
+2026-11-24T11:45:58 | ACTION  施放 necromancer[4] 噬魂 / necromancer_a_4（snipe）
+2026-11-24T11:45:59 | OBSERVE 技能结果 OK snipe; Dmg 0->3101, Hits 0->6; MP 769->749; CD=8.83; VFX=1; Anim=n/a
+2026-11-24T11:45:59 | SHOT    skills/034_necromancer_necromancer_a_4.jpg
+2026-11-24T11:45:59 | PASS  技能 necromancer-necromancer_a_4 | snipe; Dmg 0->3101, Hits 0->6; MP 769->749; CD=8.83; VFX=1; Anim=n/a
+2026-11-24T11:45:59 | ACTION  施放 necromancer[5] 灵魂虹吸 / necromancer_a_5（snipe）
+2026-11-24T11:45:59 | OBSERVE 技能结果 OK snipe; Dmg 0->2534, Hits 0->6; MP 769->749; CD=8.83; VFX=1; Anim=n/a
+2026-11-24T11:45:59 | SHOT    skills/035_necromancer_necromancer_a_5.jpg
+2026-11-24T11:45:59 | PASS  技能 necromancer-necromancer_a_5 | snipe; Dmg 0->2534, Hits 0->6; MP 769->749; CD=8.83; VFX=1; Anim=n/a
+2026-11-24T11:45:59 | ACTION  施放 necromancer[6] 死神收割 / necromancer_a_6（snipe）
+2026-11-24T11:45:59 | OBSERVE 技能结果 OK snipe; Dmg 0->4224, Hits 0->6; MP 769->739; CD=15.83; VFX=1; Anim=n/a
+2026-11-24T11:45:59 | SHOT    skills/036_necromancer_necromancer_a_6.jpg
+2026-11-24T11:45:59 | PASS  技能 necromancer-necromancer_a_6 | snipe; Dmg 0->4224, Hits 0->6; MP 769->739; CD=15.83; VFX=1; Anim=n/a
+2026-11-24T11:45:59 | ACTION  施放 necromancer[7] 生死轮回 / necromancer_fusion（summon）
+2026-11-24T11:46:00 | OBSERVE 技能结果 OK summon; Summons 0->2(peak); MP 769->711; CD=35.70; VFX=1; Anim=n/a
+2026-11-24T11:46:00 | SHOT    skills/037_necromancer_necromancer_fusion.jpg
+2026-11-24T11:46:00 | PASS  技能 necromancer-necromancer_fusion | summon; Summons 0->2(peak); MP 769->711; CD=35.70; VFX=1; Anim=n/a
+2026-11-24T11:46:00 | ACTION  施放 necromancer[8] 灵魂收割 / necromancer_a_spec_a（snipe）
+2026-11-24T11:46:00 | OBSERVE 技能结果 OK snipe; Dmg 0->5635, Hits 0->6; MP 769->731; CD=21.85; VFX=1; Anim=n/a
+2026-11-24T11:46:00 | SHOT    skills/038_necromancer_necromancer_a_spec_a.jpg
+2026-11-24T11:46:00 | PASS  技能 necromancer-necromancer_a_spec_a | snipe; Dmg 0->5635, Hits 0->6; MP 769->731; CD=21.85; VFX=1; Anim=n/a
+2026-11-24T11:46:00 | ACTION  施放 necromancer[9] 死亡宣告 / necromancer_a_apex（snipe）
+2026-11-24T11:46:01 | OBSERVE 技能结果 OK snipe; Dmg 0->8454, Hits 0->6; MP 769->713; CD=33.85; VFX=1; Anim=n/a
+2026-11-24T11:46:01 | SHOT    skills/039_necromancer_necromancer_a_apex.jpg
+2026-11-24T11:46:01 | PASS  技能 necromancer-necromancer_a_apex | snipe; Dmg 0->8454, Hits 0->6; MP 769->713; CD=33.85; VFX=1; Anim=n/a
+2026-11-24T11:46:01 | ACTION  施放 necromancer[10] 噬魂领域 / necromancer_a_spec_b（heal_zone）
+2026-11-24T11:46:02 | OBSERVE 技能结果 OK heal_zone; HP 1473->1518 (+45); MP 769->729; CD=22.65; VFX=1; Anim=n/a
+2026-11-24T11:46:02 | SHOT    skills/040_necromancer_necromancer_a_spec_b.jpg
+2026-11-24T11:46:02 | PASS  技能 necromancer-necromancer_a_spec_b | heal_zone; HP 1473->1518 (+45); MP 769->729; CD=22.65; VFX=1; Anim=n/a
+2026-11-24T11:46:02 | PASS  bomber 技能数>=6（完整进阶 10） | 10
+2026-11-24T11:46:02 | ACTION  施放 bomber[1] 投掷炸弹 / bomber_a_1（deployable）
+2026-11-24T11:46:03 | OBSERVE 技能结果 OK deployable; Deployables 0->2(peak); MP 623->613; CD=2.23; VFX=2; Anim=n/a
+2026-11-24T11:46:03 | SHOT    skills/041_bomber_bomber_a_1.jpg
+2026-11-24T11:46:03 | PASS  技能 bomber-bomber_a_1 | deployable; Deployables 0->2(peak); MP 623->613; CD=2.23; VFX=2; Anim=n/a
+2026-11-24T11:46:03 | ACTION  施放 bomber[2] 大爆破 / bomber_a_2（aoe_zone）
+2026-11-24T11:46:04 | OBSERVE 技能结果 OK aoe_zone; Dmg 0->978, Hits 0->2; MP 623->605; CD=7.02; VFX=0; Anim=n/a
+2026-11-24T11:46:04 | SHOT    skills/042_bomber_bomber_a_2.jpg
+2026-11-24T11:46:05 | PASS  技能 bomber-bomber_a_2 | aoe_zone; Dmg 0->978, Hits 0->2; MP 623->605; CD=7.02; VFX=0; Anim=n/a
+2026-11-24T11:46:05 | ACTION  施放 bomber[3] 防爆护甲 / bomber_a_3（shield）
+2026-11-24T11:46:05 | OBSERVE 技能结果 OK shield; Shield 0->52; MP 623->607; CD=11.60; VFX=1; Anim=n/a
+2026-11-24T11:46:05 | SHOT    skills/043_bomber_bomber_a_3.jpg
+2026-11-24T11:46:05 | PASS  技能 bomber-bomber_a_3 | shield; Shield 0->52; MP 623->607; CD=11.60; VFX=1; Anim=n/a
+2026-11-24T11:46:05 | ACTION  施放 bomber[4] 集束炸弹 / bomber_a_4（deployable）
+2026-11-24T11:46:06 | OBSERVE 技能结果 OK deployable; Deployables 0->4(peak); MP 623->603; CD=8.48; VFX=4; Anim=n/a
+2026-11-24T11:46:06 | SHOT    skills/044_bomber_bomber_a_4.jpg
+2026-11-24T11:46:06 | PASS  技能 bomber-bomber_a_4 | deployable; Deployables 0->4(peak); MP 623->603; CD=8.48; VFX=4; Anim=n/a
+2026-11-24T11:46:06 | ACTION  施放 bomber[5] 高爆地雷 / bomber_a_5（deployable）
+2026-11-24T11:46:07 | OBSERVE 技能结果 OK deployable; Deployables 0->4(peak); MP 623->603; CD=9.42; VFX=4; Anim=n/a
+2026-11-24T11:46:07 | SHOT    skills/045_bomber_bomber_a_5.jpg
+2026-11-24T11:46:07 | PASS  技能 bomber-bomber_a_5 | deployable; Deployables 0->4(peak); MP 623->603; CD=9.42; VFX=4; Anim=n/a
+2026-11-24T11:46:07 | ACTION  施放 bomber[6] 终极爆破 / bomber_a_6（deployable）
+2026-11-24T11:46:08 | OBSERVE 技能结果 OK deployable; Deployables 0->6(peak); MP 623->593; CD=15.58; VFX=6; Anim=n/a
+2026-11-24T11:46:08 | SHOT    skills/046_bomber_bomber_a_6.jpg
+2026-11-24T11:46:08 | PASS  技能 bomber-bomber_a_6 | deployable; Deployables 0->6(peak); MP 623->593; CD=15.58; VFX=6; Anim=n/a
+2026-11-24T11:46:08 | ACTION  施放 bomber[7] 三重爆破 / bomber_fusion（deployable）
+2026-11-24T11:46:09 | OBSERVE 技能结果 OK deployable; Deployables 0->6(peak); MP 623->569; CD=33.42; VFX=6; Anim=n/a
+2026-11-24T11:46:09 | SHOT    skills/047_bomber_bomber_fusion.jpg
+2026-11-24T11:46:09 | PASS  技能 bomber-bomber_fusion | deployable; Deployables 0->6(peak); MP 623->569; CD=33.42; VFX=6; Anim=n/a
+2026-11-24T11:46:09 | ACTION  施放 bomber[8] 聚能核爆 / bomber_a_spec_a（deployable）
+2026-11-24T11:46:10 | OBSERVE 技能结果 OK deployable; Deployables 0->4(peak); MP 623->585; CD=21.27; VFX=4; Anim=n/a
+2026-11-24T11:46:10 | SHOT    skills/048_bomber_bomber_a_spec_a.jpg
+2026-11-24T11:46:10 | PASS  技能 bomber-bomber_a_spec_a | deployable; Deployables 0->4(peak); MP 623->585; CD=21.27; VFX=4; Anim=n/a
+2026-11-24T11:46:10 | ACTION  施放 bomber[9] 终极审判 / bomber_a_apex（deployable）
+2026-11-24T11:46:10 | OBSERVE 技能结果 OK deployable; Deployables 0->8(peak); MP 623->567; CD=33.48; VFX=8; Anim=n/a
+2026-11-24T11:46:11 | SHOT    skills/049_bomber_bomber_a_apex.jpg
+2026-11-24T11:46:11 | PASS  技能 bomber-bomber_a_apex | deployable; Deployables 0->8(peak); MP 623->567; CD=33.48; VFX=8; Anim=n/a
+2026-11-24T11:46:11 | ACTION  施放 bomber[10] 定向爆破 / bomber_a_spec_b（aoe_zone）
+2026-11-24T11:46:12 | OBSERVE 技能结果 OK aoe_zone; Dmg 0->4895, Hits 0->4; MP 623->587; CD=19.13; VFX=0; Anim=n/a
+2026-11-24T11:46:12 | SHOT    skills/050_bomber_bomber_a_spec_b.jpg
+2026-11-24T11:46:12 | PASS  技能 bomber-bomber_a_spec_b | aoe_zone; Dmg 0->4895, Hits 0->4; MP 623->587; CD=19.13; VFX=0; Anim=n/a
+2026-11-24T11:46:12 | PASS  mech_pilot 技能数>=6（完整进阶 10） | 10
+2026-11-24T11:46:12 | ACTION  施放 mech_pilot[1] 重炮轰击 / mech_pilot_a_1（projectile）
+2026-11-24T11:46:13 | OBSERVE 技能结果 OK projectile; Dmg 0->522, Hits 0->1; MP 574->564; CD=2.42; VFX=0; Anim=n/a
+2026-11-24T11:46:13 | SHOT    skills/051_mech_pilot_mech_pilot_a_1.jpg
+2026-11-24T11:46:13 | PASS  技能 mech_pilot-mech_pilot_a_1 | projectile; Dmg 0->522, Hits 0->1; MP 574->564; CD=2.42; VFX=0; Anim=n/a
+2026-11-24T11:46:13 | ACTION  施放 mech_pilot[2] 装甲强化 / mech_pilot_a_2（shield）
+2026-11-24T11:46:13 | OBSERVE 技能结果 OK shield; Shield 0->252; MP 574->562; CD=11.58; VFX=1; Anim=n/a
+2026-11-24T11:46:13 | SHOT    skills/052_mech_pilot_mech_pilot_a_2.jpg
+2026-11-24T11:46:13 | PASS  技能 mech_pilot-mech_pilot_a_2 | shield; Shield 0->252; MP 574->562; CD=11.58; VFX=1; Anim=n/a
+2026-11-24T11:46:13 | ACTION  施放 mech_pilot[3] 能量护盾 / mech_pilot_a_3（buff）
+2026-11-24T11:46:14 | OBSERVE 技能结果 OK buff; BuffCount 0->1; MP 574->560; CD=13.58; VFX=1; Anim=n/a
+2026-11-24T11:46:14 | SHOT    skills/053_mech_pilot_mech_pilot_a_3.jpg
+2026-11-24T11:46:14 | PASS  技能 mech_pilot-mech_pilot_a_3 | buff; BuffCount 0->1; MP 574->560; CD=13.58; VFX=1; Anim=n/a
+2026-11-24T11:46:14 | ACTION  施放 mech_pilot[4] 轨道炮 / mech_pilot_a_4（snipe）
+2026-11-24T11:46:14 | OBSERVE 技能结果 OK snipe; Dmg 0->3585, Hits 0->6; MP 574->556; CD=8.83; VFX=1; Anim=n/a
+2026-11-24T11:46:14 | SHOT    skills/054_mech_pilot_mech_pilot_a_4.jpg
+2026-11-24T11:46:14 | PASS  技能 mech_pilot-mech_pilot_a_4 | snipe; Dmg 0->3585, Hits 0->6; MP 574->556; CD=8.83; VFX=1; Anim=n/a
+2026-11-24T11:46:14 | ACTION  施放 mech_pilot[5] 复合装甲 / mech_pilot_a_5（shield）
+2026-11-24T11:46:14 | OBSERVE 技能结果 OK shield; Shield 0->432; MP 574->552; CD=19.58; VFX=1; Anim=n/a
+2026-11-24T11:46:14 | SHOT    skills/055_mech_pilot_mech_pilot_a_5.jpg
+2026-11-24T11:46:14 | PASS  技能 mech_pilot-mech_pilot_a_5 | shield; Shield 0->432; MP 574->552; CD=19.58; VFX=1; Anim=n/a
+2026-11-24T11:46:14 | ACTION  施放 mech_pilot[6] 力场护罩 / mech_pilot_a_6（buff）
+2026-11-24T11:46:15 | OBSERVE 技能结果 OK buff; BuffCount 0->1; MP 574->554; CD=19.60; VFX=1; Anim=n/a
+2026-11-24T11:46:15 | SHOT    skills/056_mech_pilot_mech_pilot_a_6.jpg
+2026-11-24T11:46:15 | PASS  技能 mech_pilot-mech_pilot_a_6 | buff; BuffCount 0->1; MP 574->554; CD=19.60; VFX=1; Anim=n/a
+2026-11-24T11:46:15 | ACTION  施放 mech_pilot[7] 要塞齐射 / mech_pilot_fusion（aoe_zone）
+2026-11-24T11:46:16 | OBSERVE 技能结果 OK aoe_zone; Dmg 0->5809, Hits 0->5; MP 574->522; CD=31.12; VFX=0; Anim=n/a
+2026-11-24T11:46:16 | SHOT    skills/057_mech_pilot_mech_pilot_fusion.jpg
+2026-11-24T11:46:16 | PASS  技能 mech_pilot-mech_pilot_fusion | aoe_zone; Dmg 0->5809, Hits 0->5; MP 574->522; CD=31.12; VFX=0; Anim=n/a
+2026-11-24T11:46:16 | ACTION  施放 mech_pilot[8] 攻城炮 / mech_pilot_a_spec_a（snipe）
+2026-11-24T11:46:16 | OBSERVE 技能结果 OK snipe; Dmg 0->6066, Hits 0->6; MP 574->540; CD=21.85; VFX=1; Anim=n/a
+2026-11-24T11:46:16 | SHOT    skills/058_mech_pilot_mech_pilot_a_spec_a.jpg
+2026-11-24T11:46:16 | PASS  技能 mech_pilot-mech_pilot_a_spec_a | snipe; Dmg 0->6066, Hits 0->6; MP 574->540; CD=21.85; VFX=1; Anim=n/a
+2026-11-24T11:46:16 | ACTION  施放 mech_pilot[9] 轨道轰炸 / mech_pilot_a_apex（snipe）
+2026-11-24T11:46:17 | OBSERVE 技能结果 OK snipe; Dmg 0->8549, Hits 0->6; MP 574->522; CD=33.87; VFX=1; Anim=n/a
+2026-11-24T11:46:17 | SHOT    skills/059_mech_pilot_mech_pilot_a_apex.jpg
+2026-11-24T11:46:17 | PASS  技能 mech_pilot-mech_pilot_a_apex | snipe; Dmg 0->8549, Hits 0->6; MP 574->522; CD=33.87; VFX=1; Anim=n/a
+2026-11-24T11:46:17 | ACTION  施放 mech_pilot[10] 重装阵线 / mech_pilot_a_spec_b（buff）
+2026-11-24T11:46:17 | OBSERVE 技能结果 OK buff; BuffCount 0->1; MP 574->538; CD=29.60; VFX=1; Anim=n/a
+2026-11-24T11:46:17 | SHOT    skills/060_mech_pilot_mech_pilot_a_spec_b.jpg
+2026-11-24T11:46:17 | PASS  技能 mech_pilot-mech_pilot_a_spec_b | buff; BuffCount 0->1; MP 574->538; CD=29.60; VFX=1; Anim=n/a
+2026-11-24T11:46:17 | PASS  engineer 技能数>=6（完整进阶 10） | 10
+2026-11-24T11:46:17 | ACTION  施放 engineer[1] 炮塔部署 / engineer_a_1（deployable）
+2026-11-24T11:46:18 | OBSERVE 技能结果 OK deployable; Deployables 0->1(peak); MP 680->664; CD=6.15; VFX=1; Anim=n/a
+2026-11-24T11:46:18 | SHOT    skills/061_engineer_engineer_a_1.jpg
+2026-11-24T11:46:18 | PASS  技能 engineer-engineer_a_1 | deployable; Deployables 0->1(peak); MP 680->664; CD=6.15; VFX=1; Anim=n/a
+2026-11-24T11:46:18 | ACTION  施放 engineer[2] 修理 / engineer_a_2（heal）
+2026-11-24T11:46:19 | OBSERVE 技能结果 OK heal; HP 1567->1612 (+45); MP 680->662; CD=8.62; VFX=1; Anim=n/a
+2026-11-24T11:46:19 | SHOT    skills/062_engineer_engineer_a_2.jpg
+2026-11-24T11:46:19 | PASS  技能 engineer-engineer_a_2 | heal; HP 1567->1612 (+45); MP 680->662; CD=8.62; VFX=1; Anim=n/a
+2026-11-24T11:46:19 | ACTION  施放 engineer[3] 战术补给 / engineer_a_3（buff）
+2026-11-24T11:46:19 | OBSERVE 技能结果 OK buff; BuffCount 0->1; MP 680->668; CD=11.60; VFX=1; Anim=n/a
+2026-11-24T11:46:19 | SHOT    skills/063_engineer_engineer_a_3.jpg
+2026-11-24T11:46:19 | PASS  技能 engineer-engineer_a_3 | buff; BuffCount 0->1; MP 680->668; CD=11.60; VFX=1; Anim=n/a
+2026-11-24T11:46:19 | ACTION  施放 engineer[4] 重型炮塔 / engineer_a_4（deployable）
+2026-11-24T11:46:20 | OBSERVE 技能结果 OK deployable; Deployables 0->1(peak); MP 680->656; CD=10.13; VFX=1; Anim=n/a
+2026-11-24T11:46:20 | SHOT    skills/064_engineer_engineer_a_4.jpg
+2026-11-24T11:46:20 | PASS  技能 engineer-engineer_a_4 | deployable; Deployables 0->1(peak); MP 680->656; CD=10.13; VFX=1; Anim=n/a
+2026-11-24T11:46:20 | ACTION  施放 engineer[5] 双联炮塔 / engineer_a_5（deployable）
+2026-11-24T11:46:21 | OBSERVE 技能结果 OK deployable; Deployables 0->2(peak); MP 680->652; CD=13.25; VFX=2; Anim=n/a
+2026-11-24T11:46:21 | SHOT    skills/065_engineer_engineer_a_5.jpg
+2026-11-24T11:46:21 | PASS  技能 engineer-engineer_a_5 | deployable; Deployables 0->2(peak); MP 680->652; CD=13.25; VFX=2; Anim=n/a
+2026-11-24T11:46:21 | ACTION  施放 engineer[6] 要塞炮台 / engineer_a_6（deployable）
+2026-11-24T11:46:22 | OBSERVE 技能结果 OK deployable; Deployables 0->1(peak); MP 680->646; CD=17.23; VFX=1; Anim=n/a
+2026-11-24T11:46:22 | SHOT    skills/066_engineer_engineer_a_6.jpg
+2026-11-24T11:46:22 | PASS  技能 engineer-engineer_a_6 | deployable; Deployables 0->1(peak); MP 680->646; CD=17.23; VFX=1; Anim=n/a
+2026-11-24T11:46:22 | ACTION  施放 engineer[7] 战争工事 / engineer_fusion（deployable）
+2026-11-24T11:46:23 | OBSERVE 技能结果 OK deployable; Deployables 0->2(peak); MP 680->624; CD=35.45; VFX=2; Anim=n/a
+2026-11-24T11:46:23 | SHOT    skills/067_engineer_engineer_fusion.jpg
+2026-11-24T11:46:23 | PASS  技能 engineer-engineer_fusion | deployable; Deployables 0->2(peak); MP 680->624; CD=35.45; VFX=2; Anim=n/a
+2026-11-24T11:46:23 | ACTION  施放 engineer[8] 重型要塞炮台 / engineer_a_spec_a（deployable）
+2026-11-24T11:46:24 | OBSERVE 技能结果 OK deployable; Deployables 0->1(peak); MP 680->638; CD=23.33; VFX=1; Anim=n/a
+2026-11-24T11:46:24 | SHOT    skills/068_engineer_engineer_a_spec_a.jpg
+2026-11-24T11:46:24 | PASS  技能 engineer-engineer_a_spec_a | deployable; Deployables 0->1(peak); MP 680->638; CD=23.33; VFX=1; Anim=n/a
+2026-11-24T11:46:24 | ACTION  施放 engineer[9] 炮塔矩阵 / engineer_a_apex（deployable）
+2026-11-24T11:46:25 | OBSERVE 技能结果 OK deployable; Deployables 0->3(peak); MP 680->624; CD=31.45; VFX=3; Anim=n/a
+2026-11-24T11:46:25 | SHOT    skills/069_engineer_engineer_a_apex.jpg
+2026-11-24T11:46:25 | PASS  技能 engineer-engineer_a_apex | deployable; Deployables 0->3(peak); MP 680->624; CD=31.45; VFX=3; Anim=n/a
+2026-11-24T11:46:25 | ACTION  施放 engineer[10] 无人机编队 / engineer_a_spec_b（summon）
+2026-11-24T11:46:25 | OBSERVE 技能结果 OK summon; Summons 0->1(peak); MP 680->642; CD=21.75; VFX=0; Anim=n/a
+2026-11-24T11:46:25 | SHOT    skills/070_engineer_engineer_a_spec_b.jpg
+2026-11-24T11:46:25 | PASS  技能 engineer-engineer_a_spec_b | summon; Summons 0->1(peak); MP 680->642; CD=21.75; VFX=0; Anim=n/a
+2026-11-24T11:46:26 | PASS  bounty_hunter 技能数>=6（完整进阶 10） | 10
+2026-11-24T11:46:26 | ACTION  施放 bounty_hunter[1] 连射 / bounty_hunter_a_1（chain）
+2026-11-24T11:46:26 | OBSERVE 技能结果 OK chain; Dmg 0->1496, Hits 0->3; MP 599->589; CD=2.70; VFX=4; Anim=n/a
+2026-11-24T11:46:26 | SHOT    skills/071_bounty_hunter_bounty_hunter_a_1.jpg
+2026-11-24T11:46:26 | PASS  技能 bounty_hunter-bounty_hunter_a_1 | chain; Dmg 0->1496, Hits 0->3; MP 599->589; CD=2.70; VFX=4; Anim=n/a
+2026-11-24T11:46:26 | ACTION  施放 bounty_hunter[2] 追踪标记 / bounty_hunter_a_2（mark）
+2026-11-24T11:46:27 | OBSERVE 技能结果 OK mark; MarkedDummies 0->1; MP 599->591; CD=11.45; VFX=1; Anim=n/a
+2026-11-24T11:46:27 | SHOT    skills/072_bounty_hunter_bounty_hunter_a_2.jpg
+2026-11-24T11:46:27 | PASS  技能 bounty_hunter-bounty_hunter_a_2 | mark; MarkedDummies 0->1; MP 599->591; CD=11.45; VFX=1; Anim=n/a
+2026-11-24T11:46:27 | ACTION  施放 bounty_hunter[3] 快速拔枪 / bounty_hunter_a_3（buff）
+2026-11-24T11:46:27 | OBSERVE 技能结果 OK buff; BuffCount 0->1; MP 599->587; CD=9.60; VFX=1; Anim=n/a
+2026-11-24T11:46:27 | SHOT    skills/073_bounty_hunter_bounty_hunter_a_3.jpg
+2026-11-24T11:46:27 | PASS  技能 bounty_hunter-bounty_hunter_a_3 | buff; BuffCount 0->1; MP 599->587; CD=9.60; VFX=1; Anim=n/a
+2026-11-24T11:46:27 | ACTION  施放 bounty_hunter[4] 弹幕压制 / bounty_hunter_a_4（chain）
+2026-11-24T11:46:28 | OBSERVE 技能结果 OK chain; Dmg 0->2606, Hits 0->4; MP 599->581; CD=7.70; VFX=5; Anim=n/a
+2026-11-24T11:46:28 | SHOT    skills/074_bounty_hunter_bounty_hunter_a_4.jpg
+2026-11-24T11:46:28 | PASS  技能 bounty_hunter-bounty_hunter_a_4 | chain; Dmg 0->2606, Hits 0->4; MP 599->581; CD=7.70; VFX=5; Anim=n/a
+2026-11-24T11:46:28 | ACTION  施放 bounty_hunter[5] 死神标记 / bounty_hunter_a_5（mark）
+2026-11-24T11:46:28 | OBSERVE 技能结果 OK mark; MarkedDummies 0->1; MP 599->585; CD=15.43; VFX=1; Anim=n/a
+2026-11-24T11:46:28 | SHOT    skills/075_bounty_hunter_bounty_hunter_a_5.jpg
+2026-11-24T11:46:28 | PASS  技能 bounty_hunter-bounty_hunter_a_5 | mark; MarkedDummies 0->1; MP 599->585; CD=15.43; VFX=1; Anim=n/a
+2026-11-24T11:46:28 | ACTION  施放 bounty_hunter[6] 猎杀时刻 / bounty_hunter_a_6（mark）
+2026-11-24T11:46:29 | OBSERVE 技能结果 OK mark; MarkedDummies 0->1; MP 599->579; CD=19.45; VFX=1; Anim=n/a
+2026-11-24T11:46:29 | SHOT    skills/076_bounty_hunter_bounty_hunter_a_6.jpg
+2026-11-24T11:46:29 | PASS  技能 bounty_hunter-bounty_hunter_a_6 | mark; MarkedDummies 0->1; MP 599->579; CD=19.45; VFX=1; Anim=n/a
+2026-11-24T11:46:29 | ACTION  施放 bounty_hunter[7] 猎杀交响 / bounty_hunter_fusion（mark）
+2026-11-24T11:46:29 | OBSERVE 技能结果 OK mark; MarkedDummies 0->1; MP 599->559; CD=29.43; VFX=1; Anim=n/a
+2026-11-24T11:46:29 | SHOT    skills/077_bounty_hunter_bounty_hunter_fusion.jpg
+2026-11-24T11:46:29 | PASS  技能 bounty_hunter-bounty_hunter_fusion | mark; MarkedDummies 0->1; MP 599->559; CD=29.43; VFX=1; Anim=n/a
+2026-11-24T11:46:29 | ACTION  施放 bounty_hunter[8] 猎杀清单 / bounty_hunter_a_spec_a（mark）
+2026-11-24T11:46:30 | OBSERVE 技能结果 OK mark; MarkedDummies 0->1; MP 599->565; CD=27.45; VFX=1; Anim=n/a
+2026-11-24T11:46:30 | SHOT    skills/078_bounty_hunter_bounty_hunter_a_spec_a.jpg
+2026-11-24T11:46:30 | PASS  技能 bounty_hunter-bounty_hunter_a_spec_a | mark; MarkedDummies 0->1; MP 599->565; CD=27.45; VFX=1; Anim=n/a
+2026-11-24T11:46:30 | ACTION  施放 bounty_hunter[9] 悬赏处决 / bounty_hunter_a_apex（snipe）
+2026-11-24T11:46:30 | OBSERVE 技能结果 OK snipe; Dmg 0->13930, Hits 0->6; MP 599->547; CD=31.85; VFX=1; Anim=n/a
+2026-11-24T11:46:30 | SHOT    skills/079_bounty_hunter_bounty_hunter_a_apex.jpg
+2026-11-24T11:46:30 | PASS  技能 bounty_hunter-bounty_hunter_a_apex | snipe; Dmg 0->13930, Hits 0->6; MP 599->547; CD=31.85; VFX=1; Anim=n/a
+2026-11-24T11:46:30 | ACTION  施放 bounty_hunter[10] 双枪连舞 / bounty_hunter_a_spec_b（projectile）
+2026-11-24T11:46:31 | OBSERVE 技能结果 OK projectile; Dmg 0->7256, Hits 0->8; MP 599->569; CD=17.47; VFX=8; Anim=n/a
+2026-11-24T11:46:31 | SHOT    skills/080_bounty_hunter_bounty_hunter_a_spec_b.jpg
+2026-11-24T11:46:31 | PASS  技能 bounty_hunter-bounty_hunter_a_spec_b | projectile; Dmg 0->7256, Hits 0->8; MP 599->569; CD=17.47; VFX=8; Anim=n/a
+2026-11-24T11:46:31 | PASS  death_knight 技能数>=6（完整进阶 10） | 10
+2026-11-24T11:46:31 | ACTION  施放 death_knight[1] 死亡冲锋 / death_knight_a_1（dash_strike）
+2026-11-24T11:46:32 | OBSERVE 技能结果 OK dash_strike; Move 123, Dmg 0->752; MP 599->589; CD=4.65; VFX=1; Anim=n/a
+2026-11-24T11:46:32 | SHOT    skills/081_death_knight_death_knight_a_1.jpg
+2026-11-24T11:46:32 | PASS  技能 death_knight-death_knight_a_1 | dash_strike; Move 123, Dmg 0->752; MP 599->589; CD=4.65; VFX=1; Anim=n/a
+2026-11-24T11:46:32 | ACTION  施放 death_knight[2] 血斩 / death_knight_a_2（melee_aoe）
+2026-11-24T11:46:32 | OBSERVE 技能结果 OK melee_aoe; Dmg 0->1330, Hits 0->3; MP 599->587; CD=3.83; VFX=1; Anim=n/a
+2026-11-24T11:46:32 | SHOT    skills/082_death_knight_death_knight_a_2.jpg
+2026-11-24T11:46:32 | PASS  技能 death_knight-death_knight_a_2 | melee_aoe; Dmg 0->1330, Hits 0->3; MP 599->587; CD=3.83; VFX=1; Anim=n/a
+2026-11-24T11:46:32 | ACTION  施放 death_knight[3] 黑暗护盾 / death_knight_a_3（shield）
+2026-11-24T11:46:33 | OBSERVE 技能结果 OK shield; Shield 0->73; MP 599->583; CD=13.60; VFX=1; Anim=n/a
+2026-11-24T11:46:33 | SHOT    skills/083_death_knight_death_knight_a_3.jpg
+2026-11-24T11:46:33 | PASS  技能 death_knight-death_knight_a_3 | shield; Shield 0->73; MP 599->583; CD=13.60; VFX=1; Anim=n/a
+2026-11-24T11:46:33 | ACTION  施放 death_knight[4] 亡者冲锋 / death_knight_a_4（dash_strike）
+2026-11-24T11:46:33 | OBSERVE 技能结果 OK dash_strike; Move 178, Dmg 0->980; MP 599->583; CD=8.63; VFX=1; Anim=n/a
+2026-11-24T11:46:33 | SHOT    skills/084_death_knight_death_knight_a_4.jpg
+2026-11-24T11:46:33 | PASS  技能 death_knight-death_knight_a_4 | dash_strike; Move 178, Dmg 0->980; MP 599->583; CD=8.63; VFX=1; Anim=n/a
+2026-11-24T11:46:33 | ACTION  施放 death_knight[5] 血怒斩 / death_knight_a_5（snipe）
+2026-11-24T11:46:34 | OBSERVE 技能结果 OK snipe; Dmg 0->2731, Hits 0->5; MP 599->581; CD=7.83; VFX=1; Anim=n/a
+2026-11-24T11:46:34 | SHOT    skills/085_death_knight_death_knight_a_5.jpg
+2026-11-24T11:46:34 | PASS  技能 death_knight-death_knight_a_5 | snipe; Dmg 0->2731, Hits 0->5; MP 599->581; CD=7.83; VFX=1; Anim=n/a
+2026-11-24T11:46:34 | ACTION  施放 death_knight[6] 血河 / death_knight_a_6（snipe）
+2026-11-24T11:46:34 | OBSERVE 技能结果 OK snipe; Dmg 0->4489, Hits 0->6; MP 599->571; CD=15.85; VFX=1; Anim=n/a
+2026-11-24T11:46:34 | SHOT    skills/086_death_knight_death_knight_a_6.jpg
+2026-11-24T11:46:34 | PASS  技能 death_knight-death_knight_a_6 | snipe; Dmg 0->4489, Hits 0->6; MP 599->571; CD=15.85; VFX=1; Anim=n/a
+2026-11-24T11:46:34 | ACTION  施放 death_knight[7] 血墓冲锋 / death_knight_fusion（dash_strike）
+2026-11-24T11:46:35 | OBSERVE 技能结果 OK dash_strike; Move 287, Dmg 0->6228; MP 599->553; CD=27.68; VFX=1; Anim=n/a
+2026-11-24T11:46:35 | SHOT    skills/087_death_knight_death_knight_fusion.jpg
+2026-11-24T11:46:35 | PASS  技能 death_knight-death_knight_fusion | dash_strike; Move 287, Dmg 0->6228; MP 599->553; CD=27.68; VFX=1; Anim=n/a
+2026-11-24T11:46:35 | ACTION  施放 death_knight[8] 血河冲锋 / death_knight_a_spec_a（dash_strike）
+2026-11-24T11:46:35 | OBSERVE 技能结果 OK dash_strike; Move 233, Dmg 0->3208; MP 599->567; CD=19.68; VFX=1; Anim=n/a
+2026-11-24T11:46:35 | SHOT    skills/088_death_knight_death_knight_a_spec_a.jpg
+2026-11-24T11:46:35 | PASS  技能 death_knight-death_knight_a_spec_a | dash_strike; Move 233, Dmg 0->3208; MP 599->567; CD=19.68; VFX=1; Anim=n/a
+2026-11-24T11:46:35 | ACTION  施放 death_knight[9] 血海无涯 / death_knight_a_apex（snipe）
+2026-11-24T11:46:36 | OBSERVE 技能结果 OK snipe; Dmg 0->7856, Hits 0->6; MP 599->547; CD=31.85; VFX=1; Anim=n/a
+2026-11-24T11:46:36 | SHOT    skills/089_death_knight_death_knight_a_apex.jpg
+2026-11-24T11:46:36 | PASS  技能 death_knight-death_knight_a_apex | snipe; Dmg 0->7856, Hits 0->6; MP 599->547; CD=31.85; VFX=1; Anim=n/a
+2026-11-24T11:46:36 | ACTION  施放 death_knight[10] 死亡践踏 / death_knight_a_spec_b（stun_wave）
+2026-11-24T11:46:36 | OBSERVE 技能结果 OK stun_wave; Dmg 0->2965, Hits 0->3; MP 599->569; CD=17.70; VFX=2; Anim=n/a
+2026-11-24T11:46:36 | SHOT    skills/090_death_knight_death_knight_a_spec_b.jpg
+2026-11-24T11:46:36 | PASS  技能 death_knight-death_knight_a_spec_b | stun_wave; Dmg 0->2965, Hits 0->3; MP 599->569; CD=17.70; VFX=2; Anim=n/a
+2026-11-24T11:46:36 | PASS  warrior 技能数>=6（完整进阶 10） | 10
+2026-11-24T11:46:36 | ACTION  施放 warrior[1] 旋风斩 / warrior_a_1（melee_aoe）
+2026-11-24T11:46:37 | OBSERVE 技能结果 OK melee_aoe; Dmg 0->666, Hits 0->1; MP 551->543; CD=2.70; VFX=1; Anim=n/a
+2026-11-24T11:46:37 | SHOT    skills/091_warrior_warrior_a_1.jpg
+2026-11-24T11:46:37 | PASS  技能 warrior-warrior_a_1 | melee_aoe; Dmg 0->666, Hits 0->1; MP 551->543; CD=2.70; VFX=1; Anim=n/a
+2026-11-24T11:46:37 | ACTION  施放 warrior[2] 战吼 / warrior_a_2（buff）
+2026-11-24T11:46:37 | OBSERVE 技能结果 OK buff; BuffCount 0->1; MP 551->541; CD=9.60; VFX=1; Anim=n/a
+2026-11-24T11:46:37 | SHOT    skills/092_warrior_warrior_a_2.jpg
+2026-11-24T11:46:37 | PASS  技能 warrior-warrior_a_2 | buff; BuffCount 0->1; MP 551->541; CD=9.60; VFX=1; Anim=n/a
+2026-11-24T11:46:37 | ACTION  施放 warrior[3] 暴怒 / warrior_a_3（buff）
+2026-11-24T11:46:38 | OBSERVE 技能结果 OK buff; BuffCount 0->1; MP 551->539; CD=9.62; VFX=1; Anim=n/a
+2026-11-24T11:46:38 | SHOT    skills/093_warrior_warrior_a_3.jpg
+2026-11-24T11:46:38 | PASS  技能 warrior-warrior_a_3 | buff; BuffCount 0->1; MP 551->539; CD=9.62; VFX=1; Anim=n/a
+2026-11-24T11:46:38 | ACTION  施放 warrior[4] 裂地斩 / warrior_a_4（stun_wave）
+2026-11-24T11:46:38 | OBSERVE 技能结果 OK stun_wave; Dmg 0->851, Hits 0->1; MP 551->533; CD=8.57; VFX=2; Anim=n/a
+2026-11-24T11:46:38 | SHOT    skills/094_warrior_warrior_a_4.jpg
+2026-11-24T11:46:38 | PASS  技能 warrior-warrior_a_4 | stun_wave; Dmg 0->851, Hits 0->1; MP 551->533; CD=8.57; VFX=2; Anim=n/a
+2026-11-24T11:46:38 | ACTION  施放 warrior[5] 不屈战意 / warrior_a_5（buff）
+2026-11-24T11:46:39 | OBSERVE 技能结果 OK buff; BuffCount 0->1; MP 551->535; CD=17.60; VFX=1; Anim=n/a
+2026-11-24T11:46:39 | SHOT    skills/095_warrior_warrior_a_5.jpg
+2026-11-24T11:46:39 | PASS  技能 warrior-warrior_a_5 | buff; BuffCount 0->1; MP 551->535; CD=17.60; VFX=1; Anim=n/a
+2026-11-24T11:46:39 | ACTION  施放 warrior[6] 狂战风暴 / warrior_a_6（melee_aoe）
+2026-11-24T11:46:39 | OBSERVE 技能结果 OK melee_aoe; Dmg 0->3316, Hits 0->3; MP 551->525; CD=13.85; VFX=1; Anim=n/a
+2026-11-24T11:46:39 | SHOT    skills/096_warrior_warrior_a_6.jpg
+2026-11-24T11:46:39 | PASS  技能 warrior-warrior_a_6 | melee_aoe; Dmg 0->3316, Hits 0->3; MP 551->525; CD=13.85; VFX=1; Anim=n/a
+2026-11-24T11:46:39 | ACTION  施放 warrior[7] 剑阵风暴 / warrior_fusion（melee_aoe）
+2026-11-24T11:46:39 | OBSERVE 技能结果 OK melee_aoe; Dmg 0->8205, Hits 0->5; MP 551->505; CD=27.85; VFX=1; Anim=n/a
+2026-11-24T11:46:39 | SHOT    skills/097_warrior_warrior_fusion.jpg
+2026-11-24T11:46:39 | PASS  技能 warrior-warrior_fusion | melee_aoe; Dmg 0->8205, Hits 0->5; MP 551->505; CD=27.85; VFX=1; Anim=n/a
+2026-11-24T11:46:39 | ACTION  施放 warrior[8] 狂战风暴 / warrior_a_spec_a（melee_aoe）
+2026-11-24T11:46:40 | OBSERVE 技能结果 OK melee_aoe; Dmg 0->4355, Hits 0->3; MP 551->521; CD=17.85; VFX=1; Anim=n/a
+2026-11-24T11:46:40 | SHOT    skills/098_warrior_warrior_a_spec_a.jpg
+2026-11-24T11:46:40 | PASS  技能 warrior-warrior_a_spec_a | melee_aoe; Dmg 0->4355, Hits 0->3; MP 551->521; CD=17.85; VFX=1; Anim=n/a
+2026-11-24T11:46:40 | ACTION  施放 warrior[9] 战神降临 / warrior_a_apex（melee_aoe）
+2026-11-24T11:46:40 | OBSERVE 技能结果 OK melee_aoe; Dmg 0->9414, Hits 0->5; MP 551->501; CD=29.85; VFX=1; Anim=n/a
+2026-11-24T11:46:40 | SHOT    skills/099_warrior_warrior_a_apex.jpg
+2026-11-24T11:46:40 | PASS  技能 warrior-warrior_a_apex | melee_aoe; Dmg 0->9414, Hits 0->5; MP 551->501; CD=29.85; VFX=1; Anim=n/a
+2026-11-24T11:46:40 | ACTION  施放 warrior[10] 不屈战吼 / warrior_a_spec_b（buff）
+2026-11-24T11:46:40 | OBSERVE 技能结果 OK buff; BuffCount 0->2; MP 551->521; CD=25.62; VFX=1; Anim=n/a
+2026-11-24T11:46:41 | SHOT    skills/100_warrior_warrior_a_spec_b.jpg
+2026-11-24T11:46:41 | PASS  技能 warrior-warrior_a_spec_b | buff; BuffCount 0->2; MP 551->521; CD=25.62; VFX=1; Anim=n/a
+2026-11-24T11:46:41 | PASS  qi_adept 技能数>=6（完整进阶 10） | 10
+2026-11-24T11:46:41 | ACTION  施放 qi_adept[1] 气劲掌 / qi_adept_a_1（melee_aoe）
+2026-11-24T11:46:41 | OBSERVE 技能结果 OK melee_aoe; Dmg 0->379, Hits 0->1; MP 714->705; CD=3.20; VFX=1; Anim=n/a
+2026-11-24T11:46:41 | SHOT    skills/101_qi_adept_qi_adept_a_1.jpg
+2026-11-24T11:46:41 | PASS  技能 qi_adept-qi_adept_a_1 | melee_aoe; Dmg 0->379, Hits 0->1; MP 714->705; CD=3.20; VFX=1; Anim=n/a
+2026-11-24T11:46:41 | ACTION  施放 qi_adept[2] 内息术 / qi_adept_a_2（heal）
+2026-11-24T11:46:42 | OBSERVE 技能结果 OK heal; HP 1571->1616 (+45); MP 714->696; CD=7.60; VFX=1; Anim=n/a
+2026-11-24T11:46:42 | SHOT    skills/102_qi_adept_qi_adept_a_2.jpg
+2026-11-24T11:46:42 | PASS  技能 qi_adept-qi_adept_a_2 | heal; HP 1571->1616 (+45); MP 714->696; CD=7.60; VFX=1; Anim=n/a
+2026-11-24T11:46:42 | ACTION  施放 qi_adept[3] 气脉流转 / qi_adept_a_3（buff）
+2026-11-24T11:46:42 | OBSERVE 技能结果 OK buff; BuffCount 0->1; MP 714->702; CD=11.60; VFX=1; Anim=n/a
+2026-11-24T11:46:42 | SHOT    skills/103_qi_adept_qi_adept_a_3.jpg
+2026-11-24T11:46:42 | PASS  技能 qi_adept-qi_adept_a_3 | buff; BuffCount 0->1; MP 714->702; CD=11.60; VFX=1; Anim=n/a
+2026-11-24T11:46:42 | ACTION  施放 qi_adept[4] 生生不息 / qi_adept_a_4（heal_zone）
+2026-11-24T11:46:43 | OBSERVE 技能结果 OK heal_zone; HP 1571->1616 (+45); MP 714->684; CD=10.67; VFX=1; Anim=n/a
+2026-11-24T11:46:43 | SHOT    skills/104_qi_adept_qi_adept_a_4.jpg
+2026-11-24T11:46:43 | PASS  技能 qi_adept-qi_adept_a_4 | heal_zone; HP 1571->1616 (+45); MP 714->684; CD=10.67; VFX=1; Anim=n/a
+2026-11-24T11:46:43 | ACTION  施放 qi_adept[5] 罡气爆 / qi_adept_a_5（stun_wave）
+2026-11-24T11:46:44 | OBSERVE 技能结果 OK stun_wave; Dmg 0->487, Hits 0->1; MP 714->696; CD=7.55; VFX=2; Anim=n/a
+2026-11-24T11:46:44 | SHOT    skills/105_qi_adept_qi_adept_a_5.jpg
+2026-11-24T11:46:44 | PASS  技能 qi_adept-qi_adept_a_5 | stun_wave; Dmg 0->487, Hits 0->1; MP 714->696; CD=7.55; VFX=2; Anim=n/a
+2026-11-24T11:46:44 | ACTION  施放 qi_adept[6] 妙手回春 / qi_adept_a_6（heal）
+2026-11-24T11:46:44 | OBSERVE 技能结果 OK heal; HP 1571->1616 (+45); MP 714->680; CD=17.60; VFX=1; Anim=n/a
+2026-11-24T11:46:44 | SHOT    skills/106_qi_adept_qi_adept_a_6.jpg
+2026-11-24T11:46:44 | PASS  技能 qi_adept-qi_adept_a_6 | heal; HP 1571->1616 (+45); MP 714->680; CD=17.60; VFX=1; Anim=n/a
+2026-11-24T11:46:44 | ACTION  施放 qi_adept[7] 气海无量 / qi_adept_fusion（heal_zone）
+2026-11-24T11:46:46 | OBSERVE 技能结果 OK heal_zone; HP 1571->1616 (+45); MP 714->660; CD=30.67; VFX=1; Anim=n/a
+2026-11-24T11:46:46 | SHOT    skills/107_qi_adept_qi_adept_fusion.jpg
+2026-11-24T11:46:46 | PASS  技能 qi_adept-qi_adept_fusion | heal_zone; HP 1571->1616 (+45); MP 714->660; CD=30.67; VFX=1; Anim=n/a
+2026-11-24T11:46:46 | ACTION  施放 qi_adept[8] 生生不息·极 / qi_adept_a_spec_a（heal_zone）
+2026-11-24T11:46:47 | OBSERVE 技能结果 OK heal_zone; HP 1571->1616 (+45); MP 714->672; CD=22.65; VFX=1; Anim=n/a
+2026-11-24T11:46:47 | SHOT    skills/108_qi_adept_qi_adept_a_spec_a.jpg
+2026-11-24T11:46:47 | PASS  技能 qi_adept-qi_adept_a_spec_a | heal_zone; HP 1571->1616 (+45); MP 714->672; CD=22.65; VFX=1; Anim=n/a
+2026-11-24T11:46:47 | ACTION  施放 qi_adept[9] 回春圣境 / qi_adept_a_apex（heal_zone）
+2026-11-24T11:46:48 | OBSERVE 技能结果 OK heal_zone; HP 1571->1616 (+45); MP 714->658; CD=30.67; VFX=1; Anim=n/a
+2026-11-24T11:46:48 | SHOT    skills/109_qi_adept_qi_adept_a_apex.jpg
+2026-11-24T11:46:48 | PASS  技能 qi_adept-qi_adept_a_apex | heal_zone; HP 1571->1616 (+45); MP 714->658; CD=30.67; VFX=1; Anim=n/a
+2026-11-24T11:46:48 | ACTION  施放 qi_adept[10] 气劲崩拳 / qi_adept_a_spec_b（melee_aoe）
+2026-11-24T11:46:49 | OBSERVE 技能结果 OK melee_aoe; Dmg 0->1028, Hits 0->1; MP 714->688; CD=15.72; VFX=1; Anim=n/a
+2026-11-24T11:46:49 | SHOT    skills/110_qi_adept_qi_adept_a_spec_b.jpg
+2026-11-24T11:46:49 | PASS  技能 qi_adept-qi_adept_a_spec_b | melee_aoe; Dmg 0->1028, Hits 0->1; MP 714->688; CD=15.72; VFX=1; Anim=n/a
+2026-11-24T11:46:49 | PASS  thief 技能数>=6（完整进阶 10） | 10
+2026-11-24T11:46:49 | ACTION  施放 thief[1] 背刺 / thief_a_1（blink_strike）
+2026-11-24T11:46:50 | OBSERVE 技能结果 OK blink_strike; Move 82, Dmg 0->1044; MP 604->598; CD=1.97; VFX=1; Anim=n/a
+2026-11-24T11:46:50 | SHOT    skills/111_thief_thief_a_1.jpg
+2026-11-24T11:46:50 | PASS  技能 thief-thief_a_1 | blink_strike; Move 82, Dmg 0->1044; MP 604->598; CD=1.97; VFX=1; Anim=n/a
+2026-11-24T11:46:50 | ACTION  施放 thief[2] 毒刃 / thief_a_2（projectile）
+2026-11-24T11:46:50 | OBSERVE 技能结果 OK projectile; Dmg 0->313, Hits 0->1; MP 604->596; CD=2.33; VFX=1; Anim=n/a
+2026-11-24T11:46:50 | SHOT    skills/112_thief_thief_a_2.jpg
+2026-11-24T11:46:50 | PASS  技能 thief-thief_a_2 | projectile; Dmg 0->313, Hits 0->1; MP 604->596; CD=2.33; VFX=1; Anim=n/a
+2026-11-24T11:46:50 | ACTION  施放 thief[3] 烟雾弹 / thief_a_3（buff）
+2026-11-24T11:46:51 | OBSERVE 技能结果 OK buff; BuffCount 0->1; MP 604->594; CD=9.60; VFX=1; Anim=n/a
+2026-11-24T11:46:51 | SHOT    skills/113_thief_thief_a_3.jpg
+2026-11-24T11:46:51 | PASS  技能 thief-thief_a_3 | buff; BuffCount 0->1; MP 604->594; CD=9.60; VFX=1; Anim=n/a
+2026-11-24T11:46:51 | ACTION  施放 thief[4] 致命背刺 / thief_a_4（blink_strike）
+2026-11-24T11:46:51 | OBSERVE 技能结果 OK blink_strike; Move 82, Dmg 0->1462; MP 604->590; CD=5.55; VFX=1; Anim=n/a
+2026-11-24T11:46:51 | SHOT    skills/114_thief_thief_a_4.jpg
+2026-11-24T11:46:51 | PASS  技能 thief-thief_a_4 | blink_strike; Move 82, Dmg 0->1462; MP 604->590; CD=5.55; VFX=1; Anim=n/a
+2026-11-24T11:46:51 | ACTION  施放 thief[5] 影袭 / thief_a_5（blink_strike）
+2026-11-24T11:46:52 | OBSERVE 技能结果 OK blink_strike; Move 82, Dmg 0->1254; MP 604->588; CD=7.57; VFX=1; Anim=n/a
+2026-11-24T11:46:52 | SHOT    skills/115_thief_thief_a_5.jpg
+2026-11-24T11:46:52 | PASS  技能 thief-thief_a_5 | blink_strike; Move 82, Dmg 0->1254; MP 604->588; CD=7.57; VFX=1; Anim=n/a
+2026-11-24T11:46:52 | ACTION  施放 thief[6] 瞬杀 / thief_a_6（blink_strike）
+2026-11-24T11:46:52 | OBSERVE 技能结果 OK blink_strike; Move 82, Dmg 0->1880; MP 604->580; CD=11.53; VFX=1; Anim=n/a
+2026-11-24T11:46:52 | SHOT    skills/116_thief_thief_a_6.jpg
+2026-11-24T11:46:52 | PASS  技能 thief-thief_a_6 | blink_strike; Move 82, Dmg 0->1880; MP 604->580; CD=11.53; VFX=1; Anim=n/a
+2026-11-24T11:46:52 | ACTION  施放 thief[7] 毒影分身 / thief_fusion（summon）
+2026-11-24T11:46:53 | OBSERVE 技能结果 OK summon; Summons 0->1(peak); MP 604->556; CD=29.65; VFX=1; Anim=n/a
+2026-11-24T11:46:53 | SHOT    skills/117_thief_thief_fusion.jpg
+2026-11-24T11:46:53 | PASS  技能 thief-thief_fusion | summon; Summons 0->1(peak); MP 604->556; CD=29.65; VFX=1; Anim=n/a
+2026-11-24T11:46:53 | ACTION  施放 thief[8] 瞬杀·极 / thief_a_spec_a（blink_strike）
+2026-11-24T11:46:53 | OBSERVE 技能结果 OK blink_strike; Move 82, Dmg 0->2402; MP 604->580; CD=13.57; VFX=1; Anim=n/a
+2026-11-24T11:46:53 | SHOT    skills/118_thief_thief_a_spec_a.jpg
+2026-11-24T11:46:53 | PASS  技能 thief-thief_a_spec_a | blink_strike; Move 82, Dmg 0->2402; MP 604->580; CD=13.57; VFX=1; Anim=n/a
+2026-11-24T11:46:53 | ACTION  施放 thief[9] 影杀·终结 / thief_a_apex（blink_strike）
+2026-11-24T11:46:54 | OBSERVE 技能结果 OK blink_strike; Move 82, Dmg 0->3238; MP 604->558; CD=25.55; VFX=1; Anim=n/a
+2026-11-24T11:46:54 | SHOT    skills/119_thief_thief_a_apex.jpg
+2026-11-24T11:46:54 | PASS  技能 thief-thief_a_apex | blink_strike; Move 82, Dmg 0->3238; MP 604->558; CD=25.55; VFX=1; Anim=n/a
+2026-11-24T11:46:54 | ACTION  施放 thief[10] 暗影脱离 / thief_a_spec_b（blink_strike）
+2026-11-24T11:46:54 | OBSERVE 技能结果 OK blink_strike; Move 82, Dmg 0->1670; MP 604->584; CD=11.57; VFX=1; Anim=n/a
+2026-11-24T11:46:54 | SHOT    skills/120_thief_thief_a_spec_b.jpg
+2026-11-24T11:46:54 | PASS  技能 thief-thief_a_spec_b | blink_strike; Move 82, Dmg 0->1670; MP 604->584; CD=11.57; VFX=1; Anim=n/a
+2026-11-24T11:46:55 | PASS  archer 技能数>=6（完整进阶 10） | 10
+2026-11-24T11:46:55 | ACTION  施放 archer[1] 穿透射击 / archer_a_1（projectile）
+2026-11-24T11:46:55 | OBSERVE 技能结果 OK projectile; Dmg 0->858, Hits 0->2; MP 587->581; CD=1.50; VFX=1; Anim=n/a
+2026-11-24T11:46:55 | SHOT    skills/121_archer_archer_a_1.jpg
+2026-11-24T11:46:55 | PASS  技能 archer-archer_a_1 | projectile; Dmg 0->858, Hits 0->2; MP 587->581; CD=1.50; VFX=1; Anim=n/a
+2026-11-24T11:46:55 | ACTION  施放 archer[2] 鹰眼 / archer_a_2（buff）
+2026-11-24T11:46:56 | OBSERVE 技能结果 OK buff; BuffCount 0->1; MP 587->577; CD=11.78; VFX=3; Anim=n/a
+2026-11-24T11:46:56 | SHOT    skills/122_archer_archer_a_2.jpg
+2026-11-24T11:46:56 | PASS  技能 archer-archer_a_2 | buff; BuffCount 0->1; MP 587->577; CD=11.78; VFX=3; Anim=n/a
+2026-11-24T11:46:56 | ACTION  施放 archer[3] 屏息 / archer_a_3（buff）
+2026-11-24T11:46:56 | OBSERVE 技能结果 OK buff; BuffCount 0->1; MP 587->577; CD=9.60; VFX=1; Anim=n/a
+2026-11-24T11:46:56 | SHOT    skills/123_archer_archer_a_3.jpg
+2026-11-24T11:46:56 | PASS  技能 archer-archer_a_3 | buff; BuffCount 0->1; MP 587->577; CD=9.60; VFX=1; Anim=n/a
+2026-11-24T11:46:56 | ACTION  施放 archer[4] 破甲贯射 / archer_a_4（projectile）
+2026-11-24T11:46:57 | OBSERVE 技能结果 OK projectile; Dmg 0->2010, Hits 0->3; MP 587->575; CD=5.55; VFX=1; Anim=n/a
+2026-11-24T11:46:57 | SHOT    skills/124_archer_archer_a_4.jpg
+2026-11-24T11:46:57 | PASS  技能 archer-archer_a_4 | projectile; Dmg 0->2010, Hits 0->3; MP 587->575; CD=5.55; VFX=1; Anim=n/a
+2026-11-24T11:46:57 | ACTION  施放 archer[5] 贯穿箭雨 / archer_a_5（aoe_zone）
+2026-11-24T11:46:58 | OBSERVE 技能结果 OK aoe_zone; Dmg 0->2304, Hits 0->3; MP 587->567; CD=9.32; VFX=0; Anim=n/a
+2026-11-24T11:46:58 | SHOT    skills/125_archer_archer_a_5.jpg
+2026-11-24T11:46:58 | PASS  技能 archer-archer_a_5 | aoe_zone; Dmg 0->2304, Hits 0->3; MP 587->567; CD=9.32; VFX=0; Anim=n/a
+2026-11-24T11:46:58 | ACTION  施放 archer[6] 一箭穿心 / archer_a_6（snipe）
+2026-11-24T11:46:58 | OBSERVE 技能结果 OK snipe; Dmg 0->7887, Hits 0->6; MP 587->561; CD=13.85; VFX=1; Anim=n/a
+2026-11-24T11:46:58 | SHOT    skills/126_archer_archer_a_6.jpg
+2026-11-24T11:46:58 | PASS  技能 archer-archer_a_6 | snipe; Dmg 0->7887, Hits 0->6; MP 587->561; CD=13.85; VFX=1; Anim=n/a
+2026-11-24T11:46:58 | ACTION  施放 archer[7] 万箭穿心 / archer_fusion（snipe）
+2026-11-24T11:46:59 | OBSERVE 技能结果 OK snipe; Dmg 0->14792, Hits 0->6; MP 587->537; CD=29.83; VFX=1; Anim=n/a
+2026-11-24T11:46:59 | SHOT    skills/127_archer_archer_fusion.jpg
+2026-11-24T11:46:59 | PASS  技能 archer-archer_fusion | snipe; Dmg 0->14792, Hits 0->6; MP 587->537; CD=29.83; VFX=1; Anim=n/a
+2026-11-24T11:46:59 | ACTION  施放 archer[8] 一箭穿心·极 / archer_a_spec_a（snipe）
+2026-11-24T11:46:59 | OBSERVE 技能结果 OK snipe; Dmg 0->12328, Hits 0->6; MP 587->553; CD=21.83; VFX=1; Anim=n/a
+2026-11-24T11:46:59 | SHOT    skills/128_archer_archer_a_spec_a.jpg
+2026-11-24T11:46:59 | PASS  技能 archer-archer_a_spec_a | snipe; Dmg 0->12328, Hits 0->6; MP 587->553; CD=21.83; VFX=1; Anim=n/a
+2026-11-24T11:46:59 | ACTION  施放 archer[9] 射日 / archer_a_apex（snipe）
+2026-11-24T11:47:00 | OBSERVE 技能结果 OK snipe; Dmg 0->16764, Hits 0->6; MP 587->535; CD=31.83; VFX=1; Anim=n/a
+2026-11-24T11:47:00 | SHOT    skills/129_archer_archer_a_apex.jpg
+2026-11-24T11:47:00 | PASS  技能 archer-archer_a_apex | snipe; Dmg 0->16764, Hits 0->6; MP 587->535; CD=31.83; VFX=1; Anim=n/a
+2026-11-24T11:47:00 | ACTION  施放 archer[10] 鹰眼领域 / archer_a_spec_b（buff）
+2026-11-24T11:47:00 | OBSERVE 技能结果 OK buff; BuffCount 0->2; MP 587->557; CD=25.62; VFX=1; Anim=n/a
+2026-11-24T11:47:00 | SHOT    skills/130_archer_archer_a_spec_b.jpg
+2026-11-24T11:47:00 | PASS  技能 archer-archer_a_spec_b | buff; BuffCount 0->2; MP 587->557; CD=25.62; VFX=1; Anim=n/a
+2026-11-24T11:47:00 | PASS  cyborg 技能数>=6（完整进阶 10） | 10
+2026-11-24T11:47:00 | ACTION  施放 cyborg[1] 液压重拳 / cyborg_a_1（melee_aoe）
+2026-11-24T11:47:01 | OBSERVE 技能结果 OK melee_aoe; Dmg 0->473, Hits 0->1; MP 560->550; CD=3.70; VFX=1; Anim=n/a
+2026-11-24T11:47:01 | SHOT    skills/131_cyborg_cyborg_a_1.jpg
+2026-11-24T11:47:01 | PASS  技能 cyborg-cyborg_a_1 | melee_aoe; Dmg 0->473, Hits 0->1; MP 560->550; CD=3.70; VFX=1; Anim=n/a
+2026-11-24T11:47:01 | ACTION  施放 cyborg[2] 伺服突进 / cyborg_a_2（dash_strike）
+2026-11-24T11:47:01 | OBSERVE 技能结果 OK dash_strike; Move 177, Dmg 0->1291; MP 560->548; CD=5.68; VFX=5; Anim=n/a
+2026-11-24T11:47:01 | SHOT    skills/132_cyborg_cyborg_a_2.jpg
+2026-11-24T11:47:01 | PASS  技能 cyborg-cyborg_a_2 | dash_strike; Move 177, Dmg 0->1291; MP 560->548; CD=5.68; VFX=5; Anim=n/a
+2026-11-24T11:47:01 | ACTION  施放 cyborg[3] 能量壁垒 / cyborg_a_3（shield）
+2026-11-24T11:47:02 | OBSERVE 技能结果 OK shield; Shield 0->126; MP 560->544; CD=12.62; VFX=1; Anim=n/a
+2026-11-24T11:47:02 | SHOT    skills/133_cyborg_cyborg_a_3.jpg
+2026-11-24T11:47:02 | PASS  技能 cyborg-cyborg_a_3 | shield; Shield 0->126; MP 560->544; CD=12.62; VFX=1; Anim=n/a
+2026-11-24T11:47:02 | ACTION  施放 cyborg[4] 磁轨突袭 / cyborg_a_4（dash_strike）
+2026-11-24T11:47:02 | OBSERVE 技能结果 OK dash_strike; Move 232, Dmg 0->2276; MP 560->540; CD=9.70; VFX=5; Anim=n/a
+2026-11-24T11:47:02 | SHOT    skills/134_cyborg_cyborg_a_4.jpg
+2026-11-24T11:47:02 | PASS  技能 cyborg-cyborg_a_4 | dash_strike; Move 232, Dmg 0->2276; MP 560->540; CD=9.70; VFX=5; Anim=n/a
+2026-11-24T11:47:02 | ACTION  施放 cyborg[5] 震荡践踏 / cyborg_a_5（stun_wave）
+2026-11-24T11:47:03 | OBSERVE 技能结果 OK stun_wave; Dmg 0->1222, Hits 0->2; MP 560->542; CD=8.65; VFX=2; Anim=n/a
+2026-11-24T11:47:03 | SHOT    skills/135_cyborg_cyborg_a_5.jpg
+2026-11-24T11:47:03 | PASS  技能 cyborg-cyborg_a_5 | stun_wave; Dmg 0->1222, Hits 0->2; MP 560->542; CD=8.65; VFX=2; Anim=n/a
+2026-11-24T11:47:03 | ACTION  施放 cyborg[6] 磁轨风暴 / cyborg_a_6（dash_strike）
+2026-11-24T11:47:03 | OBSERVE 技能结果 OK dash_strike; Move 287, Dmg 0->2847; MP 560->532; CD=15.72; VFX=1; Anim=n/a
+2026-11-24T11:47:03 | SHOT    skills/136_cyborg_cyborg_a_6.jpg
+2026-11-24T11:47:03 | PASS  技能 cyborg-cyborg_a_6 | dash_strike; Move 287, Dmg 0->2847; MP 560->532; CD=15.72; VFX=1; Anim=n/a
+2026-11-24T11:47:03 | ACTION  施放 cyborg[7] 磁轨壁垒 / cyborg_fusion（dash_strike）
+2026-11-24T11:47:04 | OBSERVE 技能结果 OK dash_strike; Move 345, Dmg 0->7739; MP 560->512; CD=29.70; VFX=5; Anim=n/a
+2026-11-24T11:47:04 | SHOT    skills/137_cyborg_cyborg_fusion.jpg
+2026-11-24T11:47:04 | PASS  技能 cyborg-cyborg_fusion | dash_strike; Move 345, Dmg 0->7739; MP 560->512; CD=29.70; VFX=5; Anim=n/a
+2026-11-24T11:47:04 | ACTION  施放 cyborg[8] 磁轨风暴·极 / cyborg_a_spec_a（dash_strike）
+2026-11-24T11:47:04 | OBSERVE 技能结果 OK dash_strike; Move 360, Dmg 0->4477; MP 560->528; CD=19.70; VFX=1; Anim=n/a
+2026-11-24T11:47:04 | SHOT    skills/138_cyborg_cyborg_a_spec_a.jpg
+2026-11-24T11:47:04 | PASS  技能 cyborg-cyborg_a_spec_a | dash_strike; Move 360, Dmg 0->4477; MP 560->528; CD=19.70; VFX=1; Anim=n/a
+2026-11-24T11:47:04 | ACTION  施放 cyborg[9] 磁轨天罚 / cyborg_a_apex（dash_strike）
+2026-11-24T11:47:05 | OBSERVE 技能结果 OK dash_strike; Move 420, Dmg 0->5781; MP 560->510; CD=29.70; VFX=1; Anim=n/a
+2026-11-24T11:47:05 | SHOT    skills/139_cyborg_cyborg_a_apex.jpg
+2026-11-24T11:47:05 | PASS  技能 cyborg-cyborg_a_apex | dash_strike; Move 420, Dmg 0->5781; MP 560->510; CD=29.70; VFX=1; Anim=n/a
+2026-11-24T11:47:05 | ACTION  施放 cyborg[10] 震荡领域 / cyborg_a_spec_b（stun_wave）
+2026-11-24T11:47:05 | OBSERVE 技能结果 OK stun_wave; Dmg 0->3267, Hits 0->3; MP 560->530; CD=17.70; VFX=2; Anim=n/a
+2026-11-24T11:47:05 | SHOT    skills/140_cyborg_cyborg_a_spec_b.jpg
+2026-11-24T11:47:05 | PASS  技能 cyborg-cyborg_a_spec_b | stun_wave; Dmg 0->3267, Hits 0->3; MP 560->530; CD=17.70; VFX=2; Anim=n/a
+2026-11-24T11:47:06 | PASS  hacker 技能数>=6（完整进阶 10） | 10
+2026-11-24T11:47:06 | ACTION  施放 hacker[1] 病毒入侵 / hacker_a_1（chain）
+2026-11-24T11:47:06 | OBSERVE 技能结果 OK chain; Dmg 0->3249, Hits 0->5; MP 791->777; CD=3.70; VFX=6; Anim=n/a
+2026-11-24T11:47:06 | SHOT    skills/141_hacker_hacker_a_1.jpg
+2026-11-24T11:47:06 | PASS  技能 hacker-hacker_a_1 | chain; Dmg 0->3249, Hits 0->5; MP 791->777; CD=3.70; VFX=6; Anim=n/a
+2026-11-24T11:47:06 | ACTION  施放 hacker[2] 蠕虫病毒 / hacker_a_2（chain）
+2026-11-24T11:47:07 | OBSERVE 技能结果 OK chain; Dmg 0->3752, Hits 0->5; MP 791->773; CD=7.68; VFX=6; Anim=n/a
+2026-11-24T11:47:07 | SHOT    skills/142_hacker_hacker_a_2.jpg
+2026-11-24T11:47:07 | PASS  技能 hacker-hacker_a_2 | chain; Dmg 0->3752, Hits 0->5; MP 791->773; CD=7.68; VFX=6; Anim=n/a
+2026-11-24T11:47:07 | ACTION  施放 hacker[3] 系统过载 / hacker_a_3（buff）
+2026-11-24T11:47:07 | OBSERVE 技能结果 OK buff; BuffCount 0->1; MP 791->777; CD=11.62; VFX=1; Anim=n/a
+2026-11-24T11:47:07 | SHOT    skills/143_hacker_hacker_a_3.jpg
+2026-11-24T11:47:07 | PASS  技能 hacker-hacker_a_3 | buff; BuffCount 0->1; MP 791->777; CD=11.62; VFX=1; Anim=n/a
+2026-11-24T11:47:07 | ACTION  施放 hacker[4] 病毒风暴 / hacker_a_4（chain）
+2026-11-24T11:47:08 | OBSERVE 技能结果 OK chain; Dmg 0->5539, Hits 0->6; MP 791->769; CD=9.68; VFX=7; Anim=n/a
+2026-11-24T11:47:08 | SHOT    skills/144_hacker_hacker_a_4.jpg
+2026-11-24T11:47:08 | PASS  技能 hacker-hacker_a_4 | chain; Dmg 0->5539, Hits 0->6; MP 791->769; CD=9.68; VFX=7; Anim=n/a
+2026-11-24T11:47:08 | ACTION  施放 hacker[5] 全域感染 / hacker_a_5（chain）
+2026-11-24T11:47:08 | OBSERVE 技能结果 OK chain; Dmg 0->6775, Hits 0->6; MP 791->765; CD=12.68; VFX=7; Anim=n/a
+2026-11-24T11:47:08 | SHOT    skills/145_hacker_hacker_a_5.jpg
+2026-11-24T11:47:08 | PASS  技能 hacker-hacker_a_5 | chain; Dmg 0->6775, Hits 0->6; MP 791->765; CD=12.68; VFX=7; Anim=n/a
+2026-11-24T11:47:08 | ACTION  施放 hacker[6] 零日链 / hacker_a_6（chain）
+2026-11-24T11:47:09 | OBSERVE 技能结果 OK chain; Dmg 0->9234, Hits 0->6; MP 791->757; CD=17.70; VFX=7; Anim=n/a
+2026-11-24T11:47:09 | SHOT    skills/146_hacker_hacker_a_6.jpg
+2026-11-24T11:47:09 | PASS  技能 hacker-hacker_a_6 | chain; Dmg 0->9234, Hits 0->6; MP 791->757; CD=17.70; VFX=7; Anim=n/a
+2026-11-24T11:47:09 | ACTION  施放 hacker[7] 全网瘫痪 / hacker_fusion（chain）
+2026-11-24T11:47:09 | OBSERVE 技能结果 OK chain; Dmg 0->16620, Hits 0->6; MP 791->737; CD=31.70; VFX=7; Anim=n/a
+2026-11-24T11:47:09 | SHOT    skills/147_hacker_hacker_fusion.jpg
+2026-11-24T11:47:09 | PASS  技能 hacker-hacker_fusion | chain; Dmg 0->16620, Hits 0->6; MP 791->737; CD=31.70; VFX=7; Anim=n/a
+2026-11-24T11:47:09 | ACTION  施放 hacker[8] 零日链·极 / hacker_a_spec_a（chain）
+2026-11-24T11:47:10 | OBSERVE 技能结果 OK chain; Dmg 0->14158, Hits 0->6; MP 791->751; CD=21.70; VFX=7; Anim=n/a
+2026-11-24T11:47:10 | SHOT    skills/148_hacker_hacker_a_spec_a.jpg
+2026-11-24T11:47:10 | PASS  技能 hacker-hacker_a_spec_a | chain; Dmg 0->14158, Hits 0->6; MP 791->751; CD=21.70; VFX=7; Anim=n/a
+2026-11-24T11:47:10 | ACTION  施放 hacker[9] 零日审判 / hacker_a_apex（chain）
+2026-11-24T11:47:10 | OBSERVE 技能结果 OK chain; Dmg 0->18466, Hits 0->6; MP 791->737; CD=29.70; VFX=7; Anim=n/a
+2026-11-24T11:47:10 | SHOT    skills/149_hacker_hacker_a_apex.jpg
+2026-11-24T11:47:11 | PASS  技能 hacker-hacker_a_apex | chain; Dmg 0->18466, Hits 0->6; MP 791->737; CD=29.70; VFX=7; Anim=n/a
+2026-11-24T11:47:11 | ACTION  施放 hacker[10] 病毒王冠 / hacker_a_spec_b（chain）
+2026-11-24T11:47:11 | OBSERVE 技能结果 OK chain; Dmg 0->12927, Hits 0->6; MP 791->755; CD=19.68; VFX=7; Anim=n/a
+2026-11-24T11:47:11 | SHOT    skills/150_hacker_hacker_a_spec_b.jpg
+2026-11-24T11:47:11 | PASS  技能 hacker-hacker_a_spec_b | chain; Dmg 0->12927, Hits 0->6; MP 791->755; CD=19.68; VFX=7; Anim=n/a
+2026-11-24T11:47:11 | PASS  sniper 技能数>=6（完整进阶 10） | 10
+2026-11-24T11:47:11 | ACTION  施放 sniper[1] 狙击 / sniper_a_1（snipe）
+2026-11-24T11:47:12 | OBSERVE 技能结果 OK snipe; Dmg 0->8531, Hits 0->6; MP 598->590; CD=3.85; VFX=1; Anim=n/a
+2026-11-24T11:47:12 | SHOT    skills/151_sniper_sniper_a_1.jpg
+2026-11-24T11:47:12 | PASS  技能 sniper-sniper_a_1 | snipe; Dmg 0->8531, Hits 0->6; MP 598->590; CD=3.85; VFX=1; Anim=n/a
+2026-11-24T11:47:12 | ACTION  施放 sniper[2] 陷阱 / sniper_a_2（deployable）
+2026-11-24T11:47:13 | OBSERVE 技能结果 OK deployable; Deployables 0->1(peak); MP 598->586; CD=7.15; VFX=1; Anim=n/a
+2026-11-24T11:47:13 | SHOT    skills/152_sniper_sniper_a_2.jpg
+2026-11-24T11:47:13 | PASS  技能 sniper-sniper_a_2 | deployable; Deployables 0->1(peak); MP 598->586; CD=7.15; VFX=1; Anim=n/a
+2026-11-24T11:47:13 | ACTION  施放 sniper[3] 精准 / sniper_a_3（buff）
+2026-11-24T11:47:13 | OBSERVE 技能结果 OK buff; BuffCount 0->1; MP 598->590; CD=11.58; VFX=1; Anim=n/a
+2026-11-24T11:47:13 | SHOT    skills/153_sniper_sniper_a_3.jpg
+2026-11-24T11:47:13 | PASS  技能 sniper-sniper_a_3 | buff; BuffCount 0->1; MP 598->590; CD=11.58; VFX=1; Anim=n/a
+2026-11-24T11:47:13 | ACTION  施放 sniper[4] 死神之眼 / sniper_a_4（snipe）
+2026-11-24T11:47:13 | OBSERVE 技能结果 OK snipe; Dmg 0->11372, Hits 0->6; MP 598->580; CD=8.83; VFX=1; Anim=n/a
+2026-11-24T11:47:14 | SHOT    skills/154_sniper_sniper_a_4.jpg
+2026-11-24T11:47:14 | PASS  技能 sniper-sniper_a_4 | snipe; Dmg 0->11372, Hits 0->6; MP 598->580; CD=8.83; VFX=1; Anim=n/a
+2026-11-24T11:47:14 | ACTION  施放 sniper[5] 爆裂陷阱 / sniper_a_5（deployable）
+2026-11-24T11:47:14 | OBSERVE 技能结果 OK deployable; Deployables 0->2(peak); MP 598->580; CD=11.20; VFX=2; Anim=n/a
+2026-11-24T11:47:15 | SHOT    skills/155_sniper_sniper_a_5.jpg
+2026-11-24T11:47:15 | PASS  技能 sniper-sniper_a_5 | deployable; Deployables 0->2(peak); MP 598->580; CD=11.20; VFX=2; Anim=n/a
+2026-11-24T11:47:15 | ACTION  施放 sniper[6] 绝杀狙击 / sniper_a_6（snipe）
+2026-11-24T11:47:15 | OBSERVE 技能结果 OK snipe; Dmg 0->14931, Hits 0->6; MP 598->570; CD=15.83; VFX=1; Anim=n/a
+2026-11-24T11:47:15 | SHOT    skills/156_sniper_sniper_a_6.jpg
+2026-11-24T11:47:15 | PASS  技能 sniper-sniper_a_6 | snipe; Dmg 0->14931, Hits 0->6; MP 598->570; CD=15.83; VFX=1; Anim=n/a
+2026-11-24T11:47:15 | ACTION  施放 sniper[7] 死亡禁区 / sniper_fusion（deployable）
+2026-11-24T11:47:16 | OBSERVE 技能结果 OK deployable; Deployables 0->8(peak); MP 598->544; CD=33.40; VFX=8; Anim=n/a
+2026-11-24T11:47:16 | SHOT    skills/157_sniper_sniper_fusion.jpg
+2026-11-24T11:47:16 | PASS  技能 sniper-sniper_fusion | deployable; Deployables 0->8(peak); MP 598->544; CD=33.40; VFX=8; Anim=n/a
+2026-11-24T11:47:16 | ACTION  施放 sniper[8] 绝杀狙击·极 / sniper_a_spec_a（snipe）
+2026-11-24T11:47:16 | OBSERVE 技能结果 OK snipe; Dmg 0->19192, Hits 0->6; MP 598->566; CD=21.83; VFX=1; Anim=n/a
+2026-11-24T11:47:16 | SHOT    skills/158_sniper_sniper_a_spec_a.jpg
+2026-11-24T11:47:16 | PASS  技能 sniper-sniper_a_spec_a | snipe; Dmg 0->19192, Hits 0->6; MP 598->566; CD=21.83; VFX=1; Anim=n/a
+2026-11-24T11:47:16 | ACTION  施放 sniper[9] 天眼绝杀 / sniper_a_apex（snipe）
+2026-11-24T11:47:17 | OBSERVE 技能结果 OK snipe; Dmg 0->25596, Hits 0->6; MP 598->544; CD=33.83; VFX=1; Anim=n/a
+2026-11-24T11:47:17 | SHOT    skills/159_sniper_sniper_a_apex.jpg
+2026-11-24T11:47:17 | PASS  技能 sniper-sniper_a_apex | snipe; Dmg 0->25596, Hits 0->6; MP 598->544; CD=33.83; VFX=1; Anim=n/a
+2026-11-24T11:47:17 | ACTION  施放 sniper[10] 潜行狙击 / sniper_a_spec_b（buff）
+2026-11-24T11:47:17 | OBSERVE 技能结果 OK buff; BuffCount 0->2; MP 598->570; CD=23.58; VFX=1; Anim=n/a
+2026-11-24T11:47:17 | SHOT    skills/160_sniper_sniper_a_spec_b.jpg
+2026-11-24T11:47:17 | PASS  技能 sniper-sniper_a_spec_b | buff; BuffCount 0->2; MP 598->570; CD=23.58; VFX=1; Anim=n/a
+2026-11-24T11:47:17 | PASS  全技能实测完成 | tested=160
+2026-11-24T11:47:17 | ACTION  创建动作测试宿主：Sprite2D + SpriteAnim 形变层
+2026-11-24T11:47:17 | PASS  动作测试宿主创建 | 
+2026-11-24T11:47:17 | ACTION  遍历 SpriteAnim 40 个 AnimState：逐状态播放 + 断言 + 截图
+2026-11-24T11:47:17 | SHOT    actions/01_IDLE.jpg
+2026-11-24T11:47:17 | PASS  动作 01 IDLE | state=0 expect=0 via=settle
+2026-11-24T11:47:18 | SHOT    actions/02_RUN.jpg
+2026-11-24T11:47:18 | PASS  动作 02 RUN | state=1 expect=1 via=settle
+2026-11-24T11:47:18 | SHOT    actions/03_ATTACK.jpg
+2026-11-24T11:47:18 | PASS  动作 03 ATTACK | state=2 expect=2 via=enter_attack
+2026-11-24T11:47:18 | SHOT    actions/04_CAST.jpg
+2026-11-24T11:47:18 | PASS  动作 04 CAST | state=3 expect=3 via=enter_cast
+2026-11-24T11:47:18 | SHOT    actions/05_DASH.jpg
+2026-11-24T11:47:18 | PASS  动作 05 DASH | state=4 expect=4 via=enter_dash
+2026-11-24T11:47:18 | SHOT    actions/06_BLINK.jpg
+2026-11-24T11:47:18 | PASS  动作 06 BLINK | state=5 expect=5 via=enter_blink
+2026-11-24T11:47:18 | SHOT    actions/07_HURT.jpg
+2026-11-24T11:47:18 | PASS  动作 07 HURT | state=6 expect=6 via=enter_hurt
+2026-11-24T11:47:18 | SHOT    actions/08_DEAD.jpg
+2026-11-24T11:47:18 | PASS  动作 08 DEAD | state=7 expect=7 via=enter_dead
+2026-11-24T11:47:18 | SHOT    actions/09_STAGGER.jpg
+2026-11-24T11:47:18 | PASS  动作 09 STAGGER | state=8 expect=8 via=settle
+2026-11-24T11:47:18 | SHOT    actions/10_RESURRECTING.jpg
+2026-11-24T11:47:18 | PASS  动作 10 RESURRECTING | state=9 expect=9 via=settle
+2026-11-24T11:47:18 | SHOT    actions/11_SWORD_SWING.jpg
+2026-11-24T11:47:18 | PASS  动作 11 SWORD_SWING | state=10 expect=10 via=enter_sword_swing
+2026-11-24T11:47:19 | SHOT    actions/12_BOW_DRAW.jpg
+2026-11-24T11:47:19 | PASS  动作 12 BOW_DRAW | state=11 expect=11 via=enter_bow_draw
+2026-11-24T11:47:19 | SHOT    actions/13_THROW_BOMB.jpg
+2026-11-24T11:47:19 | PASS  动作 13 THROW_BOMB | state=12 expect=12 via=enter_throw_bomb
+2026-11-24T11:47:19 | SHOT    actions/14_CAST_SPELL.jpg
+2026-11-24T11:47:19 | PASS  动作 14 CAST_SPELL | state=13 expect=13 via=enter_cast_spell
+2026-11-24T11:47:19 | SHOT    actions/15_SUMMON_RITUAL.jpg
+2026-11-24T11:47:19 | PASS  动作 15 SUMMON_RITUAL | state=14 expect=14 via=enter_summon_ritual
+2026-11-24T11:47:19 | SHOT    actions/16_CHARGING.jpg
+2026-11-24T11:47:19 | PASS  动作 16 CHARGING | state=15 expect=15 via=settle
+2026-11-24T11:47:19 | SHOT    actions/17_CAST_FOCUS.jpg
+2026-11-24T11:47:19 | PASS  动作 17 CAST_FOCUS | state=16 expect=16 via=settle
+2026-11-24T11:47:19 | SHOT    actions/18_BLOCK.jpg
+2026-11-24T11:47:19 | PASS  动作 18 BLOCK | state=17 expect=17 via=settle
+2026-11-24T11:47:19 | SHOT    actions/19_READY.jpg
+2026-11-24T11:47:19 | PASS  动作 19 READY | state=18 expect=18 via=settle
+2026-11-24T11:47:19 | SHOT    actions/20_CROUCH.jpg
+2026-11-24T11:47:19 | PASS  动作 20 CROUCH | state=19 expect=19 via=settle
+2026-11-24T11:47:20 | SHOT    actions/21_WALK_CROUCH.jpg
+2026-11-24T11:47:20 | PASS  动作 21 WALK_CROUCH | state=20 expect=20 via=settle
+2026-11-24T11:47:20 | SHOT    actions/22_PRONE.jpg
+2026-11-24T11:47:20 | PASS  动作 22 PRONE | state=21 expect=21 via=settle
+2026-11-24T11:47:20 | SHOT    actions/23_LURK.jpg
+2026-11-24T11:47:20 | PASS  动作 23 LURK | state=22 expect=22 via=settle
+2026-11-24T11:47:20 | SHOT    actions/24_JUMP.jpg
+2026-11-24T11:47:20 | PASS  动作 24 JUMP | state=23 expect=23 via=enter_jump
+2026-11-24T11:47:20 | SHOT    actions/25_JUMP_FALLING.jpg
+2026-11-24T11:47:20 | PASS  动作 25 JUMP_FALLING | state=24 expect=24 via=enter_jump
+2026-11-24T11:47:20 | SHOT    actions/26_JUMP_LAND.jpg
+2026-11-24T11:47:20 | PASS  动作 26 JUMP_LAND | state=25 expect=25 via=enter_jump
+2026-11-24T11:47:20 | SHOT    actions/27_SWIM.jpg
+2026-11-24T11:47:20 | PASS  动作 27 SWIM | state=26 expect=26 via=settle
+2026-11-24T11:47:20 | SHOT    actions/28_CLIMB.jpg
+2026-11-24T11:47:20 | PASS  动作 28 CLIMB | state=27 expect=27 via=settle
+2026-11-24T11:47:20 | SHOT    actions/29_ROLL.jpg
+2026-11-24T11:47:20 | PASS  动作 29 ROLL | state=28 expect=28 via=enter_roll
+2026-11-24T11:47:20 | SHOT    actions/30_MOUNTED.jpg
+2026-11-24T11:47:20 | PASS  动作 30 MOUNTED | state=29 expect=29 via=settle
+2026-11-24T11:47:21 | SHOT    actions/31_FORCE_READY.jpg
+2026-11-24T11:47:21 | PASS  动作 31 FORCE_READY | state=30 expect=30 via=enter_force_ready
+2026-11-24T11:47:21 | SHOT    actions/32_DRINK.jpg
+2026-11-24T11:47:21 | PASS  动作 32 DRINK | state=31 expect=31 via=settle
+2026-11-24T11:47:21 | SHOT    actions/33_CARRY.jpg
+2026-11-24T11:47:21 | PASS  动作 33 CARRY | state=32 expect=32 via=settle
+2026-11-24T11:47:21 | SHOT    actions/34_SIT.jpg
+2026-11-24T11:47:21 | PASS  动作 34 SIT | state=33 expect=33 via=settle
+2026-11-24T11:47:21 | SHOT    actions/35_TRAP_SET.jpg
+2026-11-24T11:47:21 | PASS  动作 35 TRAP_SET | state=34 expect=34 via=settle
+2026-11-24T11:47:21 | SHOT    actions/36_PORTAL.jpg
+2026-11-24T11:47:21 | PASS  动作 36 PORTAL | state=35 expect=35 via=settle
+2026-11-24T11:47:21 | SHOT    actions/37_CELEBRATE.jpg
+2026-11-24T11:47:21 | PASS  动作 37 CELEBRATE | state=36 expect=36 via=settle
+2026-11-24T11:47:21 | SHOT    actions/38_FALL.jpg
+2026-11-24T11:47:21 | PASS  动作 38 FALL | state=37 expect=37 via=settle
+2026-11-24T11:47:21 | SHOT    actions/39_AOE_SWING.jpg
+2026-11-24T11:47:21 | PASS  动作 39 AOE_SWING | state=38 expect=38 via=enter_aoe_swing
+2026-11-24T11:47:21 | SHOT    actions/40_RAPID_STRIKES.jpg
+2026-11-24T11:47:21 | PASS  动作 40 RAPID_STRIKES | state=39 expect=39 via=enter_rapid_strikes
+2026-11-24T11:47:21 | ACTION  玩家真实动作：普攻 / 冲刺 / 受击 / 死亡 / 复活
+2026-11-24T11:47:22 | PASS  真实动作-普攻触发并命中 | dmg 0->344 anim=10
+2026-11-24T11:47:22 | PASS  真实动作-冲刺进入无敌 | dash_cd=0.83
+2026-11-24T11:47:23 | PASS  真实动作-受击形变 | dealt=1 anim=6
+2026-11-24T11:47:23 | OBSERVE 死亡测试 take_damage=49922 hp=0 立即死亡=true
+2026-11-24T11:47:23 | PASS  真实动作-死亡形变 | hp=0 dealt=49922
+2026-11-24T11:47:24 | PASS  真实动作-复活接口可执行 | hp=1863 state=0
+2026-11-24T11:47:24 | SHOT    actions/41_player_real_actions.jpg
+2026-11-24T11:47:24 | FINDING [建议修复] 训练场木桩缺少碰撞形状，投射物技能无法命中 :: scripts/world/training_dummy.gd 由 training_ground.gd 以 DUMMY_SCRIPT.new() 直接实例化，而 training_dummy.gd / enemy_base.gd 均未创建 CollisionShape2D（仅 scenes/enemies/enemy.tscn 自带）。投射物 projectile.gd 是 Area2D(collision_mask=4)，依赖 body_entered 命中，因此训练场内所有 projectile 技能首轮实测均 Dmg 0->0。本次测试在夹具中为木桩补建 CircleShape2D 后投射物链恢复正常，游戏运行逻辑本身正确。建议在 TrainingDummy._ready() 内自建碰撞形状，使训练场真正覆盖投射物技能。
+2026-11-24T11:47:24 | FINDING [建议修复] 统一动作层 ActionController / ActionProfileRegistry 在 Godot 4.7.2 下编译失败 :: scripts/combat/action_profile_registry.gd:155 的 static func get(id: String) 覆盖了 Object.get(StringName) -> Variant，4.7.2 将警告视为错误，导致该脚本与其调用方 action_controller.gd（第 107 行 ActionProfileRegistry.get）均无法编译。实践中玩家使用 SpriteAnim 形变层，统一动作层处于未接入状态。建议将 get() 改名为 get_profile() 并更新调用方。
+2026-11-24T11:47:24 | ACTION  训练场机制：回满/流派循环/进阶 + 元素木桩
+2026-11-24T11:47:24 | PASS  恢复台回满 HP/MP | hp=1863 mp=551
+2026-11-24T11:47:24 | PASS  流派台切换流派 | warrior_a -> warrior_b
+2026-11-24T11:47:24 | PASS  进阶台达到 70 级 / 10 技能槽 | lv=70 slots=10
+2026-11-24T11:47:25 | OBSERVE 火木桩承伤 total_damage=473 hit=1
+2026-11-24T11:47:25 | PASS  元素木桩统计可读取 | 
+2026-11-24T11:47:25 | FINDING [非阻断] 魔法技能元素归类为单一 fire 元素 :: SkillExecutor.cast 中未显式指定 damage_element 的魔法技能统一按 fire 结算，火元素木桩对其免疫。训练场提供 7 种元素木桩用于验证克制，但技能数据缺少冰/雷/圣/幽等细分元素字段，元素克制覆盖有限。
+2026-11-24T11:47:25 | PASS  离开训练场传送门存在 | 
+2026-11-24T11:47:25 | ACTION  录制训练场操作视频帧
+2026-11-24T11:47:28 | PASS  视频帧采集完成（36 帧） | frames=36
+2026-11-24T11:47:28 | SUMMARY checks=269/269 chars=16/16 skills=160/160 actions=40/40 shots=218 frames=36
+2026-11-24T11:47:28 | ========== TRAINING GROUND AUDIT DONE ==========
