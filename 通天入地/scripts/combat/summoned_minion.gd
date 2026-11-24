@@ -26,8 +26,8 @@ var pulse: float = 0.0
 var lifetime_left: float = 0.0
 var attack_flash: float = 0.0
 var _facing: Vector2 = Vector2.DOWN
-var sprite: Sprite2D = null
-var _use_sprite: bool = false
+var anim: AnimatedSprite2D = null
+var _use_frame_anim: bool = false
 
 func _asset_id_for_type() -> String:
 	match minion_type:
@@ -47,25 +47,34 @@ func _ready() -> void:
 	collision_mask = 0
 	z_index = 1
 	lifetime_left = lifetime
-	# 尝试加载 sprite 贴图，有就挂 Sprite2D，没就 fallback 到程序化 _draw
 	var asset_id := _asset_id_for_type()
-	if asset_id != "" and AssetLibrary.has(asset_id):
-		var tex := AssetLibrary.texture(asset_id)
-		if tex != null:
-			sprite = Sprite2D.new()
-			sprite.name = "MinionSprite"
-			sprite.texture = tex
-			sprite.texture_filter = CanvasItem.TEXTURE_FILTER_NEAREST
-			# 按 body_scale 缩放（96x96 原图，48px 游戏单位 → 0.5 scale）
+	if asset_id != "":
+		var actions := ["idle", "walk", "attack"]
+		var counts := [4, 4, 3]
+		var fps_list := [6, 10, 12]
+		var frames := SpriteFramesBuilder.from_asset_id(asset_id, 96, 96, actions, counts, fps_list)
+		if frames.get_animation_names().size() > 0:
+			anim = AnimatedSprite2D.new()
+			anim.name = "FrameAnim"
+			anim.sprite_frames = frames
+			anim.animation = "idle"
+			anim.texture_filter = CanvasItem.TEXTURE_FILTER_NEAREST
 			var target := 38.0 * body_scale
-			var fit := target / float(maxi(tex.get_width(), tex.get_height()))
-			sprite.scale = Vector2.ONE * fit
-			# 把 sprite 往上抬一点（脚底对齐）
-			var half_h := float(tex.get_height()) * fit * 0.5
-			sprite.offset = Vector2(0, -half_h * 0.4)
-			add_child(sprite)
-			_use_sprite = true
+			var fit := target / 96.0
+			anim.scale = Vector2.ONE * fit
+			var half_h := 96.0 * fit * 0.5
+			anim.offset = Vector2(0, -half_h * 0.4)
+			add_child(anim)
+			_use_frame_anim = true
 	queue_redraw()
+
+func _set_action(action: String) -> void:
+	if anim == null:
+		return
+	if not anim.sprite_frames.has_animation(action):
+		return
+	if anim.animation != action:
+		anim.play(action)
 
 func _physics_process(delta: float) -> void:
 	pulse += delta
@@ -83,6 +92,7 @@ func _physics_process(delta: float) -> void:
 		target = _nearest_enemy()
 	if target == null:
 		velocity = Vector2.ZERO
+		_set_action("idle")
 		queue_redraw()
 		return
 	var to_target: Vector2 = target.global_position - global_position
@@ -92,8 +102,10 @@ func _physics_process(delta: float) -> void:
 	if dist > rng:
 		velocity = to_target.normalized() * _move_speed()
 		move_and_slide()
+		_set_action("walk")
 	else:
 		velocity = Vector2.ZERO
+		_set_action("attack")
 		if attack_timer <= 0.0:
 			attack_timer = attack_interval
 			attack_flash = 0.15
@@ -188,8 +200,8 @@ func _draw() -> void:
 	if attack_flash > 0.0:
 		var flash_a := attack_flash / 0.15
 		draw_arc(Vector2.ZERO, 40.0 * s, 0, TAU, 32, Color(1, 1, 1, flash_a * 0.4), 3.0)
-	# 有 sprite 贴图时跳过程序化身体绘制（Sprite2D 已经挂上）
-	if _use_sprite:
+	# 有帧动画 sprite 时跳过程序化身体绘制
+	if _use_frame_anim:
 		return
 	if minion_type == "ghost":
 		_draw_archer(s)

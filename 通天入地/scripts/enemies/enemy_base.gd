@@ -39,6 +39,8 @@ enum State { PATROL, CHASE, ATTACK, DEAD }
 
 var sprite_texture: Texture2D = null
 var sprite_content: Rect2i = Rect2i()
+var anim: AnimatedSprite2D = null
+var _action_frames: SpriteFrames = null
 var hp: int = 40
 var state: State = State.PATROL
 var attack_timer: float = 0.0
@@ -72,12 +74,58 @@ func _ready() -> void:
 		body_radius = 28.0
 		move_speed *= 0.8
 	sprite_texture = _load_sprite()
-	# 动画控制器：驱动 Node2D 自身的位置/缩放/旋转（由 _draw 绘制贴图）
+	# === 帧动画层（AnimatedSprite2D）===
+	var sheet_id := _sheet_asset_id()
+	if sheet_id != "":
+		_try_attach_animated_sprite(sheet_id, frame_w=96, frame_h=96)
+	# === 形变层（SpriteAnim 保留做动态前冲/旋转/呼吸）===
 	_anim = SpriteAnim.new()
 	_anim.name = "Anim"
 	add_child(_anim)
 	_anim.setup(self)
 	queue_redraw()
+
+func _sheet_asset_id() -> String:
+	if is_boss:
+		return "enemy_boss"
+	match enemy_type:
+		"slime":          return "enemy_slime"
+		"mech":           return "enemy_mech_spider"
+		"wraith":         return "enemy_wraith"
+		"skeleton":       return "enemy_skeleton"
+		"lava_giant", "fire_elemental": return "enemy_lava_giant"
+	return ""
+
+func _try_attach_animated_sprite(sheet_id: String, frame_w: int, frame_h: int) -> void:
+	var actions := ["idle", "walk", "attack", "hit"]
+	var counts := [4, 4, 3, 2]
+	var fps_list := [6, 10, 12, 14]
+	var frames := SpriteFramesBuilder.from_asset_id(sheet_id, frame_w, frame_h, actions, counts, fps_list)
+	if frames.get_animation_names().size() == 0:
+		return
+	_action_frames = frames
+	anim = AnimatedSprite2D.new()
+	anim.name = "FrameAnim"
+	anim.sprite_frames = frames
+	anim.animation = "idle"
+	anim.frame = 0
+	anim.texture_filter = CanvasItem.TEXTURE_FILTER_NEAREST
+	# 对齐：让 sprite 的底部锚点落在原点（角色脚踩 ground）
+	anim.offset = Vector2(0, float(frame_h) * 0.35)
+	add_child(anim)
+	# 默认缩放让敌人不会太大/太小
+	var fit := float(body_radius * 2.5) / float(maxi(frame_w, frame_h))
+	if fit > 0.0:
+		anim.scale = Vector2.ONE * fit
+	anim.play("idle")
+
+func _set_action(action: String) -> void:
+	if anim == null:
+		return
+	if _action_frames == null or not _action_frames.has_animation(action):
+		return
+	if anim.animation != action:
+		anim.play(action)
 
 func _load_sprite() -> Texture2D:
 	var asset_id := ""
@@ -150,6 +198,7 @@ func _physics_process(delta: float) -> void:
 		_do_patrol(delta)
 		if _anim:
 			_anim.settle_to(SpriteAnim.AnimState.IDLE, Vector2.DOWN)
+		_set_action("idle")
 		return
 	var dist: float = global_position.distance_to(player.global_position)
 	if dist <= attack_range:
@@ -159,12 +208,14 @@ func _physics_process(delta: float) -> void:
 		if _anim:
 			# 蓄力 → 扑向玩家
 			_anim.enter_attack("melee", attack_range * 1.2, 0.4, player.global_position, dir)
+		_set_action("attack")
 		_try_attack(player)
 	elif dist <= detect_range:
 		state = State.CHASE
 		var dir := (player.global_position - global_position).normalized()
 		velocity = dir * move_speed * slow_factor
 		move_and_slide()
+		_set_action("walk")
 		if _anim:
 			_anim.settle_to(SpriteAnim.AnimState.RUN, dir, velocity.length())
 	else:
@@ -221,6 +272,7 @@ func take_damage(amount: int, is_magic: bool = false, source: Node = null) -> in
 		dealt = int(round(float(dealt) * (1.0 + mark_amp)))
 	hp = maxi(0, hp - dealt)
 	flash_timer = 0.12
+	_set_action("hit")
 	queue_redraw()
 
 	# —— 被击中反馈链（D3 风格）——
