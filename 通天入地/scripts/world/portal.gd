@@ -7,6 +7,7 @@ class_name Portal
 
 @export var portal_id: String = "tower_entrance"
 @export var target_floor: int = 1
+@export var target_scene: String = ""
 @export var portal_color: Color = Color(0.55, 0.35, 1.0)
 @export var label_text: String = "通天塔"
 
@@ -60,6 +61,15 @@ func _on_body_entered(body: Node) -> void:
 	if GameManager == null:
 		return
 	EventBus.portal_entered.emit(portal_id, str(target_floor))
+	if target_scene != "":
+		if target_scene == GameManager.SCENE_TRAINING:
+			GameManager.enter_training_ground()
+		elif GameManager.training_active:
+			GameManager.exit_training_ground()
+		else:
+			GameManager.current_state = GameManager.GameState.PLAYING
+			GameManager.change_scene(target_scene)
+		return
 	if target_floor <= 0:
 		GameManager.enter_main_world()
 		return

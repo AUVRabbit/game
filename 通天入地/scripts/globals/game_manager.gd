@@ -17,6 +17,7 @@ enum GameState { MENU, PLAYING, PAUSED, DIALOG, INVENTORY, BUILDING, DEAD, SKILL
 const SCENE_MAIN_MENU := "res://scenes/ui/main_menu.tscn"
 const SCENE_MAIN_WORLD := "res://scenes/world/main_world.tscn"
 const SCENE_TOWER := "res://scenes/world/tower_floor_1.tscn"
+const SCENE_TRAINING := "res://scenes/world/training_ground.tscn"
 const SCENE_PLAYER := "res://scenes/player/player.tscn"
 
 const STARTING_CLASSES := ["warrior", "archer", "mage"]
@@ -35,6 +36,8 @@ var pending_floor: int = 1
 var pending_player_pos: Vector2 = Vector2.ZERO
 var has_pending_pos: bool = false
 var last_scene_path: String = ""
+var training_active: bool = false
+var _training_backup: Dictionary = {}
 
 func _ready() -> void:
 	process_mode = Node.PROCESS_MODE_ALWAYS
@@ -82,6 +85,8 @@ func change_scene(scene_path: String) -> void:
 
 func enter_main_menu() -> void:
 	close_all_ui()
+	training_active = false
+	_training_backup = {}
 	current_state = GameState.MENU
 	party.clear()
 	active_player = null
@@ -89,6 +94,8 @@ func enter_main_menu() -> void:
 
 func start_new_game() -> void:
 	close_all_ui()
+	training_active = false
+	_training_backup = {}
 	roster = STARTING_CLASSES.duplicate()
 	progress.clear()
 	active_index = 0
@@ -125,6 +132,8 @@ func enter_tower_floor(floor_num: int) -> void:
 
 func start_tower_run() -> void:
 	close_all_ui()
+	training_active = false
+	_training_backup = {}
 	roster = STARTING_CLASSES.duplicate()
 	progress.clear()
 	gold = maxi(gold, 100)
@@ -137,6 +146,73 @@ func start_tower_run() -> void:
 	if RoguelikeManager:
 		RoguelikeManager.start_run(randi())
 	enter_tower_floor(1)
+
+# ---------- 训练场 ----------
+# 进入训练场：备份当前队伍/进度，生成单职业试炼角色（不污染正式存档）
+func enter_training_ground() -> void:
+	close_all_ui()
+	var from_menu := current_state == GameState.MENU
+	capture_party()
+	var focus_class := "warrior"
+	if is_instance_valid(active_player):
+		var d := active_player.get_node_or_null("CharacterData")
+		if d:
+			focus_class = str(d.class_id)
+	elif not roster.is_empty():
+		focus_class = str(roster[0])
+	var return_scene := SCENE_MAIN_WORLD
+	if not from_menu and get_tree().current_scene and get_tree().current_scene.scene_file_path != "":
+		return_scene = get_tree().current_scene.scene_file_path
+	_training_backup = {
+		"roster": roster.duplicate(),
+		"progress": progress.duplicate(true),
+		"active_index": active_index,
+		"return_scene": SCENE_MAIN_MENU if from_menu else return_scene,
+		"from_menu": from_menu,
+	}
+	training_active = true
+	roster = [focus_class]
+	progress = {}
+	active_index = 0
+	has_pending_pos = false
+	current_state = GameState.PLAYING
+	_goto_scene_no_capture(SCENE_TRAINING)
+
+# 离开训练场：还原备份的队伍与进度，回到进入前的场景
+func exit_training_ground() -> void:
+	if not training_active:
+		enter_main_world()
+		return
+	training_active = false
+	var backup: Dictionary = _training_backup.duplicate()
+	_training_backup = {}
+	roster = backup.get("roster", STARTING_CLASSES.duplicate())
+	progress = backup.get("progress", {})
+	active_index = int(backup.get("active_index", 0))
+	has_pending_pos = false
+	if bool(backup.get("from_menu", false)):
+		party.clear()
+		active_player = null
+		current_state = GameState.MENU
+		_goto_scene_no_capture(SCENE_MAIN_MENU)
+		return
+	var scene := str(backup.get("return_scene", SCENE_MAIN_WORLD))
+	if scene == "" or not ResourceLoader.exists(scene):
+		scene = SCENE_MAIN_WORLD
+	current_state = GameState.PLAYING
+	_goto_scene_no_capture(scene)
+
+# 切场景但不 capture_party（训练场进出不写回正式进度）
+func _goto_scene_no_capture(scene_path: String) -> void:
+	if get_tree().current_scene:
+		last_scene_path = get_tree().current_scene.scene_file_path
+		scene_changed.emit(last_scene_path, scene_path)
+	else:
+		scene_changed.emit("", scene_path)
+	if not ResourceLoader.exists(scene_path):
+		push_error("[GameManager] 场景不存在：%s" % scene_path)
+		return
+	get_tree().change_scene_to_file.call_deferred(scene_path)
 
 # ---------- 关卡绑定 ----------
 func bind_level(level_node: Node) -> void:
@@ -364,6 +440,8 @@ func collect_state() -> Dictionary:
 
 func apply_state(data: Dictionary) -> void:
 	close_all_ui()
+	training_active = false
+	_training_backup = {}
 	roster = data.get("roster", STARTING_CLASSES.duplicate())
 	progress = data.get("progress", {})
 	active_index = int(data.get("active_index", 0))

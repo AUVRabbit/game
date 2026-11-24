@@ -76,7 +76,7 @@ func _build_title() -> void:
 	subtitle.add_theme_color_override("font_color", Color(0.7, 0.75, 0.9))
 	add_child(subtitle)
 
-func _menu_button(text: String, min_w: float = 260.0, min_h: float = 42.0) -> Button:
+func _menu_button(text: String, min_w: float = 260.0, min_h: float = 40.0) -> Button:
 	var btn := Button.new()
 	btn.text = text
 	btn.custom_minimum_size = Vector2(min_w, min_h)
@@ -106,9 +106,9 @@ func _menu_button(text: String, min_w: float = 260.0, min_h: float = 42.0) -> Bu
 
 func _build_buttons() -> void:
 	var vbox := VBoxContainer.new()
-	vbox.position = Vector2(350, 205)
+	vbox.position = Vector2(350, 188)
 	vbox.custom_minimum_size = Vector2(260, 0)
-	vbox.add_theme_constant_override("separation", 10)
+	vbox.add_theme_constant_override("separation", 6)
 	add_child(vbox)
 
 	var new_button := _menu_button("新游戏")
@@ -118,6 +118,10 @@ func _build_buttons() -> void:
 	continue_button = _menu_button("继续游戏")
 	continue_button.pressed.connect(_on_continue)
 	vbox.add_child(continue_button)
+
+	var training_button := _menu_button("训练场（全职业试炼）")
+	training_button.pressed.connect(_on_training)
+	vbox.add_child(training_button)
 
 	var tower_button := _menu_button("通天塔试炼（Roguelike）")
 	tower_button.pressed.connect(_on_tower)
@@ -232,6 +236,9 @@ func _on_continue() -> void:
 
 func _on_tower() -> void:
 	GameManager.start_tower_run()
+
+func _on_training() -> void:
+	GameManager.enter_training_ground()
 
 func _toggle_settings() -> void:
 	settings_panel.visible = not settings_panel.visible

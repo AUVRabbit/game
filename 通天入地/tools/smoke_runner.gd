@@ -424,6 +424,74 @@ func _run() -> void:
 		str(fused_skill.get("name", "")))
 	_check("融合撤销", FusionService.remove_fusion(prog, fused_id) and not prog.get_owned_abilities().has(fused_id))
 
+	# ---------- 6.95 训练场（全职业试炼）----------
+	GameManager.enter_training_ground()
+	await _wait(0.9)
+	var training = get_tree().current_scene
+	_check("进入训练场", training != null and training.scene_file_path.ends_with("training_ground.tscn"),
+		training.scene_file_path if training else "null")
+	_check("训练场职业石=全职业", training != null and training.get_class_stone_count() == DataManager.get_all_class_ids().size(),
+		str(training.get_class_stone_count()) if training else "null")
+	_check("训练场木桩>=6", training != null and training.get_dummy_count() >= 6,
+		str(training.get_dummy_count()) if training else "null")
+	var tp: Node = GameManager.active_player
+	_check("训练场角色自动30级", tp != null and tp.character_data.level >= 30,
+		str(tp.character_data.level) if tp else "null")
+	_check("训练场角色全流派开放", tp != null and tp.character_data.learned_styles.size() >= 3,
+		str(tp.character_data.learned_styles) if tp else "null")
+	# 任意职业切换
+	var switched_ok: bool = training != null and training.switch_active_class("mech_pilot")
+	await _wait(0.15)
+	tp = GameManager.active_player
+	_check("训练场切换任意职业", switched_ok and tp != null and str(tp.character_data.class_id) == "mech_pilot",
+		str(tp.character_data.class_id) if tp else "null")
+	_check("切换后技能栏可用", tp != null and not tp.character_data.get_skill(1).is_empty(),
+		str(tp.character_data.get_skill(1).get("id", "")) if tp else "null")
+	# 木桩：承伤、不死、元素免疫
+	var tdummies: Array = get_tree().get_nodes_in_group("training_dummies")
+	_check("木桩加入训练组", tdummies.size() >= 6, str(tdummies.size()))
+	if not tdummies.is_empty():
+		var td: Node = tdummies[0]
+		var td_hp0: int = td.hp
+		td.take_damage(120, false, tp)
+		_check("木桩承伤且不死", td.total_damage > 0 and td.hp > 0 and td.hp == td_hp0,
+			"dmg=%d hp=%d" % [td.total_damage, td.hp])
+		var fire_imm := false
+		for entry in tdummies:
+			if str(entry.primary_element) == "fire":
+				fire_imm = entry.status_immune.has("burn")
+				break
+		_check("火元素木桩免疫燃烧", fire_imm)
+	# 恢复台
+	var tp_data: Node = tp.character_data if tp != null else null
+	if tp_data != null and training != null:
+		tp_data.hp = 1
+		tp_data.mp = 0
+		training._on_station_activated("restore")
+		await _wait(0.1)
+		_check("恢复台回满生命/法力", tp_data.hp == tp_data.get_max_hp() and tp_data.mp == tp_data.get_max_mp(),
+			"hp=%d/%d" % [tp_data.hp, tp_data.get_max_hp()])
+		# 流派台
+		var style_before := str(tp_data.style_id)
+		training._on_station_activated("style")
+		await _wait(0.1)
+		_check("流派台可切换流派", str(tp_data.style_id) != "" and (str(tp_data.style_id) != style_before or tp_data.learned_styles.size() >= 3),
+			"%s -> %s" % [style_before, str(tp_data.style_id)])
+		# 进阶台
+		training._on_station_activated("ascend")
+		await _wait(0.15)
+		_check("进阶台解锁10技能槽", tp_data.get_slot_count() == 10 and tp_data.get_stage() >= 4,
+			"slots=%d stage=%d" % [tp_data.get_slot_count(), tp_data.get_stage()])
+	# 退出训练场并还原
+	GameManager.exit_training_ground()
+	await _wait(0.9)
+	var back_world = get_tree().current_scene
+	_check("退出训练场回主世界", back_world != null and back_world.scene_file_path.ends_with("main_world.tscn"),
+		back_world.scene_file_path if back_world else "null")
+	_check("退出后退出训练模式", not GameManager.training_active)
+	_check("退出后恢复原队伍", GameManager.party.size() == GameManager.roster.size(),
+		"%d/%d" % [GameManager.party.size(), GameManager.roster.size()])
+
 	# ---------- 7. 通天塔 / Roguelike ----------
 	GameManager.start_tower_run()
 	await _wait(0.9)

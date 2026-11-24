@@ -120,6 +120,14 @@ func _setup_portals() -> void:
 	portal.position = Vector2(470, 0)
 	dynamic_root.add_child(portal)
 
+	var training = PORTAL_SCRIPT.new()
+	training.portal_id = "training_entrance"
+	training.target_scene = GameManager.SCENE_TRAINING
+	training.label_text = "训练场"
+	training.portal_color = Color(0.35, 0.85, 0.95)
+	training.position = Vector2(470, -150)
+	dynamic_root.add_child(training)
+
 func _setup_resources() -> void:
 	_add_resource(Vector2(-300, 120), "wood", 3)
 	_add_resource(Vector2(-420, 40), "wood", 2)

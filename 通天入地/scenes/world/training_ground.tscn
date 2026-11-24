@@ -1,0 +1,18 @@
+[gd_scene load_steps=4 format=3]
+
+[ext_resource type="Script" path="res://scripts/world/training_ground.gd" id="1_training"]
+[ext_resource type="Script" path="res://scripts/world/camera_controller.gd" id="2_cam"]
+[ext_resource type="PackedScene" path="res://scenes/ui/game_ui.tscn" id="3_ui"]
+
+[node name="TrainingGround" type="Node2D"]
+script = ExtResource("1_training")
+
+[node name="PlayerSpawn" type="Marker2D" parent="."]
+position = Vector2(0, 330)
+
+[node name="BuildGrid" type="Node2D" parent="."]
+
+[node name="Camera2D" type="Camera2D" parent="."]
+script = ExtResource("2_cam")
+
+[node name="GameUI" parent="." instance=ExtResource("3_ui")]
