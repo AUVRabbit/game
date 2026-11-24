@@ -183,7 +183,11 @@ static func cast(caster, skill: Dictionary) -> bool:
 			if sig_kind == "blood_oath":
 				data.add_shield(int(round(float(healed) * float(sig.get("heal_to_shield", 0.30)))))
 			DamageNumber.spawn(level, origin + Vector2(0, -30), healed, false, true)
-			EffectRing.spawn(level, origin, 46.0, color)
+			# 治疗爆发 + 8 颗绿色星屑向上飞
+			SkillVfx.spawn_burst(level, origin, 52.0, Color(0.55, 1.0, 0.7), 0.45)
+			for i in 8:
+				var ang := -PI / 2 + randf_range(-0.7, 0.7)
+				_spawn_particle(level, origin + Vector2(randf_range(-10, 10), -4), Color(0.6, 1.0, 0.7), 3.0, Vector2(cos(ang), sin(ang)) * 50.0, 0.6)
 		"buff":
 			var buffs: Array = skill.get("buffs", [])
 			var buff_dur := float(skill.get("duration", 5))
@@ -197,7 +201,8 @@ static func cast(caster, skill: Dictionary) -> bool:
 					data.add_buff(str(buff.get("stat", "attack")), float(buff.get("value", 5)), buff_dur)
 			else:
 				data.add_buff(str(skill.get("stat", "attack")), float(skill.get("value", 5)), buff_dur)
-			EffectRing.spawn(level, origin, 44.0, color)
+			EffectRing.spawn(level, origin, 44.0, color)  # 保留光环（buff 需要持续提示）
+			SkillVfx.spawn_burst(level, origin, 40.0, color, 0.35)
 			EventBus.notify("获得增益：%s" % str(skill.get("name", "")))
 		"shield":
 			var shield_power := float(skill.get("power", 40))
@@ -214,7 +219,8 @@ static func cast(caster, skill: Dictionary) -> bool:
 			var shield_buffs: Array = skill.get("buffs", [])
 			for buff in shield_buffs:
 				data.add_buff(str(buff.get("stat", "defense")), float(buff.get("value", 5)), float(skill.get("duration", 5)))
-			EffectRing.spawn(level, origin, 50.0, color)
+			EffectRing.spawn(level, origin, 50.0, color)  # 持续护盾光环
+			SkillVfx.spawn_burst(level, origin, 48.0, Color(color.r, color.g, color.b * 1.3), 0.5)  # 护盾生成瞬间闪光
 			EventBus.notify("获得护盾：%d" % int(shield_power))
 		"chain":
 			var chain_origin := lock_pos
@@ -249,7 +255,7 @@ static func cast(caster, skill: Dictionary) -> bool:
 				elem_kw, elem_color, aoe_sig_kind, aoe_sig)
 			# oppression：AOE 爆炸后中心额外释放一次 50% 伤害冲击波
 			if sig_kind == "oppression":
-				EffectRing.spawn(level, pos, float(skill.get("radius", 90)) * 1.3, color, 0.45)
+				SkillVfx.spawn_shockwave(level, pos, float(skill.get("radius", 90)) * 1.3, color, 0.45)
 				var oppression_dmg := int(round(float(base_damage) * 0.5))
 				for e in _enemies():
 					if _dist(e, pos) <= float(skill.get("radius", 90)) * 1.3:
@@ -460,7 +466,7 @@ static func _apply_extra_shield(caster, data, skill: Dictionary, color: Color, l
 		amount *= 1.0 + float(data.get_shield_bonus())
 	data.add_shield(int(amount))
 	var pos: Vector2 = caster.global_position if caster is Node2D else Vector2.ZERO
-	EffectRing.spawn(level, pos, 50.0, color)
+	SkillVfx.spawn_burst(level, pos, 50.0, color, 0.4)
 
 
 # 融合元素结算：在指定中心点播放一次元素表现并施加对应效果。
@@ -507,7 +513,7 @@ static func _apply_element(caster, kw: Dictionary, color: Color, center: Vector2
 		"blink":
 			if caster is Node2D:
 				(caster as Node2D).global_position += (center - (caster as Node2D).global_position).normalized() * maxf(30.0, value)
-				EffectRing.spawn(level, (caster as Node2D).global_position, 24.0, color)
+				SkillVfx.spawn_burst(level, (caster as Node2D).global_position, 26.0, color, 0.3)
 		"summon":
 			_summon(caster, {"count": 1, "duration": 6.0, "speed": 130.0, "interval": 1.0},
 				center, maxi(1, int(damage * 0.5)), is_magic, color, level)
@@ -519,10 +525,10 @@ static func _apply_element(caster, kw: Dictionary, color: Color, center: Vector2
 
 static func _melee_aoe(caster, origin: Vector2, radius: float, damage: int, is_magic: bool, color: Color, level: Node,
 		knockback: float = 0.0, stun: float = 0.0, backstab_info: Dictionary = {}) -> void:
-	EffectRing.spawn(level, origin, radius, color)
-	SkillVfx.spawn(level, origin, "melee_slash", color, 1.0, 0.0)
-	# 冲击波向外扩散
+	# 剑气弧 + 冲击波 + 中心闪光（三层！）
+	SkillVfx.spawn_sword_arc(level, origin, Vector2.RIGHT, color, radius * 1.2)
 	SkillVfx.spawn_shockwave(level, origin, radius * 1.3, color, 0.35)
+	SkillVfx.spawn_impact(level, origin, "melee", color)
 	var any := false
 	var has_backstab := not backstab_info.is_empty()
 	var caster_dir: Vector2 = backstab_info.get("dir", Vector2.ZERO) if has_backstab else Vector2.ZERO
@@ -583,7 +589,7 @@ static func _projectile(caster, origin: Vector2, dir: Vector2, damage: int, is_m
 static func _chain(origin: Vector2, radius: float, count: int, damage: int, is_magic: bool, color: Color, level: Node,
 		caster = null, fusion_kw: Dictionary = {}, fusion_color: Color = Color.WHITE,
 		sig_kind: String = "", sig: Dictionary = {}) -> void:
-	EffectRing.spawn(level, origin, radius * 0.6, color, 0.28)
+	SkillVfx.spawn_lightning_bolt(level, origin - Vector2(0, 140), 140.0, color, 0.28)
 	var targets: Array = []
 	for enemy in _enemies():
 		if _dist(enemy, origin) <= radius:
@@ -623,7 +629,7 @@ static func _chain(origin: Vector2, radius: float, count: int, damage: int, is_m
 	SkillVfx.spawn_chain_lightning(level, flash_points, color)
 	# 每个被连接目标处画一个小爆点；融合技在链末端追加元素爆发
 	for i in flash_points.size():
-		EffectRing.spawn(level, flash_points[i], 22.0, color, 0.22)
+		SkillVfx.spawn_impact(level, flash_points[i], "chain", color)
 	if not fusion_kw.is_empty():
 		_apply_element(caster, fusion_kw, fusion_color, flash_points[flash_points.size() - 1],
 			maxf(110.0, radius * 0.6), damage, is_magic, level)
@@ -648,7 +654,6 @@ static func _aoe_zone(caster, pos: Vector2, radius: float, damage: int, is_magic
 	SkillVfx.spawn_lightning_bolt(level, pos, bolt_len, color, 0.18)
 	SkillVfx.spawn_shockwave(level, pos, radius * 1.35, color, 0.42)
 	SkillVfx.spawn_burst(level, pos, radius, color, 0.45)
-	EffectRing.spawn(level, pos, radius * 1.15, color)
 	var any := false
 	for enemy in _enemies():
 		if _dist(enemy, pos) <= radius:
@@ -663,8 +668,8 @@ static func _aoe_zone(caster, pos: Vector2, radius: float, damage: int, is_magic
 static func _dash_strike(caster, dir: Vector2, distance: float, radius: float, damage: int, is_magic: bool, color: Color, level: Node) -> void:
 	caster.global_position += dir.normalized() * distance
 	var pos: Vector2 = caster.global_position
-	EffectRing.spawn(level, pos, radius, color)
-	SkillVfx.spawn(level, pos, "dash_streak", color, 1.0, dir.angle())
+	SkillVfx.spawn_sword_arc(level, pos, dir, color, radius * 1.4)
+	SkillVfx.spawn_shockwave(level, pos, radius * 0.8, color, 0.25)
 	for enemy in _enemies():
 		if _dist(enemy, pos) <= radius:
 			_apply_damage(caster, enemy, damage, is_magic, level)
@@ -689,6 +694,23 @@ static func _dist(node, pos: Vector2) -> float:
 	if node is Node2D:
 		return (node as Node2D).global_position.distance_to(pos)
 	return 999999.0
+
+# —— 辅助：飞粒子（起点/颜色/大小/目标位移/存活秒）——
+static func _spawn_particle(level: Node, from: Vector2, col: Color, size: float, delta: Vector2, life: float) -> void:
+	if level == null:
+		return
+	var p := ColorRect.new()
+	p.color = col
+	p.size = Vector2(size, size)
+	p.global_position = from
+	p.z_index = 60
+	level.add_child(p)
+	var target := from + delta
+	var tw := p.create_tween()
+	tw.set_parallel(true)
+	tw.tween_property(p, "global_position", target, life).set_trans(Tween.TRANS_QUAD).set_ease(Tween.EASE_OUT)
+	tw.tween_property(p, "modulate:a", 0.0, life * 0.6).set_delay(life * 0.3)
+	tw.chain().tween_callback(p.queue_free)
 
 
 static func _apply_damage(caster, enemy, damage: int, is_magic: bool, level: Node,
@@ -827,7 +849,7 @@ static func cast_basic(caster, profile: Dictionary, damage: int, is_crit: bool) 
 				projectile.lifetime = maxf(0.25, rng / maxf(1.0, projectile.speed))
 				level.add_child(projectile)
 				projectile.global_position = origin
-			EffectRing.spawn(level, origin, 16.0, color)
+			SkillVfx.spawn_muzzle_flash(level, origin, color, 0.0)
 		"beam":
 			_snipe(caster, origin, dir, float(profile.get("range", 600)), float(profile.get("width", 14)),
 				damage, is_magic, color, level, 0.0, is_crit)
@@ -847,7 +869,7 @@ static func cast_basic(caster, profile: Dictionary, damage: int, is_crit: bool) 
 			bomb.target_pos = bomb_pos
 			bomb.global_position = origin
 			level.add_child(bomb)
-			EffectRing.spawn(level, origin, 16.0, color, 0.18)
+			SkillVfx.spawn_muzzle_flash(level, origin, color, 0.0)
 
 
 # ---------- 狙击 / 光束 ----------
@@ -939,7 +961,7 @@ static func _deployable(caster, skill: Dictionary, origin: Vector2, dir: Vector2
 			push_warning("SkillExecutor._deployable: level is null, caster=%s" % str(caster))
 		else:
 			level.add_child(device)
-		EffectRing.spawn(level, origin, 16.0, color, 0.18)
+		SkillVfx.spawn_impact(level, origin, "deploy", color)
 
 
 # ---------- 召唤（材料消耗：尸体/残骸） ----------
@@ -1096,7 +1118,7 @@ static func _create_minion(caster, skill: Dictionary, origin: Vector2, base_dama
 	minion.special_ability = special_tag
 	level.add_child(minion)
 	minion.global_position = base_pos
-	EffectRing.spawn(level, minion.global_position, 20.0, minion_color)
+	SkillVfx.spawn_fusion_release(level, minion.global_position, minion_color, Color.WHITE, Vector2.RIGHT)
 
 
 # ---------- 瞬步突袭 ----------
@@ -1174,6 +1196,7 @@ static func _mark_skill(origin: Vector2, radius: float, duration: float, amp: fl
 	if mark_target.has_method("apply_mark"):
 		mark_target.apply_mark(duration, amp)
 	EffectRing.spawn(level, mark_target.global_position, 30.0, color)
+	SkillVfx.spawn_burst(level, mark_target.global_position, 36.0, color, 0.45)
 	EventBus.notify("已标记目标：受到伤害 +%d%%" % int(round(amp * 100.0)))
 
 
