@@ -1,0 +1,2183 @@
+{
+  "checks_fail": 42,
+  "checks_pass": 142,
+  "checks_total": 184,
+  "feature_results": [
+    {
+      "detail": "",
+      "label": "主菜单节点存在",
+      "ok": true
+    },
+    {
+      "detail": "buttons=7",
+      "label": "主菜单按钮>=5",
+      "ok": true
+    },
+    {
+      "detail": "",
+      "label": "设置面板可打开",
+      "ok": true
+    },
+    {
+      "detail": "res://scenes/world/main_world.tscn",
+      "label": "主世界场景加载",
+      "ok": true
+    },
+    {
+      "detail": "3",
+      "label": "初始队伍 3 人",
+      "ok": true
+    },
+    {
+      "detail": "120",
+      "label": "初始金币 120",
+      "ok": true
+    },
+    {
+      "detail": "",
+      "label": "初始背包材料",
+      "ok": true
+    },
+    {
+      "detail": "party=16 roster=16",
+      "label": "16 职业全部加入队伍",
+      "ok": true
+    },
+    {
+      "detail": "missing=[]",
+      "label": "16 职业立绘加载",
+      "ok": true
+    },
+    {
+      "detail": "500 -> 486",
+      "label": "普攻造成伤害",
+      "ok": true
+    },
+    {
+      "detail": "cd=0.90",
+      "label": "冲刺进入冷却",
+      "ok": true
+    },
+    {
+      "detail": "",
+      "label": "冲刺期间无敌",
+      "ok": true
+    },
+    {
+      "detail": "dealt=0",
+      "label": "冲刺伤害吸收",
+      "ok": true
+    },
+    {
+      "detail": "dealt=18",
+      "label": "非冲刺正常受伤",
+      "ok": true
+    },
+    {
+      "detail": "",
+      "label": "法力不足不施法",
+      "ok": false
+    },
+    {
+      "detail": "cd=3.00 mp=50",
+      "label": "技能冷却阻止重复施放",
+      "ok": true
+    },
+    {
+      "detail": "",
+      "label": "资源点采集入包",
+      "ok": true
+    },
+    {
+      "detail": "",
+      "label": "合成 iron_ingot",
+      "ok": true
+    },
+    {
+      "detail": "",
+      "label": "商店购买药水",
+      "ok": true
+    },
+    {
+      "detail": "",
+      "label": "商店出售物品",
+      "ok": true
+    },
+    {
+      "detail": "item=weapon_sword_iron slot=weapon",
+      "label": "武器装备生效",
+      "ok": true
+    },
+    {
+      "detail": "",
+      "label": "武器卸下回包",
+      "ok": true
+    },
+    {
+      "detail": "block=stone_block count=0->1",
+      "label": "放置建筑",
+      "ok": true
+    },
+    {
+      "detail": "count=0 refund=stone 8->7",
+      "label": "拆除建筑并返还材料",
+      "ok": true
+    },
+    {
+      "detail": "",
+      "label": "背包打开暂停",
+      "ok": true
+    },
+    {
+      "detail": "",
+      "label": "背包关闭恢复",
+      "ok": true
+    },
+    {
+      "detail": "",
+      "label": "技能树面板打开",
+      "ok": true
+    },
+    {
+      "detail": "",
+      "label": "朋克面板打开",
+      "ok": true
+    },
+    {
+      "detail": "",
+      "label": "暂停菜单暂停游戏",
+      "ok": true
+    },
+    {
+      "detail": "",
+      "label": "暂停恢复",
+      "ok": true
+    },
+    {
+      "detail": "",
+      "label": "对话框显示",
+      "ok": true
+    },
+    {
+      "detail": "",
+      "label": "触屏控件存在",
+      "ok": true
+    },
+    {
+      "detail": "",
+      "label": "相机缩放生效",
+      "ok": true
+    },
+    {
+      "detail": "valid=6 slots=10",
+      "label": "mage 有效技能>=6",
+      "ok": true
+    },
+    {
+      "detail": "projectile; MP 130->122; CD=1.32; VFX=1; DummyHP 3000 -> 2962",
+      "label": "技能 mage-mage_a_1",
+      "ok": true
+    },
+    {
+      "detail": "aoe_zone; MP 130->114; CD=5.90; VFX=0; DummyHP 3000 -> 2969",
+      "label": "技能 mage-mage_a_2",
+      "ok": false
+    },
+    {
+      "detail": "shield; MP 130->112; CD=11.90; VFX=1; Shield 0 -> 55",
+      "label": "技能 mage-mage_a_3",
+      "ok": true
+    },
+    {
+      "detail": "aoe_zone; MP 130->104; CD=11.90; VFX=1; DummyHP 3000 -> 2943",
+      "label": "技能 mage-mage_a_4",
+      "ok": true
+    },
+    {
+      "detail": "aoe_zone; MP 130->108; CD=9.90; VFX=0; DummyHP 3000 -> 2956",
+      "label": "技能 mage-mage_a_5",
+      "ok": false
+    },
+    {
+      "detail": "aoe_zone; MP 130->96; CD=17.90; VFX=0; DummyHP 3000 -> 2930",
+      "label": "技能 mage-mage_a_6",
+      "ok": false
+    },
+    {
+      "detail": "valid=6 slots=10",
+      "label": "runeward 有效技能>=6",
+      "ok": true
+    },
+    {
+      "detail": "shield; MP 110->94; CD=11.92; VFX=1; Shield 0 -> 108",
+      "label": "技能 runeward-runeward_a_1",
+      "ok": true
+    },
+    {
+      "detail": "stun_wave; MP 110->98; CD=4.92; VFX=3; DummyHP -1 -> -1",
+      "label": "技能 runeward-runeward_a_2",
+      "ok": false
+    },
+    {
+      "detail": "buff; MP 110->96; CD=13.90; VFX=4; Buff[defense] found=true attack 7 -> 7",
+      "label": "技能 runeward-runeward_a_3",
+      "ok": true
+    },
+    {
+      "detail": "shield; MP 110->88; CD=17.92; VFX=5; Shield 0 -> 171",
+      "label": "技能 runeward-runeward_a_4",
+      "ok": true
+    },
+    {
+      "detail": "root_zone; MP 110->90; CD=10.92; VFX=5; DummyHP -1 -> -1",
+      "label": "技能 runeward-runeward_a_5",
+      "ok": false
+    },
+    {
+      "detail": "buff; MP 110->86; CD=19.90; VFX=6; Buff[defense] found=true attack 7 -> 7",
+      "label": "技能 runeward-runeward_a_6",
+      "ok": true
+    },
+    {
+      "detail": "valid=6 slots=10",
+      "label": "priest 有效技能>=6",
+      "ok": true
+    },
+    {
+      "detail": "heal; MP 110->96; CD=3.92; VFX=4; HP 58 -> 88 (+30)",
+      "label": "技能 priest-priest_a_1",
+      "ok": true
+    },
+    {
+      "detail": "projectile; MP 110->100; CD=2.92; VFX=2; DummyHP 3000 -> 2983",
+      "label": "技能 priest-priest_a_2",
+      "ok": true
+    },
+    {
+      "detail": "buff; MP 110->94; CD=13.92; VFX=2; Buff[defense] found=true attack 8 -> 8",
+      "label": "技能 priest-priest_a_3",
+      "ok": true
+    },
+    {
+      "detail": "heal_zone; MP 110->78; CD=13.90; VFX=2; DummyHP -1 -> -1",
+      "label": "技能 priest-priest_a_4",
+      "ok": false
+    },
+    {
+      "detail": "melee_aoe; MP 110->88; CD=8.98; VFX=3; DummyHP 3000 -> 2975",
+      "label": "技能 priest-priest_a_5",
+      "ok": true
+    },
+    {
+      "detail": "heal_zone; MP 110->72; CD=19.90; VFX=4; DummyHP -1 -> -1",
+      "label": "技能 priest-priest_a_6",
+      "ok": false
+    },
+    {
+      "detail": "valid=6 slots=10",
+      "label": "necromancer 有效技能>=6",
+      "ok": true
+    },
+    {
+      "detail": "projectile; MP 120->117; CD=1.70; VFX=2; DummyHP 3000 -> 2968",
+      "label": "技能 necromancer-necromancer_a_1",
+      "ok": true
+    },
+    {
+      "detail": "snipe; MP 120->106; CD=7.92; VFX=2; DummyHP -1 -> -1",
+      "label": "技能 necromancer-necromancer_a_2",
+      "ok": false
+    },
+    {
+      "detail": "shield; MP 120->104; CD=11.90; VFX=2; Shield 0 -> 50",
+      "label": "技能 necromancer-necromancer_a_3",
+      "ok": true
+    },
+    {
+      "detail": "snipe; MP 120->100; CD=8.90; VFX=3; DummyHP -1 -> -1",
+      "label": "技能 necromancer-necromancer_a_4",
+      "ok": false
+    },
+    {
+      "detail": "snipe; MP 120->100; CD=8.92; VFX=4; DummyHP -1 -> -1",
+      "label": "技能 necromancer-necromancer_a_5",
+      "ok": false
+    },
+    {
+      "detail": "snipe; MP 120->90; CD=15.92; VFX=5; DummyHP -1 -> -1",
+      "label": "技能 necromancer-necromancer_a_6",
+      "ok": false
+    },
+    {
+      "detail": "valid=6 slots=10",
+      "label": "bomber 有效技能>=6",
+      "ok": true
+    },
+    {
+      "detail": "deployable; MP 70->60; CD=2.90; VFX=5; DummyHP -1 -> -1",
+      "label": "技能 bomber-bomber_a_1",
+      "ok": false
+    },
+    {
+      "detail": "aoe_zone; MP 70->52; CD=7.92; VFX=2; DummyHP 3000 -> 2905",
+      "label": "技能 bomber-bomber_a_2",
+      "ok": true
+    },
+    {
+      "detail": "shield; MP 70->54; CD=11.92; VFX=3; Shield 0 -> 50",
+      "label": "技能 bomber-bomber_a_3",
+      "ok": true
+    },
+    {
+      "detail": "deployable; MP 70->50; CD=8.90; VFX=5; DummyHP -1 -> -1",
+      "label": "技能 bomber-bomber_a_4",
+      "ok": false
+    },
+    {
+      "detail": "deployable; MP 70->50; CD=9.92; VFX=9; DummyHP -1 -> -1",
+      "label": "技能 bomber-bomber_a_5",
+      "ok": false
+    },
+    {
+      "detail": "deployable; MP 70->40; CD=15.90; VFX=15; DummyHP -1 -> -1",
+      "label": "技能 bomber-bomber_a_6",
+      "ok": false
+    },
+    {
+      "detail": "valid=6 slots=10",
+      "label": "mech_pilot 有效技能>=6",
+      "ok": true
+    },
+    {
+      "detail": "projectile; MP 70->60; CD=3.00; VFX=16; DummyHP 2914 -> 2656",
+      "label": "技能 mech_pilot-mech_pilot_a_1",
+      "ok": true
+    },
+    {
+      "detail": "shield; MP 70->58; CD=11.97; VFX=14; Shield 0 -> 182",
+      "label": "技能 mech_pilot-mech_pilot_a_2",
+      "ok": true
+    },
+    {
+      "detail": "buff; MP 70->56; CD=13.92; VFX=15; Buff[defense] found=true attack 13 -> 13",
+      "label": "技能 mech_pilot-mech_pilot_a_3",
+      "ok": true
+    },
+    {
+      "detail": "snipe; MP 70->52; CD=8.90; VFX=16; DummyHP -1 -> -1",
+      "label": "技能 mech_pilot-mech_pilot_a_4",
+      "ok": false
+    },
+    {
+      "detail": "shield; MP 70->48; CD=19.90; VFX=15; Shield 0 -> 312",
+      "label": "技能 mech_pilot-mech_pilot_a_5",
+      "ok": true
+    },
+    {
+      "detail": "buff; MP 70->50; CD=19.90; VFX=14; Buff[defense] found=true attack 13 -> 13",
+      "label": "技能 mech_pilot-mech_pilot_a_6",
+      "ok": true
+    },
+    {
+      "detail": "valid=6 slots=10",
+      "label": "engineer 有效技能>=6",
+      "ok": true
+    },
+    {
+      "detail": "deployable; MP 115->99; CD=6.92; VFX=3; DummyHP -1 -> -1",
+      "label": "技能 engineer-engineer_a_1",
+      "ok": false
+    },
+    {
+      "detail": "heal; MP 115->97; CD=8.92; VFX=3; HP 75 -> 105 (+30)",
+      "label": "技能 engineer-engineer_a_2",
+      "ok": true
+    },
+    {
+      "detail": "buff; MP 115->103; CD=11.92; VFX=3; Buff[attack] found=true attack 9 -> 17",
+      "label": "技能 engineer-engineer_a_3",
+      "ok": true
+    },
+    {
+      "detail": "deployable; MP 115->91; CD=10.90; VFX=4; DummyHP -1 -> -1",
+      "label": "技能 engineer-engineer_a_4",
+      "ok": false
+    },
+    {
+      "detail": "deployable; MP 115->87; CD=13.92; VFX=5; DummyHP -1 -> -1",
+      "label": "技能 engineer-engineer_a_5",
+      "ok": false
+    },
+    {
+      "detail": "deployable; MP 115->81; CD=17.92; VFX=6; DummyHP -1 -> -1",
+      "label": "技能 engineer-engineer_a_6",
+      "ok": false
+    },
+    {
+      "detail": "valid=6 slots=10",
+      "label": "bounty_hunter 有效技能>=6",
+      "ok": true
+    },
+    {
+      "detail": "chain; MP 70->60; CD=2.98; VFX=9; DummyHP 2953 -> 2880",
+      "label": "技能 bounty_hunter-bounty_hunter_a_1",
+      "ok": true
+    },
+    {
+      "detail": "mark; MP 70->62; CD=12.00; VFX=10; DummyHP -1 -> -1",
+      "label": "技能 bounty_hunter-bounty_hunter_a_2",
+      "ok": false
+    },
+    {
+      "detail": "buff; MP 70->58; CD=9.97; VFX=10; Buff[attack_speed] found=true attack 17 -> 17",
+      "label": "技能 bounty_hunter-bounty_hunter_a_3",
+      "ok": true
+    },
+    {
+      "detail": "chain; MP 70->52; CD=8.00; VFX=10; DummyHP 3000 -> 2973",
+      "label": "技能 bounty_hunter-bounty_hunter_a_4",
+      "ok": true
+    },
+    {
+      "detail": "mark; MP 70->56; CD=15.90; VFX=10; DummyHP -1 -> -1",
+      "label": "技能 bounty_hunter-bounty_hunter_a_5",
+      "ok": false
+    },
+    {
+      "detail": "mark; MP 70->50; CD=19.92; VFX=11; DummyHP -1 -> -1",
+      "label": "技能 bounty_hunter-bounty_hunter_a_6",
+      "ok": false
+    },
+    {
+      "detail": "valid=6 slots=10",
+      "label": "death_knight 有效技能>=6",
+      "ok": true
+    },
+    {
+      "detail": "dash_strike; MP 70->60; CD=5.00; VFX=7; MoveX +140 DummyHP 2854 -> 2830",
+      "label": "技能 death_knight-death_knight_a_1",
+      "ok": true
+    },
+    {
+      "detail": "melee_aoe; MP 70->58; CD=4.00; VFX=8; DummyHP 3000 -> 2973",
+      "label": "技能 death_knight-death_knight_a_2",
+      "ok": true
+    },
+    {
+      "detail": "shield; MP 70->54; CD=13.92; VFX=6; Shield 0 -> 55",
+      "label": "技能 death_knight-death_knight_a_3",
+      "ok": true
+    },
+    {
+      "detail": "dash_strike; MP 70->54; CD=9.00; VFX=6; MoveX +180 DummyHP 3000 -> 2965",
+      "label": "技能 death_knight-death_knight_a_4",
+      "ok": true
+    },
+    {
+      "detail": "snipe; MP 70->52; CD=7.92; VFX=7; DummyHP -1 -> -1",
+      "label": "技能 death_knight-death_knight_a_5",
+      "ok": false
+    },
+    {
+      "detail": "snipe; MP 70->42; CD=15.90; VFX=5; DummyHP -1 -> -1",
+      "label": "技能 death_knight-death_knight_a_6",
+      "ok": false
+    },
+    {
+      "detail": "valid=6 slots=10",
+      "label": "warrior 有效技能>=6",
+      "ok": true
+    },
+    {
+      "detail": "melee_aoe; MP 50->42; CD=3.00; VFX=4; DummyHP 3000 -> 2973",
+      "label": "技能 warrior-warrior_a_1",
+      "ok": true
+    },
+    {
+      "detail": "buff; MP 50->40; CD=9.92; VFX=3; Buff[attack] found=true attack 15 -> 31",
+      "label": "技能 warrior-warrior_a_2",
+      "ok": true
+    },
+    {
+      "detail": "buff; MP 50->38; CD=9.90; VFX=3; Buff[crit_rate] found=true attack 15 -> 15",
+      "label": "技能 warrior-warrior_a_3",
+      "ok": true
+    },
+    {
+      "detail": "stun_wave; MP 50->32; CD=8.90; VFX=5; DummyHP -1 -> -1",
+      "label": "技能 warrior-warrior_a_4",
+      "ok": false
+    },
+    {
+      "detail": "buff; MP 50->34; CD=17.92; VFX=6; Buff[attack] found=true attack 15 -> 39",
+      "label": "技能 warrior-warrior_a_5",
+      "ok": true
+    },
+    {
+      "detail": "melee_aoe; MP 50->24; CD=14.00; VFX=5; DummyHP 3000 -> 2952",
+      "label": "技能 warrior-warrior_a_6",
+      "ok": true
+    },
+    {
+      "detail": "valid=6 slots=10",
+      "label": "qi_adept 有效技能>=6",
+      "ok": true
+    },
+    {
+      "detail": "melee_aoe; MP 100->91; CD=3.50; VFX=5; DummyHP 2944 -> 2930",
+      "label": "技能 qi_adept-qi_adept_a_1",
+      "ok": true
+    },
+    {
+      "detail": "heal; MP 100->82; CD=7.98; VFX=6; HP 78 -> 108 (+30)",
+      "label": "技能 qi_adept-qi_adept_a_2",
+      "ok": true
+    },
+    {
+      "detail": "buff; MP 100->88; CD=11.92; VFX=6; Buff[attack_speed] found=true attack 10 -> 10",
+      "label": "技能 qi_adept-qi_adept_a_3",
+      "ok": true
+    },
+    {
+      "detail": "heal_zone; MP 100->70; CD=11.92; VFX=7; DummyHP -1 -> -1",
+      "label": "技能 qi_adept-qi_adept_a_4",
+      "ok": false
+    },
+    {
+      "detail": "stun_wave; MP 100->82; CD=7.92; VFX=8; DummyHP -1 -> -1",
+      "label": "技能 qi_adept-qi_adept_a_5",
+      "ok": false
+    },
+    {
+      "detail": "heal; MP 100->66; CD=17.90; VFX=9; HP 78 -> 108 (+30)",
+      "label": "技能 qi_adept-qi_adept_a_6",
+      "ok": true
+    },
+    {
+      "detail": "valid=6 slots=10",
+      "label": "thief 有效技能>=6",
+      "ok": true
+    },
+    {
+      "detail": "blink_strike; MP 55->49; CD=2.30; VFX=4; DummyHP -1 -> -1",
+      "label": "技能 thief-thief_a_1",
+      "ok": false
+    },
+    {
+      "detail": "projectile; MP 55->47; CD=2.92; VFX=3; DummyHP 2965 -> 2902",
+      "label": "技能 thief-thief_a_2",
+      "ok": true
+    },
+    {
+      "detail": "buff; MP 55->45; CD=9.90; VFX=4; Buff[dodge_rate] found=true attack 13 -> 13",
+      "label": "技能 thief-thief_a_3",
+      "ok": true
+    },
+    {
+      "detail": "blink_strike; MP 55->41; CD=5.90; VFX=4; DummyHP -1 -> -1",
+      "label": "技能 thief-thief_a_4",
+      "ok": false
+    },
+    {
+      "detail": "blink_strike; MP 55->39; CD=7.90; VFX=4; DummyHP -1 -> -1",
+      "label": "技能 thief-thief_a_5",
+      "ok": false
+    },
+    {
+      "detail": "blink_strike; MP 55->31; CD=11.90; VFX=4; DummyHP -1 -> -1",
+      "label": "技能 thief-thief_a_6",
+      "ok": false
+    },
+    {
+      "detail": "valid=6 slots=10",
+      "label": "archer 有效技能>=6",
+      "ok": true
+    },
+    {
+      "detail": "projectile; MP 60->54; CD=1.93; VFX=2; DummyHP 3000 -> 2833",
+      "label": "技能 archer-archer_a_1",
+      "ok": true
+    },
+    {
+      "detail": "buff; MP 60->50; CD=12.00; VFX=6; Buff[crit_rate] found=true attack 18 -> 18",
+      "label": "技能 archer-archer_a_2",
+      "ok": true
+    },
+    {
+      "detail": "buff; MP 60->50; CD=9.98; VFX=7; Buff[crit_rate] found=true attack 18 -> 18",
+      "label": "技能 archer-archer_a_3",
+      "ok": true
+    },
+    {
+      "detail": "projectile; MP 60->48; CD=5.97; VFX=8; DummyHP 3000 -> 2848",
+      "label": "技能 archer-archer_a_4",
+      "ok": true
+    },
+    {
+      "detail": "aoe_zone; MP 60->40; CD=9.90; VFX=4; DummyHP 3000 -> 2865",
+      "label": "技能 archer-archer_a_5",
+      "ok": true
+    },
+    {
+      "detail": "snipe; MP 60->34; CD=13.92; VFX=4; DummyHP -1 -> -1",
+      "label": "技能 archer-archer_a_6",
+      "ok": false
+    },
+    {
+      "detail": "valid=6 slots=10",
+      "label": "cyborg 有效技能>=6",
+      "ok": true
+    },
+    {
+      "detail": "melee_aoe; MP 80->70; CD=4.00; VFX=2; DummyHP 3000 -> 2974",
+      "label": "技能 cyborg-cyborg_a_1",
+      "ok": true
+    },
+    {
+      "detail": "dash_strike; MP 80->68; CD=6.00; VFX=3; MoveX +160 DummyHP 3000 -> 2976",
+      "label": "技能 cyborg-cyborg_a_2",
+      "ok": true
+    },
+    {
+      "detail": "shield; MP 80->64; CD=12.90; VFX=3; Shield 0 -> 70",
+      "label": "技能 cyborg-cyborg_a_3",
+      "ok": true
+    },
+    {
+      "detail": "dash_strike; MP 80->60; CD=10.00; VFX=6; MoveX +220 DummyHP 2944 -> 2905",
+      "label": "技能 cyborg-cyborg_a_4",
+      "ok": true
+    },
+    {
+      "detail": "stun_wave; MP 80->62; CD=8.98; VFX=8; DummyHP -1 -> -1",
+      "label": "技能 cyborg-cyborg_a_5",
+      "ok": false
+    },
+    {
+      "detail": "dash_strike; MP 80->52; CD=16.00; VFX=9; MoveX +300 DummyHP 3000 -> 2952",
+      "label": "技能 cyborg-cyborg_a_6",
+      "ok": true
+    },
+    {
+      "detail": "valid=6 slots=10",
+      "label": "hacker 有效技能>=6",
+      "ok": true
+    },
+    {
+      "detail": "chain; MP 135->121; CD=3.97; VFX=11; DummyHP 3000 -> 2885",
+      "label": "技能 hacker-hacker_a_1",
+      "ok": true
+    },
+    {
+      "detail": "chain; MP 135->117; CD=8.00; VFX=13; DummyHP 3000 -> 2986",
+      "label": "技能 hacker-hacker_a_2",
+      "ok": true
+    },
+    {
+      "detail": "buff; MP 135->121; CD=11.95; VFX=14; Buff[attack] found=true attack 6 -> 18",
+      "label": "技能 hacker-hacker_a_3",
+      "ok": true
+    },
+    {
+      "detail": "chain; MP 135->113; CD=9.98; VFX=12; DummyHP 2965 -> 2949",
+      "label": "技能 hacker-hacker_a_4",
+      "ok": true
+    },
+    {
+      "detail": "chain; MP 135->109; CD=12.98; VFX=13; DummyHP 3000 -> 2980",
+      "label": "技能 hacker-hacker_a_5",
+      "ok": true
+    },
+    {
+      "detail": "chain; MP 135->101; CD=18.00; VFX=16; DummyHP 2953 -> 2926",
+      "label": "技能 hacker-hacker_a_6",
+      "ok": true
+    },
+    {
+      "detail": "valid=6 slots=10",
+      "label": "sniper 有效技能>=6",
+      "ok": true
+    },
+    {
+      "detail": "snipe; MP 50->42; CD=3.90; VFX=9; DummyHP -1 -> -1",
+      "label": "技能 sniper-sniper_a_1",
+      "ok": false
+    },
+    {
+      "detail": "deployable; MP 50->38; CD=7.92; VFX=7; DummyHP -1 -> -1",
+      "label": "技能 sniper-sniper_a_2",
+      "ok": false
+    },
+    {
+      "detail": "buff; MP 50->42; CD=11.92; VFX=6; Buff[crit_rate] found=true attack 25 -> 25",
+      "label": "技能 sniper-sniper_a_3",
+      "ok": true
+    },
+    {
+      "detail": "snipe; MP 50->32; CD=8.90; VFX=7; DummyHP -1 -> -1",
+      "label": "技能 sniper-sniper_a_4",
+      "ok": false
+    },
+    {
+      "detail": "deployable; MP 50->32; CD=11.92; VFX=5; DummyHP -1 -> -1",
+      "label": "技能 sniper-sniper_a_5",
+      "ok": false
+    },
+    {
+      "detail": "snipe; MP 50->22; CD=15.90; VFX=6; DummyHP -1 -> -1",
+      "label": "技能 sniper-sniper_a_6",
+      "ok": false
+    },
+    {
+      "detail": "tested=96",
+      "label": "96 技能全部实测",
+      "ok": true
+    },
+    {
+      "detail": "16",
+      "label": "技能树 16 节点",
+      "ok": true
+    },
+    {
+      "detail": "archer_t0_0",
+      "label": "解锁首层技能节点",
+      "ok": true
+    },
+    {
+      "detail": "",
+      "label": "前置节点未满足被拒",
+      "ok": false
+    },
+    {
+      "detail": "attack_speed=0.000",
+      "label": "技能节点被动生效",
+      "ok": false
+    },
+    {
+      "detail": "power=x1.00 cd=x1.00",
+      "label": "倍率接口可用",
+      "ok": true
+    },
+    {
+      "detail": "",
+      "label": "专职选择成功",
+      "ok": true
+    },
+    {
+      "detail": "crit=0.170",
+      "label": "专职属性生效",
+      "ok": true
+    },
+    {
+      "detail": "",
+      "label": "专职名称生效",
+      "ok": true
+    },
+    {
+      "detail": "",
+      "label": "专职互斥拒绝第二次",
+      "ok": true
+    },
+    {
+      "detail": "points=100",
+      "label": "重置返还技能点",
+      "ok": true
+    },
+    {
+      "detail": "parts=8",
+      "label": "朋克部件库加载",
+      "ok": true
+    },
+    {
+      "detail": "",
+      "label": "朋克部件安装",
+      "ok": true
+    },
+    {
+      "detail": "tech",
+      "label": "朋克主风格判定 tech",
+      "ok": true
+    },
+    {
+      "detail": "crit=0.262",
+      "label": "朋克暴击属性生效",
+      "ok": true
+    },
+    {
+      "detail": "",
+      "label": "朋克部件卸下",
+      "ok": true
+    },
+    {
+      "detail": "hit=true paused=true state=3",
+      "label": "NPC 对话触发",
+      "ok": true
+    },
+    {
+      "detail": "[\"q_slime_hunt\"]",
+      "label": "任务接取 q_slime_hunt",
+      "ok": true
+    },
+    {
+      "detail": "",
+      "label": "存档写入",
+      "ok": true
+    },
+    {
+      "detail": "777",
+      "label": "读档恢复金币",
+      "ok": true
+    },
+    {
+      "detail": "iron=36",
+      "label": "读档恢复背包",
+      "ok": true
+    },
+    {
+      "detail": "blocks=1",
+      "label": "读档恢复建筑",
+      "ok": true
+    },
+    {
+      "detail": "",
+      "label": "塔层 1 场景",
+      "ok": true
+    },
+    {
+      "detail": "2",
+      "label": "塔层 1 机关数量=2",
+      "ok": true
+    },
+    {
+      "detail": "",
+      "label": "初始传送门锁定",
+      "ok": true
+    },
+    {
+      "detail": "",
+      "label": "Roguelike 启动",
+      "ok": true
+    },
+    {
+      "detail": "",
+      "label": "机关 1 激活并启动倒计时",
+      "ok": true
+    },
+    {
+      "detail": "",
+      "label": "超时后机关重置",
+      "ok": true
+    },
+    {
+      "detail": "",
+      "label": "机关全开后传送门启用",
+      "ok": true
+    },
+    {
+      "detail": "",
+      "label": "塔层 2 加载",
+      "ok": true
+    },
+    {
+      "detail": "mage",
+      "label": "0 号机关要求法师",
+      "ok": true
+    },
+    {
+      "detail": "",
+      "label": "非法师无法激活",
+      "ok": true
+    },
+    {
+      "detail": "",
+      "label": "法师可激活",
+      "ok": true
+    },
+    {
+      "detail": "",
+      "label": "第 5 层生成 BOSS",
+      "ok": true
+    },
+    {
+      "detail": "-1",
+      "label": "深渊层号 -1",
+      "ok": true
+    },
+    {
+      "detail": "modifiers=1",
+      "label": "第 3 层获得词条",
+      "ok": true
+    },
+    {
+      "detail": "best=3",
+      "label": "死亡结束本轮",
+      "ok": true
+    },
+    {
+      "detail": "",
+      "label": "死亡后返回主菜单",
+      "ok": true
+    },
+    {
+      "detail": "frames=69",
+      "label": "视频帧采集完成",
+      "ok": true
+    }
+  ],
+  "generated_at": "2026-11-24T06:37:13",
+  "godot_version": "4.7.2-stable (steam)",
+  "screenshots": 210,
+  "skill_results": [
+    {
+      "cd_ok": true,
+      "class": "mage",
+      "detail": "projectile; MP 130->122; CD=1.32; VFX=1; DummyHP 3000 -> 2962",
+      "effect_ok": true,
+      "id": "mage_a_1",
+      "mp_ok": true,
+      "name": "火花术",
+      "ok": true,
+      "slot": 1,
+      "type": "projectile",
+      "vfx_ok": true
+    },
+    {
+      "cd_ok": true,
+      "class": "mage",
+      "detail": "aoe_zone; MP 130->114; CD=5.90; VFX=0; DummyHP 3000 -> 2969",
+      "effect_ok": true,
+      "id": "mage_a_2",
+      "mp_ok": true,
+      "name": "烈焰喷发",
+      "ok": false,
+      "slot": 2,
+      "type": "aoe_zone",
+      "vfx_ok": false
+    },
+    {
+      "cd_ok": true,
+      "class": "mage",
+      "detail": "shield; MP 130->112; CD=11.90; VFX=1; Shield 0 -> 55",
+      "effect_ok": true,
+      "id": "mage_a_3",
+      "mp_ok": true,
+      "name": "熔岩护甲",
+      "ok": true,
+      "slot": 3,
+      "type": "shield",
+      "vfx_ok": true
+    },
+    {
+      "cd_ok": true,
+      "class": "mage",
+      "detail": "aoe_zone; MP 130->104; CD=11.90; VFX=1; DummyHP 3000 -> 2943",
+      "effect_ok": true,
+      "id": "mage_a_4",
+      "mp_ok": true,
+      "name": "陨星术",
+      "ok": true,
+      "slot": 4,
+      "type": "aoe_zone",
+      "vfx_ok": true
+    },
+    {
+      "cd_ok": true,
+      "class": "mage",
+      "detail": "aoe_zone; MP 130->108; CD=9.90; VFX=0; DummyHP 3000 -> 2956",
+      "effect_ok": true,
+      "id": "mage_a_5",
+      "mp_ok": true,
+      "name": "烈焰风暴",
+      "ok": false,
+      "slot": 5,
+      "type": "aoe_zone",
+      "vfx_ok": false
+    },
+    {
+      "cd_ok": true,
+      "class": "mage",
+      "detail": "aoe_zone; MP 130->96; CD=17.90; VFX=0; DummyHP 3000 -> 2930",
+      "effect_ok": true,
+      "id": "mage_a_6",
+      "mp_ok": true,
+      "name": "焚天",
+      "ok": false,
+      "slot": 6,
+      "type": "aoe_zone",
+      "vfx_ok": false
+    },
+    {
+      "cd_ok": true,
+      "class": "runeward",
+      "detail": "shield; MP 110->94; CD=11.92; VFX=1; Shield 0 -> 108",
+      "effect_ok": true,
+      "id": "runeward_a_1",
+      "mp_ok": true,
+      "name": "符盾",
+      "ok": true,
+      "slot": 1,
+      "type": "shield",
+      "vfx_ok": true
+    },
+    {
+      "cd_ok": true,
+      "class": "runeward",
+      "detail": "stun_wave; MP 110->98; CD=4.92; VFX=3; DummyHP -1 -> -1",
+      "effect_ok": false,
+      "id": "runeward_a_2",
+      "mp_ok": true,
+      "name": "符爆",
+      "ok": false,
+      "slot": 2,
+      "type": "stun_wave",
+      "vfx_ok": true
+    },
+    {
+      "cd_ok": true,
+      "class": "runeward",
+      "detail": "buff; MP 110->96; CD=13.90; VFX=4; Buff[defense] found=true attack 7 -> 7",
+      "effect_ok": true,
+      "id": "runeward_a_3",
+      "mp_ok": true,
+      "name": "咒护",
+      "ok": true,
+      "slot": 3,
+      "type": "buff",
+      "vfx_ok": true
+    },
+    {
+      "cd_ok": true,
+      "class": "runeward",
+      "detail": "shield; MP 110->88; CD=17.92; VFX=5; Shield 0 -> 171",
+      "effect_ok": true,
+      "id": "runeward_a_4",
+      "mp_ok": true,
+      "name": "反噬符文",
+      "ok": true,
+      "slot": 4,
+      "type": "shield",
+      "vfx_ok": true
+    },
+    {
+      "cd_ok": true,
+      "class": "runeward",
+      "detail": "root_zone; MP 110->90; CD=10.92; VFX=5; DummyHP -1 -> -1",
+      "effect_ok": false,
+      "id": "runeward_a_5",
+      "mp_ok": true,
+      "name": "符文禁锢",
+      "ok": false,
+      "slot": 5,
+      "type": "root_zone",
+      "vfx_ok": true
+    },
+    {
+      "cd_ok": true,
+      "class": "runeward",
+      "detail": "buff; MP 110->86; CD=19.90; VFX=6; Buff[defense] found=true attack 7 -> 7",
+      "effect_ok": true,
+      "id": "runeward_a_6",
+      "mp_ok": true,
+      "name": "符阵壁垒",
+      "ok": true,
+      "slot": 6,
+      "type": "buff",
+      "vfx_ok": true
+    },
+    {
+      "cd_ok": true,
+      "class": "priest",
+      "detail": "heal; MP 110->96; CD=3.92; VFX=4; HP 58 -> 88 (+30)",
+      "effect_ok": true,
+      "id": "priest_a_1",
+      "mp_ok": true,
+      "name": "治疗术",
+      "ok": true,
+      "slot": 1,
+      "type": "heal",
+      "vfx_ok": true
+    },
+    {
+      "cd_ok": true,
+      "class": "priest",
+      "detail": "projectile; MP 110->100; CD=2.92; VFX=2; DummyHP 3000 -> 2983",
+      "effect_ok": true,
+      "id": "priest_a_2",
+      "mp_ok": true,
+      "name": "圣光弹",
+      "ok": true,
+      "slot": 2,
+      "type": "projectile",
+      "vfx_ok": true
+    },
+    {
+      "cd_ok": true,
+      "class": "priest",
+      "detail": "buff; MP 110->94; CD=13.92; VFX=2; Buff[defense] found=true attack 8 -> 8",
+      "effect_ok": true,
+      "id": "priest_a_3",
+      "mp_ok": true,
+      "name": "祝福",
+      "ok": true,
+      "slot": 3,
+      "type": "buff",
+      "vfx_ok": true
+    },
+    {
+      "cd_ok": true,
+      "class": "priest",
+      "detail": "heal_zone; MP 110->78; CD=13.90; VFX=2; DummyHP -1 -> -1",
+      "effect_ok": false,
+      "id": "priest_a_4",
+      "mp_ok": true,
+      "name": "圣愈光辉",
+      "ok": false,
+      "slot": 4,
+      "type": "heal_zone",
+      "vfx_ok": true
+    },
+    {
+      "cd_ok": true,
+      "class": "priest",
+      "detail": "melee_aoe; MP 110->88; CD=8.98; VFX=3; DummyHP 3000 -> 2975",
+      "effect_ok": true,
+      "id": "priest_a_5",
+      "mp_ok": true,
+      "name": "圣光新星",
+      "ok": true,
+      "slot": 5,
+      "type": "melee_aoe",
+      "vfx_ok": true
+    },
+    {
+      "cd_ok": true,
+      "class": "priest",
+      "detail": "heal_zone; MP 110->72; CD=19.90; VFX=4; DummyHP -1 -> -1",
+      "effect_ok": false,
+      "id": "priest_a_6",
+      "mp_ok": true,
+      "name": "神谕降临",
+      "ok": false,
+      "slot": 6,
+      "type": "heal_zone",
+      "vfx_ok": true
+    },
+    {
+      "cd_ok": true,
+      "class": "necromancer",
+      "detail": "projectile; MP 120->117; CD=1.70; VFX=2; DummyHP 3000 -> 2968",
+      "effect_ok": true,
+      "id": "necromancer_a_1",
+      "mp_ok": true,
+      "name": "腐蚀箭",
+      "ok": true,
+      "slot": 1,
+      "type": "projectile",
+      "vfx_ok": true
+    },
+    {
+      "cd_ok": true,
+      "class": "necromancer",
+      "detail": "snipe; MP 120->106; CD=7.92; VFX=2; DummyHP -1 -> -1",
+      "effect_ok": false,
+      "id": "necromancer_a_2",
+      "mp_ok": true,
+      "name": "汲取",
+      "ok": false,
+      "slot": 2,
+      "type": "snipe",
+      "vfx_ok": true
+    },
+    {
+      "cd_ok": true,
+      "class": "necromancer",
+      "detail": "shield; MP 120->104; CD=11.90; VFX=2; Shield 0 -> 50",
+      "effect_ok": true,
+      "id": "necromancer_a_3",
+      "mp_ok": true,
+      "name": "黑暗护盾",
+      "ok": true,
+      "slot": 3,
+      "type": "shield",
+      "vfx_ok": true
+    },
+    {
+      "cd_ok": true,
+      "class": "necromancer",
+      "detail": "snipe; MP 120->100; CD=8.90; VFX=3; DummyHP -1 -> -1",
+      "effect_ok": false,
+      "id": "necromancer_a_4",
+      "mp_ok": true,
+      "name": "噬魂",
+      "ok": false,
+      "slot": 4,
+      "type": "snipe",
+      "vfx_ok": true
+    },
+    {
+      "cd_ok": true,
+      "class": "necromancer",
+      "detail": "snipe; MP 120->100; CD=8.92; VFX=4; DummyHP -1 -> -1",
+      "effect_ok": false,
+      "id": "necromancer_a_5",
+      "mp_ok": true,
+      "name": "灵魂虹吸",
+      "ok": false,
+      "slot": 5,
+      "type": "snipe",
+      "vfx_ok": true
+    },
+    {
+      "cd_ok": true,
+      "class": "necromancer",
+      "detail": "snipe; MP 120->90; CD=15.92; VFX=5; DummyHP -1 -> -1",
+      "effect_ok": false,
+      "id": "necromancer_a_6",
+      "mp_ok": true,
+      "name": "死神收割",
+      "ok": false,
+      "slot": 6,
+      "type": "snipe",
+      "vfx_ok": true
+    },
+    {
+      "cd_ok": true,
+      "class": "bomber",
+      "detail": "deployable; MP 70->60; CD=2.90; VFX=5; DummyHP -1 -> -1",
+      "effect_ok": false,
+      "id": "bomber_a_1",
+      "mp_ok": true,
+      "name": "投掷炸弹",
+      "ok": false,
+      "slot": 1,
+      "type": "deployable",
+      "vfx_ok": true
+    },
+    {
+      "cd_ok": true,
+      "class": "bomber",
+      "detail": "aoe_zone; MP 70->52; CD=7.92; VFX=2; DummyHP 3000 -> 2905",
+      "effect_ok": true,
+      "id": "bomber_a_2",
+      "mp_ok": true,
+      "name": "大爆破",
+      "ok": true,
+      "slot": 2,
+      "type": "aoe_zone",
+      "vfx_ok": true
+    },
+    {
+      "cd_ok": true,
+      "class": "bomber",
+      "detail": "shield; MP 70->54; CD=11.92; VFX=3; Shield 0 -> 50",
+      "effect_ok": true,
+      "id": "bomber_a_3",
+      "mp_ok": true,
+      "name": "防爆护甲",
+      "ok": true,
+      "slot": 3,
+      "type": "shield",
+      "vfx_ok": true
+    },
+    {
+      "cd_ok": true,
+      "class": "bomber",
+      "detail": "deployable; MP 70->50; CD=8.90; VFX=5; DummyHP -1 -> -1",
+      "effect_ok": false,
+      "id": "bomber_a_4",
+      "mp_ok": true,
+      "name": "集束炸弹",
+      "ok": false,
+      "slot": 4,
+      "type": "deployable",
+      "vfx_ok": true
+    },
+    {
+      "cd_ok": true,
+      "class": "bomber",
+      "detail": "deployable; MP 70->50; CD=9.92; VFX=9; DummyHP -1 -> -1",
+      "effect_ok": false,
+      "id": "bomber_a_5",
+      "mp_ok": true,
+      "name": "高爆地雷",
+      "ok": false,
+      "slot": 5,
+      "type": "deployable",
+      "vfx_ok": true
+    },
+    {
+      "cd_ok": true,
+      "class": "bomber",
+      "detail": "deployable; MP 70->40; CD=15.90; VFX=15; DummyHP -1 -> -1",
+      "effect_ok": false,
+      "id": "bomber_a_6",
+      "mp_ok": true,
+      "name": "终极爆破",
+      "ok": false,
+      "slot": 6,
+      "type": "deployable",
+      "vfx_ok": true
+    },
+    {
+      "cd_ok": true,
+      "class": "mech_pilot",
+      "detail": "projectile; MP 70->60; CD=3.00; VFX=16; DummyHP 2914 -> 2656",
+      "effect_ok": true,
+      "id": "mech_pilot_a_1",
+      "mp_ok": true,
+      "name": "重炮轰击",
+      "ok": true,
+      "slot": 1,
+      "type": "projectile",
+      "vfx_ok": true
+    },
+    {
+      "cd_ok": true,
+      "class": "mech_pilot",
+      "detail": "shield; MP 70->58; CD=11.97; VFX=14; Shield 0 -> 182",
+      "effect_ok": true,
+      "id": "mech_pilot_a_2",
+      "mp_ok": true,
+      "name": "装甲强化",
+      "ok": true,
+      "slot": 2,
+      "type": "shield",
+      "vfx_ok": true
+    },
+    {
+      "cd_ok": true,
+      "class": "mech_pilot",
+      "detail": "buff; MP 70->56; CD=13.92; VFX=15; Buff[defense] found=true attack 13 -> 13",
+      "effect_ok": true,
+      "id": "mech_pilot_a_3",
+      "mp_ok": true,
+      "name": "能量护盾",
+      "ok": true,
+      "slot": 3,
+      "type": "buff",
+      "vfx_ok": true
+    },
+    {
+      "cd_ok": true,
+      "class": "mech_pilot",
+      "detail": "snipe; MP 70->52; CD=8.90; VFX=16; DummyHP -1 -> -1",
+      "effect_ok": false,
+      "id": "mech_pilot_a_4",
+      "mp_ok": true,
+      "name": "轨道炮",
+      "ok": false,
+      "slot": 4,
+      "type": "snipe",
+      "vfx_ok": true
+    },
+    {
+      "cd_ok": true,
+      "class": "mech_pilot",
+      "detail": "shield; MP 70->48; CD=19.90; VFX=15; Shield 0 -> 312",
+      "effect_ok": true,
+      "id": "mech_pilot_a_5",
+      "mp_ok": true,
+      "name": "复合装甲",
+      "ok": true,
+      "slot": 5,
+      "type": "shield",
+      "vfx_ok": true
+    },
+    {
+      "cd_ok": true,
+      "class": "mech_pilot",
+      "detail": "buff; MP 70->50; CD=19.90; VFX=14; Buff[defense] found=true attack 13 -> 13",
+      "effect_ok": true,
+      "id": "mech_pilot_a_6",
+      "mp_ok": true,
+      "name": "力场护罩",
+      "ok": true,
+      "slot": 6,
+      "type": "buff",
+      "vfx_ok": true
+    },
+    {
+      "cd_ok": true,
+      "class": "engineer",
+      "detail": "deployable; MP 115->99; CD=6.92; VFX=3; DummyHP -1 -> -1",
+      "effect_ok": false,
+      "id": "engineer_a_1",
+      "mp_ok": true,
+      "name": "炮塔部署",
+      "ok": false,
+      "slot": 1,
+      "type": "deployable",
+      "vfx_ok": true
+    },
+    {
+      "cd_ok": true,
+      "class": "engineer",
+      "detail": "heal; MP 115->97; CD=8.92; VFX=3; HP 75 -> 105 (+30)",
+      "effect_ok": true,
+      "id": "engineer_a_2",
+      "mp_ok": true,
+      "name": "修理",
+      "ok": true,
+      "slot": 2,
+      "type": "heal",
+      "vfx_ok": true
+    },
+    {
+      "cd_ok": true,
+      "class": "engineer",
+      "detail": "buff; MP 115->103; CD=11.92; VFX=3; Buff[attack] found=true attack 9 -> 17",
+      "effect_ok": true,
+      "id": "engineer_a_3",
+      "mp_ok": true,
+      "name": "战术补给",
+      "ok": true,
+      "slot": 3,
+      "type": "buff",
+      "vfx_ok": true
+    },
+    {
+      "cd_ok": true,
+      "class": "engineer",
+      "detail": "deployable; MP 115->91; CD=10.90; VFX=4; DummyHP -1 -> -1",
+      "effect_ok": false,
+      "id": "engineer_a_4",
+      "mp_ok": true,
+      "name": "重型炮塔",
+      "ok": false,
+      "slot": 4,
+      "type": "deployable",
+      "vfx_ok": true
+    },
+    {
+      "cd_ok": true,
+      "class": "engineer",
+      "detail": "deployable; MP 115->87; CD=13.92; VFX=5; DummyHP -1 -> -1",
+      "effect_ok": false,
+      "id": "engineer_a_5",
+      "mp_ok": true,
+      "name": "双联炮塔",
+      "ok": false,
+      "slot": 5,
+      "type": "deployable",
+      "vfx_ok": true
+    },
+    {
+      "cd_ok": true,
+      "class": "engineer",
+      "detail": "deployable; MP 115->81; CD=17.92; VFX=6; DummyHP -1 -> -1",
+      "effect_ok": false,
+      "id": "engineer_a_6",
+      "mp_ok": true,
+      "name": "要塞炮台",
+      "ok": false,
+      "slot": 6,
+      "type": "deployable",
+      "vfx_ok": true
+    },
+    {
+      "cd_ok": true,
+      "class": "bounty_hunter",
+      "detail": "chain; MP 70->60; CD=2.98; VFX=9; DummyHP 2953 -> 2880",
+      "effect_ok": true,
+      "id": "bounty_hunter_a_1",
+      "mp_ok": true,
+      "name": "连射",
+      "ok": true,
+      "slot": 1,
+      "type": "chain",
+      "vfx_ok": true
+    },
+    {
+      "cd_ok": true,
+      "class": "bounty_hunter",
+      "detail": "mark; MP 70->62; CD=12.00; VFX=10; DummyHP -1 -> -1",
+      "effect_ok": false,
+      "id": "bounty_hunter_a_2",
+      "mp_ok": true,
+      "name": "追踪标记",
+      "ok": false,
+      "slot": 2,
+      "type": "mark",
+      "vfx_ok": true
+    },
+    {
+      "cd_ok": true,
+      "class": "bounty_hunter",
+      "detail": "buff; MP 70->58; CD=9.97; VFX=10; Buff[attack_speed] found=true attack 17 -> 17",
+      "effect_ok": true,
+      "id": "bounty_hunter_a_3",
+      "mp_ok": true,
+      "name": "快速拔枪",
+      "ok": true,
+      "slot": 3,
+      "type": "buff",
+      "vfx_ok": true
+    },
+    {
+      "cd_ok": true,
+      "class": "bounty_hunter",
+      "detail": "chain; MP 70->52; CD=8.00; VFX=10; DummyHP 3000 -> 2973",
+      "effect_ok": true,
+      "id": "bounty_hunter_a_4",
+      "mp_ok": true,
+      "name": "弹幕压制",
+      "ok": true,
+      "slot": 4,
+      "type": "chain",
+      "vfx_ok": true
+    },
+    {
+      "cd_ok": true,
+      "class": "bounty_hunter",
+      "detail": "mark; MP 70->56; CD=15.90; VFX=10; DummyHP -1 -> -1",
+      "effect_ok": false,
+      "id": "bounty_hunter_a_5",
+      "mp_ok": true,
+      "name": "死神标记",
+      "ok": false,
+      "slot": 5,
+      "type": "mark",
+      "vfx_ok": true
+    },
+    {
+      "cd_ok": true,
+      "class": "bounty_hunter",
+      "detail": "mark; MP 70->50; CD=19.92; VFX=11; DummyHP -1 -> -1",
+      "effect_ok": false,
+      "id": "bounty_hunter_a_6",
+      "mp_ok": true,
+      "name": "猎杀时刻",
+      "ok": false,
+      "slot": 6,
+      "type": "mark",
+      "vfx_ok": true
+    },
+    {
+      "cd_ok": true,
+      "class": "death_knight",
+      "detail": "dash_strike; MP 70->60; CD=5.00; VFX=7; MoveX +140 DummyHP 2854 -> 2830",
+      "effect_ok": true,
+      "id": "death_knight_a_1",
+      "mp_ok": true,
+      "name": "死亡冲锋",
+      "ok": true,
+      "slot": 1,
+      "type": "dash_strike",
+      "vfx_ok": true
+    },
+    {
+      "cd_ok": true,
+      "class": "death_knight",
+      "detail": "melee_aoe; MP 70->58; CD=4.00; VFX=8; DummyHP 3000 -> 2973",
+      "effect_ok": true,
+      "id": "death_knight_a_2",
+      "mp_ok": true,
+      "name": "血斩",
+      "ok": true,
+      "slot": 2,
+      "type": "melee_aoe",
+      "vfx_ok": true
+    },
+    {
+      "cd_ok": true,
+      "class": "death_knight",
+      "detail": "shield; MP 70->54; CD=13.92; VFX=6; Shield 0 -> 55",
+      "effect_ok": true,
+      "id": "death_knight_a_3",
+      "mp_ok": true,
+      "name": "黑暗护盾",
+      "ok": true,
+      "slot": 3,
+      "type": "shield",
+      "vfx_ok": true
+    },
+    {
+      "cd_ok": true,
+      "class": "death_knight",
+      "detail": "dash_strike; MP 70->54; CD=9.00; VFX=6; MoveX +180 DummyHP 3000 -> 2965",
+      "effect_ok": true,
+      "id": "death_knight_a_4",
+      "mp_ok": true,
+      "name": "亡者冲锋",
+      "ok": true,
+      "slot": 4,
+      "type": "dash_strike",
+      "vfx_ok": true
+    },
+    {
+      "cd_ok": true,
+      "class": "death_knight",
+      "detail": "snipe; MP 70->52; CD=7.92; VFX=7; DummyHP -1 -> -1",
+      "effect_ok": false,
+      "id": "death_knight_a_5",
+      "mp_ok": true,
+      "name": "血怒斩",
+      "ok": false,
+      "slot": 5,
+      "type": "snipe",
+      "vfx_ok": true
+    },
+    {
+      "cd_ok": true,
+      "class": "death_knight",
+      "detail": "snipe; MP 70->42; CD=15.90; VFX=5; DummyHP -1 -> -1",
+      "effect_ok": false,
+      "id": "death_knight_a_6",
+      "mp_ok": true,
+      "name": "血河",
+      "ok": false,
+      "slot": 6,
+      "type": "snipe",
+      "vfx_ok": true
+    },
+    {
+      "cd_ok": true,
+      "class": "warrior",
+      "detail": "melee_aoe; MP 50->42; CD=3.00; VFX=4; DummyHP 3000 -> 2973",
+      "effect_ok": true,
+      "id": "warrior_a_1",
+      "mp_ok": true,
+      "name": "旋风斩",
+      "ok": true,
+      "slot": 1,
+      "type": "melee_aoe",
+      "vfx_ok": true
+    },
+    {
+      "cd_ok": true,
+      "class": "warrior",
+      "detail": "buff; MP 50->40; CD=9.92; VFX=3; Buff[attack] found=true attack 15 -> 31",
+      "effect_ok": true,
+      "id": "warrior_a_2",
+      "mp_ok": true,
+      "name": "战吼",
+      "ok": true,
+      "slot": 2,
+      "type": "buff",
+      "vfx_ok": true
+    },
+    {
+      "cd_ok": true,
+      "class": "warrior",
+      "detail": "buff; MP 50->38; CD=9.90; VFX=3; Buff[crit_rate] found=true attack 15 -> 15",
+      "effect_ok": true,
+      "id": "warrior_a_3",
+      "mp_ok": true,
+      "name": "暴怒",
+      "ok": true,
+      "slot": 3,
+      "type": "buff",
+      "vfx_ok": true
+    },
+    {
+      "cd_ok": true,
+      "class": "warrior",
+      "detail": "stun_wave; MP 50->32; CD=8.90; VFX=5; DummyHP -1 -> -1",
+      "effect_ok": false,
+      "id": "warrior_a_4",
+      "mp_ok": true,
+      "name": "裂地斩",
+      "ok": false,
+      "slot": 4,
+      "type": "stun_wave",
+      "vfx_ok": true
+    },
+    {
+      "cd_ok": true,
+      "class": "warrior",
+      "detail": "buff; MP 50->34; CD=17.92; VFX=6; Buff[attack] found=true attack 15 -> 39",
+      "effect_ok": true,
+      "id": "warrior_a_5",
+      "mp_ok": true,
+      "name": "不屈战意",
+      "ok": true,
+      "slot": 5,
+      "type": "buff",
+      "vfx_ok": true
+    },
+    {
+      "cd_ok": true,
+      "class": "warrior",
+      "detail": "melee_aoe; MP 50->24; CD=14.00; VFX=5; DummyHP 3000 -> 2952",
+      "effect_ok": true,
+      "id": "warrior_a_6",
+      "mp_ok": true,
+      "name": "狂战风暴",
+      "ok": true,
+      "slot": 6,
+      "type": "melee_aoe",
+      "vfx_ok": true
+    },
+    {
+      "cd_ok": true,
+      "class": "qi_adept",
+      "detail": "melee_aoe; MP 100->91; CD=3.50; VFX=5; DummyHP 2944 -> 2930",
+      "effect_ok": true,
+      "id": "qi_adept_a_1",
+      "mp_ok": true,
+      "name": "气劲掌",
+      "ok": true,
+      "slot": 1,
+      "type": "melee_aoe",
+      "vfx_ok": true
+    },
+    {
+      "cd_ok": true,
+      "class": "qi_adept",
+      "detail": "heal; MP 100->82; CD=7.98; VFX=6; HP 78 -> 108 (+30)",
+      "effect_ok": true,
+      "id": "qi_adept_a_2",
+      "mp_ok": true,
+      "name": "内息术",
+      "ok": true,
+      "slot": 2,
+      "type": "heal",
+      "vfx_ok": true
+    },
+    {
+      "cd_ok": true,
+      "class": "qi_adept",
+      "detail": "buff; MP 100->88; CD=11.92; VFX=6; Buff[attack_speed] found=true attack 10 -> 10",
+      "effect_ok": true,
+      "id": "qi_adept_a_3",
+      "mp_ok": true,
+      "name": "气脉流转",
+      "ok": true,
+      "slot": 3,
+      "type": "buff",
+      "vfx_ok": true
+    },
+    {
+      "cd_ok": true,
+      "class": "qi_adept",
+      "detail": "heal_zone; MP 100->70; CD=11.92; VFX=7; DummyHP -1 -> -1",
+      "effect_ok": false,
+      "id": "qi_adept_a_4",
+      "mp_ok": true,
+      "name": "生生不息",
+      "ok": false,
+      "slot": 4,
+      "type": "heal_zone",
+      "vfx_ok": true
+    },
+    {
+      "cd_ok": true,
+      "class": "qi_adept",
+      "detail": "stun_wave; MP 100->82; CD=7.92; VFX=8; DummyHP -1 -> -1",
+      "effect_ok": false,
+      "id": "qi_adept_a_5",
+      "mp_ok": true,
+      "name": "罡气爆",
+      "ok": false,
+      "slot": 5,
+      "type": "stun_wave",
+      "vfx_ok": true
+    },
+    {
+      "cd_ok": true,
+      "class": "qi_adept",
+      "detail": "heal; MP 100->66; CD=17.90; VFX=9; HP 78 -> 108 (+30)",
+      "effect_ok": true,
+      "id": "qi_adept_a_6",
+      "mp_ok": true,
+      "name": "妙手回春",
+      "ok": true,
+      "slot": 6,
+      "type": "heal",
+      "vfx_ok": true
+    },
+    {
+      "cd_ok": true,
+      "class": "thief",
+      "detail": "blink_strike; MP 55->49; CD=2.30; VFX=4; DummyHP -1 -> -1",
+      "effect_ok": false,
+      "id": "thief_a_1",
+      "mp_ok": true,
+      "name": "背刺",
+      "ok": false,
+      "slot": 1,
+      "type": "blink_strike",
+      "vfx_ok": true
+    },
+    {
+      "cd_ok": true,
+      "class": "thief",
+      "detail": "projectile; MP 55->47; CD=2.92; VFX=3; DummyHP 2965 -> 2902",
+      "effect_ok": true,
+      "id": "thief_a_2",
+      "mp_ok": true,
+      "name": "毒刃",
+      "ok": true,
+      "slot": 2,
+      "type": "projectile",
+      "vfx_ok": true
+    },
+    {
+      "cd_ok": true,
+      "class": "thief",
+      "detail": "buff; MP 55->45; CD=9.90; VFX=4; Buff[dodge_rate] found=true attack 13 -> 13",
+      "effect_ok": true,
+      "id": "thief_a_3",
+      "mp_ok": true,
+      "name": "烟雾弹",
+      "ok": true,
+      "slot": 3,
+      "type": "buff",
+      "vfx_ok": true
+    },
+    {
+      "cd_ok": true,
+      "class": "thief",
+      "detail": "blink_strike; MP 55->41; CD=5.90; VFX=4; DummyHP -1 -> -1",
+      "effect_ok": false,
+      "id": "thief_a_4",
+      "mp_ok": true,
+      "name": "致命背刺",
+      "ok": false,
+      "slot": 4,
+      "type": "blink_strike",
+      "vfx_ok": true
+    },
+    {
+      "cd_ok": true,
+      "class": "thief",
+      "detail": "blink_strike; MP 55->39; CD=7.90; VFX=4; DummyHP -1 -> -1",
+      "effect_ok": false,
+      "id": "thief_a_5",
+      "mp_ok": true,
+      "name": "影袭",
+      "ok": false,
+      "slot": 5,
+      "type": "blink_strike",
+      "vfx_ok": true
+    },
+    {
+      "cd_ok": true,
+      "class": "thief",
+      "detail": "blink_strike; MP 55->31; CD=11.90; VFX=4; DummyHP -1 -> -1",
+      "effect_ok": false,
+      "id": "thief_a_6",
+      "mp_ok": true,
+      "name": "瞬杀",
+      "ok": false,
+      "slot": 6,
+      "type": "blink_strike",
+      "vfx_ok": true
+    },
+    {
+      "cd_ok": true,
+      "class": "archer",
+      "detail": "projectile; MP 60->54; CD=1.93; VFX=2; DummyHP 3000 -> 2833",
+      "effect_ok": true,
+      "id": "archer_a_1",
+      "mp_ok": true,
+      "name": "穿透射击",
+      "ok": true,
+      "slot": 1,
+      "type": "projectile",
+      "vfx_ok": true
+    },
+    {
+      "cd_ok": true,
+      "class": "archer",
+      "detail": "buff; MP 60->50; CD=12.00; VFX=6; Buff[crit_rate] found=true attack 18 -> 18",
+      "effect_ok": true,
+      "id": "archer_a_2",
+      "mp_ok": true,
+      "name": "鹰眼",
+      "ok": true,
+      "slot": 2,
+      "type": "buff",
+      "vfx_ok": true
+    },
+    {
+      "cd_ok": true,
+      "class": "archer",
+      "detail": "buff; MP 60->50; CD=9.98; VFX=7; Buff[crit_rate] found=true attack 18 -> 18",
+      "effect_ok": true,
+      "id": "archer_a_3",
+      "mp_ok": true,
+      "name": "屏息",
+      "ok": true,
+      "slot": 3,
+      "type": "buff",
+      "vfx_ok": true
+    },
+    {
+      "cd_ok": true,
+      "class": "archer",
+      "detail": "projectile; MP 60->48; CD=5.97; VFX=8; DummyHP 3000 -> 2848",
+      "effect_ok": true,
+      "id": "archer_a_4",
+      "mp_ok": true,
+      "name": "破甲贯射",
+      "ok": true,
+      "slot": 4,
+      "type": "projectile",
+      "vfx_ok": true
+    },
+    {
+      "cd_ok": true,
+      "class": "archer",
+      "detail": "aoe_zone; MP 60->40; CD=9.90; VFX=4; DummyHP 3000 -> 2865",
+      "effect_ok": true,
+      "id": "archer_a_5",
+      "mp_ok": true,
+      "name": "贯穿箭雨",
+      "ok": true,
+      "slot": 5,
+      "type": "aoe_zone",
+      "vfx_ok": true
+    },
+    {
+      "cd_ok": true,
+      "class": "archer",
+      "detail": "snipe; MP 60->34; CD=13.92; VFX=4; DummyHP -1 -> -1",
+      "effect_ok": false,
+      "id": "archer_a_6",
+      "mp_ok": true,
+      "name": "一箭穿心",
+      "ok": false,
+      "slot": 6,
+      "type": "snipe",
+      "vfx_ok": true
+    },
+    {
+      "cd_ok": true,
+      "class": "cyborg",
+      "detail": "melee_aoe; MP 80->70; CD=4.00; VFX=2; DummyHP 3000 -> 2974",
+      "effect_ok": true,
+      "id": "cyborg_a_1",
+      "mp_ok": true,
+      "name": "液压重拳",
+      "ok": true,
+      "slot": 1,
+      "type": "melee_aoe",
+      "vfx_ok": true
+    },
+    {
+      "cd_ok": true,
+      "class": "cyborg",
+      "detail": "dash_strike; MP 80->68; CD=6.00; VFX=3; MoveX +160 DummyHP 3000 -> 2976",
+      "effect_ok": true,
+      "id": "cyborg_a_2",
+      "mp_ok": true,
+      "name": "伺服突进",
+      "ok": true,
+      "slot": 2,
+      "type": "dash_strike",
+      "vfx_ok": true
+    },
+    {
+      "cd_ok": true,
+      "class": "cyborg",
+      "detail": "shield; MP 80->64; CD=12.90; VFX=3; Shield 0 -> 70",
+      "effect_ok": true,
+      "id": "cyborg_a_3",
+      "mp_ok": true,
+      "name": "能量壁垒",
+      "ok": true,
+      "slot": 3,
+      "type": "shield",
+      "vfx_ok": true
+    },
+    {
+      "cd_ok": true,
+      "class": "cyborg",
+      "detail": "dash_strike; MP 80->60; CD=10.00; VFX=6; MoveX +220 DummyHP 2944 -> 2905",
+      "effect_ok": true,
+      "id": "cyborg_a_4",
+      "mp_ok": true,
+      "name": "磁轨突袭",
+      "ok": true,
+      "slot": 4,
+      "type": "dash_strike",
+      "vfx_ok": true
+    },
+    {
+      "cd_ok": true,
+      "class": "cyborg",
+      "detail": "stun_wave; MP 80->62; CD=8.98; VFX=8; DummyHP -1 -> -1",
+      "effect_ok": false,
+      "id": "cyborg_a_5",
+      "mp_ok": true,
+      "name": "震荡践踏",
+      "ok": false,
+      "slot": 5,
+      "type": "stun_wave",
+      "vfx_ok": true
+    },
+    {
+      "cd_ok": true,
+      "class": "cyborg",
+      "detail": "dash_strike; MP 80->52; CD=16.00; VFX=9; MoveX +300 DummyHP 3000 -> 2952",
+      "effect_ok": true,
+      "id": "cyborg_a_6",
+      "mp_ok": true,
+      "name": "磁轨风暴",
+      "ok": true,
+      "slot": 6,
+      "type": "dash_strike",
+      "vfx_ok": true
+    },
+    {
+      "cd_ok": true,
+      "class": "hacker",
+      "detail": "chain; MP 135->121; CD=3.97; VFX=11; DummyHP 3000 -> 2885",
+      "effect_ok": true,
+      "id": "hacker_a_1",
+      "mp_ok": true,
+      "name": "病毒入侵",
+      "ok": true,
+      "slot": 1,
+      "type": "chain",
+      "vfx_ok": true
+    },
+    {
+      "cd_ok": true,
+      "class": "hacker",
+      "detail": "chain; MP 135->117; CD=8.00; VFX=13; DummyHP 3000 -> 2986",
+      "effect_ok": true,
+      "id": "hacker_a_2",
+      "mp_ok": true,
+      "name": "蠕虫病毒",
+      "ok": true,
+      "slot": 2,
+      "type": "chain",
+      "vfx_ok": true
+    },
+    {
+      "cd_ok": true,
+      "class": "hacker",
+      "detail": "buff; MP 135->121; CD=11.95; VFX=14; Buff[attack] found=true attack 6 -> 18",
+      "effect_ok": true,
+      "id": "hacker_a_3",
+      "mp_ok": true,
+      "name": "系统过载",
+      "ok": true,
+      "slot": 3,
+      "type": "buff",
+      "vfx_ok": true
+    },
+    {
+      "cd_ok": true,
+      "class": "hacker",
+      "detail": "chain; MP 135->113; CD=9.98; VFX=12; DummyHP 2965 -> 2949",
+      "effect_ok": true,
+      "id": "hacker_a_4",
+      "mp_ok": true,
+      "name": "病毒风暴",
+      "ok": true,
+      "slot": 4,
+      "type": "chain",
+      "vfx_ok": true
+    },
+    {
+      "cd_ok": true,
+      "class": "hacker",
+      "detail": "chain; MP 135->109; CD=12.98; VFX=13; DummyHP 3000 -> 2980",
+      "effect_ok": true,
+      "id": "hacker_a_5",
+      "mp_ok": true,
+      "name": "全域感染",
+      "ok": true,
+      "slot": 5,
+      "type": "chain",
+      "vfx_ok": true
+    },
+    {
+      "cd_ok": true,
+      "class": "hacker",
+      "detail": "chain; MP 135->101; CD=18.00; VFX=16; DummyHP 2953 -> 2926",
+      "effect_ok": true,
+      "id": "hacker_a_6",
+      "mp_ok": true,
+      "name": "零日链",
+      "ok": true,
+      "slot": 6,
+      "type": "chain",
+      "vfx_ok": true
+    },
+    {
+      "cd_ok": true,
+      "class": "sniper",
+      "detail": "snipe; MP 50->42; CD=3.90; VFX=9; DummyHP -1 -> -1",
+      "effect_ok": false,
+      "id": "sniper_a_1",
+      "mp_ok": true,
+      "name": "狙击",
+      "ok": false,
+      "slot": 1,
+      "type": "snipe",
+      "vfx_ok": true
+    },
+    {
+      "cd_ok": true,
+      "class": "sniper",
+      "detail": "deployable; MP 50->38; CD=7.92; VFX=7; DummyHP -1 -> -1",
+      "effect_ok": false,
+      "id": "sniper_a_2",
+      "mp_ok": true,
+      "name": "陷阱",
+      "ok": false,
+      "slot": 2,
+      "type": "deployable",
+      "vfx_ok": true
+    },
+    {
+      "cd_ok": true,
+      "class": "sniper",
+      "detail": "buff; MP 50->42; CD=11.92; VFX=6; Buff[crit_rate] found=true attack 25 -> 25",
+      "effect_ok": true,
+      "id": "sniper_a_3",
+      "mp_ok": true,
+      "name": "精准",
+      "ok": true,
+      "slot": 3,
+      "type": "buff",
+      "vfx_ok": true
+    },
+    {
+      "cd_ok": true,
+      "class": "sniper",
+      "detail": "snipe; MP 50->32; CD=8.90; VFX=7; DummyHP -1 -> -1",
+      "effect_ok": false,
+      "id": "sniper_a_4",
+      "mp_ok": true,
+      "name": "死神之眼",
+      "ok": false,
+      "slot": 4,
+      "type": "snipe",
+      "vfx_ok": true
+    },
+    {
+      "cd_ok": true,
+      "class": "sniper",
+      "detail": "deployable; MP 50->32; CD=11.92; VFX=5; DummyHP -1 -> -1",
+      "effect_ok": false,
+      "id": "sniper_a_5",
+      "mp_ok": true,
+      "name": "爆裂陷阱",
+      "ok": false,
+      "slot": 5,
+      "type": "deployable",
+      "vfx_ok": true
+    },
+    {
+      "cd_ok": true,
+      "class": "sniper",
+      "detail": "snipe; MP 50->22; CD=15.90; VFX=6; DummyHP -1 -> -1",
+      "effect_ok": false,
+      "id": "sniper_a_6",
+      "mp_ok": true,
+      "name": "绝杀狙击",
+      "ok": false,
+      "slot": 6,
+      "type": "snipe",
+      "vfx_ok": true
+    }
+  ],
+  "skills_pass": 57,
+  "skills_total": 96,
+  "video_frames": 69
+}

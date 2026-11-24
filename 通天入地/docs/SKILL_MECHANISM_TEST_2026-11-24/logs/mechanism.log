@@ -1,0 +1,75 @@
+2026-11-24T03:29:38 | ========== MECHANISM AUDIT START ==========
+2026-11-24T03:29:38 | Godot=4.7.2-stable (steam)
+2026-11-24T03:29:40 | PASS  全职业实例化到队伍 | party=16 expected=16
+2026-11-24T03:29:40 | ===== 元素克制矩阵 =====
+2026-11-24T03:29:40 | PASS  元素: 火打火元素→免疫 | fire vs fire = 0.00 (期望 0.00)
+2026-11-24T03:29:40 | PASS  元素: 雷打水→克制 | thunder vs water = 1.50 (期望 1.50)
+2026-11-24T03:29:40 | PASS  元素: 物理打幽魂→抵抗 | physical vs shadow = 0.50 (期望 0.50)
+2026-11-24T03:29:40 | PASS  元素: 圣光打幽魂→克制 | holy vs shadow = 2.00 (期望 2.00)
+2026-11-24T03:29:40 | PASS  元素: 雷打机械→短路 | thunder vs mech = 1.80 (期望 1.80)
+2026-11-24T03:29:40 | PASS  元素: 冰打火→克制 | ice vs fire = 1.50 (期望 1.50)
+2026-11-24T03:29:40 | PASS  元素: 水打火→微克 | water vs fire = 1.30 (期望 1.30)
+2026-11-24T03:29:40 | PASS  元素: 火打冰→克制 | fire vs ice = 1.50 (期望 1.50)
+2026-11-24T03:29:40 | PASS  元素: 雷打雷→免疫 | thunder vs thunder = 0.00 (期望 0.00)
+2026-11-24T03:29:40 | PASS  融合元素映射 burn→fire | got=fire
+2026-11-24T03:29:40 | PASS  融合元素映射 freeze→ice | got=ice
+2026-11-24T03:29:40 | PASS  融合元素映射 stun→thunder | got=thunder
+2026-11-24T03:29:40 | PASS  融合元素映射 corrosion→nature | got=nature
+2026-11-24T03:29:40 | PASS  融合元素映射 root→nature | got=nature
+2026-11-24T03:29:40 | PASS  融合元素映射 holy→holy | got=holy
+2026-11-24T03:29:40 | PASS  融合元素映射 summon→shadow | got=shadow
+2026-11-24T03:29:40 | PASS  融合元素映射 knockback→physical | got=physical
+2026-11-24T03:29:40 | PASS  融合元素映射 mark→shadow | got=shadow
+2026-11-24T03:29:40 | ===== 融合技 API =====
+2026-11-24T03:29:40 | PASS  融合ID拆分 | ["fireball", "heal"]
+2026-11-24T03:29:40 | PASS  关键词提取 | { "kind": "burn", "value": 0.15 }
+2026-11-24T03:29:40 | PASS  技能池构建 | count=96
+2026-11-24T03:29:40 | PASS  融合技构建 | main=fireball sub=frost_nova
+2026-11-24T03:29:40 | PASS  融合技独立命名 融· | name=融·棘火球术
+2026-11-24T03:29:40 | PASS  融合技元素字段 | elem=root
+2026-11-24T03:29:40 | PASS  融合技独有色 | color=#b7aa5e
+2026-11-24T03:29:40 | ===== 48 流派结构 =====
+2026-11-24T03:29:40 | PASS  48 流派总数 | count=48
+2026-11-24T03:29:40 | PASS  每流派至少 3 技能 | missing=[]
+2026-11-24T03:29:40 | PASS  流派专属机制种类 >= 30 | kinds=48
+2026-11-24T03:29:40 | PASS  专属机制存在 berserker | 
+2026-11-24T03:29:40 | PASS  专属机制存在 chain_master | 
+2026-11-24T03:29:40 | PASS  专属机制存在 backstab | 
+2026-11-24T03:29:40 | PASS  专属机制存在 overclock | 
+2026-11-24T03:29:40 | PASS  专属机制存在 minion_lord | 
+2026-11-24T03:29:40 | PASS  16 职业各 6 技能 | []
+2026-11-24T03:29:40 | ===== 尸体系统 =====
+2026-11-24T03:29:40 | PASS  尸体创建有效 | 
+2026-11-24T03:29:40 | SHOT corpse_spawn
+2026-11-24T03:29:41 | PASS  敌人死亡生成尸体 | corpses=1
+2026-11-24T03:29:41 | ===== HitStop / 震屏 =====
+2026-11-24T03:29:41 | PASS  HitStop 激活 | 
+2026-11-24T03:29:41 | PASS  HitStop 自动结束 | 
+2026-11-24T03:29:41 | PASS  震屏触发无异常 | 
+2026-11-24T03:29:41 | ===== 8 种新增技能类型 =====
+2026-11-24T03:29:41 | 施放 mage / root_zone / frost_nova
+2026-11-24T03:29:42 | PASS  类型施放 root_zone | mage frost_nova HP 5000→4962 cd=0.60
+2026-11-24T03:29:42 | SHOT type_root_zone
+2026-11-24T03:29:42 | 施放 runeward / stun_wave / rune_burst
+2026-11-24T03:29:43 | PASS  类型施放 stun_wave | runeward rune_burst HP 5000→5000 cd=11.10
+2026-11-24T03:29:43 | SHOT type_stun_wave
+2026-11-24T03:29:44 | 施放 priest / heal_zone / sanctuary
+2026-11-24T03:29:44 | PASS  类型施放 heal_zone | priest sanctuary HP 5000→5000 cd=3.10
+2026-11-24T03:29:44 | SHOT type_heal_zone
+2026-11-24T03:29:45 | 施放 necromancer / summon / grave_field
+2026-11-24T03:29:45 | PASS  类型施放 summon | necromancer grave_field HP 5000→4968 cd=1.00
+2026-11-24T03:29:45 | SHOT type_summon
+2026-11-24T03:29:46 | 施放 necromancer / snipe / drain
+2026-11-24T03:29:46 | PASS  类型施放 snipe | necromancer drain HP 5000→4968 cd=1.00
+2026-11-24T03:29:47 | SHOT type_snipe
+2026-11-24T03:29:47 | 施放 bomber / deployable / throw_bomb
+2026-11-24T03:29:48 | PASS  类型施放 deployable | bomber throw_bomb HP 5000→4874 cd=2.27
+2026-11-24T03:29:48 | SHOT type_deployable
+2026-11-24T03:29:48 | 施放 bounty_hunter / mark / mark
+2026-11-24T03:29:49 | PASS  类型施放 mark | bounty_hunter mark HP 5000→4983 cd=2.15
+2026-11-24T03:29:49 | SHOT type_mark
+2026-11-24T03:29:49 | 施放 thief / blink_strike / backstab
+2026-11-24T03:29:50 | PASS  类型施放 blink_strike | thief backstab HP 5000→4974 cd=1.60
+2026-11-24T03:29:50 | SHOT type_blink_strike
+2026-11-24T03:29:50 | ========== RESULT total=48 pass=48 fail=0 shots=9 ==========
+2026-11-24T03:29:50 | MECH_RESULT failures=0
