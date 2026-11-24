@@ -150,12 +150,33 @@ func _spawn_dummy(pos: Vector2, hp: int = 3000) -> Node:
 	return dummy
 
 func _count_vfx() -> int:
+	# 旧逻辑只数 Sprite2D + z_index==40，新特效全是 _draw() / Line2D / Node2D 子类
+	# 改成递归：数所有非 CharacterBody2D 的 Node2D（排除敌/玩家本体）
+	return _count_vfx_recursive(GameManager.current_world, 0)
+
+func _count_vfx_recursive(node: Node, depth: int) -> int:
+	if node == null or not is_instance_valid(node):
+		return 0
 	var n := 0
-	if GameManager.current_world == null:
-		return n
-	for c in GameManager.current_world.get_children():
-		if c is Sprite2D and c.z_index == 40:
-			n += 1
+	# 统计：Line2D（拖尾）、Sprite2D（特效贴图）、Node2D 非角色（_draw 程序化特效）
+	if node is Line2D:
+		n += 1
+	elif node is Sprite2D:
+		n += 1
+	elif node is Node2D and not (node is CharacterBody2D):
+		var cls_name := str(node.get("class_name") if node.get("class_name") != null else "")
+		# 排除 UI 根节点（UIRoot/MainWorld 根）
+		if cls_name == "":
+			var script_path := str(node.get_script() if node.get_script() else "")
+			if script_path.find("enemy_base") >= 0 or script_path.find("player") >= 0 or script_path.find("corpse") >= 0 or script_path.find("summon") >= 0 or script_path.find("deployable") >= 0:
+				pass  # 敌人/玩家/尸体/召唤物/炮塔不算 VFX
+			elif node.name == "" or node.name.find("UIRoot") >= 0 or node.name.find("MainWorld") >= 0 or node.name.find("Dynamic") >= 0:
+				pass
+			else:
+				# 任何其他 Node2D（Projectile/EffectRing/SkillVfx/Normal）
+				n += 1
+	for c in node.get_children():
+		n += _count_vfx_recursive(c, depth + 1)
 	return n
 
 func _test_skill(player: Node, slot: int, skill: Dictionary) -> Dictionary:
@@ -165,6 +186,15 @@ func _test_skill(player: Node, slot: int, skill: Dictionary) -> Dictionary:
 	var skill_name := str(skill.get("name", skill_id))
 	var typ := str(skill.get("type", "melee_aoe"))
 	_clear_enemies(true)
+	# —— 额外清理：残留 aoe_zone（有 delay 还没爆）、deployable 炸弹/炮塔、corpse 尸体 ——
+	for node in GameManager.current_world.get_children():
+		var name := str(node.name).to_lower()
+		var cls := str(node.get("class_name") if node.get("class_name") else "")
+		if cls == "Corpse" or name.find("aoe") >= 0 or name.find("zone") >= 0 or name.find("trap") >= 0 or name.find("ring") >= 0:
+			if is_instance_valid(node):
+				node.queue_free()
+	# 等待清理完成
+	await _wait(0.25)
 	data.mp = data.get_max_mp()
 	data.hp = data.get_max_hp()
 	data.shield_hp = 0
@@ -193,7 +223,16 @@ func _test_skill(player: Node, slot: int, skill: Dictionary) -> Dictionary:
 		enemy_hp_before = dummy.hp if is_instance_valid(dummy) else -1
 	_action("施放技能 %s[%d] %s / %s (%s)" % [cid, slot + 1, skill_name, skill_id, typ])
 	player.try_skill(slot)
-	await _wait(0.09)
+	# —— 按技能类型等不同时间 ——
+	# aoe_zone 有 delay（陨星 1.8s），deployable 有抛物线+fuse（炸弹 1.0s），snipe 有瞄准延迟
+	var wait_time := 0.35
+	if typ == "aoe_zone":
+		wait_time = 1.8  # 等延迟爆炸
+	elif typ == "deployable":
+		wait_time = 1.0  # 等抛物线 + fuse + 爆炸
+	elif typ == "snipe":
+		wait_time = 0.6
+	await _wait(wait_time)
 	var vfx_count := _count_vfx()
 	# 即时特效帧：捕捉投射物外观、拖尾与技能 VFX（计数后再截图，避免假 FAIL）
 	if pending_vfx_shot != "":
