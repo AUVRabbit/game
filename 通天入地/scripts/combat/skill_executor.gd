@@ -171,7 +171,7 @@ static func cast(caster, skill: Dictionary) -> bool:
 				_projectile(caster, origin, dir.rotated(off), damage_v, is_magic, speed_v, color,
 					str(skill.get("icon", "")), pierce_v, float(skill.get("splash_radius", 0.0)),
 					float(skill.get("range", 0.0)), float(skill.get("knockback", 0.0)), 0.0,
-					elem_kw, elem_color)
+					elem_kw, elem_color, skill)
 		"heal":
 			var heal_power := float(skill.get("power", 30))
 			if data.has_method("get_heal_bonus"):
@@ -561,7 +561,7 @@ static func _melee_aoe(caster, origin: Vector2, radius: float, damage: int, is_m
 static func _projectile(caster, origin: Vector2, dir: Vector2, damage: int, is_magic: bool, speed: float, color: Color,
 		icon_id: String = "", pierce: int = 0, splash: float = 0.0, range_dist: float = 0.0,
 		knockback: float = 0.0, arc_amp: float = 0.0,
-		fusion_kw: Dictionary = {}, fusion_color: Color = Color.WHITE) -> void:
+		fusion_kw: Dictionary = {}, fusion_color: Color = Color.WHITE, skill_dict: Dictionary = {}) -> void:
 	var level: Node = caster.get_parent()
 	if level == null:
 		return
@@ -579,11 +579,75 @@ static func _projectile(caster, origin: Vector2, dir: Vector2, damage: int, is_m
 	projectile.arc_amplitude = arc_amp
 	projectile.fusion_kw = fusion_kw
 	projectile.fusion_color = fusion_color
+	# —— 推断 projectile_kind（根据 icon / damage_element / 武器风格）——
+	var sk_icon := icon_id
+	var sk_speed := speed
+	if not skill_dict.is_empty():
+		sk_icon = str(skill_dict.get("icon", icon_id))
+		sk_speed = float(skill_dict.get("speed", speed))
+	_infer_projectile_kind(projectile, sk_icon, is_magic, color, arc_amp, sk_speed)
 	projectile.lifetime = maxf(0.3, range_dist / maxf(1.0, speed)) if range_dist > 0.0 else 1.6
 	level.add_child(projectile)
 	projectile.global_position = origin
-	# 发射瞬间：枪口闪光
 	SkillVfx.spawn_muzzle_flash(level, origin, color, dir.angle())
+
+
+# —— 推断投射物外观 kind ——
+static func _infer_projectile_kind(proj, icon: String, is_magic: bool, color: Color, arc_amp: float, speed: float) -> void:
+	# 融合元素优先（有 elem_kw 时优先用融合元素色）
+	var elem := ""
+	if not proj.fusion_kw.is_empty():
+		elem = str(proj.fusion_kw.get("kind", ""))
+	# 从 icon 名字推断（如 fire_ball.png）
+	var icon_lower := icon.to_lower() if icon != "" else ""
+	if icon_lower.find("fire") >= 0 or icon_lower.find("flame") >= 0 or elem == "burn":
+		proj.projectile_kind = Projectile.Kind.FIREBALL; proj.damage_element = "fire"; proj.color = Color(1.0, 0.5, 0.15)
+	elif icon_lower.find("ice") >= 0 or icon_lower.find("cold") >= 0 or elem == "freeze":
+		proj.projectile_kind = Projectile.Kind.ICICLE; proj.damage_element = "ice"; proj.color = Color(0.55, 0.85, 1.0)
+	elif icon_lower.find("arrow") >= 0 or icon_lower.find("bow") >= 0 or icon_lower.find("bolt") >= 0:
+		proj.projectile_kind = Projectile.Kind.ARROW; proj.damage_element = "physical"
+	elif icon_lower.find("spear") >= 0 or icon_lower.find("lance") >= 0:
+		proj.projectile_kind = Projectile.Kind.SPEAR; proj.damage_element = "physical"
+	elif icon_lower.find("gun") >= 0 or icon_lower.find("bullet") >= 0 or icon_lower.find("pistol") >= 0:
+		proj.projectile_kind = Projectile.Kind.BULLET; proj.damage_element = "physical"
+	elif icon_lower.find("rock") >= 0 or icon_lower.find("bomb") >= 0 or icon_lower.find("stone") >= 0:
+		proj.projectile_kind = Projectile.Kind.ROCK; proj.damage_element = "physical"
+	elif icon_lower.find("thunder") >= 0 or icon_lower.find("lightning") >= 0 or elem == "stun":
+		proj.projectile_kind = Projectile.Kind.LIGHTNING; proj.damage_element = "thunder"; proj.color = Color(0.75, 0.95, 1.0)
+	elif icon_lower.find("holy") >= 0 or icon_lower.find("light") >= 0 or elem == "holy":
+		proj.projectile_kind = Projectile.Kind.HOLY; proj.damage_element = "holy"; proj.color = Color(1.0, 0.9, 0.5)
+	elif icon_lower.find("dark") >= 0 or icon_lower.find("shadow") >= 0 or elem == "summon":
+		proj.projectile_kind = Projectile.Kind.DARK; proj.damage_element = "shadow"; proj.color = Color(0.55, 0.3, 0.8)
+	elif icon_lower.find("axe") >= 0:
+		proj.projectile_kind = Projectile.Kind.AXE; proj.damage_element = "physical"
+	elif icon_lower.find("shuriken") >= 0 or icon_lower.find("star") >= 0:
+		proj.projectile_kind = Projectile.Kind.SHURIKEN; proj.damage_element = "physical"
+	elif icon_lower.find("poison") >= 0 or icon_lower.find("needle") >= 0 or icon_lower.find("corrosion") >= 0 or elem == "corrosion":
+		proj.projectile_kind = Projectile.Kind.NEEDLE; proj.damage_element = "nature"; proj.color = Color(0.55, 1.0, 0.5)
+	elif icon_lower.find("laser") >= 0 or icon_lower.find("plasma") >= 0 or icon_lower.find("mech") >= 0:
+		proj.projectile_kind = Projectile.Kind.LASER_BOLT; proj.damage_element = "mech"; proj.color = Color(0.35, 1.0, 0.7)
+	# —— 兜底：按技能属性推断 ——
+	elif arc_amp > 0.0:
+		# 有抛物线 → 岩石/炸弹
+		proj.projectile_kind = Projectile.Kind.ROCK; proj.damage_element = "physical"
+	elif is_magic and elem == "":
+		# 未指定元素的魔法 → 看颜色推断
+		if color.r > color.g and color.r > color.b:
+			proj.projectile_kind = Projectile.Kind.FIREBALL; proj.damage_element = "fire"
+		elif color.b > color.r and color.b > color.g:
+			proj.projectile_kind = Projectile.Kind.ICICLE; proj.damage_element = "ice"
+		elif color.g > color.r and color.g > color.b:
+			proj.projectile_kind = Projectile.Kind.NEEDLE; proj.damage_element = "nature"
+		else:
+			proj.projectile_kind = Projectile.Kind.FIREBALL; proj.damage_element = "fire"
+	else:
+		# 物理弹道 → 按速度推断（快的是子弹/弓箭，慢的是飞斧）
+		if speed > 600.0:
+			proj.projectile_kind = Projectile.Kind.BULLET; proj.damage_element = "physical"
+		elif speed > 400.0:
+			proj.projectile_kind = Projectile.Kind.ARROW; proj.damage_element = "physical"
+		else:
+			proj.projectile_kind = Projectile.Kind.AXE; proj.damage_element = "physical"
 
 
 static func _chain(origin: Vector2, radius: float, count: int, damage: int, is_magic: bool, color: Color, level: Node,
