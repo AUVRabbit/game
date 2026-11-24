@@ -465,12 +465,14 @@ func _draw() -> void:
 	else:
 		if is_boss:
 			draw_circle(Vector2.ZERO, body_radius + 6.0, Color(fill.r, fill.g, fill.b, 0.25))
-		var points := PackedVector2Array()
-		var sides := 10
-		for i in sides:
-			var a := TAU * float(i) / float(sides)
-			points.append(Vector2(cos(a), sin(a) * 0.85) * body_radius)
-		draw_colored_polygon(points, fill)
+		# 按 enemy_type 画不同外观
+		var t := Time.get_ticks_msec() / 1000.0
+		match enemy_type:
+			"slime": _draw_slime(fill, t)
+			"mech": _draw_mech(fill, t)
+			"wraith": _draw_wraith(fill, t)
+			"skeleton": _draw_skeleton(fill)
+			_: _draw_default_body(fill)
 	# 状态指示：眩晕（黄环）/ 标记（红环）
 	if stun_left > 0.0:
 		draw_arc(Vector2.ZERO, body_radius + 9.0, 0.0, TAU, 22, Color(1.0, 0.85, 0.3, 0.9), 2.0)
@@ -482,3 +484,108 @@ func _draw() -> void:
 	draw_rect(Rect2(bar_pos, Vector2(bar_w, 5.0)), Color(0.1, 0.1, 0.12, 0.85))
 	var ratio := clampf(float(hp) / float(maxi(1, max_hp)), 0.0, 1.0)
 	draw_rect(Rect2(bar_pos, Vector2(bar_w * ratio, 5.0)), Color(0.9, 0.25, 0.25))
+
+# ========== enemy_type 专属外观（没贴图时的程序化 sprite）==========
+
+func _draw_slime(fill: Color, t: float) -> void:
+	var s := body_radius
+	# 波动黏液身体（随 t 上下变形）
+	var wobble := sin(t * 6.0) * 2.0
+	var pts := PackedVector2Array()
+	for i in 14:
+		var ang := float(i) / 14.0 * TAU
+		var deform := 1.0 + sin(t * 3.0 + float(i) * 1.3) * 0.12
+		var r := s * deform
+		pts.append(Vector2(cos(ang) * r, sin(ang) * r * 0.7 + wobble))
+	draw_colored_polygon(pts, fill)
+	# 高光
+	var hi_pts := PackedVector2Array()
+	for i in 10:
+		var ang := float(i) / 10.0 * TAU
+		var r := s * 0.5
+		hi_pts.append(Vector2(cos(ang) * r, sin(ang) * r * 0.5 - 2 + wobble))
+	draw_colored_polygon(hi_pts, Color(1, 1, 1, 0.3))
+	# 眼睛（2 个黑点 + 高光）
+	draw_circle(Vector2(-s * 0.3, -s * 0.1 + wobble), s * 0.18, Color(0.1, 0.1, 0.15))
+	draw_circle(Vector2(s * 0.3, -s * 0.1 + wobble), s * 0.18, Color(0.1, 0.1, 0.15))
+	draw_circle(Vector2(-s * 0.25, -s * 0.18 + wobble), s * 0.06, Color.WHITE)
+	draw_circle(Vector2(s * 0.35, -s * 0.18 + wobble), s * 0.06, Color.WHITE)
+
+func _draw_mech(fill: Color, t: float) -> void:
+	var s := body_radius
+	var metal := fill
+	var dark := Color(fill.r * 0.5, fill.g * 0.5, fill.b * 0.5)
+	var eye_red := Color(1.0, 0.2, 0.15)
+	# 身体（六边形装甲）
+	var hex := PackedVector2Array()
+	for i in 6:
+		var ang := float(i) / 6.0 * TAU + PI / 6
+		hex.append(Vector2(cos(ang) * s, sin(ang) * s - 2))
+	draw_colored_polygon(hex, metal)
+	# 内层 darker
+	var hex2 := PackedVector2Array()
+	for i in 6:
+		var ang := float(i) / 6.0 * TAU + PI / 6
+		hex2.append(Vector2(cos(ang) * s * 0.65, sin(ang) * s * 0.65 - 2))
+	draw_colored_polygon(hex2, dark)
+	# 发光眼（2 个红色圆）
+	draw_circle(Vector2(-s * 0.25, -s * 0.15 - 2), s * 0.15 * (1.0 + 0.2 * sin(t * 12.0)), eye_red)
+	draw_circle(Vector2(s * 0.25, -s * 0.15 - 2), s * 0.15 * (1.0 + 0.2 * sin(t * 12.0)), eye_red)
+	# 8 条蜘蛛腿（每条 2 段，动态）
+	for i in 8:
+		var base_ang := float(i) / 8.0 * TAU + sin(t * 4.0 + float(i) * 0.8) * 0.15
+		var p0 := Vector2(cos(base_ang) * s * 0.8, sin(base_ang) * s * 0.8 - 2)
+		var p1 := Vector2(cos(base_ang) * (s + 8), sin(base_ang) * (s + 8) - 2)
+		var p2 := Vector2(cos(base_ang) * (s + 14), sin(base_ang) * (s + 14) + 4)
+		draw_line(p0, p1, metal, 2.0)
+		draw_line(p1, p2, dark, 1.5)
+
+func _draw_wraith(fill: Color, t: float) -> void:
+	var s := body_radius
+	# 半透明飘动影团（多层叠加 + 波浪摆动）
+	var float_y := sin(t * 2.0) * 3.0
+	# 外层
+	draw_circle(Vector2(0, float_y), s * 1.3, Color(fill.r, fill.g, fill.b, 0.18))
+	# 中层
+	draw_circle(Vector2(0, float_y - 2), s, Color(fill.r, fill.g, fill.b, 0.35))
+	# 内核
+	draw_circle(Vector2(0, float_y - 3), s * 0.6, Color(fill.r, fill.g, fill.b, 0.6))
+	# 红眼
+	var pulse := 1.0 + 0.3 * sin(t * 6.0)
+	draw_circle(Vector2(-s * 0.25, float_y - 4), s * 0.15 * pulse, Color(1.0, 0.15, 0.2))
+	draw_circle(Vector2(s * 0.25, float_y - 4), s * 0.15 * pulse, Color(1.0, 0.15, 0.2))
+	# 飘带（3 条半透明尾巴向下飘）
+	for i in 3:
+		var ang := float(i - 1) * 0.5 + sin(t * 2.5 + float(i)) * 0.3
+		var tail_start := Vector2(cos(ang) * s * 0.5, float_y + s * 0.3)
+		var tail_end := tail_start + Vector2(cos(ang) * 6, s * 1.2 + sin(t + float(i)) * 3)
+		draw_line(tail_start, tail_end, Color(fill.r, fill.g, fill.b, 0.25), s * 0.3)
+
+func _draw_skeleton(fill: Color) -> void:
+	var s := body_radius
+	var bone := fill
+	var dark := Color(fill.r * 0.5, fill.g * 0.5, fill.b * 0.5)
+	# 头骨
+	draw_circle(Vector2(0, -s * 0.6), s * 0.6, bone)
+	draw_circle(Vector2(-s * 0.22, -s * 0.65), s * 0.14, dark)  # 左眼窝
+	draw_circle(Vector2(s * 0.22, -s * 0.65), s * 0.14, dark)   # 右眼窝
+	draw_line(Vector2(-s * 0.2, -s * 0.35), Vector2(s * 0.2, -s * 0.35), dark, s * 0.1)  # 嘴
+	# 脊椎
+	draw_line(Vector2(0, -s * 0.1), Vector2(0, s * 0.8), bone, s * 0.18)
+	# 肋骨
+	draw_line(Vector2(-s * 0.7, s * 0.1), Vector2(s * 0.7, s * 0.1), bone, s * 0.1)
+	draw_line(Vector2(-s * 0.55, s * 0.35), Vector2(s * 0.55, s * 0.35), bone, s * 0.08)
+	# 腿
+	draw_line(Vector2(0, s * 0.8), Vector2(-s * 0.5, s * 1.3), bone, s * 0.14)
+	draw_line(Vector2(0, s * 0.8), Vector2(s * 0.5, s * 1.3), bone, s * 0.14)
+
+func _draw_default_body(fill: Color) -> void:
+	var s := body_radius
+	# 10 边多边形兜底（但加个内部 ring 让它不那么单调）
+	var points := PackedVector2Array()
+	for i in 10:
+		var a := TAU * float(i) / 10.0
+		points.append(Vector2(cos(a), sin(a) * 0.85) * s)
+	draw_colored_polygon(points, fill)
+	# 内部 ring（让它看起来不那么平）
+	draw_arc(Vector2.ZERO, s * 0.5, 0, TAU, 18, Color(fill.r * 0.6, fill.g * 0.6, fill.b * 0.6), 2.0)
