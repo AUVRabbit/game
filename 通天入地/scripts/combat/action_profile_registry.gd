@@ -102,17 +102,39 @@ static func _ensure() -> void:
 
 static func _base_player_profile(id: String) -> Dictionary:
 	return {
-		"id": id, "kind": "player", "default_sheet": id,
-		"frame_size": Vector2(128, 128),
+		# 基础循环
 		"can_idle": true, "can_walk": true, "can_run": true,
+		# 低姿态
 		"can_crouch": false, "can_prone": false, "can_lurk": false,
+		# 移动特殊
+		"can_jump": true, "can_jump_falling": true, "can_jump_land": true,
+		"can_swim": false, "can_climb": false, "can_roll": false,
+		"can_mounted": false,
+		# 战斗动作
 		"can_attack_melee": false, "can_attack_bow": false,
 		"can_attack_throw": false, "can_attack_spell": false,
 		"can_attack_summon": false, "can_attack_chain": false,
+		"can_attack_unarmed": false, "can_attack_rapid": false,
+		"can_attack_aoe": false,
+		# 蓄力/专注
+		"can_charging": false, "can_cast_focus": false,
+		# 防御
+		"can_block": false, "can_ready": true,
+		# 冲刺/闪现
 		"can_dash": false, "can_blink": false,
+		# 生存
+		"can_hurt": true, "can_stagger": true,
+		"can_dead": true, "can_resurrecting": false,
+		# 交互场景化
 		"can_dialog": true, "can_forge": false, "can_search": true,
 		"can_pick_up": true, "can_open_door": true,
-		"can_dead": true,
+		"can_drink": true, "can_carry": true, "can_sit": true,
+		"can_trap_set": false, "can_portal": false,
+		# 胜利
+		"can_celebrate": true, "can_fall": true,
+		# 元数据
+		"id": id, "kind": "player", "default_sheet": id,
+		"frame_size": Vector2(128, 128),
 		"build_height": 1.0, "weight": 1.0,
 	}
 

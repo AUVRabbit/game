@@ -17,8 +17,6 @@ static func _load_tex(path: String) -> Texture2D:
 	var res := load(path)
 	if res == null:
 		return null
-	if res is CompressedTexture2D and not res.is_ready():
-		res.load()
 	return res
 
 static func _slice_sheet(sheet: Texture2D, frame_w: int, frame_h: int, count: int) -> Array[AtlasTexture]:
@@ -36,19 +34,19 @@ static func _slice_sheet(sheet: Texture2D, frame_w: int, frame_h: int, count: in
 	return out
 
 static func from_images(
-	images: Array[String],
-	actions: Array[String],
-	frame_counts: Array[int],
-	fps: Array[int],
+	images: Array,
+	actions: Array,
+	frame_counts: Array,
+	fps: Array,
 	frame_w: int,
 	frame_h: int
 ) -> SpriteFrames:
 	var frames := SpriteFrames.new()
 	for i in range(actions.size()):
-		var action_name: String = actions[i]
-		var frame_count: int = frame_counts[i] if i < frame_counts.size() else 4
-		var action_fps: int = fps[i] if i < fps.size() else 8
-		var path: String = images[i] if i < images.size() else ""
+		var action_name: String = str(actions[i])
+		var frame_count: int = int(frame_counts[i]) if i < frame_counts.size() else 4
+		var action_fps: int = int(fps[i]) if i < fps.size() else 8
+		var path: String = str(images[i]) if i < images.size() else ""
 		var tex := _load_tex(path)
 		if tex == null:
 			continue
@@ -62,12 +60,12 @@ static func from_images(
 			frames.add_frame(action_name, a, 1.0)
 	return frames
 
-static func from_asset_id(asset_id: String, frame_w: int, frame_h: int, actions: Array[String], frame_counts: Array[int], fps: Array[int]) -> SpriteFrames:
+static func from_asset_id(asset_id: String, frame_w: int, frame_h: int, actions: Array, frame_counts: Array, fps: Array) -> SpriteFrames:
 	var asset_paths := [
 		"res://assets/sprites/%s_%s.png",
 		"res://assets/sprites/world/%s_%s.png",
 	]
-	var images: Array[String] = []
+	var images: Array = []
 	for action in actions:
 		var found: String = ""
 		for tmpl in asset_paths:

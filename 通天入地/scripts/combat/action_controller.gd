@@ -36,24 +36,53 @@ class_name ActionController
 
 # -------------------- ActionState 枚举 --------------------
 enum ActionState {
-	# 基础姿态
+	# --- 基础循环 ---
 	IDLE, WALK, RUN,
-	# 低姿态
+
+	# --- 低姿态（战术）---
 	CROUCH, WALK_CROUCH, PRONE, LURK,
-	# 战斗动作（每种独立曲线）
-	ATTACK_MELEE,      # 剑/斧挥砍（过顶劈 + 旋转）
-	ATTACK_BOW,        # 弓拉弦（后拉 + body 压缩）
-	ATTACK_THROW,      # 投掷（下蹲 + 上抛）
-	ATTACK_SPELL,      # 法术双手上抬
-	ATTACK_SUMMON,     # 召唤法阵（下沉 + 放大 + 旋转）
-	ATTACK_CHAIN,      # 链式法术（手指向目标 + 身体脉动）
-	# 冲刺/闪现
+
+	# --- 移动特殊 ---
+	JUMP, JUMP_FALLING, JUMP_LAND,     # 跳跃三件套
+	SWIM, SWIM_IDLE,                    # 水下
+	CLIMB,                               # 攀爬（绳/梯）
+	ROLL,                                # 翻滚闪避
+	MOUNTED, DISMOUNT,                   # 骑乘上下
+
+	# --- 战斗动作（每种独立曲线）---
+	ATTACK_MELEE,
+	ATTACK_BOW,
+	ATTACK_THROW,
+	ATTACK_SPELL,
+	ATTACK_SUMMON,
+	ATTACK_CHAIN,
+	ATTACK_UNARMED,                     # 徒手（拳/爪）
+	ATTACK_RAPID,                        # 快速连击（弓手连射/战士乱斩）
+	ATTACK_AOE,                          # 范围重斩（横扫/冲击波）
+
+	# --- 蓄力/专注 ---
+	CHARGING,                            # 按住蓄力（body 压缩 + 能量汇聚）
+	CAST_FOCUS,                          # 长施法前摇（双手高举 + 光环生成）
+
+	# --- 防御 ---
+	BLOCK,                               # 举盾/格挡（身体微侧 + 盾在前）
+	READY,                               # 武器举起重试（不动但有呼吸）
+
+	# --- 冲刺/闪现 ---
 	DASH, BLINK,
-	# 受击/死亡
-	HURT, DEAD,
-	# 交互场景化
+
+	# --- 受击/死亡/复活 ---
+	HURT, STAGGER, DEAD, RESURRECTING,
+
+	# --- 交互场景化 ---
 	DIALOG, FORGE, SEARCH, PICK_UP, OPEN_DOOR,
-	# 特殊
+	DRINK,                               # 喝药水/吃食物
+	CARRY,                               # 搬东西/抬尸体
+	SIT,                                 # 坐下
+	TRAP_SET,                            # 放陷阱
+	PORTAL,                              # 传送仪式
+
+	# --- 胜利 ---
 	Celebrate, FALL,
 }
 
@@ -121,24 +150,76 @@ func play(action_name: String, params: Dictionary = {}) -> void:
 		return
 	state = target
 	match target:
-		ActionState.IDLE:    _anim.settle_to(SpriteAnim.AnimState.IDLE, facing)
-		ActionState.WALK:    _anim.settle_to(SpriteAnim.AnimState.RUN, facing)
-		ActionState.RUN:     _anim.settle_to(SpriteAnim.AnimState.RUN, facing)
-		ActionState.CROUCH:  _anim.enter_force_ready("dialog")  # 复用
-		ActionState.PRONE:   _anim.enter_force_ready("search")
-		ActionState.LURK:    _anim.enter_force_ready("search")
-		ActionState.ATTACK_MELEE: _anim.enter_sword_swing(float(params.get("range", 40)), float(params.get("duration", 0.35)), facing)
-		ActionState.ATTACK_BOW:   _anim.enter_bow_draw(float(params.get("duration", 0.42)), facing)
-		ActionState.ATTACK_THROW: _anim.enter_throw_bomb(float(params.get("duration", 0.45)), facing)
-		ActionState.ATTACK_SPELL: _anim.enter_cast_spell(float(params.get("duration", 0.45)), facing)
-		ActionState.ATTACK_SUMMON: _anim.enter_summon_ritual(float(params.get("duration", 0.65)), facing)
-		ActionState.DASH:    _anim.enter_dash()
-		ActionState.HURT:    _anim.enter_hurt(Vector2(params.get("push_x", 0), params.get("push_y", 0)))
-		ActionState.DEAD:    _anim.enter_dead()
-		ActionState.DIALOG:  _anim.enter_force_ready("dialog")
-		ActionState.FORGE:   _anim.enter_force_ready("forge")
+		# --- 基础循环 ---
+		ActionState.IDLE:  _anim.settle_to(SpriteAnim.AnimState.IDLE, facing)
+		ActionState.WALK:  _anim.settle_to(SpriteAnim.AnimState.RUN, facing)
+		ActionState.RUN:   _anim.settle_to(SpriteAnim.AnimState.RUN, facing)
+		# --- 低姿态 ---
+		ActionState.CROUCH:     _anim.settle_to(SpriteAnim.AnimState.CROUCH, facing)
+		ActionState.WALK_CROUCH: _anim.settle_to(SpriteAnim.AnimState.WALK_CROUCH, facing)
+		ActionState.PRONE:      _anim.settle_to(SpriteAnim.AnimState.PRONE, facing)
+		ActionState.LURK:       _anim.settle_to(SpriteAnim.AnimState.LURK, facing)
+		# --- 移动特殊 ---
+		ActionState.JUMP, ActionState.JUMP_FALLING, ActionState.JUMP_LAND:
+			_anim.enter_jump(target)
+		ActionState.SWIM, ActionState.SWIM_IDLE:
+			_anim.settle_to(SpriteAnim.AnimState.SWIM, facing)
+		ActionState.CLIMB:  _anim.settle_to(SpriteAnim.AnimState.CLIMB, facing)
+		ActionState.ROLL:   _anim.enter_roll(float(params.get("direction", facing.x)))
+		ActionState.MOUNTED, ActionState.DISMOUNT:
+			_anim.settle_to(SpriteAnim.AnimState.MOUNTED, facing)
+		# --- 战斗动作（每种独立曲线）---
+		ActionState.ATTACK_MELEE:
+			_anim.enter_sword_swing(float(params.get("range", 40)), float(params.get("duration", 0.35)), facing)
+		ActionState.ATTACK_BOW:
+			_anim.enter_bow_draw(float(params.get("duration", 0.42)), facing)
+		ActionState.ATTACK_THROW:
+			_anim.enter_throw_bomb(float(params.get("duration", 0.45)), facing)
+		ActionState.ATTACK_SPELL:
+			_anim.enter_cast_spell(float(params.get("duration", 0.45)), facing)
+		ActionState.ATTACK_SUMMON:
+			_anim.enter_summon_ritual(float(params.get("duration", 0.65)), facing)
+		ActionState.ATTACK_CHAIN:
+			_anim.enter_cast_spell(float(params.get("duration", 0.35)), facing)
+		ActionState.ATTACK_UNARMED:
+			_anim.enter_sword_swing(float(params.get("range", 28)), float(params.get("duration", 0.28)), facing)
+		ActionState.ATTACK_RAPID:
+			_anim.enter_rapid_strikes(int(params.get("count", 3)), float(params.get("duration_each", 0.18)), facing)
+		ActionState.ATTACK_AOE:
+			_anim.enter_aoe_swing(float(params.get("radius", 60)), float(params.get("duration", 0.5)), facing)
+		# --- 蓄力/专注 ---
+		ActionState.CHARGING:
+			_anim.settle_to(SpriteAnim.AnimState.CHARGING, facing)
+		ActionState.CAST_FOCUS:
+			_anim.settle_to(SpriteAnim.AnimState.CAST_FOCUS, facing)
+		# --- 防御 ---
+		ActionState.BLOCK:
+			_anim.settle_to(SpriteAnim.AnimState.BLOCK, facing)
+		ActionState.READY:
+			_anim.settle_to(SpriteAnim.AnimState.READY, facing)
+		# --- 冲刺/闪现 ---
+		ActionState.DASH:  _anim.enter_dash()
+		ActionState.BLINK: _anim.enter_blink()
+		# --- 受击/死亡/复活 ---
+		ActionState.HURT:
+			_anim.enter_hurt(Vector2(params.get("push_x", 0), params.get("push_y", 0)))
+		ActionState.STAGGER:
+			_anim.settle_to(SpriteAnim.AnimState.STAGGER, facing)
+		ActionState.DEAD: _anim.enter_dead()
+		ActionState.RESURRECTING:
+			_anim.settle_to(SpriteAnim.AnimState.RESURRECTING, facing)
+		# --- 交互场景化 ---
+		ActionState.DIALOG:   _anim.enter_force_ready("dialog")
+		ActionState.FORGE:    _anim.enter_force_ready("forge")
 		ActionState.SEARCH, ActionState.PICK_UP, ActionState.OPEN_DOOR:
 			_anim.enter_force_ready("search")
+		ActionState.DRINK:    _anim.settle_to(SpriteAnim.AnimState.DRINK, facing)
+		ActionState.CARRY:    _anim.settle_to(SpriteAnim.AnimState.CARRY, facing)
+		ActionState.SIT:      _anim.settle_to(SpriteAnim.AnimState.SIT, facing)
+		ActionState.TRAP_SET: _anim.settle_to(SpriteAnim.AnimState.TRAP_SET, facing)
+		ActionState.PORTAL:   _anim.settle_to(SpriteAnim.AnimState.PORTAL, facing)
+		ActionState.Celebrate: _anim.settle_to(SpriteAnim.AnimState.CELEBRATE, facing)
+		ActionState.FALL:     _anim.settle_to(SpriteAnim.AnimState.FALL, facing)
 	_frame_set_from_state(target)
 
 func _frame_set_from_state(s: ActionState) -> void:
@@ -146,17 +227,29 @@ func _frame_set_from_state(s: ActionState) -> void:
 		return
 	var names := _frame_anim.sprite_frames.get_animation_names()
 	var map := {
-		ActionState.IDLE: "idle",
-		ActionState.WALK: "walk",
-		ActionState.RUN: "walk",
-		ActionState.ATTACK_MELEE: "attack",
-		ActionState.ATTACK_BOW: "attack",
-		ActionState.ATTACK_THROW: "attack",
-		ActionState.ATTACK_SPELL: "attack",
-		ActionState.ATTACK_SUMMON: "attack",
-		ActionState.DASH: "attack",
-		ActionState.HURT: "hit",
-		ActionState.DEAD: "hit",
+		ActionState.IDLE: "idle", ActionState.WALK: "walk", ActionState.RUN: "walk",
+		ActionState.CROUCH: "idle", ActionState.WALK_CROUCH: "walk",
+		ActionState.JUMP: "attack", ActionState.JUMP_FALLING: "idle", ActionState.JUMP_LAND: "hit",
+		ActionState.SWIM: "walk", ActionState.SWIM_IDLE: "idle",
+		ActionState.CLIMB: "walk",
+		ActionState.ROLL: "attack",
+		ActionState.ATTACK_MELEE: "attack", ActionState.ATTACK_BOW: "attack",
+		ActionState.ATTACK_THROW: "attack", ActionState.ATTACK_SPELL: "attack",
+		ActionState.ATTACK_SUMMON: "attack", ActionState.ATTACK_CHAIN: "attack",
+		ActionState.ATTACK_UNARMED: "attack", ActionState.ATTACK_RAPID: "attack",
+		ActionState.ATTACK_AOE: "attack",
+		ActionState.CHARGING: "idle", ActionState.CAST_FOCUS: "idle",
+		ActionState.BLOCK: "idle", ActionState.READY: "idle",
+		ActionState.DASH: "attack", ActionState.BLINK: "attack",
+		ActionState.HURT: "hit", ActionState.STAGGER: "hit",
+		ActionState.DEAD: "hit", ActionState.RESURRECTING: "idle",
+		ActionState.DIALOG: "idle", ActionState.FORGE: "idle",
+		ActionState.SEARCH: "idle", ActionState.PICK_UP: "idle",
+		ActionState.OPEN_DOOR: "idle", ActionState.DRINK: "idle",
+		ActionState.CARRY: "walk", ActionState.SIT: "idle",
+		ActionState.TRAP_SET: "idle", ActionState.PORTAL: "attack",
+		ActionState.MOUNTED: "walk", ActionState.DISMOUNT: "attack",
+		ActionState.Celebrate: "attack", ActionState.FALL: "idle",
 	}
 	var frame_name: String = map.get(s, "idle")
 	if frame_name in names:
@@ -165,14 +258,32 @@ func _frame_set_from_state(s: ActionState) -> void:
 func _state_from_name(n: String) -> ActionState:
 	var map := {
 		"idle": ActionState.IDLE, "walk": ActionState.WALK, "run": ActionState.RUN,
-		"crouch": ActionState.CROUCH, "prone": ActionState.PRONE, "lurk": ActionState.LURK,
-		"attack_melee": ActionState.ATTACK_MELEE, "attack_bow": ActionState.ATTACK_BOW,
-		"attack_throw": ActionState.ATTACK_THROW, "attack_spell": ActionState.ATTACK_SPELL,
+		"crouch": ActionState.CROUCH, "walk_crouch": ActionState.WALK_CROUCH,
+		"prone": ActionState.PRONE, "lurk": ActionState.LURK,
+		"jump": ActionState.JUMP, "jump_falling": ActionState.JUMP_FALLING,
+		"jump_land": ActionState.JUMP_LAND, "swim": ActionState.SWIM,
+		"swim_idle": ActionState.SWIM_IDLE, "climb": ActionState.CLIMB,
+		"roll": ActionState.ROLL,
+		"mounted": ActionState.MOUNTED, "dismount": ActionState.DISMOUNT,
+		"attack_melee": ActionState.ATTACK_MELEE,
+		"attack_bow": ActionState.ATTACK_BOW,
+		"attack_throw": ActionState.ATTACK_THROW,
+		"attack_spell": ActionState.ATTACK_SPELL,
 		"attack_summon": ActionState.ATTACK_SUMMON,
+		"attack_chain": ActionState.ATTACK_CHAIN,
+		"attack_unarmed": ActionState.ATTACK_UNARMED,
+		"attack_rapid": ActionState.ATTACK_RAPID,
+		"attack_aoe": ActionState.ATTACK_AOE,
+		"charging": ActionState.CHARGING, "cast_focus": ActionState.CAST_FOCUS,
+		"block": ActionState.BLOCK, "ready": ActionState.READY,
 		"dash": ActionState.DASH, "blink": ActionState.BLINK,
-		"hurt": ActionState.HURT, "dead": ActionState.DEAD,
+		"hurt": ActionState.HURT, "stagger": ActionState.STAGGER,
+		"dead": ActionState.DEAD, "resurrecting": ActionState.RESURRECTING,
 		"dialog": ActionState.DIALOG, "forge": ActionState.FORGE,
 		"search": ActionState.SEARCH, "pick_up": ActionState.PICK_UP,
+		"open_door": ActionState.OPEN_DOOR, "drink": ActionState.DRINK,
+		"carry": ActionState.CARRY, "sit": ActionState.SIT,
+		"trap_set": ActionState.TRAP_SET, "portal": ActionState.PORTAL,
 	}
 	return map.get(n, ActionState.IDLE)
 
