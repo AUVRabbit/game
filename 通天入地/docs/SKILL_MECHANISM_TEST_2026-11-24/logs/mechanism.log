@@ -1,48 +1,48 @@
-2026-11-25T02:15:13 | ========== MECHANISM AUDIT START ==========
-2026-11-25T02:15:13 | Godot=4.7.2-stable (official)
-2026-11-25T02:15:19 | PASS  全职业实例化到队伍 | party=16 expected=16
-2026-11-25T02:15:19 | ===== 元素克制矩阵 =====
-2026-11-25T02:15:19 | PASS  元素: 火打火元素→免疫 | fire vs fire = 0.00 (期望 0.00)
-2026-11-25T02:15:19 | PASS  元素: 雷打水→克制 | thunder vs water = 1.50 (期望 1.50)
-2026-11-25T02:15:19 | PASS  元素: 物理打幽魂→抵抗 | physical vs shadow = 0.50 (期望 0.50)
-2026-11-25T02:15:19 | PASS  元素: 圣光打幽魂→克制 | holy vs shadow = 2.00 (期望 2.00)
-2026-11-25T02:15:19 | PASS  元素: 雷打机械→短路 | thunder vs mech = 1.80 (期望 1.80)
-2026-11-25T02:15:19 | PASS  元素: 冰打火→克制 | ice vs fire = 1.50 (期望 1.50)
-2026-11-25T02:15:19 | PASS  元素: 水打火→微克 | water vs fire = 1.30 (期望 1.30)
-2026-11-25T02:15:19 | PASS  元素: 火打冰→克制 | fire vs ice = 1.50 (期望 1.50)
-2026-11-25T02:15:19 | PASS  元素: 雷打雷→免疫 | thunder vs thunder = 0.00 (期望 0.00)
-2026-11-25T02:15:19 | PASS  融合元素映射 burn→fire | got=fire
-2026-11-25T02:15:19 | PASS  融合元素映射 freeze→ice | got=ice
-2026-11-25T02:15:19 | PASS  融合元素映射 stun→thunder | got=thunder
-2026-11-25T02:15:19 | PASS  融合元素映射 corrosion→nature | got=nature
-2026-11-25T02:15:19 | PASS  融合元素映射 root→nature | got=nature
-2026-11-25T02:15:19 | PASS  融合元素映射 holy→holy | got=holy
-2026-11-25T02:15:19 | PASS  融合元素映射 summon→shadow | got=shadow
-2026-11-25T02:15:19 | PASS  融合元素映射 knockback→physical | got=physical
-2026-11-25T02:15:19 | PASS  融合元素映射 mark→shadow | got=shadow
-2026-11-25T02:15:19 | ===== 融合技 API =====
-2026-11-25T02:15:19 | PASS  融合ID拆分 | ["fireball", "heal"]
-2026-11-25T02:15:19 | PASS  关键词提取 | { "kind": "burn", "value": 0.15 }
-2026-11-25T02:15:19 | PASS  技能池构建 | count=96
-2026-11-25T02:15:19 | PASS  融合技构建 | main=fireball sub=frost_nova
-2026-11-25T02:15:19 | PASS  融合技独立命名 融· | name=融·棘火球术
-2026-11-25T02:15:19 | PASS  融合技元素字段 | elem=root
-2026-11-25T02:15:19 | PASS  融合技独有色 | color=#b7aa5e
-2026-11-25T02:15:19 | ===== 48 流派结构 =====
-2026-11-25T02:15:19 | PASS  48 流派总数 | count=48
-2026-11-25T02:15:19 | PASS  每流派至少 3 技能 | missing=[]
-2026-11-25T02:15:19 | PASS  流派专属机制种类 >= 30 | kinds=48
-2026-11-25T02:15:19 | PASS  专属机制存在 berserker | 
-2026-11-25T02:15:19 | PASS  专属机制存在 chain_master | 
-2026-11-25T02:15:19 | PASS  专属机制存在 backstab | 
-2026-11-25T02:15:19 | PASS  专属机制存在 overclock | 
-2026-11-25T02:15:19 | PASS  专属机制存在 minion_lord | 
-2026-11-25T02:15:19 | PASS  16 职业各 6 技能 | []
-2026-11-25T02:15:19 | ===== 尸体系统 =====
-2026-11-25T02:15:19 | ===== HitStop / 震屏 =====
-2026-11-25T02:15:19 | PASS  HitStop 激活 | 
-2026-11-25T02:15:19 | PASS  HitStop 自动结束 | 
-2026-11-25T02:15:19 | PASS  震屏触发无异常 | 
-2026-11-25T02:15:20 | ===== 8 种新增技能类型 =====
-2026-11-25T02:15:20 | 施放 mage / root_zone / frost_nova
-2026-11-25T02:15:21 | PASS  类型施放 root_zone | mage frost_nova HP 5000→4962 cd=0.60
+2026-11-25T04:03:04 | ========== MECHANISM AUDIT START ==========
+2026-11-25T04:03:04 | Godot=4.7.2-stable (official)
+2026-11-25T04:03:10 | PASS  全职业实例化到队伍 | party=16 expected=16
+2026-11-25T04:03:10 | ===== 元素克制矩阵 =====
+2026-11-25T04:03:10 | PASS  元素: 火打火元素→免疫 | fire vs fire = 0.00 (期望 0.00)
+2026-11-25T04:03:10 | PASS  元素: 雷打水→克制 | thunder vs water = 1.50 (期望 1.50)
+2026-11-25T04:03:10 | PASS  元素: 物理打幽魂→抵抗 | physical vs shadow = 0.50 (期望 0.50)
+2026-11-25T04:03:10 | PASS  元素: 圣光打幽魂→克制 | holy vs shadow = 2.00 (期望 2.00)
+2026-11-25T04:03:10 | PASS  元素: 雷打机械→短路 | thunder vs mech = 1.80 (期望 1.80)
+2026-11-25T04:03:10 | PASS  元素: 冰打火→克制 | ice vs fire = 1.50 (期望 1.50)
+2026-11-25T04:03:10 | PASS  元素: 水打火→微克 | water vs fire = 1.30 (期望 1.30)
+2026-11-25T04:03:10 | PASS  元素: 火打冰→克制 | fire vs ice = 1.50 (期望 1.50)
+2026-11-25T04:03:10 | PASS  元素: 雷打雷→免疫 | thunder vs thunder = 0.00 (期望 0.00)
+2026-11-25T04:03:10 | PASS  融合元素映射 burn→fire | got=fire
+2026-11-25T04:03:10 | PASS  融合元素映射 freeze→ice | got=ice
+2026-11-25T04:03:10 | PASS  融合元素映射 stun→thunder | got=thunder
+2026-11-25T04:03:10 | PASS  融合元素映射 corrosion→nature | got=nature
+2026-11-25T04:03:10 | PASS  融合元素映射 root→nature | got=nature
+2026-11-25T04:03:10 | PASS  融合元素映射 holy→holy | got=holy
+2026-11-25T04:03:10 | PASS  融合元素映射 summon→shadow | got=shadow
+2026-11-25T04:03:10 | PASS  融合元素映射 knockback→physical | got=physical
+2026-11-25T04:03:10 | PASS  融合元素映射 mark→shadow | got=shadow
+2026-11-25T04:03:10 | ===== 融合技 API =====
+2026-11-25T04:03:10 | PASS  融合ID拆分 | ["fireball", "heal"]
+2026-11-25T04:03:10 | PASS  关键词提取 | { "kind": "burn", "value": 0.15 }
+2026-11-25T04:03:10 | PASS  技能池构建 | count=96
+2026-11-25T04:03:10 | PASS  融合技构建 | main=fireball sub=frost_nova
+2026-11-25T04:03:10 | PASS  融合技独立命名 融· | name=融·棘火球术
+2026-11-25T04:03:10 | PASS  融合技元素字段 | elem=root
+2026-11-25T04:03:10 | PASS  融合技独有色 | color=#b7aa5e
+2026-11-25T04:03:10 | ===== 48 流派结构 =====
+2026-11-25T04:03:10 | PASS  48 流派总数 | count=48
+2026-11-25T04:03:10 | PASS  每流派至少 3 技能 | missing=[]
+2026-11-25T04:03:10 | PASS  流派专属机制种类 >= 30 | kinds=48
+2026-11-25T04:03:10 | PASS  专属机制存在 berserker | 
+2026-11-25T04:03:10 | PASS  专属机制存在 chain_master | 
+2026-11-25T04:03:10 | PASS  专属机制存在 backstab | 
+2026-11-25T04:03:10 | PASS  专属机制存在 overclock | 
+2026-11-25T04:03:10 | PASS  专属机制存在 minion_lord | 
+2026-11-25T04:03:10 | PASS  16 职业各 6 技能 | []
+2026-11-25T04:03:10 | ===== 尸体系统 =====
+2026-11-25T04:03:10 | ===== HitStop / 震屏 =====
+2026-11-25T04:03:10 | PASS  HitStop 激活 | 
+2026-11-25T04:03:10 | PASS  HitStop 自动结束 | 
+2026-11-25T04:03:10 | PASS  震屏触发无异常 | 
+2026-11-25T04:03:11 | ===== 8 种新增技能类型 =====
+2026-11-25T04:03:11 | 施放 mage / root_zone / frost_nova
+2026-11-25T04:03:12 | PASS  类型施放 root_zone | mage frost_nova HP 5000→4962 cd=0.60

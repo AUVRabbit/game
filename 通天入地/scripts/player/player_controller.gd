@@ -1,10 +1,11 @@
 # ============================================================
 # PlayerController — 玩家角色控制器
-# 8 方向等距移动 / 普攻 / 10 技能槽 / 冲刺无敌 / 交互 / 切换
-# 内置通用动画控制器（sprite_anim.gd），纯 tween 形变实现移动/攻击/施法/受击/冲刺。
+# 继承 EntityBase（完整个体：碰撞/视觉层/双轨动画/血条/状态效果）
+# 专注: 输入处理 / 8方向移动 / 普攻路由 / 10技能槽 / 冲刺无敌 / 切换
+# 数据层: CharacterBase 子节点（职业/流派/装备/朋克加成）
 # ============================================================
 
-extends CharacterBody2D
+extends "res://scripts/entities/entity_base.gd"
 class_name PlayerController
 
 enum State { IDLE, MOVE, ATTACK, CAST, DASH, DEAD }
@@ -16,14 +17,9 @@ const ATTACK_RADIUS := 56.0
 const INTERACT_RADIUS := 76.0
 
 var character_data = null
-var visual: Node2D = null
 var attack_point: Marker2D = null
 var body_poly: Polygon2D = null
-var sprite: Sprite2D = null
 var _sprite_class_id: String = ""
-var _anim: SpriteAnim = null
-var _cached_sprite_offset: Vector2 = Vector2.ZERO
-var frame_anim: AnimatedSprite2D = null  # 多帧 sprite sheet 动画层
 
 var state: State = State.IDLE
 var facing: Vector2 = Vector2.DOWN
@@ -34,115 +30,46 @@ var dash_dir: Vector2 = Vector2.DOWN
 var skill_cooldowns: Array = [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0]
 var spawn_point: Vector2 = Vector2.ZERO
 
+# 快速访问 EntityBase 的动画层
+var _anim: SpriteAnim:
+	get: return sprite_anim
+
 func _ready() -> void:
+	# EntityBase: add_to_group("entities") + _build_visual_layers() + _build_hp_bar()
+	super()
 	add_to_group("player")
 	set_process_unhandled_input(true)
-	visual = get_node_or_null("Visual")
 	attack_point = get_node_or_null("AttackPoint")
 	body_poly = get_node_or_null("Visual/Body")
 	character_data = get_node_or_null("CharacterData")
 	spawn_point = global_position
 	if character_data:
-		_apply_class_color()
 		character_data.stats_changed.connect(_on_stats_changed)
 		character_data.died.connect(_on_died)
 		if character_data.hp <= 0:
 			character_data.hp = character_data.get_max_hp()
 		if character_data.mp < 0:
 			character_data.mp = 0
-	# 把 SpriteAnim 接到 Visual 上（Visual 持有 sprite / body_poly），驱动位置/缩放/旋转/闪烁
-	if visual:
-		_anim = SpriteAnim.new()
-		_anim.name = "Anim"
-		visual.add_child(_anim)
-		_anim.setup(visual)
+		_refresh_class_sprite()
 
-func _apply_class_color() -> void:
-	if body_poly and character_data:
-		body_poly.color = character_data.class_color
-		var outline := PackedVector2Array([
-			Vector2(-15, 0), Vector2(0, -22), Vector2(15, 0), Vector2(0, 15)
-		])
-		body_poly.polygon = outline
-	_refresh_class_sprite()
-
-# 按当前职业加载真实角色立绘（贴图缺失时保留 Polygon2D 占位）
 func _refresh_class_sprite() -> void:
-	if character_data == null or visual == null:
+	# 按职业挂帧动画（EntityBase 的 FrameAnim 会被覆盖）
+	if character_data == null:
 		return
 	var class_id := str(character_data.class_id)
 	if class_id == _sprite_class_id:
 		return
 	_sprite_class_id = class_id
-	var tex: Texture2D = AssetLibrary.texture("sprite_player_%s" % class_id)
-	if tex == null:
-		if sprite:
-			sprite.visible = false
-		if body_poly:
-			body_poly.visible = true
-		# 调整动画控制器的 base_offset 指向 body_poly（替代 Sprite2D）
-		if _anim:
-			_anim.target = body_poly
-			_anim._base_offset = Vector2.ZERO
-		return
-	if sprite == null or not is_instance_valid(sprite):
-		sprite = Sprite2D.new()
-		sprite.name = "ClassSprite"
-		visual.add_child(sprite)
-	sprite.texture = tex
-	sprite.visible = true
-	var scale_factor := 0.42
-	var half := float(tex.get_width()) * 0.5
-	var rect := _content_rect(tex)
-	var center_x := half
-	var bottom := float(tex.get_height())
-	if rect.size.x > 0 and rect.size.y > 0:
-		center_x = float(rect.position.x) + float(rect.size.x) * 0.5
-		bottom = float(rect.position.y) + float(rect.size.y)
-	sprite.scale = Vector2.ONE * scale_factor
-	var off := Vector2((half - center_x) * scale_factor, (half - bottom) * scale_factor)
-	sprite.position = off
-	_cached_sprite_offset = off
-	if body_poly:
-		body_poly.visible = false
-	if _anim:
-		_anim.target = sprite
-		_anim._base_offset = off
-		_anim._base_scale = sprite.scale
-	# 多帧 sheet 动画层（和 Sprite2D 同位置叠加，frame anim 驱动帧切换，SpriteAnim 驱动形变）
-	_try_attach_frame_anim(class_id, off, sprite.scale)
-
-func _try_attach_frame_anim(class_id: String, sprite_off: Vector2, sprite_scale: Vector2) -> void:
-	if visual == null:
-		return
+	sheet_id = "player_%s" % class_id
+	frame_w = 128
+	frame_h = 128
+	# 重建 FrameAnim（先清理旧的）
 	if frame_anim != null and is_instance_valid(frame_anim):
-		return
-	var frame_w := 128
-	var frame_h := 128
-	var asset_id := "player_%s" % class_id
-	var actions := ["idle", "walk", "attack", "hit"]
-	var counts := [4, 4, 3, 2]
-	var fps_list := [8, 12, 14, 16]
-	var frames := SpriteFramesBuilder.from_asset_id(asset_id, frame_w, frame_h, actions, counts, fps_list)
-	if frames.get_animation_names().size() == 0:
-		return
-	frame_anim = AnimatedSprite2D.new()
-	frame_anim.name = "FrameAnim"
-	frame_anim.sprite_frames = frames
-	frame_anim.animation = "idle"
-	frame_anim.frame = 0
-	frame_anim.texture_filter = CanvasItem.TEXTURE_FILTER_NEAREST
-	frame_anim.position = sprite_off
-	frame_anim.scale = sprite_scale
-	visual.add_child(frame_anim)
-	frame_anim.play("idle")
-
-func _frame_set_action(action: String) -> void:
-	if frame_anim == null:
-		return
-	var names := frame_anim.sprite_frames.get_animation_names()
-	if action in names:
-		frame_anim.play(action)
+		frame_anim.queue_free()
+		frame_anim = null
+	_attach_frame_anim(sheet_id, frame_w, frame_h)
+	if body_poly:
+		body_poly.visible = (frame_anim == null)
 
 func _content_rect(tex: Texture2D) -> Rect2i:
 	var img: Image = tex.get_image()
@@ -154,7 +81,7 @@ func _content_rect(tex: Texture2D) -> Rect2i:
 	return img.get_used_rect()
 
 func _on_stats_changed() -> void:
-	_apply_class_color()
+	_refresh_class_sprite()
 
 # ---------- 找敌人 / 目标 ----------
 
@@ -184,7 +111,8 @@ func _physics_process(delta: float) -> void:
 
 	if GameManager and GameManager.is_input_blocked():
 		velocity = Vector2.ZERO
-		_anim_snap_to(SpriteAnim.AnimState.IDLE, facing, 0.0)
+		if _anim:
+			_anim.settle_to(SpriteAnim.AnimState.IDLE, facing, 0.0)
 		return
 	if character_data.hp <= 0:
 		velocity = Vector2.ZERO
@@ -392,10 +320,7 @@ func try_skill(slot: int) -> void:
 		var radius2 := float(skill.get("radius", 60))
 		route_skill_type(type_name, radius2, dur, facing)
 		if frame_anim:
-			if type_name in ["melee_aoe", "dash_strike", "blink_strike"]:
-				frame_anim.play("attack")
-			else:
-				frame_anim.play("attack")
+			frame_anim.play("attack")
 
 	state = State.CAST
 	var ok: bool = await SkillExecutor.cast(self, skill)
@@ -503,6 +428,7 @@ func is_invulnerable() -> bool:
 	return dash_timer > 0.0
 
 func receive_damage(amount: int, is_magic: bool = false, source: Node = null) -> int:
+	# 玩家特有: CharacterBase 先算 dodge/护盾/朋克/签名 → 最终伤害
 	if character_data == null or character_data.hp <= 0:
 		return 0
 	if is_invulnerable():
@@ -516,7 +442,7 @@ func receive_damage(amount: int, is_magic: bool = false, source: Node = null) ->
 	return dealt
 
 func _flash_and_poke(source: Node) -> void:
-	# 颜色闪烁
+	# 颜色闪烁 + 方向受击
 	if _anim:
 		_anim.flash(Color(1.0, 0.55, 0.55), 0.12)
 		var dir := Vector2.ZERO
@@ -525,7 +451,6 @@ func _flash_and_poke(source: Node) -> void:
 		if dir.length() < 0.01:
 			dir = -facing
 		_anim.enter_hurt(dir, Color(1.0, 0.55, 0.55))
-	# 帧动画层：受击闪红 2 帧
 	if frame_anim:
 		frame_anim.play("hit")
 	if ScreenShake and ScreenShake.has_method("shake"):
@@ -563,7 +488,6 @@ func route_basic_attack_kind(kind: String, profile: Dictionary, range: float, du
 	if kind == "melee":
 		_anim.enter_sword_swing(range, dur, dir)
 	elif kind == "projectile":
-		# 红色/橙色 + icon 含 bomb/blast → 炸弹投掷动作
 		var bomb_keywords := ["bomb", "blast", "grenade", "explosive", "bomber", "aluminum"]
 		var is_bomb := icon_name.to_lower().contains("bomb") or color.r > 0.85 and color.g < 0.55
 		if is_bomb:
