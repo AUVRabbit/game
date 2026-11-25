@@ -29,40 +29,40 @@ os.makedirs(OUT, exist_ok=True)
 
 MANUAL_RAW_JOINTS = {
     "barbarian": {
-        "head":   (282, 58),
-        "torso":  (282, 126),
-        "pelvis": (282, 309),
-        "arm_l":  (185, 145),   # 角色左臂 (图像右侧)
-        "arm_r":  (371, 145),   # 角色右臂 (图像左侧)
-        "leg_l":  (200, 330),
-        "leg_r":  (330, 330),
+        "head":   (253, 52),
+        "torso":  (253, 120),
+        "pelvis": (253, 314),
+        "arm_l":  (42, 138),   # 新图：大剑扛左肩上，左手臂很外扩
+        "arm_r":  (367, 138),  # 右手握剑柄
+        "leg_l":  (199, 334),
+        "leg_r":  (391, 334),
     },
     "sorceress": {
-        "head":   (307, 40),
-        "torso":  (307, 112),
-        "pelvis": (307, 306),
-        "arm_l":  (345, 155),   # 角色左臂 (施法手, 图像右侧)
-        "arm_r":  (168, 155),   # 角色右臂 (法杖手, 图像左侧)
-        "leg_l":  (200, 330),
-        "leg_r":  (360, 330),
+        "head":   (303, 49),
+        "torso":  (303, 117),
+        "pelvis": (303, 309),
+        "arm_l":  (350, 135),  # 角色左臂 (图像右侧) 施法手
+        "arm_r":  (145, 135),  # 角色右臂 (图像左侧) 法杖手
+        "leg_l":  (181, 329),
+        "leg_r":  (312, 329),
     },
     "amazon": {
-        "head":   (278, 56),
-        "torso":  (278, 125),
-        "pelvis": (278, 313),
-        "arm_l":  (394, 150),   # 角色左臂 (拉弦手, 图像右侧)
-        "arm_r":  (167, 150),   # 角色右臂 (持弓手, 图像左侧)
-        "leg_l":  (220, 335),
-        "leg_r":  (335, 335),
+        "head":   (292, 52),
+        "torso":  (292, 120),
+        "pelvis": (292, 313),
+        "arm_l":  (386, 138),  # 角色左臂 (图像右侧) 拉弦
+        "arm_r":  (278, 138),  # 角色右臂 (图像左侧) 持弓
+        "leg_l":  (188, 333),
+        "leg_r":  (268, 333),
     },
     "assassin": {
-        "head":   (292, 137),
-        "torso":  (292, 191),
-        "pelvis": (292, 338),
-        "arm_l":  (403, 220),   # 角色左臂 (图像右侧匕首)
-        "arm_r":  (123, 220),   # 角色右臂 (图像左侧匕首)
-        "leg_l":  (160, 365),
-        "leg_r":  (370, 365),
+        "head":   (267, 80),
+        "torso":  (267, 144),
+        "pelvis": (267, 326),  # 蹲姿，pelvis Y 较高
+        "arm_l":  (311, 162),  # 角色左臂 (图像右侧) 匕首
+        "arm_r":  (227, 162),  # 角色右臂 (图像左侧) 匕首
+        "leg_l":  (156, 346),
+        "leg_r":  (329, 346),
     },
 }
 
@@ -349,7 +349,7 @@ def render_reverse(img_alpha, JOINTS, weights_grid, grid_step, gw, gh,
     return canvas.convert("RGB")
 
 # ============================================================
-# 姿势库 (Diablo 风格)
+# 姿势库 (Diablo 风格, 全中文分类标签)
 # ============================================================
 
 CLASS_NAMES_CN = {
@@ -358,6 +358,16 @@ CLASS_NAMES_CN = {
     "amazon": "亚马逊",
     "assassin": "刺客",
 }
+
+CLASS_SKILL_CN = {
+    "barbarian": "旋风斩",     # Whirlwind
+    "sorceress": "陨石术",     # Meteor
+    "amazon":    "多重射击",   # Multishot
+    "assassin":  "影袭",       # Shadow Strike
+}
+
+# 每个动作分类 (中文 label, 英文 id, 帧数, 循环? )
+# (中文标签, 英文前缀, 帧数, 描述)
 
 def interp(kfs, t):
     ka, kb = kfs[0], kfs[-1]
@@ -372,7 +382,38 @@ def interp(kfs, t):
         out[k] = ra * (1 - r) + rb * r
     return out
 
-# Attack keyframes — 每个职业独特动作
+# ============================================================
+# 6 组姿势 (每组 4 帧)
+# ============================================================
+
+# ① 站立待机 (呼吸微摆, 循环)
+def idle_frame(k):
+    phase = math.sin(2 * math.pi * k / 4)
+    return {
+        "pelvis": phase * 1.5,
+        "torso": -1 + phase * 1.5,
+        "head": phase * 0.5,
+        "arm_l": 8 + phase * 4,
+        "arm_r": -8 - phase * 4,
+        "leg_l": 0,
+        "leg_r": 0,
+    }
+
+# ② 行走循环
+RUN_BASE = {
+    "barbarian": {"pelvis":0,"torso":5,"head":0,"arm_l":-32,"arm_r":32,"leg_l":-38,"leg_r":38},
+    "sorceress": {"pelvis":0,"torso":4,"head":0,"arm_l":-26,"arm_r":26,"leg_l":-32,"leg_r":32},
+    "amazon":    {"pelvis":0,"torso":4,"head":0,"arm_l":-30,"arm_r":30,"leg_l":-35,"leg_r":35},
+    "assassin":  {"pelvis":0,"torso":6,"head":0,"arm_l":-35,"arm_r":35,"leg_l":-40,"leg_r":40},
+}
+def run_frame(cls, k):
+    phase = math.sin(2 * math.pi * k / 4)
+    base = RUN_BASE[cls]
+    rots = {n: v * (0.8 + phase * 0.4) for n, v in base.items()}
+    rots["pelvis"] = phase * 2.0
+    return rots
+
+# ③ 普攻 (挥砍/拉弓)
 ATTACK_KFS = {
     "barbarian": [  # 大剑横扫
         (0.00, {"pelvis":0,"torso":-5,"head":0,"arm_l":20,"arm_r":-100,"leg_l":0,"leg_r":0}),
@@ -380,13 +421,13 @@ ATTACK_KFS = {
         (0.60, {"pelvis":0,"torso":25,"head":10,"arm_l":-50,"arm_r":-180,"leg_l":-12,"leg_r":12}),
         (1.00, {"pelvis":0,"torso":-5,"head":0,"arm_l":20,"arm_r":-100,"leg_l":0,"leg_r":0}),
     ],
-    "sorceress": [  # 施法 — 双臂举起
+    "sorceress": [  # 施法蓄力
         (0.00, {"pelvis":0,"torso":0,"head":4,"arm_l":25,"arm_r":-25,"leg_l":0,"leg_r":0}),
         (0.30, {"pelvis":0,"torso":-5,"head":12,"arm_l":100,"arm_r":-100,"leg_l":2,"leg_r":-2}),
         (0.60, {"pelvis":0,"torso":-8,"head":18,"arm_l":120,"arm_r":-120,"leg_l":4,"leg_r":-4}),
         (1.00, {"pelvis":0,"torso":0,"head":4,"arm_l":25,"arm_r":-25,"leg_l":0,"leg_r":0}),
     ],
-    "amazon": [  # 拉弓
+    "amazon": [  # 拉弓放箭
         (0.00, {"pelvis":0,"torso":-3,"head":2,"arm_l":10,"arm_r":-10,"leg_l":0,"leg_r":0}),
         (0.30, {"pelvis":-5,"torso":8,"head":6,"arm_l":-25,"arm_r":45,"leg_l":5,"leg_r":-5}),
         (0.60, {"pelvis":-8,"torso":12,"head":5,"arm_l":-35,"arm_r":60,"leg_l":7,"leg_r":-7}),
@@ -400,155 +441,209 @@ ATTACK_KFS = {
     ],
 }
 
-RUN_BASE = {
-    "barbarian": {"pelvis":0,"torso":5,"head":0,"arm_l":-32,"arm_r":32,"leg_l":-38,"leg_r":38},
-    "sorceress": {"pelvis":0,"torso":4,"head":0,"arm_l":-26,"arm_r":26,"leg_l":-32,"leg_r":32},
-    "amazon":    {"pelvis":0,"torso":4,"head":0,"arm_l":-30,"arm_r":30,"leg_l":-35,"leg_r":35},
-    "assassin":  {"pelvis":0,"torso":6,"head":0,"arm_l":-35,"arm_r":35,"leg_l":-40,"leg_r":40},
+# ④ 技能释放 (每职业独特大招蓄力)
+SKILL_KFS = {
+    "barbarian": [  # 旋风斩 — 身体旋转蓄力
+        (0.00, {"pelvis":0,"torso":-10,"head":-5,"arm_l":60,"arm_r":-120,"leg_l":8,"leg_r":-8}),
+        (0.25, {"pelvis":0,"torso":-25,"head":-12,"arm_l":120,"arm_r":-150,"leg_l":15,"leg_r":-15}),
+        (0.50, {"pelvis":0,"torso":-40,"head":-20,"arm_l":170,"arm_r":-170,"leg_l":22,"leg_r":-22}),
+        (1.00, {"pelvis":0,"torso":-10,"head":-5,"arm_l":60,"arm_r":-120,"leg_l":8,"leg_r":-8}),
+    ],
+    "sorceress": [  # 陨石术 — 双臂高举蓄力
+        (0.00, {"pelvis":0,"torso":-5,"head":10,"arm_l":90,"arm_r":-90,"leg_l":0,"leg_r":0}),
+        (0.25, {"pelvis":-3,"torso":-10,"head":20,"arm_l":130,"arm_r":-130,"leg_l":3,"leg_r":-3}),
+        (0.50, {"pelvis":-5,"torso":-15,"head":28,"arm_l":160,"arm_r":-160,"leg_l":5,"leg_r":-5}),
+        (1.00, {"pelvis":0,"torso":-5,"head":10,"arm_l":90,"arm_r":-90,"leg_l":0,"leg_r":0}),
+    ],
+    "amazon": [  # 多重射击 — 双手拉满弓
+        (0.00, {"pelvis":-5,"torso":10,"head":8,"arm_l":-50,"arm_r":80,"leg_l":10,"leg_r":-10}),
+        (0.25, {"pelvis":-10,"torso":18,"head":10,"arm_l":-70,"arm_r":100,"leg_l":14,"leg_r":-14}),
+        (0.50, {"pelvis":-12,"torso":22,"head":12,"arm_l":-85,"arm_r":115,"leg_l":16,"leg_r":-16}),
+        (1.00, {"pelvis":-5,"torso":10,"head":8,"arm_l":-50,"arm_r":80,"leg_l":10,"leg_r":-10}),
+    ],
+    "assassin": [  # 影袭 — 身体下蹲蓄力
+        (0.00, {"pelvis":-2,"torso":5,"head":2,"arm_l":20,"arm_r":-20,"leg_l":-15,"leg_r":15}),
+        (0.25, {"pelvis":-4,"torso":15,"head":5,"arm_l":-20,"arm_r":20,"leg_l":-25,"leg_r":25}),
+        (0.50, {"pelvis":-6,"torso":25,"head":8,"arm_l":-35,"arm_r":35,"leg_l":-32,"leg_r":32}),
+        (1.00, {"pelvis":-2,"torso":5,"head":2,"arm_l":20,"arm_r":-20,"leg_l":-15,"leg_r":15}),
+    ],
 }
 
+# ⑤ 挥手致意 (日常交互)
+def wave_frame(k):
+    phase = math.sin(2 * math.pi * k / 4)
+    return {
+        "pelvis": 0,
+        "torso": phase * -3,
+        "head": phase * -2,
+        "arm_l": 10 + phase * 8,
+        "arm_r": -140 - phase * 25,  # 右手举起挥舞
+        "leg_l": 0,
+        "leg_r": 0,
+    }
+
+# ⑥ 欢呼庆祝 (日常交互)
+def cheer_frame(k):
+    # 0: 双手举起欢呼, 1: 双手高举, 2: 保持, 3: 回到微举
+    phases = [0.0, 1.0, 1.0, 0.3]
+    p = phases[k]
+    return {
+        "pelvis": 0,
+        "torso": -2 - p * 4,
+        "head": 2 + p * 6,
+        "arm_l": 60 + p * 100,   # 左手举起
+        "arm_r": -60 - p * 100,  # 右手举起
+        "leg_l": p * -3,
+        "leg_r": p * 3,
+    }
+
 # ============================================================
-# 主流程
+# 主流程 — 6 组动作 × 4 帧 = 24 帧/角色
 # ============================================================
 
 CLASS_LIST = ["barbarian", "sorceress", "amazon", "assassin"]
 CANVAS_W, CANVAS_H = 560, 640
 PELVIS_CANVAS = (CANVAS_W // 2, CANVAS_H - 80)
 
+# 6 个动作组定义: (中文标签, 英文前缀, 生成函数_or_keyframes_dict)
+ACTION_GROUPS = [
+    ("待机", "idle",   lambda cls, k: idle_frame(k),      "站立呼吸微摆"),
+    ("行走", "run",    lambda cls, k: run_frame(cls, k),   "行走循环"),
+    ("普攻", "attack", None,                                "基础攻击"),   # 用 ATTACK_KFS
+    ("技能释放", "skill", None,                             None),          # 用 SKILL_KFS, CN label 按职业变
+    ("挥手致意", "wave",   lambda cls, k: wave_frame(k),   "日常交互 · 挥手"),
+    ("欢呼庆祝", "cheer",  lambda cls, k: cheer_frame(k),  "日常交互 · 欢呼"),
+]
+
 print("=" * 60)
 print("v6 — Diablo 风格完整精灵绑定 (反向像素级变形 · 零断裂)")
+print("     6 组动作 × 4 帧 = 24 帧/角色 — 全中文标注")
 print("=" * 60)
 
 all_sheets = {}
 
 for cls in CLASS_LIST:
-    print(f"\n─── {cls} / {CLASS_NAMES_CN[cls]} ───")
+    print(f"\n{'─'*10} {CLASS_NAMES_CN[cls]} {'─'*10}")
     
-    # 1. 加载 AI 生成的 512x512 肖像
+    # --- 初始化 ---
     img_raw = Image.open(f"{NEW_PORT}/{cls}.png").convert("RGBA")
-    
-    # 2. 使用手动校准的关节坐标
     raw_joints = MANUAL_RAW_JOINTS[cls]
-    
-    # 3. 归一化 (pelvis → 256,310)
     img_norm, norm_joints_full = normalize_portrait(img_raw, raw_joints, (256, 310))
-    
-    # JOINTS 只包含骨架关节, 不含 bbox
     JOINTS = {k: v for k, v in norm_joints_full.items() if k != "bbox"}
     bbox = norm_joints_full["bbox"]
-    
-    # 4. 背景去除
     img_alpha = remove_bg_soft(img_norm)
-    
-    # 5. bbox 和自适应 SIGMA
     bx1, by1, bx2, by2 = bbox
     char_w = bx2 - bx1
-    SIGMA = char_w * 0.16  # ~16% of character width
-    SIGMA = max(50, min(100, SIGMA))
-    print(f"  bbox: ({bx1},{by1})→({bx2},{by2})  SIGMA={SIGMA:.1f}")
-    
-    # 7. 权重网格
-    weights_grid, grid_step, gw, gh = compute_weights_grid(
-        JOINTS, bbox, grid_step=4, sigma=SIGMA)
-    print(f"  权重网格: {gw}×{gh}  关节: {JOINTS}")
+    SIGMA = max(50, min(100, char_w * 0.16))
+    weights_grid, grid_step, gw, gh = compute_weights_grid(JOINTS, bbox, grid_step=4, sigma=SIGMA)
     
     frames = {}
     
-    # ==== idle 4 帧 (站立呼吸 + 微摆) ====
-    for k in range(4):
-        phase = math.sin(2 * math.pi * k / 4)
-        rots = {
-            "pelvis": phase * 1.5,
-            "torso": -1 + phase * 1.5,
-            "head": phase * 0.5,
-            "arm_l": 8 + phase * 4,
-            "arm_r": -8 - phase * 4,
-            "leg_l": 0,
-            "leg_r": 0,
-        }
-        bt = fk_portrait(rots, JOINTS, 1.0)
-        canvas = render_reverse(img_alpha, JOINTS, weights_grid, grid_step, gw, gh,
-                                bt, 1.0, PELVIS_CANVAS, CANVAS_W, CANVAS_H, bbox)
-        frames[f"idle_{k+1}"] = canvas
+    # --- 生成 6 × 4 = 24 帧 ---
+    for gidx, (cn_label, en_prefix, gen_func, desc) in enumerate(ACTION_GROUPS):
+        # 技能释放的中文标签按职业变
+        if cn_label == "技能释放":
+            cn_label_show = CLASS_SKILL_CN[cls]
+        else:
+            cn_label_show = cn_label
+        
+        for k in range(4):
+            # 计算该帧的关节旋转
+            if en_prefix == "attack":
+                rots = interp(ATTACK_KFS[cls], ATTACK_KFS[cls][k][0])
+            elif en_prefix == "skill":
+                rots = interp(SKILL_KFS[cls], SKILL_KFS[cls][k][0])
+            else:
+                rots = gen_func(cls, k)
+            
+            bt = fk_portrait(rots, JOINTS, 1.0)
+            canvas = render_reverse(img_alpha, JOINTS, weights_grid, grid_step, gw, gh,
+                                    bt, 1.0, PELVIS_CANVAS, CANVAS_W, CANVAS_H, bbox)
+            frame_key = f"{en_prefix}_{k+1}"
+            frames[frame_key] = (canvas, cn_label_show, k + 1)
     
-    # ==== run 4 帧 ====
-    base_run = RUN_BASE[cls]
-    for k in range(4):
-        phase = math.sin(2 * math.pi * k / 4)
-        rots = {n: v * (0.8 + phase * 0.4) for n, v in base_run.items()}
-        rots["pelvis"] = phase * 2.0
-        bt = fk_portrait(rots, JOINTS, 1.0)
-        canvas = render_reverse(img_alpha, JOINTS, weights_grid, grid_step, gw, gh,
-                                bt, 1.0, PELVIS_CANVAS, CANVAS_W, CANVAS_H, bbox)
-        frames[f"run_{k+1}"] = canvas
-    
-    # ==== attack 4 帧 ====
-    atk_kfs = ATTACK_KFS[cls]
-    for k, (t, _) in enumerate(atk_kfs):
-        rots = interp(atk_kfs, t)
-        bt = fk_portrait(rots, JOINTS, 1.0)
-        canvas = render_reverse(img_alpha, JOINTS, weights_grid, grid_step, gw, gh,
-                                bt, 1.0, PELVIS_CANVAS, CANVAS_W, CANVAS_H, bbox)
-        frames[f"attack_{k+1}"] = canvas
-    
-    # ==== save frames ====
+    # --- 保存各帧 ---
     cls_dir = f"{OUT}/{cls}"
     os.makedirs(cls_dir, exist_ok=True)
-    for fname, frame in frames.items():
+    for fname, (frame, _, _) in frames.items():
         frame.save(f"{cls_dir}/{fname}.jpg", "JPEG", quality=92)
     
-    # ==== contact sheet ====
-    cats = [
-        ("idle",   [f"idle_{i}" for i in range(1, 5)]),
-        ("run",    [f"run_{i}" for i in range(1, 5)]),
-        ("attack", [f"attack_{i}" for i in range(1, len(atk_kfs)+1)]),
-    ]
-    COLS = 5; TW, TH = 160, 180; LH = 24; MAR = 8
+    # --- Contact Sheet (全中文) ---
+    cats = []
+    for cn_label, en_prefix, gen_func, desc in ACTION_GROUPS:
+        if cn_label == "技能释放":
+            label = CLASS_SKILL_CN[cls]
+        else:
+            label = cn_label
+        fnames = [f"{en_prefix}_{k}" for k in range(1, 5)]
+        cats.append((label, fnames))
+    
+    COLS = 4; TW, TH = 140, 160; LH = 26; MAR = 8
     rows = len(cats)
-    sw = MAR * 2 + COLS * (TW + 6)
-    sh = MAR + 28 + MAR + rows * (LH + TH + MAR)
-    sheet = Image.new("RGB", (sw, sh), (16, 22, 34))
+    sw = MAR * 2 + COLS * (TW + 8)
+    sh = MAR + 30 + MAR + rows * (LH + TH + MAR)
+    sheet = Image.new("RGB", (sw, sh), (12, 16, 24))
     d = ImageDraw.Draw(sheet)
-    cn = CLASS_NAMES_CN.get(cls, cls)
-    d.text((MAR + 8, MAR + 6),
-           f"{cls} / {cn} — Diablo 风格 · 反向变形无断裂",
-           fill=(200, 220, 250))
-    y0 = MAR + 28 + MAR
-    for ri, (cat, fnames) in enumerate(cats):
+    cn = CLASS_NAMES_CN[cls]
+    
+    # 标题
+    title = f"{cn} ({cls})  —  Diablo 风格精灵绑定 · 反向变形无断裂 · 24 帧"
+    d.text((MAR + 8, MAR + 6), title, fill=(220, 200, 140))
+    d.text((MAR + 8, MAR + 22), "▸ 6 组动作 × 4 帧  |  7 关节骨架 · 高斯权重", fill=(120, 140, 170))
+    
+    y0 = MAR + 42 + MAR
+    for ri, (label, fnames) in enumerate(cats):
         y = y0 + ri * (LH + TH + MAR)
-        d.rectangle([MAR, y, sw - MAR, y + LH], fill=(24, 30, 44))
-        d.text((MAR + 8, y + 4), cat, fill=(220, 235, 250))
+        # 行标题背景
+        d.rectangle([MAR, y, sw - MAR, y + LH], fill=(24, 32, 46))
+        d.rectangle([MAR, y, MAR + 4, y + LH], fill=(220, 60, 60))  # 左侧红色装饰条
+        d.text((MAR + 12, y + 5), label, fill=(230, 210, 150))
+        d.text((MAR + 120, y + 5), f"{4} 帧循环", fill=(100, 120, 150))
+        
         for ci in range(COLS):
-            x = MAR + ci * (TW + 6)
+            x = MAR + ci * (TW + 8)
             fi = fnames[ci] if ci < len(fnames) else None
-            d.rectangle([x, y + LH, x + TW, y + LH + TH], outline=(60, 75, 95), width=1)
+            d.rectangle([x, y + LH, x + TW, y + LH + TH], outline=(50, 65, 90), width=1)
             if fi and fi in frames:
-                f = frames[fi].resize((TW, TH), Image.BILINEAR)
+                frame_img, _, _ = frames[fi]
+                f = frame_img.resize((TW, TH), Image.BILINEAR)
                 sheet.paste(f, (x, y + LH))
+                # 帧号 (底部小字)
+                d.text((x + 4, y + LH + TH - 12), f"帧 {ci+1}", fill=(100, 115, 140))
+    
     sheet.save(f"{OUT}/{cls}_sheet.jpg", "JPEG", quality=92)
     all_sheets[cls] = sheet
-    print(f"  ✓ {cls}_sheet.jpg ({sw}×{sh}) — 12 帧无断裂")
+    total_frames = len([f for f in frames])
+    print(f"  ✓ {cls}_sheet.jpg ({sw}×{sh}) — {total_frames} 帧")
 
 # ============================================================
-# 总览 2×2 contact sheet
+# 总览 Contact Sheet (全中文)
 # ============================================================
-COLS2 = 2; ROWS2 = 2; TW2, TH2 = 280, 300; MAR2 = 20
+COLS2 = 2; ROWS2 = 2; TW2, TH2 = 340, 360; MAR2 = 24
 sw2 = COLS2 * TW2 + (COLS2 + 1) * MAR2
-sh2 = ROWS2 * TH2 + (ROWS2 + 1) * MAR2 + 80
-ov = Image.new("RGB", (sw2, sh2), (10, 12, 20))
+sh2 = ROWS2 * TH2 + (ROWS2 + 1) * MAR2 + 100
+ov = Image.new("RGB", (sw2, sh2), (8, 10, 18))
 d = ImageDraw.Draw(ov)
-d.text((MAR2, 20), "Diablo 风格完整精灵绑定 · v6", fill=(230, 50, 50))
-d.text((MAR2, 40), "反向像素级变形 — 每像素逆 FK 映射原图采样 — 零断裂", fill=(160, 175, 200))
-d.text((MAR2, 58), "7 关节骨架 · 高斯权重 · AI 生成全新形象", fill=(120, 140, 170))
+
+d.text((MAR2, 22), "⚔ Diablo 风格完整精灵绑定 · v6", fill=(230, 60, 60))
+d.text((MAR2, 46), "反向像素级变形 — 每像素逆 FK 映射原图采样 — 零断裂", fill=(170, 180, 200))
+d.text((MAR2, 64), f"4 角色 × 6 组动作 × 4 帧 = 共 {4*6*4} 帧  |  7 关节骨架 · 高斯权重 · AI 生成", fill=(120, 135, 160))
+
 for idx, cls in enumerate(CLASS_LIST):
     r, c = divmod(idx, COLS2)
-    sx = MAR2 + c * (TW2 + MAR2); sy = 80 + MAR2 + r * (TH2 + MAR2)
+    sx = MAR2 + c * (TW2 + MAR2); sy = 100 + MAR2 + r * (TH2 + MAR2)
     s = all_sheets[cls]
-    crop = s.crop((8, 28 + 8, min(s.size[0], 8 + TW2), 28 + 8 + TH2)).resize((TW2, TH2), Image.BILINEAR)
+    crop = s.crop((8, 42 + 8, min(s.size[0], 8 + TW2), 42 + 8 + TH2)).resize((TW2, TH2), Image.BILINEAR)
     ov.paste(crop, (sx, sy))
-    d.rectangle([sx, sy, sx + TW2, sy + TH2], outline=(180, 60, 60), width=2)
-    d.text((sx + 8, sy + 8), CLASS_NAMES_CN[cls], fill=(255, 220, 150))
+    # 角色名 + 中文标签
+    cn = CLASS_NAMES_CN[cls]
+    skill = CLASS_SKILL_CN[cls]
+    label_line = f"▸ {cn}  |  技能: {skill}"
+    d.rectangle([sx, sy - 22, sx + TW2, sy + 2], fill=(18, 24, 36))
+    d.text((sx + 8, sy - 18), label_line, fill=(255, 220, 150))
+    d.rectangle([sx, sy, sx + TW2, sy + TH2], outline=(200, 70, 70), width=2)
+
 ov.save(f"{OUT}/overview_v6_diablo.jpg", "JPEG", quality=92)
-print(f"\n✓ overview_v6_diablo.jpg: {sw2}×{sh2}")
+print(f"\n✓ 总览 overview_v6_diablo.jpg: {sw2}×{sh2}")
 print(f"\n全部完成! 输出: {OUT}/")
-print(f"  4 角色 × 12 帧 = 48 帧 — 全部无断裂")
+print(f"  4 角色 × 6 动作 × 4 帧 = 96 帧 — 全部无断裂, 全中文标注")
