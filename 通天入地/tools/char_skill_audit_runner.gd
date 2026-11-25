@@ -681,14 +681,14 @@ func _main() -> void:
 	_action("录制操作过程视频帧")
 	GameManager.enter_main_menu()
 	await _wait(0.6)
-	for i in 10:
+	for i in range(10):
 		_frame()
 		await _wait(0.09)
 	GameManager.start_new_game()
 	await _wait(1.0)
 	var vp := GameManager.active_player
 	InputManager.set_virtual_move(Vector2(1, 0))
-	for i in 22:
+	for i in range(22):
 		if i % 5 == 0:
 			vp.try_attack()
 		if i % 7 == 0:
@@ -699,7 +699,7 @@ func _main() -> void:
 	var ip := _group_first("inventory_panel")
 	if ip != null:
 		ip.call("open_panel")
-		for i in 9:
+		for i in range(9):
 			ip.tabs.current_tab = i / 3
 			_frame()
 			await _wait(0.085)
@@ -707,7 +707,7 @@ func _main() -> void:
 	var tp := _group_first("skill_tree_panel")
 	if tp != null:
 		tp.call("_toggle")
-		for i in 12:
+		for i in range(12):
 			if i == 6:
 				tp.call("_show_tab", "spec")
 			_frame()
@@ -715,7 +715,7 @@ func _main() -> void:
 		tp.call("_toggle")
 	GameManager.enter_tower_floor(1)
 	await _wait(1.0)
-	for i in 16:
+	for i in range(16):
 		var tw = get_tree().current_scene
 		if tw != null and i == 4:
 			tw.switch_nodes[0]._on_body_entered(GameManager.active_player)

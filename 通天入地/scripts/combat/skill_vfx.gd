@@ -416,7 +416,7 @@ class _BurstVisual extends Node2D:
 	var _shards := PackedVector2Array()
 
 	func _ready() -> void:
-		for i in 12:
+		for i in range(12):
 			_shards.append(Vector2(randf_range(-1.0, 1.0), randf_range(-1.0, 1.0)))
 
 	func _process(delta: float) -> void:
@@ -451,7 +451,7 @@ class _FusionReleaseVisual extends Node2D:
 	var _sparks: Array = []
 
 	func _ready() -> void:
-		for i in 10:
+		for i in range(10):
 			var ang := TAU * float(i) / 10.0
 			_sparks.append({"ang": ang, "phase": randf_range(0.0, 0.4)})
 

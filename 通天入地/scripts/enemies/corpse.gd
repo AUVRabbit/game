@@ -127,7 +127,7 @@ func _draw_zombie(a: float) -> void:
 	draw_line(Vector2(0, 4), Vector2(10, 8), wound, 2.0)
 	# 苍蝇（小黑点）
 	var t := Time.get_ticks_msec() / 300.0
-	for i in 3:
+	for i in range(3):
 		var ang := t + float(i) * 2.0
 		var rx := cos(ang) * 18
 		var ry := sin(ang * 1.3) * 10 - 14
@@ -148,7 +148,7 @@ func _draw_fire(a: float, t: float) -> void:
 	var pulse := 0.6 + 0.3 * sin(t * 4.0)
 	draw_circle(Vector2(-2, -2), 4.0 * pulse, yellow)
 	# 气泡
-	for i in 3:
+	for i in range(3):
 		var ang := t * 0.5 + float(i) * 2.09
 		var r := 8 + sin(t + i) * 3
 		draw_circle(Vector2(cos(ang) * r, sin(ang) * r - 6),
@@ -164,7 +164,7 @@ func _draw_water(a: float, t: float) -> void:
 	draw_ellipse(Vector2(-4, -2), 8.0, 2.5, light)
 	# 波纹（动态同心圆）
 	var wave_t := fmod(t * 1.5, 2.0)
-	for i in 2:
+	for i in range(2):
 		var r := 4 + (wave_t + float(i)) * 8
 		if r > 14:
 			continue
@@ -182,7 +182,7 @@ func _draw_mech(a: float) -> void:
 	var cx := -6
 	var cy := -8
 	var r := 6.0
-	for i in 8:
+	for i in range(8):
 		var ang := float(i) / 8.0 * TAU
 		var x1 := cx + cos(ang) * r
 		var y1 := cy + sin(ang) * r
@@ -215,7 +215,7 @@ func _draw_slime(a: float, t: float) -> void:
 		Vector2(-6, -2), Vector2(-2, -6), Vector2(4, -4), Vector2(2, 0)
 	]), Color(1.0, 1.0, 0.8, a * 0.4))
 	# 滴液（向上飘然后落下）
-	for i in 3:
+	for i in range(3):
 		var phase := fmod(t * 0.8 + float(i) * 2.09, 1.5)
 		var dy := -4 - phase * 12
 		draw_circle(Vector2(-6 + float(i) * 5, dy),
@@ -226,7 +226,7 @@ func _draw_ghost(a: float, t: float) -> void:
 	var light := Color(0.6, 0.65, 1.0, a * 0.5)
 	var soft := Color(0.35, 0.4, 0.75, a * 0.7)
 	# 多个飘动的半透明圆
-	for i in 5:
+	for i in range(5):
 		var ang := t * 0.3 + float(i) * 1.26
 		var r := 8 + float(i) * 1.5
 		var px := cos(ang) * r * 0.8
@@ -257,7 +257,7 @@ func _draw_ogre(a: float) -> void:
 	draw_rect(Rect2(8, -8, 2, 9), dark_bone)
 	draw_rect(Rect2(12, -8, 2, 9), dark_bone)
 	# 鳞片堆
-	for i in 4:
+	for i in range(4):
 		var ang := float(i) / 4.0 * TAU
 		var x := cos(ang) * 14 + 6
 		var y := sin(ang) * 6 + 4

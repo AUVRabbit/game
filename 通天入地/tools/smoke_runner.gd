@@ -311,7 +311,7 @@ func _run() -> void:
 	var points_before: int = SkillManager.get_points("archer")
 	_check("初始技能点", points_before >= 1, str(points_before))
 	var attack_before: int = archer_data.get_attack()
-	for i in 6:
+	for i in range(6):
 		SkillManager.grant_level_points("archer", 1)
 	var first_ok: bool = SkillManager.unlock_node("archer", "archer_t0_0")
 	_check("解锁技能树节点", first_ok)
@@ -367,10 +367,10 @@ func _run() -> void:
 	_check("进阶角色有效", prog != null)
 	if prog == null:
 		prog = archer_data
-	for i in 20:
+	for i in range(20):
 		SkillManager.grant_level_points("archer", 1)
 	for layer in [1, 2, 3]:
-		for col in 4:
+		for col in range(4):
 			SkillManager.unlock_node("archer", "archer_t%d_%d" % [layer, col])
 	_check("四层完成操作栏=10格", prog.get_slot_count() == 10, str(prog.get_slot_count()))
 	_check("四层完成融合槽=2", prog.get_fusion_slots() == 2, str(prog.get_fusion_slots()))

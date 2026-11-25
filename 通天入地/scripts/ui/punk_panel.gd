@@ -85,7 +85,7 @@ func _build_ui() -> void:
 
 	var slot_names: Array = ["weapon", "helmet", "chest", "back"]
 	var slot_cn: Array = ["武器槽", "头盔槽", "胸甲槽", "背槽"]
-	for i in 4:
+	for i in range(4):
 		var slot_name: String = slot_names[i]
 		var frame := Panel.new()
 		frame.size_flags_horizontal = Control.SIZE_EXPAND_FILL

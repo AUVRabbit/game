@@ -443,7 +443,7 @@ func _spawn_death_particles() -> void:
 	var shard_colors := [
 		body_color, Color(1.0, 0.4, 0.3), Color(0.9, 0.85, 0.7), Color(1.0, 0.7, 0.5)
 	]
-	for i in 14:
+	for i in range(14):
 		var ang := TAU * (float(i) / 14.0) + randf_range(-0.15, 0.15)
 		var spd := randf_range(80.0, 180.0)
 		var dist := spd * 0.35
@@ -464,7 +464,7 @@ func _spawn_death_particles() -> void:
 		tween.chain().tween_callback(p.queue_free)
 	# 8 个向上抛的"血珠"（如果是火/机元素则是熔岩/金属屑）
 	var drop_color := body_color if primary_element == "fire" or primary_element == "mech" else Color(0.95, 0.25, 0.15)
-	for i in 8:
+	for i in range(8):
 		var ang := randf_range(PI * 0.7, PI * 1.3)  # 向上的扇形
 		var spd := randf_range(80.0, 140.0)
 		var dist := spd * 0.38
@@ -548,7 +548,7 @@ func _draw_slime(fill: Color, t: float) -> void:
 	# 波动黏液身体（随 t 上下变形）
 	var wobble := sin(t * 6.0) * 2.0
 	var pts := PackedVector2Array()
-	for i in 14:
+	for i in range(14):
 		var ang := float(i) / 14.0 * TAU
 		var deform := 1.0 + sin(t * 3.0 + float(i) * 1.3) * 0.12
 		var r := s * deform
@@ -556,7 +556,7 @@ func _draw_slime(fill: Color, t: float) -> void:
 	draw_colored_polygon(pts, fill)
 	# 高光
 	var hi_pts := PackedVector2Array()
-	for i in 10:
+	for i in range(10):
 		var ang := float(i) / 10.0 * TAU
 		var r := s * 0.5
 		hi_pts.append(Vector2(cos(ang) * r, sin(ang) * r * 0.5 - 2 + wobble))
@@ -574,13 +574,13 @@ func _draw_mech(fill: Color, t: float) -> void:
 	var eye_red := Color(1.0, 0.2, 0.15)
 	# 身体（六边形装甲）
 	var hex := PackedVector2Array()
-	for i in 6:
+	for i in range(6):
 		var ang := float(i) / 6.0 * TAU + PI / 6
 		hex.append(Vector2(cos(ang) * s, sin(ang) * s - 2))
 	draw_colored_polygon(hex, metal)
 	# 内层 darker
 	var hex2 := PackedVector2Array()
-	for i in 6:
+	for i in range(6):
 		var ang := float(i) / 6.0 * TAU + PI / 6
 		hex2.append(Vector2(cos(ang) * s * 0.65, sin(ang) * s * 0.65 - 2))
 	draw_colored_polygon(hex2, dark)
@@ -588,7 +588,7 @@ func _draw_mech(fill: Color, t: float) -> void:
 	draw_circle(Vector2(-s * 0.25, -s * 0.15 - 2), s * 0.15 * (1.0 + 0.2 * sin(t * 12.0)), eye_red)
 	draw_circle(Vector2(s * 0.25, -s * 0.15 - 2), s * 0.15 * (1.0 + 0.2 * sin(t * 12.0)), eye_red)
 	# 8 条蜘蛛腿（每条 2 段，动态）
-	for i in 8:
+	for i in range(8):
 		var base_ang := float(i) / 8.0 * TAU + sin(t * 4.0 + float(i) * 0.8) * 0.15
 		var p0 := Vector2(cos(base_ang) * s * 0.8, sin(base_ang) * s * 0.8 - 2)
 		var p1 := Vector2(cos(base_ang) * (s + 8), sin(base_ang) * (s + 8) - 2)
@@ -611,7 +611,7 @@ func _draw_wraith(fill: Color, t: float) -> void:
 	draw_circle(Vector2(-s * 0.25, float_y - 4), s * 0.15 * pulse, Color(1.0, 0.15, 0.2))
 	draw_circle(Vector2(s * 0.25, float_y - 4), s * 0.15 * pulse, Color(1.0, 0.15, 0.2))
 	# 飘带（3 条半透明尾巴向下飘）
-	for i in 3:
+	for i in range(3):
 		var ang := float(i - 1) * 0.5 + sin(t * 2.5 + float(i)) * 0.3
 		var tail_start := Vector2(cos(ang) * s * 0.5, float_y + s * 0.3)
 		var tail_end := tail_start + Vector2(cos(ang) * 6, s * 1.2 + sin(t + float(i)) * 3)
@@ -639,7 +639,7 @@ func _draw_default_body(fill: Color) -> void:
 	var s := body_radius
 	# 10 边多边形兜底（但加个内部 ring 让它不那么单调）
 	var points := PackedVector2Array()
-	for i in 10:
+	for i in range(10):
 		var a := TAU * float(i) / 10.0
 		points.append(Vector2(cos(a), sin(a) * 0.85) * s)
 	draw_colored_polygon(points, fill)

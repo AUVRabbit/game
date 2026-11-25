@@ -264,7 +264,7 @@ func _unhandled_input(event: InputEvent) -> void:
 	elif event.is_action_pressed("interact"):
 		try_interact()
 	else:
-		for i in 10:
+		for i in range(10):
 			if event.is_action_pressed("skill_%d" % (i + 1)):
 				try_skill(i)
 				return

@@ -200,7 +200,7 @@ func _draw() -> void:
 			draw_circle(Vector2.ZERO, r * pulse * 0.65, Color(1.0, 0.8, 0.35, 0.95))
 			draw_circle(Vector2.ZERO, r * pulse * 0.35, Color(1.0, 1.0, 0.9, 0.95))
 			# 表面火花（3 颗小白点 + 闪烁）
-			for i in 3:
+			for i in range(3):
 				var sp := sin(t_msf * 30.0 + float(i) * 2.1) * (r + 2.0)
 				var spark_pos := tip * sp * 0.3 + perp * sin(t_msf * 22.0 + i) * 2.0
 				draw_circle(spark_pos, 1.6, Color(1.0, 1.0, 0.8, 0.9))
@@ -282,7 +282,7 @@ func _draw() -> void:
 			var seed_val := hash("rock_" + str(int(_spawn_y)))
 			var rng := RandomNumberGenerator.new()
 			rng.seed = seed_val & 0x7FFFFFFF
-			for i in 7:
+			for i in range(7):
 				var ang := TAU * float(i) / 7.0
 				var rr := 8.0 + rng.randf_range(-1.5, 1.5)
 				pts.append(Vector2(cos(ang), sin(ang)) * rr)
@@ -298,10 +298,10 @@ func _draw() -> void:
 			draw_circle(Vector2.ZERO, r + 2.0, Color(0.7, 0.9, 1.0, 0.45))
 			draw_circle(Vector2.ZERO, r, Color(0.85, 0.95, 1.0, 0.75))
 			# 闪电分支（3 条锯齿线）
-			for b in 3:
+			for b in range(3):
 				var bang := tip.angle() + sin(t_msf * 10.0 + float(b)) * 0.8
 				var p := Vector2(0, 0)
-				for seg in 4:
+				for seg in range(4):
 					p += Vector2(cos(bang), sin(bang)) * 3.0
 					bang += sin(t_msf * 15.0 + float(seg) * 2.0 + float(b)) * 0.8
 					draw_circle(p, 1.2, Color(0.9, 0.98, 1.0, flash * 0.8 + 0.3))
@@ -312,7 +312,7 @@ func _draw() -> void:
 			draw_circle(Vector2.ZERO, 9.0, Color(1.0, 0.95, 0.6, 0.45))
 			draw_circle(Vector2.ZERO, 4.0, Color(1.0, 1.0, 0.9, 0.95))
 			# 4 条光束
-			for i in 4:
+			for i in range(4):
 				var ang := float(i) * PI / 2.0 + t_msf * 1.5
 				var be := Vector2(cos(ang), sin(ang)) * 14.0
 				draw_line(Vector2.ZERO, be, Color(1.0, 0.95, 0.55, 0.85), 1.6)

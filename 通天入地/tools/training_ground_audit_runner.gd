@@ -665,7 +665,7 @@ func _test_mechanisms() -> void:
 	_check("离开训练场传送门存在", portal != null)
 
 	_action("录制训练场操作视频帧")
-	for i in 36:
+	for i in range(36):
 		if i % 6 == 0 and is_instance_valid(pl):
 			pl.try_attack()
 		if i % 9 == 0 and is_instance_valid(pl):

@@ -163,7 +163,7 @@ func _draw() -> void:
 		var t_norm := clampf(_fly_elapsed / maxf(_fly_duration, 0.001), 0.0, 1.0)
 		var alpha := 1.0 - t_norm * 0.3
 		var trail_points := PackedVector2Array()
-		for k in 6:
+		for k in range(6):
 			var kk := float(k) / float(6)
 			var tp := _fly_start.lerp(target_pos, t_norm - kk * 0.12)
 			tp.y -= _fly_trajectory_y * sin(clampf(t_norm - kk * 0.12, 0.0, 1.0) * PI)

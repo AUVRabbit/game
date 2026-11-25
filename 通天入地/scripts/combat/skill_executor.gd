@@ -185,7 +185,7 @@ static func cast(caster, skill: Dictionary) -> bool:
 			DamageNumber.spawn(level, origin + Vector2(0, -30), healed, false, true)
 			# 治疗爆发 + 8 颗绿色星屑向上飞
 			SkillVfx.spawn_burst(level, origin, 52.0, Color(0.55, 1.0, 0.7), 0.45)
-			for i in 8:
+			for i in range(8):
 				var ang := -PI / 2 + randf_range(-0.7, 0.7)
 				_spawn_particle(level, origin + Vector2(randf_range(-10, 10), -4), Color(0.6, 1.0, 0.7), 3.0, Vector2(cos(ang), sin(ang)) * 50.0, 0.6)
 		"buff":

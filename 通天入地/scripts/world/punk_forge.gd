@@ -88,7 +88,7 @@ func _draw() -> void:
 	]
 	var cx: float = 0.0
 	var cy: float = 0.0
-	for i in 4:
+	for i in range(4):
 		var angle: float = sparkle + TAU * i / 4.0
 		var x: float = cx + cos(angle) * 18.0
 		var y: float = cy + sin(angle) * 10.0  # 等距压缩
