@@ -103,20 +103,26 @@ PARENT = {
 }
 
 def local_offset(name, JOINTS):
+    """返回 bone name 在 parent bone 局部坐标系下的位置 (bind pose, portrait 坐标)"""
     parent = PARENT[name]
     if parent is None: return (0, 0)
     px, py = JOINTS[parent][:2]
     cx, cy = JOINTS[name][:2]
     return (cx - px, cy - py)
 
-def fk(bone_rots, JOINTS, facing=1.0, pelvis_canvas=None):
-    if pelvis_canvas is None: pelvis_canvas = (0, 0)
+def fk_portrait(bone_rots, JOINTS, facing=1.0):
+    """
+    返回 portrait 坐标系下每个 bone 的 (world_rot, world_pos)。
+    bind pose: pelvis 在 JOINTS['pelvis'] (256, 310), 所有 rot=0。
+    这意味着变形后 world_pos 仍然是 portrait 坐标 — 和原图坐标系一致。
+    """
     transforms = {}
     def calc(name):
         if name in transforms: return transforms[name]
         parent = PARENT[name]
         if parent is None:
-            transforms[name] = (bone_rots.get(name, 0.0), pelvis_canvas)
+            # pelvis 是 root, world pos 始终 = bind pos (portrait 坐标)
+            transforms[name] = (bone_rots.get(name, 0.0), JOINTS[name][:2])
         else:
             parent_rot, parent_t = calc(parent)
             dx, dy = local_offset(name, JOINTS)
@@ -128,6 +134,13 @@ def fk(bone_rots, JOINTS, facing=1.0, pelvis_canvas=None):
         return transforms[name]
     for name in JOINTS: calc(name)
     return transforms
+
+def bone_world_pos_to_canvas(portrait_pos, JOINTS, PELVIS_CANVAS):
+    """portrait 坐标 → canvas 坐标 (用于阴影绘制等)"""
+    px_bind, py_bind = JOINTS["pelvis"][:2]
+    px_canvas, py_canvas = PELVIS_CANVAS
+    dx, dy = portrait_pos[0] - px_bind, portrait_pos[1] - py_bind
+    return (px_canvas + dx, py_canvas + dy)
 
 def compute_weights_grid(JOINTS, bbox, grid_step=4, sigma=80.0):
     bx1, by1, bx2, by2 = bbox
@@ -158,49 +171,118 @@ def compute_weights_grid(JOINTS, bbox, grid_step=4, sigma=80.0):
 # 反向变形 — 给 dst 像素, 算 src 像素 (v5 核心, 无断裂关键)
 # ============================================================
 
-def deform_pixel(dx, dy, weights_at_v, bone_transforms, facing, JOINTS):
+def deform_pixel(dst_x_portrait, dst_y_portrait, weights_at_v, bone_transforms, facing, JOINTS):
+    """
+    反向 FK — 给定变形后的 portrait 坐标, 求 bind pose (原图) 坐标。
+
+    原理:
+      forward:  local → world_cur = R(brot) · local + world_pos_cur
+      reverse:  world_cur → local = R(-brot) · (world_cur - world_pos_cur)
+      bind_pose: local → world_bind = R(0) · local + bind_pos = local + bind_pos
+
+    对每个 bone, 把 dst (当前 world_cur portrait 坐标) 变到 local, 再加 bind_pos 得到 src。
+    所有 bone 的贡献用 weights_at_v 加权 blend。
+
+    Args:
+      dst_x_portrait, dst_y_portrait: 当前姿势下该像素在 portrait 坐标系的位置
+      weights_at_v: 7 个 bone 的混合权重
+      bone_transforms: fk_portrait 返回的 {bone_name: (rot, world_pos_portrait)}
+      facing: 1.0 或 -1.0
+      JOINTS: bind pose 下各 bone 的 portrait world pos
+
+    Returns:
+      (src_x, src_y): 该像素应该从原图哪里采样
+    """
     vx_new, vy_new = 0.0, 0.0
     for bi, bname in enumerate(BONE_NAMES):
         w = weights_at_v[bi]
         if w < 1e-4: continue
-        brot, (btx, bty) = bone_transforms[bname]
+        brot, (wx_cur, wy_cur) = bone_transforms[bname]
+        # 1. world_cur → local
         inv_rot = math.radians(-brot)
-        lx = (dx - btx) * math.cos(inv_rot) - (dy - bty) * math.sin(inv_rot)
-        ly = (dx - btx) * math.sin(inv_rot) + (dy - bty) * math.cos(inv_rot)
-        vx_new += w * lx
-        vy_new += w * ly
+        lx = (dst_x_portrait - wx_cur) * math.cos(inv_rot) - (dst_y_portrait - wy_cur) * math.sin(inv_rot)
+        ly = (dst_x_portrait - wx_cur) * math.sin(inv_rot) + (dst_y_portrait - wy_cur) * math.cos(inv_rot)
+        # 2. local + bind_pos → world_bind (即 src 坐标)
+        bx_bind, by_bind = JOINTS[bname][:2]
+        vx_new += w * (lx + bx_bind)
+        vy_new += w * (ly + by_bind)
     if facing < 0:
         vx_new = 512 - vx_new
     return (vx_new, vy_new)
 
-def remove_bg_soft(img, thresh=32):
-    """与 v5 相同 flood-fill + 边缘羽化"""
+def remove_bg_soft(img, color_tol=6):
+    """
+    反向 flood fill 背景去除 — 利用背景是纯色这一事实。
+
+    Step 1: 统计图像边缘像素的主色 (mode) 作为背景基准色。
+    Step 2: 从四边向内 BFS, 标记所有与背景色色差 <= color_tol 的连通像素为背景。
+            反向: 剩余像素 = 角色 (包括黑衣服、阴影 — 只要和背景色差 > 6)。
+
+    color_tol: RGB 每个通道的色差容差, 默认 6。
+               背景 (14,16,28) 和黑衣服 (如 8,8,12) 各通道差可能 < 6,
+               但整体色差 max(|dr|,|dg|,|db|) > 6。
+    """
     arr = img.convert("RGBA").load()
     w, h = img.size
-    sx, sy = w // 2, h // 2
-    while sx > 0 and arr[sx, sy][0] + arr[sx, sy][1] + arr[sx, sy][2] < thresh * 3:
-        sx -= 1
-    while sy > 0 and arr[sx, sy][0] + arr[sx, sy][1] + arr[sx, sy][2] < thresh * 3:
-        sy -= 1
-    visited = [[False] * h for _ in range(w)]
-    stack = [(sx, sy)]
-    while stack:
-        x, y = stack.pop()
-        if x < 0 or y < 0 or x >= w or y >= h: continue
-        if visited[x][y]: continue
+    
+    # Step 1: 估计背景主色 — 边缘像素取中位数
+    import statistics as st
+    edge_rs, edge_gs, edge_bs = [], [], []
+    for x in range(w):
+        for y in [0, h - 1]:
+            r, g, b, a = arr[x, y]
+            edge_rs.append(r); edge_gs.append(g); edge_bs.append(b)
+    for y in range(1, h - 1):
+        for x in [0, w - 1]:
+            r, g, b, a = arr[x, y]
+            edge_rs.append(r); edge_gs.append(g); edge_bs.append(b)
+    bg_r = int(st.median(edge_rs))
+    bg_g = int(st.median(edge_gs))
+    bg_b = int(st.median(edge_bs))
+    bg_brightness = (bg_r + bg_g + bg_b) / 3
+    
+    # 自适应容差: 如果背景很暗 (亮度<20), 用 color_tol; 如果背景稍亮, 用更宽松的
+    tol = color_tol if bg_brightness < 20 else color_tol + 4
+    
+    def is_near_bg(r, g, b):
+        """像素 (r,g,b) 是否接近背景色"""
+        return (abs(r - bg_r) <= tol and 
+                abs(g - bg_g) <= tol and 
+                abs(b - bg_b) <= tol)
+    
+    # Step 2: 从四边 BFS 标记背景
+    from collections import deque
+    is_bg = [[False] * h for _ in range(w)]
+    q = deque()
+    for x in range(w):
+        q.append((x, 0)); q.append((x, h - 1))
+    for y in range(h):
+        q.append((0, y)); q.append((w - 1, y))
+    while q:
+        x, y = q.popleft()
+        if is_bg[x][y]: continue
         r, g, b, a = arr[x, y]
-        if r + g + b < thresh * 3: continue
-        visited[x][y] = True
-        stack += [(x+1,y), (x-1,y), (x,y+1), (x,y-1)]
+        if not is_near_bg(r, g, b): continue  # 不是背景色
+        is_bg[x][y] = True
+        for dx_, dy_ in [(1, 0), (-1, 0), (0, 1), (0, -1)]:
+            nx, ny = x + dx_, y + dy_
+            if 0 <= nx < w and 0 <= ny < h and not is_bg[nx][ny]:
+                q.append((nx, ny))
+    
     out = Image.new("RGBA", (w, h), (0, 0, 0, 0))
     oarr = out.load()
     for y in range(h):
         for x in range(w):
-            if visited[x][y]: oarr[x, y] = arr[x, y]
+            if not is_bg[x][y]:
+                oarr[x, y] = arr[x, y]
     return out
 
 def render_reverse(img_alpha, JOINTS, weights_grid, grid_step, gw, gh,
-                   bone_transforms, facing, pelvis_canvas, canvas_w, canvas_h, bbox):
+                   bone_transforms_portrait, facing, pelvis_canvas, canvas_w, canvas_h, bbox):
+    """
+    bone_transforms_portrait 是 fk_portrait 返回的 portrait 坐标系结果。
+    本函数把每个 canvas 像素映射到 portrait 坐标, 用反向 FK 求 src 坐标采样原图。
+    """
     arr = img_alpha.load()
     w, h = img_alpha.size
     bx1, by1, bx2, by2 = bbox
@@ -209,17 +291,19 @@ def render_reverse(img_alpha, JOINTS, weights_grid, grid_step, gw, gh,
     carr = canvas.load()
     
     draw = ImageDraw.Draw(canvas)
-    pel_rot, pel_t = bone_transforms["pelvis"]
-    # 动态阴影: 根据角色 bbox 宽度
+    # 阴影: pelvis 在 portrait 坐标系, 转成 canvas 坐标来画
+    pel_rot, pel_t_portrait = bone_transforms_portrait["pelvis"]
+    pel_t_canvas = bone_world_pos_to_canvas(pel_t_portrait, JOINTS, pelvis_canvas)
     shadow_w = max(40, (bx2 - bx1) * 0.5)
-    draw.ellipse([pel_t[0] - shadow_w/2, pel_t[1] + 15, 
-                  pel_t[0] + shadow_w/2, pel_t[1] + 28], 
+    draw.ellipse([pel_t_canvas[0] - shadow_w/2, pel_t_canvas[1] + 15, 
+                  pel_t_canvas[0] + shadow_w/2, pel_t_canvas[1] + 28], 
                  fill=(0, 0, 0, 80))
     
     px_bind, py_bind = JOINTS["pelvis"][:2]
     
     for dy in range(canvas_h):
         for dx in range(canvas_w):
+            # canvas 像素 → portrait 坐标
             off_x = dx - pelvis_canvas[0] + px_bind
             off_y = dy - pelvis_canvas[1] + py_bind
             
@@ -244,7 +328,8 @@ def render_reverse(img_alpha, JOINTS, weights_grid, grid_step, gw, gh,
             
             if sum(ws) < 0.01: continue
             
-            src_x, src_y = deform_pixel(off_x, off_y, ws, bone_transforms, facing, JOINTS)
+            # off_x, off_y 已经是 portrait 坐标, 直接传给 deform_pixel
+            src_x, src_y = deform_pixel(off_x, off_y, ws, bone_transforms_portrait, facing, JOINTS)
             
             sx = max(0, min(w - 2, int(src_x)))
             sy = max(0, min(h - 2, int(src_y)))
@@ -381,7 +466,7 @@ for cls in CLASS_LIST:
             "leg_l": 0,
             "leg_r": 0,
         }
-        bt = fk(rots, JOINTS, 1.0, PELVIS_CANVAS)
+        bt = fk_portrait(rots, JOINTS, 1.0)
         canvas = render_reverse(img_alpha, JOINTS, weights_grid, grid_step, gw, gh,
                                 bt, 1.0, PELVIS_CANVAS, CANVAS_W, CANVAS_H, bbox)
         frames[f"idle_{k+1}"] = canvas
@@ -392,7 +477,7 @@ for cls in CLASS_LIST:
         phase = math.sin(2 * math.pi * k / 4)
         rots = {n: v * (0.8 + phase * 0.4) for n, v in base_run.items()}
         rots["pelvis"] = phase * 2.0
-        bt = fk(rots, JOINTS, 1.0, PELVIS_CANVAS)
+        bt = fk_portrait(rots, JOINTS, 1.0)
         canvas = render_reverse(img_alpha, JOINTS, weights_grid, grid_step, gw, gh,
                                 bt, 1.0, PELVIS_CANVAS, CANVAS_W, CANVAS_H, bbox)
         frames[f"run_{k+1}"] = canvas
@@ -401,7 +486,7 @@ for cls in CLASS_LIST:
     atk_kfs = ATTACK_KFS[cls]
     for k, (t, _) in enumerate(atk_kfs):
         rots = interp(atk_kfs, t)
-        bt = fk(rots, JOINTS, 1.0, PELVIS_CANVAS)
+        bt = fk_portrait(rots, JOINTS, 1.0)
         canvas = render_reverse(img_alpha, JOINTS, weights_grid, grid_step, gw, gh,
                                 bt, 1.0, PELVIS_CANVAS, CANVAS_W, CANVAS_H, bbox)
         frames[f"attack_{k+1}"] = canvas
