@@ -90,7 +90,11 @@ func _build_visual_layers() -> void:
 				eid = "entity_%d" % randi()
 		if etype == "":
 			etype = _guess_entity_type(eid)
-		rigged.setup(eid, etype, primary_element, is_boss, body_color)
+		# RiggedCharacter v2 — 优先尝试 load preset
+		rigged.load_preset(etype)
+		# 如果 preset 不存在 (骨架类型还是空), 用基础 humanoid 骨架
+		if rigged._skeleton.is_empty():
+			rigged.setup("humanoid_7", 1.0, body_color)
 		visual.add_child(rigged)
 
 	# AnimatedSprite2D 帧动画层（可选，保留作为后备）

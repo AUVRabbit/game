@@ -1,0 +1,78 @@
+{
+  "_comment": "骨架定义 — 每种物种的关节树。每个关节: {parent_idx, anchor_px, rest_rot_deg, layer}",
+  "_note": "layer 决定 mesh 叠放顺序 (从小到大先画, 后面在上)",
+  "skeletons": {
+    "humanoid_7": {
+      "name": "人形 7 关节",
+      "height_px": 48,
+      "bones": [
+        {"name": "pelvis", "parent": -1, "anchor": [0, 0],   "rot": 0,   "layer": 0},
+        {"name": "torso",  "parent": 0,  "anchor": [0, -16],"rot": 0,   "layer": 1},
+        {"name": "head",   "parent": 1,  "anchor": [0, -14],"rot": 0,   "layer": 2},
+        {"name": "arm_l",  "parent": 1,  "anchor": [-10,-4],"rot": 0,   "layer": 3},
+        {"name": "arm_r",  "parent": 1,  "anchor": [10, -4],"rot": 0,   "layer": 3},
+        {"name": "leg_l",  "parent": 0,  "anchor": [-5, 0], "rot": 0,   "layer": 0},
+        {"name": "leg_r",  "parent": 0,  "anchor": [5,  0], "rot": 0,   "layer": 0}
+      ]
+    },
+    "giant_7": {
+      "name": "巨型 7 关节 (更大更长)",
+      "height_px": 60,
+      "bones": [
+        {"name": "pelvis", "parent": -1, "anchor": [0, 0],   "rot": 0, "layer": 0, "scale": 1.25},
+        {"name": "torso",  "parent": 0,  "anchor": [0, -20],"rot": 0, "layer": 1, "scale": 1.25},
+        {"name": "head",   "parent": 1,  "anchor": [0, -16],"rot": 0, "layer": 2, "scale": 1.25},
+        {"name": "arm_l",  "parent": 1,  "anchor": [-14,-6],"rot": 0,"layer": 3, "scale": 1.3},
+        {"name": "arm_r",  "parent": 1,  "anchor": [14, -6],"rot": 0,"layer": 3, "scale": 1.3},
+        {"name": "leg_l",  "parent": 0,  "anchor": [-7, 0], "rot": 0, "layer": 0, "scale": 1.3},
+        {"name": "leg_r",  "parent": 0,  "anchor": [7,  0], "rot": 0, "layer": 0, "scale": 1.3}
+      ]
+    },
+    "slime_3": {
+      "name": "史莱姆 3 关节 (压缩/膨胀)",
+      "height_px": 24,
+      "bones": [
+        {"name": "core",    "parent": -1, "anchor": [0, 0],  "rot": 0, "layer": 0},
+        {"name": "bounce_top", "parent": 0, "anchor": [0, -8], "rot": 0, "layer": 1},
+        {"name": "bounce_bot", "parent": 0, "anchor": [0, 6],  "rot": 0, "layer": 0}
+      ]
+    },
+    "spider_9": {
+      "name": "蜘蛛 9 关节 (身体 + 8 腿)",
+      "height_px": 22,
+      "bones": [
+        {"name": "body",   "parent": -1, "anchor": [0, 0],  "rot": 0, "layer": 1},
+        {"name": "head",   "parent": 0,  "anchor": [0, -8], "rot": 0, "layer": 2},
+        {"name": "leg_fl", "parent": 0,  "anchor": [-10,-2],"rot": 0,"layer": 0},
+        {"name": "leg_fr", "parent": 0,  "anchor": [10, -2],"rot": 0,"layer": 0},
+        {"name": "leg_ml", "parent": 0,  "anchor": [-12,2], "rot": 0,"layer": 0},
+        {"name": "leg_mr", "parent": 0,  "anchor": [12, 2], "rot": 0,"layer": 0},
+        {"name": "leg_rl", "parent": 0,  "anchor": [-10,6], "rot": 0,"layer": 0},
+        {"name": "leg_rr", "parent": 0,  "anchor": [10, 6], "rot": 0,"layer": 0},
+        {"name": "tail",   "parent": 0,  "anchor": [0, 10], "rot": 0,"layer": 0}
+      ]
+    },
+    "wraith_5": {
+      "name": "幽魂 5 关节 (核心 + 飘带)",
+      "height_px": 40,
+      "bones": [
+        {"name": "core",      "parent": -1, "anchor": [0, 0],   "rot": 0, "layer": 1},
+        {"name": "head",      "parent": 0,  "anchor": [0, -12], "rot": 0, "layer": 2},
+        {"name": "tendril_l", "parent": 0,  "anchor": [-6, 2],  "rot": 0, "layer": 0},
+        {"name": "tendril_r", "parent": 0,  "anchor": [6, 2],   "rot": 0, "layer": 0},
+        {"name": "tail",      "parent": 0,  "anchor": [0, 14],  "rot": 0, "layer": 0}
+      ]
+    },
+    "giant_skeleton_5": {
+      "name": "骷髅 5 关节 (无肉)",
+      "height_px": 52,
+      "bones": [
+        {"name": "pelvis", "parent": -1, "anchor": [0, 0],   "rot": 0, "layer": 0},
+        {"name": "skull",  "parent": -1, "anchor": [0, -24],"rot": 0, "layer": 2},
+        {"name": "arm_l",  "parent": 0,  "anchor": [-12,-10],"rot": 0,"layer": 3},
+        {"name": "arm_r",  "parent": 0,  "anchor": [12,-10], "rot": 0,"layer": 3},
+        {"name": "spine",  "parent": 0,  "anchor": [0, -14], "rot": 0,"layer": 1}
+      ]
+    }
+  }
+}

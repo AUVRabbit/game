@@ -1,0 +1,146 @@
+{
+  "_comment": "装备库 — 每个装备 = mesh 顶点 + 父挂载点 + 锚点 + 初始旋转 + 颜色",
+  "_format": "verts 是相对 anchor 的局部坐标 [x,y,x,y,...] (交替 x,y), 先挂武器, 再挂胸甲, 再挂头盔, 保证叠层正确",
+
+  "weapons": {
+    "iron_sword": {
+      "parent_bone": "arm_r", "anchor": [12, -2], "rest_rot": -60,
+      "color": [0.75, 0.78, 0.82],
+      "verts": [-4,-18, 4,-18, 6,8, -2,10, -6,8, -4,-18]
+    },
+    "greatsword": {
+      "parent_bone": "arm_r", "anchor": [10, -2], "rest_rot": -60,
+      "color": [0.55, 0.58, 0.65],
+      "verts": [-5,-26, 5,-26, 8,10, -4,12, -6,10, -5,-26]
+    },
+    "bow_short": {
+      "parent_bone": "arm_r", "anchor": [6, -4], "rest_rot": -30,
+      "color": [0.65, 0.42, 0.28],
+      "verts": [0,-16, 10,-8, 14,0, 10,8, 0,16, -2,8, 2,0, -2,-8]
+    },
+    "staff_arcane": {
+      "parent_bone": "arm_r", "anchor": [8, -6], "rest_rot": -50,
+      "color": [0.55, 0.38, 0.22],
+      "verts": [-2,-14, 2,-14, 2,14, -2,14, 6,-14, 6,-20, 0,-24, -6,-20, -6,-14]
+    },
+    "staff_fire": {
+      "parent_bone": "arm_r", "anchor": [8, -6], "rest_rot": -50,
+      "color": [0.82, 0.32, 0.14],
+      "verts": [-2,-14, 2,-14, 2,14, -2,14, 5,-16, 8,-22, 2,-24, -4,-22, -5,-16]
+    },
+    "dagger": {
+      "parent_bone": "arm_r", "anchor": [8, -2], "rest_rot": -30,
+      "color": [0.70, 0.72, 0.75],
+      "verts": [0,-12, 2,-12, 4,6, 0,8, -4,6, -2,-12]
+    },
+    "rifle": {
+      "parent_bone": "arm_r", "anchor": [8, -3], "rest_rot": -15,
+      "color": [0.28, 0.28, 0.32],
+      "verts": [-2,-12, 18,-12, 20,-8, 20,-4, -2,-4, -2,2, -6,2, -6,-4]
+    },
+    "revolver": {
+      "parent_bone": "arm_r", "anchor": [10, -1], "rest_rot": -10,
+      "color": [0.38, 0.36, 0.34],
+      "verts": [-2,-6, 10,-6, 10,-2, -2,-2, -4,4, -2,4, -2,-6]
+    },
+    "bomb": {
+      "parent_bone": "arm_r", "anchor": [10, -2], "rest_rot": -40,
+      "color": [0.85, 0.82, 0.75],
+      "verts": [0,-8, -5,-3, -5,3, 0,8, 5,3, 5,-3, 0,-8]
+    },
+    "wrench": {
+      "parent_bone": "arm_r", "anchor": [10, -2], "rest_rot": -60,
+      "color": [0.60, 0.60, 0.64],
+      "verts": [-1,-14, 3,-14, 3,10, -1,10, -1,12, -5,12, -5,8, -1,8]
+    },
+    "gatling": {
+      "parent_bone": "arm_r", "anchor": [12, -2], "rest_rot": -20,
+      "color": [0.52, 0.54, 0.58],
+      "verts": [-2,-10, 20,-12, 22,-8, 22,-4, 20,0, -2,0, -4,-4, -4,-6]
+    },
+    "claw": {
+      "parent_bone": "arm_r", "anchor": [10, -2], "rest_rot": -30,
+      "color": [0.45, 0.48, 0.52],
+      "verts": [0,-6, 14,-8, 16,-4, 12,0, 10,4, 4,2, 2,-2]
+    }
+  },
+
+  "torso_armors": {
+    "plate": {
+      "parent_bone": "torso", "anchor": [0, 0], "rest_rot": 0,
+      "color": [0.72, 0.30, 0.24],
+      "verts": [-10,-5, 10,-5, 12,7, 0,10, -12,7]
+    },
+    "leather": {
+      "parent_bone": "torso", "anchor": [0, 0], "rest_rot": 0,
+      "color": [0.55, 0.38, 0.22],
+      "verts": [-8,-6, 8,-6, 10,8, -10,8]
+    },
+    "robe_blue": {
+      "parent_bone": "torso", "anchor": [0, 4], "rest_rot": 0,
+      "color": [0.30, 0.42, 0.78],
+      "verts": [-10,-6, 10,-6, 14,18, -14,18]
+    },
+    "robe_white": {
+      "parent_bone": "torso", "anchor": [0, 4], "rest_rot": 0,
+      "color": [0.94, 0.90, 0.80],
+      "verts": [-10,-6, 10,-6, 14,18, -14,18]
+    },
+    "dark_cloak": {
+      "parent_bone": "torso", "anchor": [0, 0], "rest_rot": 0,
+      "color": [0.28, 0.18, 0.32],
+      "verts": [-9,-6, 9,-6, 12,14, -12,14]
+    },
+    "giant_skin": {
+      "parent_bone": "torso", "anchor": [0, 2], "rest_rot": 0,
+      "color": [0.85, 0.40, 0.10],
+      "verts": [-14,-5, 14,-5, 16,12, -16,12]
+    }
+  },
+
+  "helmets": {
+    "plate": {
+      "parent_bone": "head", "anchor": [0, -1], "rest_rot": 0,
+      "color": [0.38, 0.40, 0.44],
+      "verts": [-8,-9, 8,-9, 9,4, -9,4]
+    },
+    "pointed_hat": {
+      "parent_bone": "head", "anchor": [0, -4], "rest_rot": 0,
+      "color": [0.32, 0.42, 0.82],
+      "verts": [-8,2, 8,2, 4,-4, 0,-18, -4,-4]
+    },
+    "cowl": {
+      "parent_bone": "head", "anchor": [0, -2], "rest_rot": 0,
+      "color": [0.35, 0.50, 0.35],
+      "verts": [-7,2, 7,2, 7,-6, 4,-12, 0,-14, -4,-12, -7,-6]
+    },
+    "hood": {
+      "parent_bone": "head", "anchor": [0, -2], "rest_rot": 0,
+      "color": [0.15, 0.15, 0.20],
+      "verts": [-8,2, 8,2, 8,-2, -8,-2]
+    },
+    "headband": {
+      "parent_bone": "head", "anchor": [0, -2], "rest_rot": 0,
+      "color": [0.92, 0.72, 0.22],
+      "verts": [-10,-2, 10,-2, 10,2, -10,2]
+    },
+    "skull_crown": {
+      "parent_bone": "head", "anchor": [0, -5], "rest_rot": 0,
+      "color": [0.80, 0.78, 0.70],
+      "verts": [-7,0, 7,0, 4,-8, 0,-12, -4,-8]
+    }
+  },
+
+  "capes": {
+    "dark_cape": {
+      "parent_bone": "torso", "anchor": [-14, 2], "rest_rot": 0,
+      "color": [0.28, 0.18, 0.32],
+      "verts": [-4,-4, 6,-4, 14,18, 2,22, -12,22]
+    },
+    "red_cape": {
+      "parent_bone": "torso", "anchor": [-14, 2], "rest_rot": 0,
+      "color": [0.82, 0.22, 0.22],
+      "verts": [-4,-4, 6,-4, 14,18, 2,22, -12,22]
+    }
+  }
+}
