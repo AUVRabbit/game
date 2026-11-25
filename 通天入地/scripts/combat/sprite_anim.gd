@@ -14,6 +14,8 @@
 extends Node2D
 class_name SpriteAnim
 
+signal state_changed(old_state: int, new_state: int)
+
 enum AnimState {
 	# --- 基础 ---
 	IDLE, RUN, ATTACK, CAST, DASH, BLINK, HURT, DEAD, STAGGER, RESURRECTING,
@@ -36,7 +38,13 @@ enum AnimState {
 
 var target: Node2D = null
 var _is_character_body := false
-var state: AnimState = AnimState.IDLE
+var state: AnimState = AnimState.IDLE:
+	set(new_val):
+		if state == new_val:
+			return
+		var old: AnimState = state
+		state = new_val
+		state_changed.emit(int(old), int(new_val))
 var facing: Vector2 = Vector2.DOWN
 var move_mag: float = 0.0
 var _breath_t: float = 0.0
@@ -68,6 +76,52 @@ var _roll_dir: float = 1.0
 var _rapid_count: int = 3
 var _rapid_each: float = 0.18
 var _aoe_radius: float = 60.0
+
+# AnimState int -> 名字字符串（给 EntityBase 桥接 RiggedCharacter 用）
+static func state_name_from_int(s: int) -> String:
+	match s:
+		0: return "IDLE"
+		1: return "RUN"
+		2: return "ATTACK"
+		3: return "CAST"
+		4: return "DASH"
+		5: return "BLINK"
+		6: return "HURT"
+		7: return "DEAD"
+		8: return "STAGGER"
+		9: return "RESURRECTING"
+		10: return "SWORD_SWING"
+		11: return "BOW_DRAW"
+		12: return "THROW_BOMB"
+		13: return "CAST_SPELL"
+		14: return "SUMMON_RITUAL"
+		15: return "CHARGING"
+		16: return "CAST_FOCUS"
+		17: return "BLOCK"
+		18: return "READY"
+		19: return "CROUCH"
+		20: return "WALK_CROUCH"
+		21: return "PRONE"
+		22: return "LURK"
+		23: return "JUMP"
+		24: return "JUMP_FALLING"
+		25: return "JUMP_LAND"
+		26: return "SWIM"
+		27: return "CLIMB"
+		28: return "ROLL"
+		29: return "MOUNTED"
+		30: return "FORCE_READY"
+		31: return "DRINK"
+		32: return "CARRY"
+		33: return "SIT"
+		34: return "TRAP_SET"
+		35: return "PORTAL"
+		36: return "CELEBRATE"
+		37: return "FALL"
+		38: return "AOE_SWING"
+		39: return "RAPID_STRIKES"
+	return "IDLE"
+
 
 func setup(owner: Node2D) -> void:
 	target = owner

@@ -46,7 +46,12 @@ var flash_timer: float = 0.0
 var visual: Node2D = null
 var frame_anim: AnimatedSprite2D = null
 var sprite_anim: SpriteAnim = null
+var rigged: RiggedCharacter = null       # 骨骼驱动的实体角色（主角）
 var last_attacker: Node = null
+
+# —— 子类可选参数：给 RiggedCharacter 初始化用 ——
+@export var rig_entity_id: String = ""   # 如 "player_warrior" / "enemy_slime"
+@export var rig_entity_type: String = "" # 如 "warrior" / "slime" / "minion_fire"
 
 # —— 血条节点（实体化，不再 _draw）——
 var hp_bar_bg: ColorRect = null
@@ -69,22 +74,73 @@ func _build_visual_layers() -> void:
 		visual = Node2D.new()
 		visual.name = "Visual"
 		add_child(visual)
-	# 注: z_sort_enabled 在 headless 环境下会触发 SCRIPT ERROR，
-	#     但编辑器里正常。先跳过以保证 headless smoke 通过。
-	#     实际游戏里玩家/敌人 tscn 已经预设 Visual.y_sort_enabled = true。
 
-	# AnimatedSprite2D 帧动画层
+	# —— RiggedCharacter（骨骼驱动的实体角色，第一优先级）——
+	rigged = get_node_or_null("Visual/Rigged")
+	if rigged == null:
+		rigged = RiggedCharacter.new()
+		rigged.name = "Rigged"
+		# 自动推断 entity_id / entity_type（子类可以提前 set rig_entity_id / rig_entity_type）
+		var eid: String = rig_entity_id
+		var etype: String = rig_entity_type
+		if eid == "":
+			if sheet_id != "":
+				eid = sheet_id
+			else:
+				eid = "entity_%d" % randi()
+		if etype == "":
+			etype = _guess_entity_type(eid)
+		rigged.setup(eid, etype, primary_element, is_boss, body_color)
+		visual.add_child(rigged)
+
+	# AnimatedSprite2D 帧动画层（可选，保留作为后备）
 	frame_anim = get_node_or_null("Visual/FrameAnim")
 	if frame_anim == null and sheet_id != "":
 		_attach_frame_anim(sheet_id, frame_w, frame_h)
+	if frame_anim:
+		frame_anim.visible = false  # 默认隐藏 —— 我们用 Rigged 做主显示
 
-	# SpriteAnim 形变层（给 Visual 整个容器做 tween 形变）
+	# SpriteAnim 形变层（状态机仍然保留，用于 AnimState 语义）
 	sprite_anim = get_node_or_null("Visual/Anim")
 	if sprite_anim == null:
 		sprite_anim = SpriteAnim.new()
 		sprite_anim.name = "Anim"
 		visual.add_child(sprite_anim)
 	sprite_anim.setup(visual)
+	# sprite_anim.state 变化时桥接到 RiggedCharacter 姿势
+	sprite_anim.state_changed.connect(_on_anim_state_changed)
+
+func _guess_entity_type(sheet_name: String) -> String:
+	# player_warrior_sheet -> warrior
+	# enemy_slime -> slime
+	# minion_fire_sheet -> fire
+	var n: String = sheet_name.replace("_sheet", "")
+	if n.begins_with("player_"):
+		return n.substr(7)
+	if n.begins_with("enemy_"):
+		return n.substr(6)
+	if n.begins_with("minion_"):
+		return n.substr(7)
+	return n
+
+func _on_anim_state_changed(new_state: int) -> void:
+	if rigged == null:
+		return
+	var state_name: String = SpriteAnim.state_name_from_int(new_state)
+	var pose: String = PoseDefs.STATE_TO_POSE(state_name)
+	if pose != "":
+		rigged.set_pose(pose)
+
+# —— 暴露给 PlayerController 的快捷 API ——
+func set_rigged_facing(dir: Vector2) -> void:
+	if rigged:
+		rigged.set_facing(dir)
+func rigged_flash(col: Color, dur: float = 0.15) -> void:
+	if rigged:
+		rigged.flash(col, dur)
+func rigged_set_pose(name: String) -> void:
+	if rigged:
+		rigged.set_pose(name)
 
 func _attach_frame_anim(asset_id: String, fw: int, fh: int) -> void:
 	var actions := ["idle", "walk", "attack", "hit"]

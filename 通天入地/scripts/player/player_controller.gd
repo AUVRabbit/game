@@ -146,7 +146,7 @@ func _physics_process(delta: float) -> void:
 			state = State.IDLE
 	move_and_slide()
 	if visual:
-		visual.scale.x = -1.0 if facing.x < -0.05 else 1.0
+		set_rigged_facing(facing)
 
 	# 推进动画状态机
 	_anim_snap_to(
@@ -231,7 +231,7 @@ func try_attack() -> void:
 	if target:
 		facing = (target.global_position - global_position).normalized()
 		if visual:
-			visual.scale.x = -1.0 if facing.x < -0.05 else 1.0
+			set_rigged_facing(facing)
 
 	# ============ 精细动作路由：每种武器专属动作 ============
 	var anim_range := float(profile.get("radius", ATTACK_RADIUS)) if kind == "melee" else 22.0
@@ -310,7 +310,7 @@ func try_skill(slot: int) -> void:
 	if target and _skill_is_targeted(type_name):
 		facing = (target.global_position - global_position).normalized()
 		if visual:
-			visual.scale.x = -1.0 if facing.x < -0.05 else 1.0
+			set_rigged_facing(facing)
 		TargetingReticle.spawn(get_parent(), target.global_position,
 			Color.from_string(str(skill.get("color", "#ffffff")), Color.WHITE), 0.35, 20.0)
 
