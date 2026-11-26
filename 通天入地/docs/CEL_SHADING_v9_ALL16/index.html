@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<title>v9 ALL16 · 赛璐璐硬阴影 · 16 职业程序化骨架动画</title>
+<style>
+body { margin:0; padding:20px; background:#060810; color:#d0d8e8; font-family: system-ui, -apple-system, sans-serif; }
+h1 { color:#ff503c; font-size:24px; }
+h2 { color:#6aa0ff; font-size:18px; margin-top:24px; }
+.hero { text-align:center; margin:20px 0; }
+.hero img { max-width:100%; border:2px solid #2a3850; border-radius:8px; box-shadow:0 4px 20px rgba(0,0,0,0.6); }
+.desc { color:#8093b8; font-size:14px; line-height:1.6; }
+.grid { display:grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap:16px; margin-top:16px; }
+.card { background:#0e1420; border:1px solid #22304a; border-radius:8px; overflow:hidden; transition: transform 0.15s; }
+.card:hover { transform: translateY(-3px); border-color:#3a5080; }
+.card .head { padding:8px 12px; background:#141a28; border-left:4px solid #ff503c; }
+.card .name { color:#ffd890; font-weight:bold; font-size:14px; }
+.card .meta { color:#8093b8; font-size:12px; margin-top:2px; }
+.card img { width:100%; height:auto; display:block; }
+.card .frames { padding:6px 10px; font-size:12px; color:#6a7a98; background:#0c121c; }
+.tag { display:inline-block; padding:1px 6px; border-radius:3px; font-size:11px; margin-left:4px; }
+.tag.red { background:#401515; color:#ff7060; }
+.tag.blue { background:#152040; color:#6aa0ff; }
+.tag.green { background:#153020; color:#6ada80; }
+.tag.gold { background:#302810; color:#ffd060; }
+.tag.purple { background:#281540; color:#d080ff; }
+.tag.cyan { background:#102830; color:#6ae0e0; }
+.tag.dark { background:#1a1a20; color:#a0a8b8; }
+.tag.white { background:#302a20; color:#ffe8b0; }
+.tag.orange { background:#302010; color:#ffb060; }
+.row { display:flex; gap:10px; margin-top:8px; flex-wrap:wrap; }
+.row a { display:inline-block; padding:4px 12px; background:#1a2440; color:#a0c0ff; text-decoration:none; border-radius:4px; font-size:13px; }
+.row a:hover { background:#253460; }
+footer { margin-top:40px; padding:20px; text-align:center; color:#5a6a88; font-size:12px; border-top:1px solid #1a2438; }
+</style>
+</head>
+<body>
+<h1>⚔ v9 ALL16 · Cel-Shading 赛璐璐硬阴影 · 全部 16 职业程序化 2D 骨架动画</h1>
+<div class="desc">
+  硬阴影带 (3 档亮度) + 双轮廓描边 + 职业主题色 Rim Light + 金属武器高光<br>
+  16 职业 × 6 动作 × 4 帧 = 共 384 帧 · 纯 Python/PIL 程序化绘制 · 每一帧独立绘制 · 不切割无贴图
+</div>
+
+<h2>总览 Contact Sheet</h2>
+<div class="hero">
+  <a href="overview_v9_all16.jpg"><img src="overview_v9_all16.jpg" alt="4×4 总览"></a>
+</div>
+
+<h2>各职业动画 Contact Sheet (点开可看大图)</h2>
+<div class="grid">
+
+<div class="card">
+  <div class="head" style="border-left-color:#ff503c">
+    <div class="name">▸ warrior · 野蛮人</div>
+    <div class="meta">武器: 巨剑 · 技能: 旋风斩</div>
+  </div>
+  <a href="warrior_sheet.jpg"><img src="warrior_sheet.jpg"></a>
+  <div class="frames">Rim: 红焰 <span class="tag red">红焰 rim</span> <span class="tag dark">深皮甲</span></div>
+</div>
+
+<div class="card">
+  <div class="head" style="border-left-color:#6aa0ff">
+    <div class="name">▸ mage · 女巫</div>
+    <div class="meta">武器: 法杖 · 技能: 陨石术</div>
+  </div>
+  <a href="mage_sheet.jpg"><img src="mage_sheet.jpg"></a>
+  <div class="frames">Rim: 冰蓝 <span class="tag blue">冰蓝 rim</span> <span class="tag dark">布袍兜帽</span></div>
+</div>
+
+<div class="card">
+  <div class="head" style="border-left-color:#6ada80">
+    <div class="name">▸ archer · 亚马逊</div>
+    <div class="meta">武器: 长弓 · 技能: 多重射击</div>
+  </div>
+  <a href="archer_sheet.jpg"><img src="archer_sheet.jpg"></a>
+  <div class="frames">Rim: 叶绿 <span class="tag green">叶绿 rim</span> <span class="tag dark">高马尾</span></div>
+</div>
+
+<div class="card">
+  <div class="head" style="border-left-color:#ffd060">
+    <div class="name">▸ thief · 刺客</div>
+    <div class="meta">武器: 双匕 · 技能: 影袭</div>
+  </div>
+  <a href="thief_sheet.jpg"><img src="thief_sheet.jpg"></a>
+  <div class="frames">Rim: 暗金 <span class="tag gold">暗金 rim</span> <span class="tag dark">头巾面罩</span></div>
+</div>
+
+<div class="card">
+  <div class="head" style="border-left-color:#ffb060">
+    <div class="name">▸ bomber · 投弹手</div>
+    <div class="meta">武器: 炸弹 · 技能: 爆破投掷</div>
+  </div>
+  <a href="bomber_sheet.jpg"><img src="bomber_sheet.jpg"></a>
+  <div class="frames">Rim: 金橙 <span class="tag orange">金橙 rim</span> <span class="tag dark">工装+护目镜</span></div>
+</div>
+
+<div class="card">
+  <div class="head" style="border-left-color:#ffd060">
+    <div class="name">▸ bounty_hunter · 赏金猎人</div>
+    <div class="meta">武器: 霰弹枪 · 技能: 精准射击</div>
+  </div>
+  <a href="bounty_hunter_sheet.jpg"><img src="bounty_hunter_sheet.jpg"></a>
+  <div class="frames">Rim: 暗金 <span class="tag gold">暗金 rim</span> <span class="tag dark">宽檐帽+披风</span></div>
+</div>
+
+<div class="card">
+  <div class="head" style="border-left-color:#6ae0e0">
+    <div class="name">▸ cyborg · 赛博格</div>
+    <div class="meta">武器: 能量炮 · 技能: 等离子冲击</div>
+  </div>
+  <a href="cyborg_sheet.jpg"><img src="cyborg_sheet.jpg"></a>
+  <div class="frames">Rim: 青色等离子 <span class="tag cyan">等离子 rim</span> <span class="tag dark">半机械头</span></div>
+</div>
+
+<div class="card">
+  <div class="head" style="border-left-color:#6ada80">
+    <div class="name">▸ death_knight · 死亡骑士</div>
+    <div class="meta">武器: 符文大剑 · 技能: 亡灵召唤</div>
+  </div>
+  <a href="death_knight_sheet.jpg"><img src="death_knight_sheet.jpg"></a>
+  <div class="frames">Rim: 暗绿鬼火 <span class="tag green">鬼火 rim</span> <span class="tag dark">骷髅头盔</span></div>
+</div>
+
+<div class="card">
+  <div class="head" style="border-left-color:#ffb060">
+    <div class="name">▸ engineer · 工程师</div>
+    <div class="meta">武器: 扳手 · 技能: 炮台架设</div>
+  </div>
+  <a href="engineer_sheet.jpg"><img src="engineer_sheet.jpg"></a>
+  <div class="frames">Rim: 金属橙 <span class="tag orange">金属橙 rim</span> <span class="tag dark">鸭舌帽+护目镜</span></div>
+</div>
+
+<div class="card">
+  <div class="head" style="border-left-color:#6ada80">
+    <div class="name">▸ hacker · 黑客</div>
+    <div class="meta">武器: 数据匕首 · 技能: 网络入侵</div>
+  </div>
+  <a href="hacker_sheet.jpg"><img src="hacker_sheet.jpg"></a>
+  <div class="frames">Rim: 荧光绿 <span class="tag green">荧光绿 rim</span> <span class="tag dark">兜帽+发光眼罩</span></div>
+</div>
+
+<div class="card">
+  <div class="head" style="border-left-color:#6aa0ff">
+    <div class="name">▸ mech_pilot · 机甲驾驶员</div>
+    <div class="meta">武器: 操控装置 · 技能: 机甲重击</div>
+  </div>
+  <a href="mech_pilot_sheet.jpg"><img src="mech_pilot_sheet.jpg"></a>
+  <div class="frames">Rim: 电子蓝 <span class="tag blue">电子蓝 rim</span> <span class="tag dark">飞行头盔</span></div>
+</div>
+
+<div class="card">
+  <div class="head" style="border-left-color:#d080ff">
+    <div class="name">▸ necromancer · 死灵法师</div>
+    <div class="meta">武器: 亡灵法杖 · 技能: 骷髅复活</div>
+  </div>
+  <a href="necromancer_sheet.jpg"><img src="necromancer_sheet.jpg"></a>
+  <div class="frames">Rim: 暗紫 <span class="tag purple">暗紫 rim</span> <span class="tag dark">暗色兜帽+骷髅</span></div>
+</div>
+
+<div class="card">
+  <div class="head" style="border-left-color:#ffd060">
+    <div class="name">▸ priest · 牧师</div>
+    <div class="meta">武器: 权杖 · 技能: 圣光治愈</div>
+  </div>
+  <a href="priest_sheet.jpg"><img src="priest_sheet.jpg"></a>
+  <div class="frames">Rim: 金色圣光 <span class="tag gold">圣光 rim</span> <span class="tag white">光环+长发</span></div>
+</div>
+
+<div class="card">
+  <div class="head" style="border-left-color:#ff503c">
+    <div class="name">▸ qi_adept · 气功师</div>
+    <div class="meta">武器: 赤手空拳 · 技能: 气功波</div>
+  </div>
+  <a href="qi_adept_sheet.jpg"><img src="qi_adept_sheet.jpg"></a>
+  <div class="frames">Rim: 气拳红 <span class="tag red">气拳 rim</span> <span class="tag dark">太极服+丸子头</span></div>
+</div>
+
+<div class="card">
+  <div class="head" style="border-left-color:#6aa0ff">
+    <div class="name">▸ runeward · 符文剑士</div>
+    <div class="meta">武器: 符文剑 · 技能: 符文爆发</div>
+  </div>
+  <a href="runeward_sheet.jpg"><img src="runeward_sheet.jpg"></a>
+  <div class="frames">Rim: 符文蓝 <span class="tag blue">符文蓝 rim</span> <span class="tag dark">铠甲+发光符文</span></div>
+</div>
+
+<div class="card">
+  <div class="head" style="border-left-color:#ff503c">
+    <div class="name">▸ sniper · 狙击手</div>
+    <div class="meta">武器: 狙击步枪 · 技能: 穿透射击</div>
+  </div>
+  <a href="sniper_sheet.jpg"><img src="sniper_sheet.jpg"></a>
+  <div class="frames">Rim: 警示红 <span class="tag red">警示红 rim</span> <span class="tag dark">迷彩+瞄准镜面罩</span></div>
+</div>
+
+</div>
+
+<h2>各职业逐帧动画 (24 帧 × 16 职业 = 384 帧)</h2>
+<div class="desc">每个职业 6 动作: 待机 / 行走 / 普攻 / 技能 / 挥手致意 / 欢呼庆祝 — 每动作 4 帧</div>
+
+<div class="grid">
+<div class="card"><div class="head"><div class="name">warrior 野蛮人</div></div>
+  <div class="row"><a href="warrior/idle_1.jpg">待机 1</a><a href="warrior/run_3.jpg">行走 3</a><a href="warrior/attack_3.jpg">普攻 3</a><a href="warrior/skill_3.jpg">技能 3</a></div>
+</div>
+<div class="card"><div class="head"><div class="name">mage 女巫</div></div>
+  <div class="row"><a href="mage/idle_1.jpg">待机 1</a><a href="mage/run_3.jpg">行走 3</a><a href="mage/attack_3.jpg">普攻 3</a><a href="mage/skill_3.jpg">技能 3</a></div>
+</div>
+<div class="card"><div class="head"><div class="name">archer 亚马逊</div></div>
+  <div class="row"><a href="archer/idle_1.jpg">待机 1</a><a href="archer/run_3.jpg">行走 3</a><a href="archer/attack_3.jpg">普攻 3</a><a href="archer/skill_3.jpg">技能 3</a></div>
+</div>
+<div class="card"><div class="head"><div class="name">thief 刺客</div></div>
+  <div class="row"><a href="thief/idle_1.jpg">待机 1</a><a href="thief/run_3.jpg">行走 3</a><a href="thief/attack_3.jpg">普攻 3</a><a href="thief/skill_3.jpg">技能 3</a></div>
+</div>
+<div class="card"><div class="head"><div class="name">bomber 投弹手</div></div>
+  <div class="row"><a href="bomber/idle_1.jpg">待机 1</a><a href="bomber/run_3.jpg">行走 3</a><a href="bomber/attack_3.jpg">普攻 3</a><a href="bomber/skill_3.jpg">技能 3</a></div>
+</div>
+<div class="card"><div class="head"><div class="name">bounty_hunter 赏金猎人</div></div>
+  <div class="row"><a href="bounty_hunter/idle_1.jpg">待机 1</a><a href="bounty_hunter/run_3.jpg">行走 3</a><a href="bounty_hunter/attack_3.jpg">普攻 3</a><a href="bounty_hunter/skill_3.jpg">技能 3</a></div>
+</div>
+<div class="card"><div class="head"><div class="name">cyborg 赛博格</div></div>
+  <div class="row"><a href="cyborg/idle_1.jpg">待机 1</a><a href="cyborg/run_3.jpg">行走 3</a><a href="cyborg/attack_3.jpg">普攻 3</a><a href="cyborg/skill_3.jpg">技能 3</a></div>
+</div>
+<div class="card"><div class="head"><div class="name">death_knight 死亡骑士</div></div>
+  <div class="row"><a href="death_knight/idle_1.jpg">待机 1</a><a href="death_knight/run_3.jpg">行走 3</a><a href="death_knight/attack_3.jpg">普攻 3</a><a href="death_knight/skill_3.jpg">技能 3</a></div>
+</div>
+<div class="card"><div class="head"><div class="name">engineer 工程师</div></div>
+  <div class="row"><a href="engineer/idle_1.jpg">待机 1</a><a href="engineer/run_3.jpg">行走 3</a><a href="engineer/attack_3.jpg">普攻 3</a><a href="engineer/skill_3.jpg">技能 3</a></div>
+</div>
+<div class="card"><div class="head"><div class="name">hacker 黑客</div></div>
+  <div class="row"><a href="hacker/idle_1.jpg">待机 1</a><a href="hacker/run_3.jpg">行走 3</a><a href="hacker/attack_3.jpg">普攻 3</a><a href="hacker/skill_3.jpg">技能 3</a></div>
+</div>
+<div class="card"><div class="head"><div class="name">mech_pilot 机甲驾驶员</div></div>
+  <div class="row"><a href="mech_pilot/idle_1.jpg">待机 1</a><a href="mech_pilot/run_3.jpg">行走 3</a><a href="mech_pilot/attack_3.jpg">普攻 3</a><a href="mech_pilot/skill_3.jpg">技能 3</a></div>
+</div>
+<div class="card"><div class="head"><div class="name">necromancer 死灵法师</div></div>
+  <div class="row"><a href="necromancer/idle_1.jpg">待机 1</a><a href="necromancer/run_3.jpg">行走 3</a><a href="necromancer/attack_3.jpg">普攻 3</a><a href="necromancer/skill_3.jpg">技能 3</a></div>
+</div>
+<div class="card"><div class="head"><div class="name">priest 牧师</div></div>
+  <div class="row"><a href="priest/idle_1.jpg">待机 1</a><a href="priest/run_3.jpg">行走 3</a><a href="priest/attack_3.jpg">普攻 3</a><a href="priest/skill_3.jpg">技能 3</a></div>
+</div>
+<div class="card"><div class="head"><div class="name">qi_adept 气功师</div></div>
+  <div class="row"><a href="qi_adept/idle_1.jpg">待机 1</a><a href="qi_adept/run_3.jpg">行走 3</a><a href="qi_adept/attack_3.jpg">普攻 3</a><a href="qi_adept/skill_3.jpg">技能 3</a></div>
+</div>
+<div class="card"><div class="head"><div class="name">runeward 符文剑士</div></div>
+  <div class="row"><a href="runeward/idle_1.jpg">待机 1</a><a href="runeward/run_3.jpg">行走 3</a><a href="runeward/attack_3.jpg">普攻 3</a><a href="runeward/skill_3.jpg">技能 3</a></div>
+</div>
+<div class="card"><div class="head"><div class="name">sniper 狙击手</div></div>
+  <div class="row"><a href="sniper/idle_1.jpg">待机 1</a><a href="sniper/run_3.jpg">行走 3</a><a href="sniper/attack_3.jpg">普攻 3</a><a href="sniper/skill_3.jpg">技能 3</a></div>
+</div>
+</div>
+
+<footer>
+  v9 ALL16 Cel-Shading 赛璐璐硬阴影 · 全部 16 职业程序化 2D 骨架动画 · 通天入地 Godot 项目<br>
+  纯 Python/PIL 绘制 · 不切割 · 无贴图 · 每帧独立绘制 · 7 关节骨架 · 逆 FK 赛璐璐着色
+</footer>
+</body>
+</html>
