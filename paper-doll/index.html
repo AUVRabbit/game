@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>纸娃娃角色生成器</title>
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<div class="app">
+  <!-- 头部 -->
+  <header class="app-header">
+    <h1>🎭 纸娃娃角色生成器</h1>
+    <div class="header-actions">
+      <select id="character-type">
+        <option value="human">人类角色</option>
+        <option value="monster">怪物角色</option>
+      </select>
+      <button id="btn-random" class="btn btn-secondary">🎲 随机生成</button>
+      <button id="btn-reset" class="btn btn-secondary">🔄 重置</button>
+      <button id="btn-export-png" class="btn btn-primary">⬇️ 导出PNG</button>
+      <button id="btn-export-svg" class="btn btn-primary">⬇️ 导出SVG</button>
+    </div>
+  </header>
+
+  <div class="main-content">
+    <!-- 左侧部件选择面板 -->
+    <aside class="parts-panel">
+      <div class="panel-section">
+        <h3>🧍 身体部件</h3>
+        <div class="part-categories" id="body-categories"></div>
+      </div>
+      
+      <div class="panel-section">
+        <h3>⚔️ 姿态与动画</h3>
+        <div class="pose-controls">
+          <div class="pose-group">
+            <label>姿态类型</label>
+            <select id="pose-type">
+              <option value="idle">站立</option>
+              <option value="walk">行走</option>
+              <option value="run">奔跑</option>
+              <option value="attack">攻击</option>
+              <option value="hit">受击</option>
+              <option value="jump">跳跃</option>
+              <option value="interact">交互</option>
+              <option value="cast">施法</option>
+            </select>
+          </div>
+          <div class="pose-group">
+            <label>动画循环</label>
+            <label class="switch">
+              <input type="checkbox" id="animate-toggle" checked>
+              <span class="slider"></span>
+            </label>
+          </div>
+          <div class="pose-group">
+            <label>动画速度</label>
+            <input type="range" id="anim-speed" min="0.2" max="3" step="0.1" value="1">
+          </div>
+          <div class="pose-group">
+            <label>水平翻转</label>
+            <label class="switch">
+              <input type="checkbox" id="flip-h">
+              <span class="slider"></span>
+            </label>
+          </div>
+        </div>
+      </div>
+
+      <div class="panel-section">
+        <h3>🎨 颜色调节</h3>
+        <div class="color-controls" id="color-controls"></div>
+        <button id="btn-random-colors" class="btn btn-tiny">随机颜色</button>
+      </div>
+
+      <div class="panel-section">
+        <h3>🔍 缩放与位置</h3>
+        <div class="scale-controls">
+          <div class="scale-group">
+            <label>缩放</label>
+            <input type="range" id="scale" min="0.5" max="2" step="0.1" value="1">
+          </div>
+          <div class="scale-group">
+            <label>X位置</label>
+            <input type="range" id="pos-x" min="-100" max="100" step="1" value="0">
+          </div>
+          <div class="scale-group">
+            <label>Y位置</label>
+            <input type="range" id="pos-y" min="-100" max="100" step="1" value="0">
+          </div>
+        </div>
+      </div>
+    </aside>
+
+    <!-- 中央画布 -->
+    <main class="canvas-area">
+      <div class="pose-indicator" id="pose-indicator">
+        <span class="pose-icon">🧍</span>
+        <span class="pose-name">站立</span>
+      </div>
+      <div class="canvas-wrapper" id="canvas-wrapper">
+        <div class="checker-bg"></div>
+        <svg id="character-svg" viewBox="0 0 200 300" xmlns="http://www.w3.org/2000/svg">
+          <!-- 所有部件将渲染到这里 -->
+        </svg>
+      </div>
+      
+      <!-- 多姿态预览 -->
+      <div class="pose-preview-row" id="pose-preview-row">
+        <div class="preview-item" data-pose="idle">
+          <div class="preview-label">站立</div>
+        </div>
+        <div class="preview-item" data-pose="walk">
+          <div class="preview-label">行走</div>
+        </div>
+        <div class="preview-item" data-pose="run">
+          <div class="preview-label">奔跑</div>
+        </div>
+        <div class="preview-item" data-pose="attack">
+          <div class="preview-label">攻击</div>
+        </div>
+        <div class="preview-item" data-pose="hit">
+          <div class="preview-label">受击</div>
+        </div>
+        <div class="preview-item" data-pose="jump">
+          <div class="preview-label">跳跃</div>
+        </div>
+      </div>
+    </main>
+
+    <!-- 右侧部件细节 -->
+    <aside class="parts-detail-panel">
+      <h3 id="detail-title">部件详情</h3>
+      <div id="part-options" class="part-options">
+        <p class="hint">点击左侧类别选择部件</p>
+      </div>
+      
+      <div class="presets-section">
+        <h3>✨ 预设角色</h3>
+        <div class="presets-grid" id="presets-grid"></div>
+      </div>
+    </aside>
+  </div>
+
+  <!-- 底部时间轴/动画编辑器 -->
+  <footer class="timeline-area">
+    <div class="timeline-header">
+      <span>🎬 动画帧预览</span>
+      <div class="frame-controls">
+        <button class="btn btn-tiny" id="btn-prev-frame">⏮</button>
+        <span id="frame-info">帧 1 / 4</span>
+        <button class="btn btn-tiny" id="btn-next-frame">⏭</button>
+      </div>
+    </div>
+    <div class="timeline-frames" id="timeline-frames"></div>
+  </footer>
+</div>
+
+<script src="parts-library.js"></script>
+<script src="poses.js"></script>
+<script src="app.js"></script>
+</body>
+</html>
