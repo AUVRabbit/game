@@ -4,161 +4,220 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>纸娃娃角色生成器</title>
-<link rel="stylesheet" href="styles.css">
+<style>
+* { margin:0; padding:0; box-sizing:border-box; }
+:root {
+  --bg:#0f0f1a; --panel:#1a1a2e; --panel2:#242442;
+  --text:#e0e0e0; --text2:#9ca3af; --border:#374151;
+  --accent:#6366f1; --accent2:#818cf8; --danger:#ef4444; --gold:#d4a017;
+}
+body { font-family:-apple-system,BlinkMacSystemFont,'Segoe UI','Noto Sans SC',Roboto,sans-serif; background:linear-gradient(135deg,#0f0f1a,#1a1a2e); color:var(--text); height:100vh; overflow:hidden; }
+
+.app { display:flex; flex-direction:column; height:100vh; }
+
+/* 顶栏 */
+.topbar {
+  background:var(--panel); padding:10px 18px; display:flex; align-items:center; gap:14px;
+  border-bottom:1px solid var(--border);
+}
+.topbar h1 { font-size:1.15rem; font-weight:700; background:linear-gradient(90deg,#6366f1,#ec4899); -webkit-background-clip:text; -webkit-text-fill-color:transparent; }
+.topbar .spacer { flex:1; }
+.btn {
+  padding:6px 14px; border:none; border-radius:6px; cursor:pointer; font-size:0.85rem; font-weight:500;
+  transition:all .15s; display:inline-flex; align-items:center; gap:5px;
+}
+.btn-pri { background:var(--accent); color:#fff; }
+.btn-pri:hover { background:var(--accent2); transform:translateY(-1px); }
+.btn-sec { background:var(--panel2); color:var(--text); border:1px solid var(--border); }
+.btn-sec:hover { background:#2f2f54; border-color:var(--accent); }
+.btn-sm { padding:4px 10px; font-size:0.75rem; }
+
+/* 主体 */
+.main { display:flex; flex:1; overflow:hidden; }
+
+/* 左栏 - 预设 */
+.presets {
+  width:220px; background:var(--panel); border-right:1px solid var(--border); padding:14px; overflow-y:auto; flex-shrink:0;
+}
+.presets h3 { font-size:0.75rem; color:var(--text2); text-transform:uppercase; letter-spacing:1px; margin-bottom:10px; }
+.preset-card {
+  background:var(--panel2); border:2px solid var(--border); border-radius:10px; padding:12px;
+  margin-bottom:10px; cursor:pointer; transition:all .15s; text-align:center;
+}
+.preset-card:hover { border-color:var(--accent); transform:translateY(-2px); }
+.preset-card.active { border-color:var(--accent); background:rgba(99,102,241,0.15); }
+.preset-emoji { font-size:2rem; line-height:1; margin-bottom:6px; }
+.preset-name { font-size:0.85rem; font-weight:600; color:var(--text); }
+.preset-desc { font-size:0.7rem; color:var(--text2); margin-top:3px; line-height:1.3; }
+
+/* 中栏 - 画布 */
+.stage { flex:1; display:flex; flex-direction:column; align-items:center; justify-content:center; padding:20px; position:relative; }
+.stage-bg {
+  position:absolute; inset:0; z-index:0; pointer-events:none;
+  background-image:linear-gradient(45deg,#1e1e36 25%,transparent 25%),linear-gradient(-45deg,#1e1e36 25%,transparent 25%),linear-gradient(45deg,transparent 75%,#1e1e36 75%),linear-gradient(-45deg,transparent 75%,#1e1e36 75%);
+  background-size:24px 24px; background-position:0 0,0 12px,12px -12px,-12px 0; background-color:#16162a;
+}
+.stage-frame {
+  width:340px; height:480px; position:relative; z-index:1;
+  border-radius:14px; overflow:hidden;
+  background:rgba(22,22,42,0.6); backdrop-filter:blur(10px);
+  box-shadow:0 20px 60px rgba(0,0,0,0.5), inset 0 0 0 1px rgba(255,255,255,0.05);
+}
+#char-svg { width:100%; height:100%; display:block; }
+#char-svg .part-group { transform-box:fill-box; transform-origin:center bottom; }
+
+/* 姿态选择器 */
+.pose-bar {
+  position:absolute; top:20px; right:20px; display:flex; gap:8px; z-index:2;
+}
+.pose-chip {
+  padding:8px 14px; background:var(--panel); border:1px solid var(--border); border-radius:20px;
+  cursor:pointer; font-size:0.8rem; color:var(--text2); transition:all .15s;
+}
+.pose-chip:hover { border-color:var(--accent); color:var(--text); }
+.pose-chip.active { background:var(--accent); border-color:var(--accent); color:#fff; }
+
+/* 右栏 - 部件 */
+.parts-panel {
+  width:300px; background:var(--panel); border-left:1px solid var(--border); padding:14px; overflow-y:auto; flex-shrink:0;
+}
+.section { margin-bottom:18px; }
+.section-title {
+  font-size:0.75rem; color:var(--text2); text-transform:uppercase; letter-spacing:1px;
+  margin-bottom:10px; display:flex; justify-content:space-between; align-items:center;
+}
+.section-title .curr { color:var(--accent); font-weight:600; text-transform:none; }
+
+/* 部件选项网格 */
+.options-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:8px; }
+.opt {
+  aspect-ratio:1; background:var(--panel2); border:2px solid var(--border); border-radius:8px;
+  cursor:pointer; display:flex; flex-direction:column; align-items:center; justify-content:center;
+  gap:4px; transition:all .12s; padding:4px;
+}
+.opt:hover { border-color:var(--accent); transform:translateY(-2px); }
+.opt.active { border-color:var(--accent); background:rgba(99,102,241,0.2); }
+.opt svg { width:44px; height:44px; }
+.opt-label { font-size:0.65rem; color:var(--text2); }
+
+/* 姿态选择 */
+.pose-select {
+  display:flex; gap:6px; flex-wrap:wrap;
+}
+.pose-btn {
+  padding:6px 10px; background:var(--panel2); border:1px solid var(--border); border-radius:6px;
+  cursor:pointer; font-size:0.8rem; color:var(--text2); transition:all .12s;
+}
+.pose-btn:hover { border-color:var(--accent); color:var(--text); }
+.pose-btn.active { background:var(--accent); border-color:var(--accent); color:#fff; }
+
+/* 颜色设置 */
+.colors-grid { display:grid; grid-template-columns:repeat(2,1fr); gap:8px; }
+.color-row { display:flex; align-items:center; gap:6px; background:var(--panel2); padding:6px 8px; border-radius:6px; }
+.color-row label { font-size:0.75rem; color:var(--text2); flex:1; }
+.color-row input[type="color"] {
+  width:28px; height:22px; border:1px solid var(--border); border-radius:4px; cursor:pointer; background:transparent; padding:0;
+}
+
+/* 开关 */
+.switch-row { display:flex; align-items:center; justify-content:space-between; background:var(--panel2); padding:8px 12px; border-radius:6px; margin-bottom:8px; }
+.switch-row label { font-size:0.8rem; color:var(--text); }
+.switch { position:relative; width:38px; height:20px; }
+.switch input { opacity:0; width:0; height:0; }
+.slider { position:absolute; cursor:pointer; inset:0; background:var(--border); border-radius:20px; transition:.2s; }
+.slider:before {
+  content:""; position:absolute; height:14px; width:14px; left:3px; bottom:3px; background:#fff; border-radius:50%; transition:.2s;
+}
+.switch input:checked + .slider { background:var(--accent); }
+.switch input:checked + .slider:before { transform:translateX(18px); }
+
+/* 范围滑块 */
+.range-row { display:flex; align-items:center; gap:10px; background:var(--panel2); padding:8px 12px; border-radius:6px; }
+.range-row label { font-size:0.8rem; color:var(--text2); min-width:60px; }
+.range-row input[type="range"] { flex:1; accent-color:var(--accent); }
+
+/* 滚动条 */
+::-webkit-scrollbar { width:6px; }
+::-webkit-scrollbar-track { background:transparent; }
+::-webkit-scrollbar-thumb { background:var(--border); border-radius:3px; }
+::-webkit-scrollbar-thumb:hover { background:var(--accent); }
+
+/* 响应式 */
+@media (max-width:1100px) {
+  .presets { width:180px; }
+  .parts-panel { width:260px; }
+}
+@media (max-width:800px) {
+  .main { flex-direction:column; }
+  .presets, .parts-panel { width:100%; max-height:180px; border:none; border-bottom:1px solid var(--border); }
+}
+</style>
 </head>
 <body>
 <div class="app">
-  <!-- 头部 -->
-  <header class="app-header">
+  <div class="topbar">
     <h1>🎭 纸娃娃角色生成器</h1>
-    <div class="header-actions">
-      <select id="character-type">
-        <option value="human">人类角色</option>
-        <option value="monster">怪物角色</option>
-      </select>
-      <button id="btn-random" class="btn btn-secondary">🎲 随机生成</button>
-      <button id="btn-reset" class="btn btn-secondary">🔄 重置</button>
-      <button id="btn-export-png" class="btn btn-primary">⬇️ 导出PNG</button>
-      <button id="btn-export-svg" class="btn btn-primary">⬇️ 导出SVG</button>
-    </div>
-  </header>
-
-  <div class="main-content">
-    <!-- 左侧部件选择面板 -->
-    <aside class="parts-panel">
-      <div class="panel-section">
-        <h3>🧍 身体部件</h3>
-        <div class="part-categories" id="body-categories"></div>
-      </div>
-      
-      <div class="panel-section">
-        <h3>⚔️ 姿态与动画</h3>
-        <div class="pose-controls">
-          <div class="pose-group">
-            <label>姿态类型</label>
-            <select id="pose-type">
-              <option value="idle">站立</option>
-              <option value="walk">行走</option>
-              <option value="run">奔跑</option>
-              <option value="attack">攻击</option>
-              <option value="hit">受击</option>
-              <option value="jump">跳跃</option>
-              <option value="interact">交互</option>
-              <option value="cast">施法</option>
-            </select>
-          </div>
-          <div class="pose-group">
-            <label>动画循环</label>
-            <label class="switch">
-              <input type="checkbox" id="animate-toggle" checked>
-              <span class="slider"></span>
-            </label>
-          </div>
-          <div class="pose-group">
-            <label>动画速度</label>
-            <input type="range" id="anim-speed" min="0.2" max="3" step="0.1" value="1">
-          </div>
-          <div class="pose-group">
-            <label>水平翻转</label>
-            <label class="switch">
-              <input type="checkbox" id="flip-h">
-              <span class="slider"></span>
-            </label>
-          </div>
-        </div>
-      </div>
-
-      <div class="panel-section">
-        <h3>🎨 颜色调节</h3>
-        <div class="color-controls" id="color-controls"></div>
-        <button id="btn-random-colors" class="btn btn-tiny">随机颜色</button>
-      </div>
-
-      <div class="panel-section">
-        <h3>🔍 缩放与位置</h3>
-        <div class="scale-controls">
-          <div class="scale-group">
-            <label>缩放</label>
-            <input type="range" id="scale" min="0.5" max="2" step="0.1" value="1">
-          </div>
-          <div class="scale-group">
-            <label>X位置</label>
-            <input type="range" id="pos-x" min="-100" max="100" step="1" value="0">
-          </div>
-          <div class="scale-group">
-            <label>Y位置</label>
-            <input type="range" id="pos-y" min="-100" max="100" step="1" value="0">
-          </div>
-        </div>
-      </div>
-    </aside>
-
-    <!-- 中央画布 -->
-    <main class="canvas-area">
-      <div class="pose-indicator" id="pose-indicator">
-        <span class="pose-icon">🧍</span>
-        <span class="pose-name">站立</span>
-      </div>
-      <div class="canvas-wrapper" id="canvas-wrapper">
-        <div class="checker-bg"></div>
-        <svg id="character-svg" viewBox="0 0 200 300" xmlns="http://www.w3.org/2000/svg">
-          <!-- 所有部件将渲染到这里 -->
-        </svg>
-      </div>
-      
-      <!-- 多姿态预览 -->
-      <div class="pose-preview-row" id="pose-preview-row">
-        <div class="preview-item" data-pose="idle">
-          <div class="preview-label">站立</div>
-        </div>
-        <div class="preview-item" data-pose="walk">
-          <div class="preview-label">行走</div>
-        </div>
-        <div class="preview-item" data-pose="run">
-          <div class="preview-label">奔跑</div>
-        </div>
-        <div class="preview-item" data-pose="attack">
-          <div class="preview-label">攻击</div>
-        </div>
-        <div class="preview-item" data-pose="hit">
-          <div class="preview-label">受击</div>
-        </div>
-        <div class="preview-item" data-pose="jump">
-          <div class="preview-label">跳跃</div>
-        </div>
-      </div>
-    </main>
-
-    <!-- 右侧部件细节 -->
-    <aside class="parts-detail-panel">
-      <h3 id="detail-title">部件详情</h3>
-      <div id="part-options" class="part-options">
-        <p class="hint">点击左侧类别选择部件</p>
-      </div>
-      
-      <div class="presets-section">
-        <h3>✨ 预设角色</h3>
-        <div class="presets-grid" id="presets-grid"></div>
-      </div>
-    </aside>
+    <div class="spacer"></div>
+    <button class="btn btn-sec" id="btn-random">🎲 随机</button>
+    <button class="btn btn-pri" id="btn-export-png">⬇️ PNG</button>
+    <button class="btn btn-pri" id="btn-export-svg">⬇️ SVG</button>
   </div>
 
-  <!-- 底部时间轴/动画编辑器 -->
-  <footer class="timeline-area">
-    <div class="timeline-header">
-      <span>🎬 动画帧预览</span>
-      <div class="frame-controls">
-        <button class="btn btn-tiny" id="btn-prev-frame">⏮</button>
-        <span id="frame-info">帧 1 / 4</span>
-        <button class="btn btn-tiny" id="btn-next-frame">⏭</button>
+  <div class="main">
+    <!-- 左侧预设 -->
+    <div class="presets" id="presets-list"></div>
+
+    <!-- 中央画布 -->
+    <div class="stage">
+      <div class="stage-bg"></div>
+      <div class="stage-frame">
+        <svg id="char-svg" viewBox="0 0 200 300" xmlns="http://www.w3.org/2000/svg"></svg>
+      </div>
+      <div class="pose-bar" id="pose-bar"></div>
+    </div>
+
+    <!-- 右侧部件 -->
+    <div class="parts-panel">
+      <div class="section">
+        <div class="section-title">角色部件</div>
+        <div id="current-parts"></div>
+      </div>
+
+      <div class="section">
+        <div class="section-title">姿态动作</div>
+        <div class="pose-select" id="pose-select"></div>
+        <div class="switch-row" style="margin-top:10px;">
+          <label>🔄 动画循环</label>
+          <label class="switch"><input type="checkbox" id="anim-toggle" checked><span class="slider"></span></label>
+        </div>
+        <div class="range-row">
+          <label>速度</label>
+          <input type="range" id="anim-speed" min="0.3" max="2.5" step="0.1" value="1">
+        </div>
+      </div>
+
+      <div class="section">
+        <div class="section-title">整体控制</div>
+        <div class="switch-row">
+          <label>↔️ 水平翻转</label>
+          <label class="switch"><input type="checkbox" id="flip-h"><span class="slider"></span></label>
+        </div>
+        <div class="range-row">
+          <label>缩放</label>
+          <input type="range" id="scale" min="0.6" max="1.8" step="0.05" value="1">
+        </div>
+      </div>
+
+      <div class="section">
+        <div class="section-title">🎨 颜色微调</div>
+        <button class="btn btn-sec btn-sm" id="btn-random-colors" style="margin-bottom:10px;">随机配色</button>
+        <div class="colors-grid" id="colors-panel"></div>
       </div>
     </div>
-    <div class="timeline-frames" id="timeline-frames"></div>
-  </footer>
+  </div>
 </div>
 
 <script src="parts-library.js"></script>
-<script src="poses.js"></script>
 <script src="app.js"></script>
 </body>
 </html>
